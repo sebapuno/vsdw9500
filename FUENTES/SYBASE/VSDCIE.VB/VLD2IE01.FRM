@@ -1,0 +1,233 @@
+VERSION 4.00
+Begin VB.Form Principal 
+   Caption         =   "Form1"
+   ClientHeight    =   1815
+   ClientLeft      =   2490
+   ClientTop       =   2475
+   ClientWidth     =   4350
+   Height          =   2220
+   Left            =   2430
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   1815
+   ScaleWidth      =   4350
+   Top             =   2130
+   Visible         =   0   'False
+   Width           =   4470
+End
+Attribute VB_Name = "Principal"
+Attribute VB_Creatable = False
+Attribute VB_Exposed = False
+
+Private Sub Form_Load()
+Dim Correlativo As String
+Dim Encabezado As String
+Dim PunteroVsdPrd  As Recordset
+Dim PunteroTabPrd  As Recordset
+Dim NumeroCuentaCorriente As String
+Dim FiltroVsdPrd As Snapshot
+Dim Continuar As Boolean
+Dim TieneRepoch As Boolean
+
+  If Not App.PrevInstance Then
+    Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
+    Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
+    Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
+    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    PunteroTabPrd.Index = "Tab_Prd"
+    IdUsuario = ObtieneRutUsuarioLogueado()
+    Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
+    Producto = SacaValorINI("Parametros", "Param2", DIRECTORIO_01 + ARCHIVO_INI01)
+    Correlativo = SacaValorINI("Parametros", "Param3", DIRECTORIO_01 + ARCHIVO_INI01)
+    PunteroTabPrd.Seek "=", Producto
+    PunteroVsdPrd.Seek "=", Rut, Producto, Val(Correlativo)
+    Encabezado = Mid$(PunteroVsdPrd("Prd_Data"), 1, 6)
+    NumeroCuentaCorriente = Mid$(PunteroVsdPrd("Prd_Data"), 10, 11)
+    
+    If ProductoAsociadoEncontrado(Encabezado + "DR3", NumeroCuentaCorriente, "10") Then
+      If ProductoAsociadoEncontrado(Encabezado + "D02", Mid(Rut, 1, 9) + "CTD" + NumeroCuentaCorriente, "10") Then
+        
+        If ValidarProductoRepoch(Encabezado + "RE1", NumeroCuentaCorriente, "10") Then
+          
+          If Not ExisteCuentaCorriente(NumeroCuentaCorriente, PunteroTabPrd("Prd_Vista_Dst")) Then
+            If ExisteClasificacionDeRiesgo(Mid(Rut, 1, 9), "1348") Then
+              If Not EsCuentaDOS(Mid(PunteroVsdPrd("Prd_Data"), 42, 1)) Then
+                '** Si Tiene Producto Asociado "ACI"
+                 dataini = Mid$(PunteroVsdPrd("Prd_Data"), 1, 40)
+                 Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Prd WHERE prd_rutcli='" + Rut + "' AND " + _
+                             "Mid$(prd_data, 1, 40 )='" + Encabezado + "ACI" + Mid$(dataini, 10, 31) + "' ;")
+                 If FiltroVsdPrd.RecordCount > 0 Then
+                   Continuar = True
+                 Else
+                    MsgBox "No se encuentra registro de atributos " + Chr(10) + "para Cuenta Corriente Con Intereses.", 16, "Faltan Datos"
+                    Continuar = False
+                 End If
+                 FiltroVsdPrd.Close
+                 
+                 If Continuar = True Then
+                   '** Si Tiene Producto Asociado "LGL"
+                   If ProductoAsociadoEncontrado(Encabezado + "LGL", NumeroCuentaCorriente, "13") Then
+                      If FechaValida(Mid$(PunteroVsdPrd("Prd_Data"), 43, 8)) Then
+                         If Not PoneValorINI("Parametros", "Retorno", "OK", DIRECTORIO_01 + ARCHIVO_INI01) Then
+                            MsgBox "No Se Puede Actualizar" + Chr(10) + "Archivo " + Chr(34) + "Visado.INI" + Chr(34), 0 + 48, _
+                                "Error de Escritura"
+                         End If
+                      End If
+                   Else
+                      MsgBox "No se encuentra dirección legal para Cuenta Corriente Remunerada.", 16, "Faltan Datos"
+                   End If
+                 End If
+              End If
+            End If
+          End If
+        End If
+      End If
+    End If
+    PunteroTabPrd.Close
+    PunteroVsdPrd.Close
+    BaseVisado.Close
+  End If
+  End
+End Sub
+Private Function PoneValorINI(Grupo As String, Titulo As String, palabra As String, NombreArchivo As String) As Boolean
+Dim Ret As Integer
+  PoneValorINI = False
+  Ret = WritePrivateProfileString(ByVal Grupo, ByVal Titulo, ByVal palabra, ByVal NombreArchivo)
+  If Ret = 1 Then
+    PoneValorINI = True
+  End If
+End Function
+Private Function ExisteCuentaCorriente(ByVal Llave As String, ByVal Vista As String)
+  Modo = "L"
+  ExisteCuentaCorriente = ObtieneInformacion(Vista, Llave, True)
+End Function
+Private Function ObtieneInformacion(ByVal Vista As String, ByVal Llave As String, ByVal SeEstaBuscandoCuenta As Boolean) As Boolean
+Dim Usuario As String
+Dim NodoDestino As String
+Dim AplicacionDestino As String * 4
+  ObtieneInformacion = False
+  NodoDestino = DeterminaNodo(AplicacionDestino, Vista)
+  If Trim$(NodoDestino) <> SINNODO Then
+    Usuario = IdUsuario + Vista + Modo
+    CadenaDatos = Llamada(NodoDestino, AplicacionDestino, Usuario, Llave)
+    If Mid$(CadenaDatos, 1, 6) = "000000" Then
+      If SeEstaBuscandoCuenta Then
+        ObtieneInformacion = True
+        MsgBox "Ya Existe la Cuenta Corriente", 0 + 16, "Problemas de Validación"
+      Else
+        If Mid$(CadenaDatos, 132, 2) = "SC" Then
+          MsgBox "No Existe la Clasificación de Riesgo", 0 + 16, "Problemas de Validación"
+        Else
+          ObtieneInformacion = True
+        End If
+      End If
+    Else
+      If SeEstaBuscandoCuenta Then
+        If Mid$(CadenaDatos, 1, 6) <> "000096" Then
+          ObtieneInformacion = True
+        End If
+      Else
+          If Mid$(CadenaDatos, 1, 6) = "000096" Then
+            MsgBox "El Cliente No Está Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de Validación"
+          End If
+      End If
+    End If
+  Else
+    MsgBox "Vista Nº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+  End If
+End Function
+Private Function ObtieneRutUsuarioLogueado() As String
+Dim Rut As String * 70
+Dim Retorno As Integer
+  Retorno = AisGetUsr(Rut)
+  If Retorno = 1 Then
+    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
+  Else
+    ObtieneRutUsuarioLogueado = RUTDEFECTO
+  End If
+End Function
+Private Function ExisteClasificacionDeRiesgo(ByVal Llave As String, ByVal Vista As String) As Boolean
+  Modo = "L"
+  
+  If INI_REMOTO() = "SI" Then
+    ExisteClasificacionDeRiesgo = ObtieneInformacion(Vista, Llave, False)
+  Else
+    ExisteClasificacionDeRiesgo = True
+  End If
+
+End Function
+
+Private Function EsCuentaDOS(ByVal FlagDOS As String) As Boolean
+  EsCuentaDOS = False
+  If FlagDOS = "R" Then
+    EsCuentaDOS = True
+    MsgBox "La Cuenta es del Tipo DOS", 0 + 16, "Problemas de Validación"
+  End If
+End Function
+Private Function ProductoAsociadoEncontrado(ByVal PatronBusqueda As String, ByVal CuentaBuscada As String, ByVal Posicion As String) As Boolean
+Dim Largo As String
+Dim FiltroVsdPrd  As Snapshot
+  Largo = LTrim$(Str(Len(CuentaBuscada)))
+  ProductoAsociadoEncontrado = False
+  Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT Prd_Data FROM Vsd_Prd WHERE " + _
+                                                                                 "Mid$(Prd_Data, 1, 9)='" + PatronBusqueda + "' AND " + _
+                                                                                 "Mid$(Prd_Data, " + Posicion + ", " + Largo + ")='" + _
+                                                                                 CuentaBuscada + "';")
+  If FiltroVsdPrd.RecordCount > 0 Then
+    ProductoAsociadoEncontrado = True
+  Else
+    MsgBox "Errores en Integridad de los Datos" + Chr(10) + _
+                  "Deben Ser Enviados Nuevamente", 0 + 16, "Problemas de Validación"
+  End If
+  FiltroVsdPrd.Close
+End Function
+
+Public Function FechaValida(FechaPrd As String) As Boolean
+
+Dim FechaHoy As String
+
+FechaValida = False
+
+FechaHoy = Format(Date, "yyyymmdd")
+If Mid$(FechaPrd, 5, 2) = Mid$(FechaHoy, 5, 2) Then
+  FechaValida = True
+Else
+  MsgBox "Fecha de generación corresponde al mes anterior." + Chr(10) + _
+          "No se puede visar el producto.", 16, "Error de Validación"
+End If
+
+
+End Function
+
+Public Function ValidarProductoRepoch(ByVal PatronBusqueda As String, ByVal CuentaBuscada As String, ByVal Posicion As String) As Boolean
+Dim Largo As String
+Dim FiltroVsdPrd  As Recordset
+Dim PunteroRep  As Recordset
+
+  Largo = LTrim$(Str(Len(CuentaBuscada)))
+  ValidarProductoRepoch = False
+  Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT Prd_Data FROM Vsd_Prd WHERE " + _
+                                        "Mid$(Prd_Data, 1, 9)='" + PatronBusqueda + "' AND " + _
+                                        "Mid$(Prd_Data, " + Posicion + ", " + Largo + ")='" + _
+                                        CuentaBuscada + "'", dbOpenDynaset)
+                                        
+  If FiltroVsdPrd.RecordCount > 0 Then ' existe repoch
+     If Val(Mid$(Rut, 1, Len(Rut) - 1)) > 50000000 Then ' empresa
+         MsgBox "Este producto tiene asociado un registro de repoch." + Chr(10) + _
+                "Por tratarse de una Cuenta Corriente con Intereses," + Chr(10) + _
+                "este registro Repoch no será transmitido.", 48, "Atención"
+         FiltroVsdPrd.Delete '** Borrar registro repoch
+     End If
+     ValidarProductoRepoch = True
+     
+  ElseIf Val(Mid$(Rut, 1, Len(Rut) - 1)) > 50000000 Then ' empresa
+     ValidarProductoRepoch = True
+  Else
+     MsgBox "Error en Integridad de los Datos" + Chr(10) + _
+           "No se encuentra registro Repoch.", 16, "Problemas de Validación"
+     ValidarProductoRepoch = False
+  End If
+  
+  FiltroVsdPrd.Close
+  
+  
+End Function

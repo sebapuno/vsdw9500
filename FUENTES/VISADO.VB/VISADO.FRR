@@ -1,0 +1,1256 @@
+VERSION 4.00
+Begin VB.Form Principal 
+   BackColor       =   &H00808080&
+   BorderStyle     =   3  'Fixed Dialog
+   Caption         =   "Visado de Productos"
+   ClientHeight    =   6360
+   ClientLeft      =   165
+   ClientTop       =   1290
+   ClientWidth     =   9000
+   ClipControls    =   0   'False
+   Height          =   6990
+   Icon            =   "VISADO.frx":0000
+   KeyPreview      =   -1  'True
+   Left            =   135
+   LinkTopic       =   "Form1"
+   LockControls    =   -1  'True
+   MaxButton       =   0   'False
+   NegotiateMenus  =   0   'False
+   ScaleHeight     =   6360
+   ScaleWidth      =   9000
+   Top             =   690
+   Width           =   9060
+   WindowState     =   2  'Maximized
+   Begin VBX.SSPanel Panel3D1 
+      BackColor       =   &H00808080&
+      BevelInner      =   2  'Raised
+      BevelOuter      =   1  'Inset
+      BorderWidth     =   1
+      Font3D          =   1  'Raised w/light shading
+      ForeColor       =   &H00008000&
+      Height          =   6180
+      Left            =   90
+      ShadowColor     =   1  'Black
+      TabIndex        =   0
+      Top             =   90
+      Width           =   8835
+      Begin VBX.SSPanel PortaBotones 
+         BackColor       =   &H00808080&
+         BevelInner      =   2  'Raised
+         BevelOuter      =   0  'None
+         BorderWidth     =   1
+         Font3D          =   3  'Inset w/light shading
+         FontBold        =   -1  'True
+         FontItalic      =   0   'False
+         FontName        =   "Arial"
+         FontSize        =   9
+         FontStrikethru  =   0   'False
+         FontUnderline   =   0   'False
+         ForeColor       =   &H00000000&
+         Height          =   450
+         Left            =   90
+         ShadowColor     =   1  'Black
+         TabIndex        =   16
+         Top             =   90
+         Width           =   2800
+         Begin VBX.SSCommand BtnReparaArchivos 
+            BevelWidth      =   1
+            ForeColor       =   &H00800000&
+            Height          =   345
+            Left            =   1970
+            Picture         =   "VISADO.frx":030A
+            RoundedCorners  =   0   'False
+            TabIndex        =   22
+            TabStop         =   0   'False
+            Tag             =   "Repara Bases de Datos"
+            Top             =   45
+            Width           =   360
+         End
+         Begin VBX.vaBln EtiquetaAyuda 
+            BackColor       =   &H0080FFFF&
+            BorderColor     =   &H00000000&
+            CloudInset      =   100
+            CloudMinWidth   =   600
+            FontBold        =   0   'False
+            FontItalic      =   0   'False
+            FontName        =   "MS Sans Serif"
+            FontSize        =   8.25
+            FontStrikethru  =   0   'False
+            FontUnderline   =   0   'False
+            ForeColor       =   &H00C00000&
+            Height          =   375
+            Left            =   3150
+            MaxWidth        =   2160
+            PosOffsetX      =   -100
+            PosOffsetY      =   300
+            Shape           =   1  'Square
+            ShapeRoundHeight=   200
+            ShapeRoundWidth =   200
+            TailBaseOffsetInside=   100
+            TailBaseOffsetOutside=   300
+            TailShape       =   2  'Curl In
+            ThreeDStyle     =   0  'None
+            Top             =   45
+            UseTagProp      =   -1  'True
+            Width           =   1155
+         End
+         Begin VBX.SSCommand BtnSalirVisado 
+            BevelWidth      =   1
+            ForeColor       =   &H00800000&
+            Height          =   345
+            Left            =   2390
+            Picture         =   "VISADO.frx":0B0C
+            RoundedCorners  =   0   'False
+            TabIndex        =   23
+            TabStop         =   0   'False
+            Tag             =   "Salir Sesión Visado"
+            Top             =   45
+            Width           =   360
+         End
+         Begin VBX.SSCommand BtnPagoNotario 
+            BevelWidth      =   1
+            ForeColor       =   &H00800000&
+            Height          =   345
+            Left            =   1590
+            Picture         =   "VISADO.frx":121E
+            RoundedCorners  =   0   'False
+            TabIndex        =   21
+            TabStop         =   0   'False
+            Tag             =   "Actualiza Honorarios de Notarios"
+            Top             =   45
+            Width           =   360
+         End
+         Begin VBX.SSCommand BtnConfiguraProductos 
+            BevelWidth      =   1
+            ForeColor       =   &H00800000&
+            Height          =   345
+            Left            =   1215
+            Picture         =   "VISADO.frx":1834
+            RoundedCorners  =   0   'False
+            TabIndex        =   20
+            TabStop         =   0   'False
+            Tag             =   "Selecciona Productos a Visar"
+            Top             =   45
+            Width           =   360
+         End
+         Begin VBX.SSCommand BtnCambiaImpresora 
+            BevelWidth      =   1
+            ForeColor       =   &H00800000&
+            Height          =   345
+            Left            =   840
+            Picture         =   "VISADO.frx":2036
+            RoundedCorners  =   0   'False
+            TabIndex        =   19
+            TabStop         =   0   'False
+            Tag             =   "Cambia Impresora por Defecto"
+            Top             =   45
+            Width           =   360
+         End
+         Begin VBX.SSCommand BtnImprimeVisados 
+            BevelWidth      =   1
+            ForeColor       =   &H00800000&
+            Height          =   345
+            Left            =   420
+            Picture         =   "VISADO.frx":2784
+            RoundedCorners  =   0   'False
+            TabIndex        =   18
+            TabStop         =   0   'False
+            Tag             =   "Imprime Productos Visados"
+            Top             =   45
+            Width           =   360
+         End
+         Begin VBX.SSCommand BtnConsultaParaVisar 
+            BevelWidth      =   1
+            ForeColor       =   &H00800000&
+            Height          =   345
+            Left            =   40
+            Picture         =   "VISADO.frx":2F0E
+            RoundedCorners  =   0   'False
+            TabIndex        =   17
+            TabStop         =   0   'False
+            Tag             =   "Visualiza Productos a Visar"
+            Top             =   40
+            Width           =   360
+         End
+      End
+      Begin VBX.SSPanel PortaTitulo 
+         BevelInner      =   2  'Raised
+         BorderWidth     =   2
+         Caption         =   "Clientes Por Visar"
+         Font3D          =   3  'Inset w/light shading
+         FontBold        =   -1  'True
+         FontItalic      =   0   'False
+         FontName        =   "Arial"
+         FontSize        =   9
+         FontStrikethru  =   0   'False
+         FontUnderline   =   0   'False
+         ForeColor       =   &H00000000&
+         Height          =   400
+         Left            =   1110
+         ShadowColor     =   1  'Black
+         TabIndex        =   14
+         Top             =   630
+         Width           =   6450
+      End
+      Begin VBX.SSPanel PortaGrilla 
+         BevelInner      =   1  'Inset
+         BorderWidth     =   1
+         Caption         =   "Panel3D2"
+         Font3D          =   3  'Inset w/light shading
+         ForeColor       =   &H00000000&
+         Height          =   3930
+         Left            =   1080
+         ShadowColor     =   1  'Black
+         TabIndex        =   2
+         Top             =   1080
+         Width           =   6450
+         Begin VBX.SpreadSheet Grilla 
+            AutoCalc        =   0   'False
+            AutoClipboard   =   0   'False
+            BorderStyle     =   0  'None
+            DAutoHeadings   =   0   'False
+            DAutoSave       =   0   'False
+            DAutoSizeCols   =   0  'Off
+            DInformActiveRowChange=   0   'False
+            DisplayColHeaders=   0   'False
+            DisplayRowHeaders=   0   'False
+            FontBold        =   0   'False
+            FontItalic      =   0   'False
+            FontName        =   "MS Sans Serif"
+            FontSize        =   8.25
+            FontStrikethru  =   0   'False
+            FontUnderline   =   0   'False
+            GridColor       =   &H00808080&
+            Height          =   2640
+            InterfaceDesigner=   "VISADO.frx":3620
+            Left            =   405
+            MaxCols         =   2
+            MaxRows         =   0
+            OperationMode   =   3  'SingleSelect
+            ScrollBars      =   2  'Vertical
+            SelectBlockOptions=   0
+            TabIndex        =   15
+            Top             =   900
+            Width           =   4340
+         End
+         Begin VBX.SSPanel IdOficina 
+            BevelInner      =   2  'Raised
+            BevelOuter      =   1  'Inset
+            BorderWidth     =   1
+            Caption         =   "Oficina"
+            Font3D          =   3  'Inset w/light shading
+            ForeColor       =   &H00000080&
+            Height          =   405
+            Left            =   495
+            ShadowColor     =   1  'Black
+            TabIndex        =   12
+            Top             =   165
+            Width           =   5505
+         End
+         Begin Threed.SSPanel Panel 
+            Height          =   2865
+            Left            =   4875
+            TabIndex        =   3
+            Top             =   900
+            Width           =   1260
+            _version        =   65536
+            _extentx        =   2223
+            _extenty        =   5054
+            _stockprops     =   15
+            backcolor       =   12632256
+            bevelouter      =   0
+            Begin Threed.SSFrame Borde 
+               Height          =   1665
+               Index           =   1
+               Left            =   90
+               TabIndex        =   4
+               Top             =   960
+               Width           =   1095
+               _version        =   65536
+               _extentx        =   1931
+               _extenty        =   2937
+               _stockprops     =   14
+               forecolor       =   0
+               alignment       =   2
+               font3d          =   3
+               shadowstyle     =   1
+               Begin Threed.SSCommand BtnCancelar 
+                  Height          =   675
+                  Left            =   90
+                  TabIndex        =   11
+                  Top             =   900
+                  Width           =   900
+                  _version        =   65536
+                  _extentx        =   1588
+                  _extenty        =   1191
+                  _stockprops     =   78
+                  caption         =   "&Cancelar"
+                  forecolor       =   192
+                  font3d          =   1
+                  picture         =   "VISADO.frx":3624
+               End
+               Begin Threed.SSCommand BtnProductos 
+                  Height          =   675
+                  Left            =   90
+                  TabIndex        =   10
+                  Top             =   180
+                  Width           =   900
+                  _version        =   65536
+                  _extentx        =   1588
+                  _extenty        =   1191
+                  _stockprops     =   78
+                  caption         =   "&Productos"
+                  forecolor       =   32768
+                  font3d          =   1
+                  picture         =   "VISADO.frx":3EEA
+               End
+            End
+            Begin Threed.SSFrame Borde 
+               Height          =   900
+               Index           =   0
+               Left            =   90
+               TabIndex        =   5
+               Top             =   60
+               Width           =   1095
+               _version        =   65536
+               _extentx        =   1931
+               _extenty        =   1588
+               _stockprops     =   14
+               caption         =   "Orden"
+               font3d          =   3
+               shadowstyle     =   1
+               Begin VBX.SSOption OpcionNombre 
+                  Caption         =   "&Nombre"
+                  Font3D          =   1  'Raised w/light shading
+                  ForeColor       =   &H00800080&
+                  Height          =   210
+                  Left            =   120
+                  TabIndex        =   7
+                  TabStop         =   0   'False
+                  Top             =   550
+                  Width           =   915
+               End
+               Begin VBX.SSOption OpcionRut 
+                  Caption         =   "&Rut"
+                  Font3D          =   1  'Raised w/light shading
+                  ForeColor       =   &H00800080&
+                  Height          =   210
+                  Left            =   120
+                  TabIndex        =   6
+                  Top             =   250
+                  Value           =   -1  'True
+                  Width           =   555
+               End
+            End
+         End
+         Begin VB.Label Encabezado 
+            Alignment       =   2  'Center
+            BackColor       =   &H00800000&
+            Caption         =   "Nombre Cliente"
+            BeginProperty Font 
+               name            =   "MS Sans Serif"
+               charset         =   1
+               weight          =   400
+               size            =   9.75
+               underline       =   0   'False
+               italic          =   0   'False
+               strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   240
+            Index           =   1
+            Left            =   1625
+            TabIndex        =   8
+            Top             =   660
+            Width           =   2890
+         End
+         Begin VB.Label Encabezado 
+            Alignment       =   2  'Center
+            BackColor       =   &H00800000&
+            Caption         =   "Rut Cliente"
+            BeginProperty Font 
+               name            =   "MS Sans Serif"
+               charset         =   1
+               weight          =   400
+               size            =   9.75
+               underline       =   0   'False
+               italic          =   0   'False
+               strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   240
+            Index           =   0
+            Left            =   405
+            TabIndex        =   9
+            Top             =   660
+            Width           =   1205
+         End
+      End
+      Begin VBX.SSPanel PanelStatus 
+         BackColor       =   &H00808080&
+         BevelInner      =   1  'Inset
+         BevelOuter      =   0  'None
+         BevelWidth      =   2
+         BorderWidth     =   1
+         Font3D          =   3  'Inset w/light shading
+         ForeColor       =   &H00000080&
+         Height          =   375
+         Left            =   5940
+         ShadowColor     =   1  'Black
+         TabIndex        =   1
+         Top             =   5715
+         Visible         =   0   'False
+         Width           =   2805
+         Begin VB.Label Encabezado 
+            Alignment       =   2  'Center
+            AutoSize        =   -1  'True
+            BackColor       =   &H00800000&
+            BackStyle       =   0  'Transparent
+            Caption         =   "[ESC] Cancelar"
+            BeginProperty Font 
+               name            =   "Arial"
+               charset         =   1
+               weight          =   400
+               size            =   9.75
+               underline       =   0   'False
+               italic          =   0   'False
+               strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H000000C0&
+            Height          =   240
+            Index           =   2
+            Left            =   765
+            TabIndex        =   24
+            Top             =   50
+            Width           =   1350
+         End
+         Begin VB.Image Status 
+            Height          =   195
+            Left            =   90
+            Picture         =   "VISADO.frx":496C
+            Stretch         =   -1  'True
+            Top             =   90
+            Visible         =   0   'False
+            Width           =   2630
+         End
+         Begin VB.Image Avance 
+            Height          =   195
+            Left            =   90
+            Picture         =   "VISADO.frx":527E
+            Stretch         =   -1  'True
+            Top             =   90
+            Visible         =   0   'False
+            Width           =   2630
+         End
+      End
+      Begin VB.Label SombraPortaGrilla 
+         BackColor       =   &H00000000&
+         Caption         =   "Label1"
+         Height          =   3930
+         Left            =   1140
+         TabIndex        =   13
+         Top             =   1140
+         Width           =   6450
+      End
+      Begin VB.Image Image1 
+         Height          =   630
+         Left            =   90
+         Picture         =   "VISADO.frx":5B90
+         Top             =   5490
+         Width           =   2700
+      End
+      Begin VB.Image Image2 
+         Height          =   1140
+         Left            =   3700
+         Picture         =   "VISADO.frx":B86A
+         Top             =   2400
+         Visible         =   0   'False
+         Width           =   1155
+      End
+   End
+   Begin VB.Menu Accion 
+      Caption         =   "&Gestión"
+      Begin VB.Menu Consultar 
+         Caption         =   "&Consultar"
+         Shortcut        =   ^C
+      End
+      Begin VB.Menu Ordenar 
+         Caption         =   "&Ordenar"
+         Begin VB.Menu RutOrdenado 
+            Caption         =   "Por &Rut"
+            Shortcut        =   ^R
+         End
+         Begin VB.Menu NombreOrdenado 
+            Caption         =   "Por &Nombre"
+            Shortcut        =   ^B
+         End
+      End
+      Begin VB.Menu Linea1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu Impresoras 
+         Caption         =   "Con&figurar Impresora"
+         Begin VB.Menu TipoImpresora 
+            Caption         =   "&Tipo de Impresora..."
+         End
+         Begin VB.Menu AdministraImpresion 
+            Caption         =   "&Administrador de Impresión..."
+         End
+      End
+      Begin VB.Menu Imprimir 
+         Caption         =   "&Imprimir"
+         Begin VB.Menu ProdVisa 
+            Caption         =   "Productos &Visados..."
+            Shortcut        =   ^V
+         End
+         Begin VB.Menu PagoNota 
+            Caption         =   "Pagos por &Notario..."
+            Shortcut        =   ^N
+         End
+         Begin VB.Menu FichCred 
+            Caption         =   "Ficha de &Créditos"
+            Shortcut        =   ^F
+         End
+      End
+      Begin VB.Menu Linea2 
+         Caption         =   "-"
+      End
+      Begin VB.Menu Salir 
+         Caption         =   "&Salir"
+         Shortcut        =   ^X
+      End
+   End
+   Begin VB.Menu Configurar 
+      Caption         =   "&Opciones"
+      Begin VB.Menu Productos 
+         Caption         =   "Seleccionar &Productos..."
+         Shortcut        =   ^P
+      End
+      Begin VB.Menu Oficinas 
+         Caption         =   "Seleccionar &Oficina..."
+         Shortcut        =   ^O
+      End
+      Begin VB.Menu Honorarios 
+         Caption         =   "Determinar &Honorarios Notario..."
+      End
+      Begin VB.Menu RFolio 
+         Caption         =   "&Rango de Folios..."
+      End
+      Begin VB.Menu Linea3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu EnviaLog 
+         Caption         =   "&Envia Log Visado (Gestión)"
+      End
+      Begin VB.Menu RepararBD 
+         Caption         =   "&Reparar Bases de Datos..."
+      End
+   End
+   Begin VB.Menu Ayuda 
+      Caption         =   "&Ayuda"
+      Begin VB.Menu Contenido 
+         Caption         =   "&Contenido"
+         Shortcut        =   {F1}
+      End
+      Begin VB.Menu Referencias 
+         Caption         =   "&Referencias..."
+      End
+   End
+End
+Attribute VB_Name = "Principal"
+Attribute VB_Creatable = False
+Attribute VB_Exposed = False
+Private Declare Function AisGetUsr Lib "C:\Bin\F\WAIS.DLL" (ByVal Usuario As String) As Integer
+
+Dim PosicionRut        As String
+Dim CadenaDatos        As String
+Dim LargoLlaveOrigen   As Integer
+Dim PosicionProducto   As String
+Dim SePresionoTeclaESC As Boolean
+Dim Filtro             As Boolean
+Dim Pos_Ftro           As String
+Dim Dat_Ftro           As String
+
+Private Function ChequeaVigenciaProducto(ByVal Codigo As String, Ubicacion As String, Dato_Filtro As String) As Boolean
+Dim PunteroTabPrd As Recordset
+  Ubicacion = ""
+  ChequeaVigenciaProducto = False
+  Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
+  PunteroTabPrd.Index = "Tab_Prd"
+  PunteroTabPrd.Seek "=", Codigo
+  If Not PunteroTabPrd.NoMatch Then
+    If UCase(PunteroTabPrd("Prd_Tag")) = "SI" Then
+      If Filtro Then
+         If InStr(RTrim(Dat_Ftro), UCase(Dato_Filtro)) > 0 Then
+            Ubicacion = PunteroTabPrd("Prd_Pos_Nom")
+            ChequeaVigenciaProducto = True
+         End If
+      Else
+        Ubicacion = PunteroTabPrd("Prd_Pos_Nom")
+        ChequeaVigenciaProducto = True
+      End If
+    End If
+  End If
+  PunteroTabPrd.Close
+End Function
+Function CorrespondeTraer(Modo_Bajada As String)
+   CorrespondeTraer = False
+
+   If Modo_Bajada = 0 Then   ' Trae Siempre los datos
+      CorrespondeTraer = True
+   End If
+   
+   ' trae si es Regiones
+   If Modo_Bajada = 2 And InStr("00,54,55,56", Environ$("NODOM")) = 0 Then
+      CorrespondeTraer = True
+   End If
+   
+   ' trae si es Metro
+   If Modo_Bajada = 1 And InStr("00,54,55,56", Environ$("NODOM")) <> 0 Then
+      CorrespondeTraer = True
+   End If
+   
+End Function
+
+Private Function FormateaDatos(NuevaLlave As String, HayDatos As Boolean, ByVal SinDesplazamiento As Boolean) As Boolean
+Dim I As Integer
+Dim Data As String
+Dim Largo As Integer
+Dim Volver As Boolean
+Dim Dato_Filtro As String
+Dim Posicion As Integer
+Dim Continua As String * 1
+Dim Desplazar As Integer
+Dim Correlativo As Integer
+Dim NumeroRut As String
+Dim LargoRegistro As Integer
+Dim PunteroVsdPrd As Recordset
+Dim CodigoProducto As String * 3
+Dim UbicacionNombre As String
+Dim CantidadRegistros As Integer
+  Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
+  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  Data = Mid$(CadenaDatos, 8)
+  Volver = False
+  Continua = Mid$(CadenaDatos, 3, 1)
+  Desplazar = 4
+  LargoRegistro = Val(Mid(CadenaDatos, 8, 4)) + Desplazar
+  CantidadRegistros = Val(Mid(CadenaDatos, 4, 4))
+  For I = 1 To CantidadRegistros
+    If Mid$(Data, 1 + Desplazar + (I - 1) * LargoRegistro, 3) = Oficina Then
+      NumeroRut = ObtieneNumero(Data, Desplazar + (I - 1) * LargoRegistro, PosicionRut)
+      NumeroRut = NumeroRut + ObtenerDigitoVerificador(NumeroRut)
+      CodigoProducto = ObtieneNumero(Data, Desplazar + (I - 1) * LargoRegistro, PosicionProducto)
+      If Filtro Then
+         Dato_Filtro = ObtieneNumero(Data, Desplazar + (I - 1) * LargoRegistro, Pos_Ftro)
+      Else
+         Dato_Filtro = ""
+      End If
+      If InStr("00,54,55,56", Environ$("NODOM")) = 0 Then
+        If ObtieneAliasRegionalDelProducto(CodigoProducto) <> "" Then
+          CodigoProducto = ObtieneAliasRegionalDelProducto(CodigoProducto)
+        End If
+      End If
+      If ChequeaVigenciaProducto(CodigoProducto, UbicacionNombre, Dato_Filtro) Then
+        Correlativo = 0
+        Do
+          Correlativo = Correlativo + 1
+          PunteroVsdPrd.Seek "=", NumeroRut, CodigoProducto, Correlativo
+          If PunteroVsdPrd.NoMatch Then
+            Exit Do
+          End If
+        Loop
+        PunteroVsdPrd.AddNew
+        PunteroVsdPrd("Prd_Data") = Mid$(Data, 1 + Desplazar + (I - 1) * LargoRegistro, LargoRegistro)
+        PunteroVsdPrd("Prd_Correl") = Correlativo
+        PunteroVsdPrd("Prd_RutCli") = NumeroRut
+        PunteroVsdPrd("Prd_CodProd") = CodigoProducto
+        PunteroVsdPrd.Update
+        If (Correlativo = 1) And (Not EsProductoRelacionado(CodigoProducto)) Then
+          HayDatos = True
+          Call CrearListaDeClientes(NumeroRut, Mid$(Data, 1 + Desplazar + (I - 1) * LargoRegistro, LargoRegistro), _
+                                                     UbicacionNombre)
+        End If
+      End If
+    Else
+      Continua = "N"
+      Exit For
+    End If
+    If SinDesplazamiento Then
+      Desplazar = 0
+    End If
+  Next I
+  PunteroVsdPrd.Close
+  If Continua = "S" Then
+    Volver = True
+    NuevaLlave = Mid$(Data, 1 + Desplazar + (I - 2) * LargoRegistro, LargoLlaveOrigen)
+  End If
+  FormateaDatos = Volver
+End Function
+Public Function ObtieneAliasSYBASE(ByVal Producto As String) As String
+Dim Criterio As String
+Dim PunteroAliasSYBASE As Recordset
+  Set PunteroAliasSYBASE = BaseVisado.OpenRecordset("Tab_SybAlias", dbOpenDynaset)
+  Criterio = "Syb_Prod_Ori='" + Producto + "'"
+  ObtieneAliasSYBASE = Producto
+  PunteroAliasSYBASE.FindFirst Criterio
+  If Not PunteroAliasSYBASE.NoMatch Then
+    ObtieneAliasSYBASE = PunteroAliasSYBASE("Syb_Prod_Nvo")
+  End If
+  PunteroAliasSYBASE.Close
+End Function
+Private Function FormateaSYBASE(NuevoUsuario As String, HayDatos As Boolean, ByVal SinDesplazamiento As Boolean) As Boolean
+Dim I             As Integer
+Dim Data          As String
+Dim Largo         As Integer
+Dim Volver        As Boolean
+Dim Dato_Filtro   As String
+Dim Posicion      As Integer
+Dim Continua      As String * 1
+Dim Correlativo   As Integer
+Dim NumeroRut     As String
+Dim PosFin        As Integer
+Dim PunteroVsdPrd As Recordset
+Dim CodigoProducto    As String * 3
+Dim UbicacionNombre   As String
+Dim CantidadRegistros As Integer
+
+  Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
+  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  Data = Mid$(CadenaDatos, 15)
+  Volver = False
+  Continua = Mid$(CadenaDatos, 3, 1)
+  CantidadRegistros = Val(Mid(CadenaDatos, 4, 7))
+  For I = 1 To CantidadRegistros  '~
+    PosFin = InStr(Data, "~")
+    If PosFin > 0 Then
+      NumeroRut = ObtieneNumero(Data, 0, PosicionRut)
+      NumeroRut = NumeroRut + ObtenerDigitoVerificador(NumeroRut)
+      CodigoProducto = ObtieneNumero(Data, 0, PosicionProducto)
+      If Filtro Then
+         Dato_Filtro = ObtieneNumero(Data, 0, Pos_Ftro)
+      Else
+         Dato_Filtro = ""
+      End If
+      CodigoProducto = ObtieneAliasSYBASE(CodigoProducto)
+      If ChequeaVigenciaProducto(CodigoProducto, UbicacionNombre, Dato_Filtro) Then
+        Correlativo = 0
+        Do
+          Correlativo = Correlativo + 1
+          PunteroVsdPrd.Seek "=", NumeroRut, CodigoProducto, Correlativo
+          If PunteroVsdPrd.NoMatch Then
+            Exit Do
+          End If
+        Loop
+        PunteroVsdPrd.AddNew
+        PunteroVsdPrd("Prd_Data") = Mid$(Data, 1, PosFin - 1)
+        PunteroVsdPrd("Prd_Correl") = Correlativo
+        PunteroVsdPrd("Prd_RutCli") = NumeroRut
+        PunteroVsdPrd("Prd_CodProd") = CodigoProducto
+        PunteroVsdPrd.Update
+        If (Correlativo = 1) And (Not EsProductoRelacionado(CodigoProducto)) Then
+          HayDatos = True
+          Call CrearListaDeClientes(NumeroRut, Mid$(Data, 1, PosFin - 1), UbicacionNombre)
+        End If
+      End If
+    Else
+      Continua = "N"
+      Exit For
+    End If
+    Data = Mid$(Data, PosFin + 1)
+  Next I
+  PunteroVsdPrd.Close
+  If Continua = "S" Then
+    Volver = True
+    NuevoUsuario = Mid$(NuevoUsuario, 1, 13) + Format$(Val(Mid$(NuevoUsuario, 14, 7)) + CantidadRegistros, "0000000") + Mid$(NuevoUsuario, 21)
+  End If
+  FormateaSYBASE = Volver
+End Function
+
+Private Function ObtieneInformacion(ByVal Vista As String, ByVal Operacion As String) As Boolean
+Dim Llave As String
+Dim Usuario As String
+Dim HayDatos As Boolean
+Dim NodoDestino As String
+Dim Desplazamiento As Integer
+Dim AplicacionDestino As String * 4
+  HayDatos = False
+  NodoDestino = DeterminaNodo(AplicacionDestino, Vista)
+  If Trim$(NodoDestino) <> SINNODO Then
+  
+    If Mid$(Vista, 1, 2) = "SY" Then
+       Llave = "'" + Oficina + "', NULL, NULL"
+       Usuario = Operacion + " "
+    Else
+       If Vista = "1664" Then 'para firmas
+          Llave = Oficina + "N00000000000000000000000000000000000"
+       Else
+          Llave = Oficina + "000000000000000000000000000000000000"
+       End If
+       Usuario = IdUsuario + Vista + Operacion
+    End If
+    Do
+      CadenaDatos = Llamada(NodoDestino, AplicacionDestino, Usuario, Llave, "8K")
+      DoEvents
+      If Not SePresionoTeclaESC Then
+        If Mid$(CadenaDatos, 1, 6) = "000000" Then
+          CadenaDatos = Mid$(CadenaDatos, 5)
+          Desplazamiento = False
+          If AplicacionDestino = "SPLA" Then
+            Desplazamiento = True
+          End If
+          If Mid$(Vista, 1, 2) = "SY" Then
+             If Not FormateaSYBASE(Usuario, HayDatos, Desplazamiento) Then
+               Exit Do
+             End If
+          Else
+             If Vista = "1664" And Mid$(CadenaDatos, 15, 1) <> "N" Then 'para firmas
+                Exit Do
+             End If
+             If Not FormateaDatos(Llave, HayDatos, Desplazamiento) Then
+               Exit Do
+             End If
+          End If
+        Else
+          Exit Do
+        End If
+      Else
+        Exit Do
+      End If
+    Loop
+  Else
+    MsgBox "Vista Nº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+  End If
+  ObtieneInformacion = HayDatos
+End Function
+Private Sub CrearListaDeClientes(ByVal RutCliente As String, ByVal Cadena As String, ByVal Ubicacion As String)
+Dim Criterio As String
+Dim Usuario As String
+Dim NodoDestino As String
+Dim PunteroVsdCli As Recordset
+Dim NombreCliente As String * 30
+Dim AplicacionDestino As String * 4
+  Set PunteroVsdCli = BaseVisado.OpenRecordset("Vsd_Cli", dbOpenDynaset)
+  Criterio = "Cli_Rut='" + RutCliente + "'"
+  NombreCliente = ""
+  If Ubicacion = "0,0" Then
+    NodoDestino = DeterminaNodo(AplicacionDestino, "1348")
+    If Trim$(NodoDestino) <> SINNODO Then
+      Usuario = IdUsuario + "1348" + "L"
+      CadenaDatos = Llamada(NodoDestino, AplicacionDestino, Usuario, Mid$(RutCliente, 1, 9), "8K")
+      If Mid$(CadenaDatos, 1, 6) = "000000" Then
+        NombreCliente = Mid$(CadenaDatos, 18, 40)
+      End If
+    End If
+  Else
+    NombreCliente = Mid$(Cadena, Interpreta(Ubicacion, SIMBOLOPOSICION), _
+                                         Interpreta(Ubicacion, SIMBOLOLARGO))
+  End If
+  NombreCliente = SacarEspaciosIntermedios(NombreCliente)
+  PunteroVsdCli.FindFirst Criterio
+  If PunteroVsdCli.NoMatch Then
+    PunteroVsdCli.AddNew
+    PunteroVsdCli("Cli_Rut") = RutCliente
+    PunteroVsdCli("Cli_Nombre") = StrConv(NombreCliente, 3)
+    PunteroVsdCli.Update
+  Else
+    If Trim$(PunteroVsdCli("Cli_Nombre")) = "" Then
+      PunteroVsdCli.Edit
+      PunteroVsdCli("Cli_Nombre") = StrConv(NombreCliente, 3)
+      PunteroVsdCli.Update
+    End If
+  End If
+  PunteroVsdCli.Close
+End Sub
+Private Function BajarDatosVisado(VerMensaje As Boolean) As Boolean
+Dim PunteroTabVsd As Recordset
+Dim IncrementoStatus As Integer
+  If HayProductosVigentes(VerMensaje) Then
+    Screen.MousePointer = 11
+    Set PunteroTabVsd = BaseVisado.OpenRecordset("Tab_Vsd", dbOpenTable)
+    BaseVisado.Execute "DELETE * FROM Vsd_Prd;"
+    BaseVisado.Execute "DELETE * FROM Vsd_Cli;"
+    BajarDatosVisado = False
+    PunteroTabVsd.MoveLast
+    IncrementoStatus = Int(2615 / PunteroTabVsd.RecordCount)
+    PunteroTabVsd.MoveFirst
+    Status.Width = 15
+    Status.Visible = True
+    PanelStatus.Visible = True
+    SePresionoTeclaESC = False
+    While (Not PunteroTabVsd.EOF) And (Not SePresionoTeclaESC)
+      If CorrespondeTraer(PunteroTabVsd("Vsd_Bajada")) Then
+         PosicionRut = PunteroTabVsd("Vsd_Pos_Rut")
+         LargoLlaveOrigen = PunteroTabVsd("Vsd_L_LLaveOri")
+         PosicionProducto = PunteroTabVsd("Vsd_Pos_CodProd")
+         Filtro = PunteroTabVsd("Vsd_Filtro")
+         If Filtro Then
+            Pos_Ftro = PunteroTabVsd("Vsd_Ftro_Pos")
+            Dat_Ftro = PunteroTabVsd("Vsd_Ftro_Dat")
+         End If
+         If ObtieneInformacion(PunteroTabVsd("Vsd_Vista_Ori"), PunteroTabVsd("Vsd_Operacion")) Then
+            BajarDatosVisado = True
+         End If
+      End If
+      PunteroTabVsd.MoveNext
+      Status.Width = Status.Width + IncrementoStatus
+    Wend
+    PunteroTabVsd.Close
+    Status.Width = 2615
+    Status.Visible = False
+    PanelStatus.Visible = False
+    If SePresionoTeclaESC Then
+      VerMensaje = False
+      BajarDatosVisado = False
+    End If
+    Call LimpiezaVisado
+    Screen.MousePointer = 0
+  Else
+    MsgBox "Debe Seleccionar Productos a Visar", 0 + 16, "Falta Vigencia Productos"
+  End If
+End Function
+Private Function ObtieneRutUsuarioLogueado() As String
+Dim Rut As String * 70
+Dim Retorno As Integer
+  Retorno = AisGetUsr(Rut)
+  If Retorno = 1 Then
+    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
+  Else
+    ObtieneRutUsuarioLogueado = RUTDEFECTO
+  End If
+End Function
+Private Sub AdministraImpresion_Click()
+Dim Retorno As Variant
+  Screen.MousePointer = 11
+  Retorno = Shell("C:\Windows\PrintMan.EXE", 1)
+  Screen.MousePointer = 0
+End Sub
+
+Private Sub BtnCambiaImpresora_Click()
+  Call TipoImpresora_Click
+End Sub
+Private Sub BtnCancelar_Click()
+  Call DesplieguePantalla(False)
+End Sub
+Private Sub BtnCancelar_KeyPress(KeyAscii As Integer)
+  If KeyAscii = 27 Then
+    Call DesplieguePantalla(False)
+  End If
+End Sub
+Private Sub BtnConfiguraProductos_Click()
+   BtnConfiguraProductos.Enabled = False
+   Call Productos_Click
+   BtnConfiguraProductos.Enabled = True
+End Sub
+Private Sub BtnConsultaParaVisar_Click()
+  
+  BtnConsultaParaVisar.Enabled = False
+  Call Consultar_Click
+  BtnConsultaParaVisar.Enabled = True
+
+End Sub
+Private Sub BtnImprimeVisados_Click()
+  BtnImprimeVisados.Enabled = False
+  Call ProdVisa_Click
+  BtnImprimeVisados.Enabled = True
+End Sub
+Private Sub BtnPagoNotario_Click()
+   Call Honorarios_Click
+End Sub
+Private Sub BtnProductos_Click()
+
+  BtnProductos.Enabled = False
+  Call BtnProductos_KeyPress(13)
+  BtnProductos.Enabled = True
+  
+End Sub
+Private Sub BtnProductos_KeyPress(KeyAscii As Integer)
+  Select Case KeyAscii
+    Case 13
+      Grilla.Row = Grilla.ActiveRow
+      If Not Grilla.RowHidden Then
+        Visando.Show
+      End If
+    Case 27
+      Call BtnCancelar_Click
+  End Select
+End Sub
+
+Private Sub BtnReparaArchivos_Click()
+  RepararArchivos.Show
+End Sub
+Private Sub BtnSalirVisado_Click()
+  Unload Me
+End Sub
+Private Sub Consultar_Click()
+Dim DigitoRut As String
+Dim NumeroRut As String
+Dim PunteroVsdCli As Recordset
+Dim MostrarMensaje As Boolean
+  If BajarDatosVisado(MostrarMensaje) Then
+    Screen.MousePointer = 11
+    Grilla.MaxRows = 0
+    Set PunteroVsdCli = BaseVisado.OpenRecordset("Vsd_Cli", dbOpenTable)
+    While Not PunteroVsdCli.EOF
+      Grilla.MaxRows = Grilla.MaxRows + 1
+      Grilla.Row = Grilla.MaxRows
+      Grilla.Col = 1
+      Grilla.CellType = 4
+      Grilla.TypePicMask = "NNN.NNN.NNN-N"
+      Grilla.TypeHAlign = 2
+      DigitoRut = Mid$(PunteroVsdCli("Cli_Rut"), Len(PunteroVsdCli("Cli_Rut")))
+      NumeroRut = Mid$(PunteroVsdCli("Cli_Rut"), 1, Len(PunteroVsdCli("Cli_Rut")) - 1)
+      NumeroRut = Format$(NumeroRut, "###,###,###") + "-" + DigitoRut
+      Grilla.Text = String(13 - Len(NumeroRut), " ") + NumeroRut
+      Grilla.Col = 2
+      Grilla.Text = PunteroVsdCli("Cli_Nombre")
+      For j% = 1 To Grilla.MaxCols
+        Grilla.Col = j%
+        Grilla.BackColor = COLOR_06
+        Grilla.CellType = 5
+        If j% Mod 2 <> 0 Then
+          Grilla.TypeHAlign = 2
+        End If
+        Grilla.TypeTextShadow = True
+      Next j%
+      PunteroVsdCli.MoveNext
+    Wend
+    PunteroVsdCli.Close
+    Screen.MousePointer = 0
+    Call OrdenarGrilla(1, 1, Grilla, 1)
+    Call DesplieguePantalla(True)
+  Else
+    If MostrarMensaje Then
+      MsgBox "No se ha Localizado Información a Visar", 0 + 16, "Datos No Recepcionados"
+    End If
+  End If
+End Sub
+Private Sub Encabezado_Click(Index As Integer)
+  Select Case Index
+    Case 0
+      OpcionRut.Value = True
+    Case 1
+      OpcionNombre.Value = True
+  End Select
+End Sub
+
+Private Sub EnviaLog_Click()
+   Archivo = UCase("c:\bin\s\enviavsd.bat")
+   Call EjecutarPrograma(Archivo, 1)
+End Sub
+
+Private Sub FichCred_Click()
+  ImprimeFichaCredito.Show
+End Sub
+Private Sub Form_Activate()
+Dim NumeroFilaDestino As Integer
+  If Grilla.Visible Then
+    If Grilla.RowHidden Then
+      If Grilla.Row = Grilla.MaxRows Then
+        NumeroFilaDestino = 1
+      Else
+        NumeroFilaDestino = Grilla.Row + 1
+      End If
+      Grilla.Row = NumeroFilaDestino
+    End If
+  End If
+  Screen.MousePointer = 0
+End Sub
+
+Private Sub Form_KeyPress(KeyAscii As Integer)
+  If KeyAscii = 27 Then
+    SePresionoTeclaESC = True
+  End If
+End Sub
+Private Sub Form_Load()
+Dim Version As String
+Dim Respuesta As Integer
+  If Not App.PrevInstance Then
+    Screen.MousePointer = 11
+    IdUsuario = ObtieneRutUsuarioLogueado()
+    HoraInicioSesion = Format$(Now, "hhmmss")
+    Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
+    Call CentrarVentana(Me)
+    Call FijarVentana(Me)
+    Call DesplieguePantalla(False)
+    Oficina = SacaValorINI("Visado", "Oficina", DIRECTORIO_01 + ARCHIVO_INI01)
+    If Trim$(Oficina) = "" Then
+      Oficina = Environ$(AMBIENTEOFICINA)
+      Respuesta = PoneValorINI("Visado", "Oficina", Oficina, DIRECTORIO_01 + ARCHIVO_INI01)
+    End If
+    Version = SacaValorINI("Visado", "Version", DIRECTORIO_01 + ARCHIVO_INI01)
+    DefinicionImpresora = SacaValorINI("Visado", "Impresora", DIRECTORIO_01 + ARCHIVO_INI01)
+    If InStr("00,54,55,56", Environ$("NODOM")) = 0 Then
+       Me.Caption = "Visado de Productos " + Version + " - Regional"
+    Else
+       Me.Caption = "Visado de Productos " + Version + " - Metro"
+    End If
+    Panel3D1.Width = Screen.Width - 180
+    Panel3D1.Height = Screen.Height - 750
+    Image1.Top = Panel3D1.Height - Image1.Height - 90
+    PortaGrilla.Left = (Panel3D1.Width - PortaGrilla.Width) / 2
+    PortaGrilla.Top = (Panel3D1.Height - PortaGrilla.Height) / 2
+    PortaTitulo.Left = (Panel3D1.Width - PortaTitulo.Width) / 2
+    PortaTitulo.Top = PortaGrilla.Top - PortaTitulo.Height - 30
+    PanelStatus.Left = Panel3D1.Width - PanelStatus.Width - 90
+    PanelStatus.Top = Panel3D1.Height - PanelStatus.Height - 90
+    SombraPortaGrilla.Left = PortaGrilla.Left + 60
+    SombraPortaGrilla.Top = PortaGrilla.Top + 60
+    Grilla.ColWidth(1) = 10
+    Grilla.ColWidth(2) = 24
+    Call ConfigurarNodoDestinoSAT
+  Else
+    MsgBox "Visado Ya Está Ejecutándose", 0 + 16, "Doble Ejecución"
+  End If
+End Sub
+Private Sub Form_Resize()
+  If Me.WindowState <> 1 Then
+    Me.WindowState = 2
+  End If
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+  BaseVisado.Close
+End Sub
+Private Sub Grilla_DblClick(Col As Long, Row As Long)
+  Call BtnProductos_KeyPress(13)
+End Sub
+
+Private Sub Grilla_KeyPress(KeyAscii As Integer)
+  Select Case KeyAscii
+    Case 13
+      Call BtnProductos_KeyPress(13)
+    Case 27
+      Call BtnCancelar_Click
+  End Select
+End Sub
+Private Sub Honorarios_Click()
+   ConfiguraHonorarios.Show
+End Sub
+
+Private Sub NombreOrdenado_Click()
+  OpcionNombre.Value = True
+End Sub
+Private Sub Oficinas_Click()
+   ConfiguraOficina.Show
+End Sub
+Private Sub OpcionNombre_Click(Value As Integer)
+  Call OrdenarGrilla(1, 2, Grilla, 1)
+End Sub
+Private Sub OpcionNombre_KeyPress(KeyAscii As Integer)
+  If KeyAscii = 27 Then
+    BtnCancelar_Click
+  End If
+End Sub
+Private Sub OpcionRut_Click(Value As Integer)
+  Call OrdenarGrilla(1, 1, Grilla, 1)
+End Sub
+Private Sub OpcionRut_KeyPress(KeyAscii As Integer)
+  If KeyAscii = 27 Then
+    BtnCancelar_Click
+  End If
+End Sub
+
+Private Sub PagoNota_Click()
+  ImprimePagoNotario.Show
+End Sub
+
+Private Sub Productos_Click()
+   ConfiguraProducto.Show
+End Sub
+Private Sub ProdVisa_Click()
+  ImprimeProductoVisado.Show
+End Sub
+
+Private Sub Referencias_Click()
+  ReferenciasVisado.Show
+End Sub
+Private Sub RepararBD_Click()
+  RepararArchivos.Show
+End Sub
+
+Private Sub RFolio_Click()
+   Archivo = UCase("c:\bin\s\vsdfolio.exe")
+   Call EjecutarPrograma(Archivo, 1)
+End Sub
+
+Private Sub RutOrdenado_Click()
+  OpcionRut.Value = True
+End Sub
+Private Sub Salir_Click()
+  Unload Me
+End Sub
+Private Function ObtieneNumero(ByVal Cadena As String, ByVal Desplazamiento As Integer, DatoBuscado As String) As String
+  If InStr(DatoBuscado, ",") = 0 Then
+    ObtieneNumero = DatoBuscado
+  Else
+    Largo = Interpreta(DatoBuscado, SIMBOLOLARGO)
+    Posicion = Interpreta(DatoBuscado, SIMBOLOPOSICION)
+    ObtieneNumero = Mid$(Cadena, Posicion + Desplazamiento, Largo)
+  End If
+End Function
+
+Private Sub DesplieguePantalla(ByVal Estado As Boolean)
+  Imprimir.Enabled = Not (Estado)
+  Consultar.Enabled = Not (Estado)
+  Configurar.Enabled = Not (Estado)
+  Impresoras.Enabled = Not (Estado)
+  Panel.Visible = Estado
+  Ordenar.Enabled = Estado
+  PortaGrilla.Visible = Estado
+  PortaTitulo.Visible = Estado
+  PortaBotones.Visible = Not (Estado)
+  PortaBotones.Enabled = Not (Estado)
+  SombraPortaGrilla.Visible = Estado
+  If Estado Then
+    IdOficina.Caption = GlosaOficina(Oficina)
+    Grilla.SetFocus
+  End If
+End Sub
+Private Sub TipoImpresora_Click()
+  Screen.MousePointer = 11
+  DefineImpresora.Show
+End Sub
+
+Private Sub ConfigurarNodoDestinoSAT()
+Dim ArchivoSRM As Database
+Dim PunteroSAT As Recordset
+Dim PunteroVistas As Recordset
+  If Not Environ$(AMBIENTEDESARROLLO) = "DESA" Then
+     Set ArchivoSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
+     Set PunteroSAT = ArchivoSRM.OpenRecordset("Sat")
+     Set PunteroVistas = ArchivoSRM.OpenRecordset("Vistas")
+     PunteroSAT.Index = "Srm_Ns"
+     PunteroSAT.Seek "=", UCase(Environ(NODOREGIONAL))
+     If Not PunteroSAT.NoMatch Then
+       PunteroVistas.Index = "Vistas"
+       PunteroVistas.Seek "=", "SAT_"
+       If PunteroVistas("Vta_NodoProd") <> PunteroSAT("Sat_Nodo_Sat") Then
+         PunteroVistas.Edit
+         PunteroVistas("Vta_NodoProd") = PunteroSAT("Sat_Nodo_Sat")
+         PunteroVistas.Update
+       End If
+     Else
+       MsgBox "La Variable de Ambiente " + Chr(34) + "SRM_NS" + Chr(34) + " No Fue" + Chr(10) + _
+              "Encontrada en Tabla " + Chr(34) + "SAT" + Chr(34) + ", las Transacciones" + Chr(10) + _
+              "Via S.A.T. Podrían Tener Conflictos", 0 + 48, "Advertencia"
+     End If
+     PunteroVistas.Close
+     PunteroSAT.Close
+     ArchivoSRM.Close
+  End If
+End Sub
+
+Private Function HayProductosVigentes(DespliegaMensaje As Boolean) As Boolean
+Dim Criterio As String
+Dim PunteroTabPrd As Recordset
+  Criterio = "Prd_Tag='SI'"
+  DespliegaMensaje = False
+  HayProductosVigentes = False
+  Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenDynaset)
+  PunteroTabPrd.FindFirst Criterio
+  If Not PunteroTabPrd.NoMatch Then
+    DespliegaMensaje = True
+    HayProductosVigentes = True
+  End If
+  PunteroTabPrd.Close
+End Function

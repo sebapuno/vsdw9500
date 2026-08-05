@@ -1,0 +1,200 @@
+Línea 20: La clase Threed.SSPanel del control Transaccion no era una clase de control cargada.
+Línea 46: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 74: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 102: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 149: La clase Threed.SSPanel del control Llave no era una clase de control cargada.
+Línea 175: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 203: La clase Threed.SSPanel del control RetFuncion no era una clase de control cargada.
+Línea 229: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 257: La clase Threed.SSPanel del control Status no era una clase de control cargada.
+Línea 283: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 311: La clase Threed.SSPanel del control ServidorDatos no era una clase de control cargada.
+Línea 337: La clase Threed.SSPanel del control Nodo no era una clase de control cargada.
+Línea 362: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 390: La clase Threed.SSPanel del control Servidor no era una clase de control cargada.
+Línea 415: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 442: La clase Threed.SSPanel del control Operacion no era una clase de control cargada.
+Línea 468: La clase Threed.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 495: La clase Threed.SSCommand del control btn_Continuar no era una clase de control cargada.
+Línea 511: La clase Threed.SSCommand del control btn_Reintentar no era una clase de control cargada.
+Línea 527: La clase Threed.SSCommand del control Imprimir no era una clase de control cargada.
+Línea 543: La clase Threed.SSCommand del control Cancelar no era una clase de control cargada.
+Línea 26: El nombre de la propiedad _version en Transaccion no es válido.
+Línea 27: El nombre de la propiedad _extentx en Transaccion no es válido.
+Línea 28: El nombre de la propiedad _extenty en Transaccion no es válido.
+Línea 29: El nombre de la propiedad _stockprops en Transaccion no es válido.
+Línea 40: El nombre de la propiedad borderwidth en Transaccion no es válido.
+Línea 41: El nombre de la propiedad bevelouter en Transaccion no es válido.
+Línea 42: El nombre de la propiedad bevelinner en Transaccion no es válido.
+Línea 43: El nombre de la propiedad font3d en Transaccion no es válido.
+Línea 44: El nombre de la propiedad alignment en Transaccion no es válido.
+Línea 53: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 54: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 55: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 56: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 57: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 68: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 69: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 70: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 71: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 81: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 82: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 83: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 84: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 85: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 96: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 97: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 98: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 99: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 109: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 110: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 111: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 112: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 113: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 124: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 125: El nombre de la propiedad bevelinner en Panel3D1 no es válido.
+Línea 126: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 127: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 155: El nombre de la propiedad _version en Llave no es válido.
+Línea 156: El nombre de la propiedad _extentx en Llave no es válido.
+Línea 157: El nombre de la propiedad _extenty en Llave no es válido.
+Línea 158: El nombre de la propiedad _stockprops en Llave no es válido.
+Línea 169: El nombre de la propiedad borderwidth en Llave no es válido.
+Línea 170: El nombre de la propiedad bevelouter en Llave no es válido.
+Línea 171: El nombre de la propiedad bevelinner en Llave no es válido.
+Línea 172: El nombre de la propiedad font3d en Llave no es válido.
+Línea 173: El nombre de la propiedad alignment en Llave no es válido.
+Línea 182: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 183: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 184: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 185: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 186: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 197: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 198: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 199: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 200: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 209: El nombre de la propiedad _version en RetFuncion no es válido.
+Línea 210: El nombre de la propiedad _extentx en RetFuncion no es válido.
+Línea 211: El nombre de la propiedad _extenty en RetFuncion no es válido.
+Línea 212: El nombre de la propiedad _stockprops en RetFuncion no es válido.
+Línea 223: El nombre de la propiedad borderwidth en RetFuncion no es válido.
+Línea 224: El nombre de la propiedad bevelouter en RetFuncion no es válido.
+Línea 225: El nombre de la propiedad bevelinner en RetFuncion no es válido.
+Línea 226: El nombre de la propiedad font3d en RetFuncion no es válido.
+Línea 227: El nombre de la propiedad alignment en RetFuncion no es válido.
+Línea 236: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 237: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 238: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 239: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 240: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 251: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 252: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 253: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 254: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 263: El nombre de la propiedad _version en Status no es válido.
+Línea 264: El nombre de la propiedad _extentx en Status no es válido.
+Línea 265: El nombre de la propiedad _extenty en Status no es válido.
+Línea 266: El nombre de la propiedad _stockprops en Status no es válido.
+Línea 277: El nombre de la propiedad borderwidth en Status no es válido.
+Línea 278: El nombre de la propiedad bevelouter en Status no es válido.
+Línea 279: El nombre de la propiedad bevelinner en Status no es válido.
+Línea 280: El nombre de la propiedad font3d en Status no es válido.
+Línea 281: El nombre de la propiedad alignment en Status no es válido.
+Línea 290: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 291: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 292: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 293: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 294: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 305: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 306: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 307: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 308: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 317: El nombre de la propiedad _version en ServidorDatos no es válido.
+Línea 318: El nombre de la propiedad _extentx en ServidorDatos no es válido.
+Línea 319: El nombre de la propiedad _extenty en ServidorDatos no es válido.
+Línea 320: El nombre de la propiedad _stockprops en ServidorDatos no es válido.
+Línea 331: El nombre de la propiedad borderwidth en ServidorDatos no es válido.
+Línea 332: El nombre de la propiedad bevelouter en ServidorDatos no es válido.
+Línea 333: El nombre de la propiedad bevelinner en ServidorDatos no es válido.
+Línea 334: El nombre de la propiedad font3d en ServidorDatos no es válido.
+Línea 335: El nombre de la propiedad alignment en ServidorDatos no es válido.
+Línea 343: El nombre de la propiedad _version en Nodo no es válido.
+Línea 344: El nombre de la propiedad _extentx en Nodo no es válido.
+Línea 345: El nombre de la propiedad _extenty en Nodo no es válido.
+Línea 346: El nombre de la propiedad _stockprops en Nodo no es válido.
+Línea 357: El nombre de la propiedad borderwidth en Nodo no es válido.
+Línea 358: El nombre de la propiedad bevelouter en Nodo no es válido.
+Línea 359: El nombre de la propiedad bevelinner en Nodo no es válido.
+Línea 360: El nombre de la propiedad font3d en Nodo no es válido.
+Línea 369: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 370: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 371: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 372: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 373: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 384: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 385: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 386: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 387: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 396: El nombre de la propiedad _version en Servidor no es válido.
+Línea 397: El nombre de la propiedad _extentx en Servidor no es válido.
+Línea 398: El nombre de la propiedad _extenty en Servidor no es válido.
+Línea 399: El nombre de la propiedad _stockprops en Servidor no es válido.
+Línea 410: El nombre de la propiedad borderwidth en Servidor no es válido.
+Línea 411: El nombre de la propiedad bevelouter en Servidor no es válido.
+Línea 412: El nombre de la propiedad bevelinner en Servidor no es válido.
+Línea 413: El nombre de la propiedad font3d en Servidor no es válido.
+Línea 422: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 423: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 424: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 425: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 426: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 437: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 438: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 439: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 440: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 448: El nombre de la propiedad _version en Operacion no es válido.
+Línea 449: El nombre de la propiedad _extentx en Operacion no es válido.
+Línea 450: El nombre de la propiedad _extenty en Operacion no es válido.
+Línea 451: El nombre de la propiedad _stockprops en Operacion no es válido.
+Línea 462: El nombre de la propiedad borderwidth en Operacion no es válido.
+Línea 463: El nombre de la propiedad bevelouter en Operacion no es válido.
+Línea 464: El nombre de la propiedad bevelinner en Operacion no es válido.
+Línea 465: El nombre de la propiedad font3d en Operacion no es válido.
+Línea 466: El nombre de la propiedad alignment en Operacion no es válido.
+Línea 475: El nombre de la propiedad _version en Panel3D1 no es válido.
+Línea 476: El nombre de la propiedad _extentx en Panel3D1 no es válido.
+Línea 477: El nombre de la propiedad _extenty en Panel3D1 no es válido.
+Línea 478: El nombre de la propiedad _stockprops en Panel3D1 no es válido.
+Línea 479: El nombre de la propiedad caption en Panel3D1 no es válido.
+Línea 490: El nombre de la propiedad borderwidth en Panel3D1 no es válido.
+Línea 491: El nombre de la propiedad bevelouter en Panel3D1 no es válido.
+Línea 492: El nombre de la propiedad font3d en Panel3D1 no es válido.
+Línea 493: El nombre de la propiedad alignment en Panel3D1 no es válido.
+Línea 501: El nombre de la propiedad _version en btn_Continuar no es válido.
+Línea 502: El nombre de la propiedad _extentx en btn_Continuar no es válido.
+Línea 503: El nombre de la propiedad _extenty en btn_Continuar no es válido.
+Línea 504: El nombre de la propiedad _stockprops en btn_Continuar no es válido.
+Línea 505: El nombre de la propiedad caption en btn_Continuar no es válido.
+Línea 507: El nombre de la propiedad font3d en btn_Continuar no es válido.
+Línea 495: No se pudo establecer la propiedad Picture en btn_Continuar.
+Línea 517: El nombre de la propiedad _version en btn_Reintentar no es válido.
+Línea 518: El nombre de la propiedad _extentx en btn_Reintentar no es válido.
+Línea 519: El nombre de la propiedad _extenty en btn_Reintentar no es válido.
+Línea 520: El nombre de la propiedad _stockprops en btn_Reintentar no es válido.
+Línea 521: El nombre de la propiedad caption en btn_Reintentar no es válido.
+Línea 523: El nombre de la propiedad font3d en btn_Reintentar no es válido.
+Línea 511: No se pudo establecer la propiedad Picture en btn_Reintentar.
+Línea 533: El nombre de la propiedad _version en Imprimir no es válido.
+Línea 534: El nombre de la propiedad _extentx en Imprimir no es válido.
+Línea 535: El nombre de la propiedad _extenty en Imprimir no es válido.
+Línea 536: El nombre de la propiedad _stockprops en Imprimir no es válido.
+Línea 537: El nombre de la propiedad caption en Imprimir no es válido.
+Línea 539: El nombre de la propiedad font3d en Imprimir no es válido.
+Línea 527: No se pudo establecer la propiedad Picture en Imprimir.
+Línea 549: El nombre de la propiedad _version en Cancelar no es válido.
+Línea 550: El nombre de la propiedad _extentx en Cancelar no es válido.
+Línea 551: El nombre de la propiedad _extenty en Cancelar no es válido.
+Línea 552: El nombre de la propiedad _stockprops en Cancelar no es válido.
+Línea 553: El nombre de la propiedad caption en Cancelar no es válido.
+Línea 555: El nombre de la propiedad font3d en Cancelar no es válido.
+Línea 543: No se pudo establecer la propiedad Picture en Cancelar.

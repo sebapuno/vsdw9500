@@ -1,0 +1,93 @@
+Attribute VB_Name = "RutinasVSDW"
+Option Explicit
+
+Public Function SacaValorINI(ByVal grupo As String, ByVal Titulo As String, ByVal NombreArchivo As String) As String
+Dim ValorGet As Integer
+Dim lpReturnedString As String
+Dim nSize%
+
+    lpReturnedString = String$(800, 0)
+    nSize% = Len(lpReturnedString)
+    ValorGet = GetPrivateProfileString(grupo, ByVal Titulo, "", lpReturnedString, nSize%, NombreArchivo)
+    SacaValorINI = Left$(lpReturnedString$, ValorGet)
+End Function
+
+Public Function GrabaParametro(grupo As String, llave As String, parametro As String, archivo As String) As Boolean
+    Dim f As Integer, lpReturnedString As String
+    
+    lpReturnedString = String$(255, 0)
+    parametro = parametro + Mid(lpReturnedString, Len(parametro) + 2)
+    f = WritePrivateProfileString(ByVal grupo, ByVal llave, ByVal parametro, ByVal archivo)
+    GrabaParametro = True
+
+End Function
+Public Function ObtieneRutUsuarioLogueado() As String
+Dim Rut As String * 70
+Dim Retorno As Integer
+
+  Retorno = AisGetUsr(Rut)
+  If Retorno = 1 Then
+    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
+  Else
+    ObtieneRutUsuarioLogueado = RUTDEFECTO
+  End If
+End Function
+
+Public Function ObtenerVistaDestino(CodPrd As String)
+Dim PunteroTabprd As Recordset
+  
+  Set PunteroTabprd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
+  PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name
+  PunteroTabprd.Seek "=", CodPrd
+  ObtenerVistaDestino = Trim$(PunteroTabprd!Prd_Vista_Dst)
+  PunteroTabprd.Close
+End Function
+
+Public Function ObtenerOperacionSRM(Producto As String, Actividad As String) As String
+Dim PunteroTabOper As Recordset
+  
+  Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
+  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  PunteroTabOper.Seek "=", Producto, Actividad
+  ObtenerOperacionSRM = Trim$(PunteroTabOper!Oper_SRM)
+  PunteroTabOper.Close
+End Function
+
+Public Sub ActualizarEnvioSRM(ByVal LlaveEnvio As String, ByVal DataEnvio As String)
+Dim PunteroEnvioSRM As Recordset
+  
+  Set PunteroEnvioSRM = BaseEnvioSrm.OpenRecordset("Mensaje")
+  PunteroEnvioSRM.MoveLast
+  PunteroEnvioSRM.Edit
+  If IsNull(PunteroEnvioSRM("Data")) Then
+    PunteroEnvioSRM("Data") = LlaveEnvio + DataEnvio + "##"
+  Else
+    PunteroEnvioSRM("Data") = PunteroEnvioSRM("Data") + LlaveEnvio + DataEnvio + "##"
+  End If
+  PunteroEnvioSRM.Update
+  PunteroEnvioSRM.Close
+  
+End Sub
+
+Public Function ObtenerOperacionBorrado(Producto As String, Actividad As String) As String
+Dim PunteroTabOper As Recordset
+  
+  Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
+  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  PunteroTabOper.Seek "=", Producto, Actividad
+  ObtenerOperacionBorrado = Trim$(PunteroTabOper!Oper_Borrado)
+  PunteroTabOper.Close
+  
+End Function
+
+Public Function ObtenerVistaOrigen(CodPrd As String)
+Dim PunteroTabprd As Recordset
+  
+Set PunteroTabprd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
+  
+PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name
+PunteroTabprd.Seek "=", CodPrd
+ObtenerVistaOrigen = Trim$(PunteroTabprd!Prd_Vista_Ori)
+PunteroTabprd.Close
+  
+End Function

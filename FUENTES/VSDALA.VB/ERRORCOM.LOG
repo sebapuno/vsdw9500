@@ -1,0 +1,100 @@
+Línea 20: La clase VBX.SSPanel del control NombreAplicacion no era una clase de control cargada.
+Línea 34: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 56: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 78: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 118: La clase VBX.SSPanel del control Llave no era una clase de control cargada.
+Línea 132: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 154: La clase VBX.SSPanel del control RetFuncion no era una clase de control cargada.
+Línea 168: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 190: La clase VBX.SSPanel del control Status no era una clase de control cargada.
+Línea 204: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 226: La clase VBX.SSPanel del control ServidorDatos no era una clase de control cargada.
+Línea 240: La clase VBX.SSPanel del control Nodo no era una clase de control cargada.
+Línea 253: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 275: La clase VBX.SSPanel del control Servidor no era una clase de control cargada.
+Línea 288: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 309: La clase VBX.SSPanel del control Operacion no era una clase de control cargada.
+Línea 323: La clase VBX.SSPanel del control Panel3D1 no era una clase de control cargada.
+Línea 21: El nombre de la propiedad Alignment en NombreAplicacion no es válido.
+Línea 23: El nombre de la propiedad BevelInner en NombreAplicacion no es válido.
+Línea 24: El nombre de la propiedad BevelOuter en NombreAplicacion no es válido.
+Línea 25: El nombre de la propiedad BorderWidth en NombreAplicacion no es válido.
+Línea 26: El nombre de la propiedad Font3D en NombreAplicacion no es válido.
+Línea 35: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 38: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 39: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 40: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 41: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 57: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 60: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 61: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 62: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 63: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 79: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 81: El nombre de la propiedad BevelInner en Panel3D1 no es válido.
+Línea 82: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 83: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 84: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 119: El nombre de la propiedad Alignment en Llave no es válido.
+Línea 121: El nombre de la propiedad BevelInner en Llave no es válido.
+Línea 122: El nombre de la propiedad BevelOuter en Llave no es válido.
+Línea 123: El nombre de la propiedad BorderWidth en Llave no es válido.
+Línea 124: El nombre de la propiedad Font3D en Llave no es válido.
+Línea 133: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 136: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 137: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 138: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 139: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 155: El nombre de la propiedad Alignment en RetFuncion no es válido.
+Línea 157: El nombre de la propiedad BevelInner en RetFuncion no es válido.
+Línea 158: El nombre de la propiedad BevelOuter en RetFuncion no es válido.
+Línea 159: El nombre de la propiedad BorderWidth en RetFuncion no es válido.
+Línea 160: El nombre de la propiedad Font3D en RetFuncion no es válido.
+Línea 169: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 172: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 173: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 174: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 175: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 191: El nombre de la propiedad Alignment en Status no es válido.
+Línea 193: El nombre de la propiedad BevelInner en Status no es válido.
+Línea 194: El nombre de la propiedad BevelOuter en Status no es válido.
+Línea 195: El nombre de la propiedad BorderWidth en Status no es válido.
+Línea 196: El nombre de la propiedad Font3D en Status no es válido.
+Línea 205: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 208: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 209: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 210: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 211: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 227: El nombre de la propiedad Alignment en ServidorDatos no es válido.
+Línea 229: El nombre de la propiedad BevelInner en ServidorDatos no es válido.
+Línea 230: El nombre de la propiedad BevelOuter en ServidorDatos no es válido.
+Línea 231: El nombre de la propiedad BorderWidth en ServidorDatos no es válido.
+Línea 232: El nombre de la propiedad Font3D en ServidorDatos no es válido.
+Línea 242: El nombre de la propiedad BevelInner en Nodo no es válido.
+Línea 243: El nombre de la propiedad BevelOuter en Nodo no es válido.
+Línea 244: El nombre de la propiedad BorderWidth en Nodo no es válido.
+Línea 245: El nombre de la propiedad Font3D en Nodo no es válido.
+Línea 254: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 257: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 258: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 259: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 260: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 277: El nombre de la propiedad BevelInner en Servidor no es válido.
+Línea 278: El nombre de la propiedad BevelOuter en Servidor no es válido.
+Línea 279: El nombre de la propiedad BorderWidth en Servidor no es válido.
+Línea 280: El nombre de la propiedad Font3D en Servidor no es válido.
+Línea 289: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 291: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 292: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 293: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 294: El nombre de la propiedad Font3D en Panel3D1 no es válido.
+Línea 310: El nombre de la propiedad Alignment en Operacion no es válido.
+Línea 312: El nombre de la propiedad BevelInner en Operacion no es válido.
+Línea 313: El nombre de la propiedad BevelOuter en Operacion no es válido.
+Línea 314: El nombre de la propiedad BorderWidth en Operacion no es válido.
+Línea 315: El nombre de la propiedad Font3D en Operacion no es válido.
+Línea 324: El nombre de la propiedad Alignment en Panel3D1 no es válido.
+Línea 326: El nombre de la propiedad BevelOuter en Panel3D1 no es válido.
+Línea 327: El nombre de la propiedad BorderWidth en Panel3D1 no es válido.
+Línea 328: El nombre de la propiedad Caption en Panel3D1 no es válido.
+Línea 329: El nombre de la propiedad Font3D en Panel3D1 no es válido.

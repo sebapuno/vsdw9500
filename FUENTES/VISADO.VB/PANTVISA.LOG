@@ -1,0 +1,101 @@
+Line 21: Class Threed.SSPanel of control Panel was not a loaded control class.
+Line 87: Class Threed.SSCommand of control Aceptar was not a loaded control class.
+Line 103: Class Threed.SSPanel of control Sombra was not a loaded control class.
+Line 132: Class Threed.SSPanel of control Panel3D3 was not a loaded control class.
+Line 157: Class Threed.SSCommand of control Imprimir was not a loaded control class.
+Line 173: Class Threed.SSCommand of control Cancelar was not a loaded control class.
+Line 189: Class Threed.SSPanel of control Panel3D1 was not a loaded control class.
+Line 214: Class Threed.SSCommand of control Pauta was not a loaded control class.
+Line 229: Class Threed.SSCommand of control Aprobar was not a loaded control class.
+Line 246: Class Threed.SSPanel of control Panel3D2 was not a loaded control class.
+Line 399: Class VBX.SpreadSheet of control GrillaVisado was not a loaded control class.
+Line 28: The property name _version in Panel is invalid.
+Line 29: The property name _extentx in Panel is invalid.
+Line 30: The property name _extenty in Panel is invalid.
+Line 31: The property name _stockprops in Panel is invalid.
+Line 33: The property name bevelouter in Panel is invalid.
+Line 94: The property name _version in Aceptar is invalid.
+Line 95: The property name _extentx in Aceptar is invalid.
+Line 96: The property name _extenty in Aceptar is invalid.
+Line 97: The property name _stockprops in Aceptar is invalid.
+Line 98: The property name caption in Aceptar is invalid.
+Line 100: The property name font3d in Aceptar is invalid.
+Line 111: The property name _version in Sombra is invalid.
+Line 112: The property name _extentx in Sombra is invalid.
+Line 113: The property name _extenty in Sombra is invalid.
+Line 114: The property name _stockprops in Sombra is invalid.
+Line 126: The property name borderwidth in Sombra is invalid.
+Line 127: The property name bevelouter in Sombra is invalid.
+Line 128: The property name shadowcolor in Sombra is invalid.
+Line 129: The property name font3d in Sombra is invalid.
+Line 130: The property name alignment in Sombra is invalid.
+Line 138: The property name _version in Panel3D3 is invalid.
+Line 139: The property name _extentx in Panel3D3 is invalid.
+Line 140: The property name _extenty in Panel3D3 is invalid.
+Line 141: The property name _stockprops in Panel3D3 is invalid.
+Line 152: The property name borderwidth in Panel3D3 is invalid.
+Line 153: The property name bevelinner in Panel3D3 is invalid.
+Line 154: The property name shadowcolor in Panel3D3 is invalid.
+Line 155: The property name font3d in Panel3D3 is invalid.
+Line 156: The property name alignment in Panel3D3 is invalid.
+Line 163: The property name _version in Imprimir is invalid.
+Line 164: The property name _extentx in Imprimir is invalid.
+Line 165: The property name _extenty in Imprimir is invalid.
+Line 166: The property name _stockprops in Imprimir is invalid.
+Line 167: The property name caption in Imprimir is invalid.
+Line 169: The property name font3d in Imprimir is invalid.
+Line 157: Property Picture in Imprimir could not be set.
+Line 179: The property name _version in Cancelar is invalid.
+Line 180: The property name _extentx in Cancelar is invalid.
+Line 181: The property name _extenty in Cancelar is invalid.
+Line 182: The property name _stockprops in Cancelar is invalid.
+Line 183: The property name caption in Cancelar is invalid.
+Line 185: The property name font3d in Cancelar is invalid.
+Line 173: Property Picture in Cancelar could not be set.
+Line 195: The property name _version in Panel3D1 is invalid.
+Line 196: The property name _extentx in Panel3D1 is invalid.
+Line 197: The property name _extenty in Panel3D1 is invalid.
+Line 198: The property name _stockprops in Panel3D1 is invalid.
+Line 209: The property name borderwidth in Panel3D1 is invalid.
+Line 210: The property name bevelinner in Panel3D1 is invalid.
+Line 211: The property name shadowcolor in Panel3D1 is invalid.
+Line 212: The property name font3d in Panel3D1 is invalid.
+Line 213: The property name alignment in Panel3D1 is invalid.
+Line 220: The property name _version in Pauta is invalid.
+Line 221: The property name _extentx in Pauta is invalid.
+Line 222: The property name _extenty in Pauta is invalid.
+Line 223: The property name _stockprops in Pauta is invalid.
+Line 224: The property name caption in Pauta is invalid.
+Line 226: The property name font3d in Pauta is invalid.
+Line 214: Property Picture in Pauta could not be set.
+Line 235: The property name _version in Aprobar is invalid.
+Line 236: The property name _extentx in Aprobar is invalid.
+Line 237: The property name _extenty in Aprobar is invalid.
+Line 238: The property name _stockprops in Aprobar is invalid.
+Line 239: The property name caption in Aprobar is invalid.
+Line 242: The property name font3d in Aprobar is invalid.
+Line 229: Property Picture in Aprobar could not be set.
+Line 252: The property name _version in Panel3D2 is invalid.
+Line 253: The property name _extentx in Panel3D2 is invalid.
+Line 254: The property name _extenty in Panel3D2 is invalid.
+Line 255: The property name _stockprops in Panel3D2 is invalid.
+Line 256: The property name caption in Panel3D2 is invalid.
+Line 267: The property name borderwidth in Panel3D2 is invalid.
+Line 268: The property name bevelouter in Panel3D2 is invalid.
+Line 269: The property name bevelinner in Panel3D2 is invalid.
+Line 270: The property name shadowcolor in Panel3D2 is invalid.
+Line 271: The property name font3d in Panel3D2 is invalid.
+Line 272: The property name alignment in Panel3D2 is invalid.
+Line 401: The property name DAutoSizeCols in GrillaVisado is invalid.
+Line 402: The property name DisplayColHeaders in GrillaVisado is invalid.
+Line 403: The property name DisplayRowHeaders in GrillaVisado is invalid.
+Line 410: The property name GrayAreaBackColor in GrillaVisado is invalid.
+Line 411: The property name GridShowVert in GrillaVisado is invalid.
+Line 413: The property name InterfaceDesigner in GrillaVisado is invalid.
+Line 415: The property name MaxCols in GrillaVisado is invalid.
+Line 416: The property name MaxRows in GrillaVisado is invalid.
+Line 417: The property name OperationMode in GrillaVisado is invalid.
+Line 418: The property name ScrollBars in GrillaVisado is invalid.
+Line 419: The property name SelectBlockOptions in GrillaVisado is invalid.
+Line 420: The property name ShadowColor in GrillaVisado is invalid.
+Line 423: The property name UserResize in GrillaVisado is invalid.
