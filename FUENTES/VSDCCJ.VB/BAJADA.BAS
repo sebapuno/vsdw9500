@@ -63,11 +63,11 @@ Dim NumError As String
     ErrorComunicacion.ServidorDatos.Caption = " (" + RetSRM + ")"
   End If
   ErrorComunicacion.Llave.Caption = " " + Llave
-  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la Validación del " + _
+  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la ValidaciÃ³n del " + _
                                                                   Mid$(PRODUCTOACCESADO, 7) + " " + _
                                                                   Mid$(PRODUCTOACCESADO, 1, 5) + ".  " + _
                                                                   "Por favor Reporte esto a Central de Fallas (3030) describiendo la " + _
-                                                                  "siguiente información."
+                                                                  "siguiente informaciÃ³n."
   ErrorComunicacion.nombreAplicacion.Caption = " " + Mid$(EJECUTABLE, 1, 5) + Producto + Mid$(EJECUTABLE, 9)
   ErrorComunicacion.Show 1
 End Sub

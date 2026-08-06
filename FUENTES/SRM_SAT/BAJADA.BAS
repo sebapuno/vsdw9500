@@ -83,9 +83,9 @@ Dim NumError As String
     ErrorComunicacion.ServidorDatos.Caption = " (00)"
   End If
   ErrorComunicacion.Llave.Caption = " " + Mid(Llave, 1, 50)
-  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la Transmisión " + _
+  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la TransmisiÃ³n " + _
                                                                   "de un Producto.  Por favor Reporte esto a Central de Fallas (3030) " + _
-                                                                  "describiendo la siguiente información."
+                                                                  "describiendo la siguiente informaciÃ³n."
   Select Case TipoTransaccion
     Case "C"
       ErrorComunicacion.Transaccion.Caption = " Consulta"

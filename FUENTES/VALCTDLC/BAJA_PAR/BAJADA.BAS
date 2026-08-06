@@ -35,7 +35,7 @@ Dim NumError As String
   ErrorComunicacion.Llave.Caption = " " + Mid(Llave, 1, 50)
   ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones." + Chr(10) + _
                                       "Por favor Reporte esto a Central de Fallas (3030) " + _
-                                      "describiendo la siguiente informaciÃ³n."
+                                      "describiendo la siguiente informaciÃƒÂ³n."
                                       
   ErrorComunicacion.Transaccion.Caption = " (" + Mid$(RetSRM, 1, 2) + ") " + Mensaje
                                       
