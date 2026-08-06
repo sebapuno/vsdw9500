@@ -15,10 +15,10 @@ Dim ap_correlativo As String
 Dim ap_producto As String
 
   Set Ap_VsdPrd = BaseVisado.OpenRecordset("Vsd_prd", dbOpenTable)
-  Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name
+  ' FI2026 - Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   
   Set Ap_TabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  Ap_TabOper.Index = Ap_TabOper.Indexes(0).Name
+  ' FI2026 - Ap_TabOper.Index = Ap_TabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   
   Set Ap_TabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   Ap_TabPrd.Index = "TAB_PRD"

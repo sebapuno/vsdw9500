@@ -1,5 +1,6 @@
 Attribute VB_Name = "Modulo1"
-Private Declare Function AisGetUsr Lib "C:\Bin\F\WAIS.DLL" (ByVal Usuario As String) As Integer
+Private ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
 
 Global BaseVisado As Database
 Global BaseEnvioSRM As Database
@@ -10,14 +11,12 @@ Global CadenaDatos As String
 Global GReintento As Boolean
 Global Terminar As Boolean
 Public Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = "12345678"
-  End If
+Private Function ObtieneRutUsuarioLogueado() As String
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
+End Function
 End Function
 
 
@@ -36,7 +35,7 @@ Dim PunteroVistas As Recordset
   
   DeterminaNodo = SINNODO
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVistas.Seek "=", Vista
   If Not PunteroVistas.NoMatch Then
     If PunteroVistas("Vta_NodoProd") = "U???" Then

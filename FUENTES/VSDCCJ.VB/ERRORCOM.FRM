@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ErrorComunicacion 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Problemas de Comunicaci髇"
+   Caption         =   "Problemas de Comunicaci贸n"
    ClientHeight    =   4395
    ClientLeft      =   2070
    ClientTop       =   2625
@@ -17,313 +17,144 @@ Begin VB.Form ErrorComunicacion
    ShowInTaskbar   =   0   'False
    Top             =   2280
    Width           =   7440
-   Begin VBX.SSPanel NombreAplicacion 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel NombreAplicacion 
       Height          =   300
       Left            =   1815
       TabIndex        =   19
       Top             =   3330
-      Width           =   5400
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   1  'Left Justify - MIDDLE
-      AutoSize        =   3  'AutoSize Child To Panel
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "Aplicaci髇"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   255
-      Index           =   8
       Left            =   90
       TabIndex        =   18
       Top             =   3330
-      Width           =   1635
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   1  'Left Justify - MIDDLE
-      AutoSize        =   2  'AutoSize Panel Height To Caption
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "LLave Acceso"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   255
-      Index           =   0
       Left            =   90
       TabIndex        =   15
       Top             =   1725
-      Width           =   1380
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   0  'Left Justify - TOP
-      BevelInner      =   1  'Inset
-      BorderWidth     =   1
-      Caption         =   " Atenci髇 :"
-      Font3D          =   1  'Raised w/light shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H000000C0&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   1140
-      Index           =   1
       Left            =   195
       TabIndex        =   13
       Top             =   90
-      Width           =   6915
-      Begin VB.Label Mensaje 
-         Alignment       =   2  'Center
-         BeginProperty Font 
-            name            =   "MS Sans Serif"
-            charset         =   1
-            weight          =   400
-            size            =   9.75
-            underline       =   0   'False
-            italic          =   0   'False
-            strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00800000&
-         Height          =   765
-         Left            =   200
-         TabIndex        =   14
-         Top             =   300
-         Width           =   6550
-         WordWrap        =   -1  'True
-      End
+      Width           =   1
    End
-   Begin VBX.SSPanel Llave 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   End
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Llave 
       Height          =   300
       Left            =   1815
       TabIndex        =   12
       Top             =   1725
-      Width           =   5400
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   0  'Left Justify - TOP
-      AutoSize        =   3  'AutoSize Child To Panel
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "Retorno SRM"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   255
-      Index           =   3
       Left            =   90
       TabIndex        =   11
       Top             =   2115
-      Width           =   1470
+      Width           =   1
    End
-   Begin VBX.SSPanel RetFuncion 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel RetFuncion 
       Height          =   300
       Left            =   1815
       TabIndex        =   10
       Top             =   2115
-      Width           =   5400
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   1  'Left Justify - MIDDLE
-      AutoSize        =   2  'AutoSize Panel Height To Caption
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "Status"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   255
-      Index           =   5
       Left            =   90
       TabIndex        =   9
       Top             =   2505
-      Width           =   915
+      Width           =   1
    End
-   Begin VBX.SSPanel Status 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Status 
       Height          =   300
       Left            =   1815
       TabIndex        =   8
       Top             =   2505
-      Width           =   5400
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   1  'Left Justify - MIDDLE
-      AutoSize        =   3  'AutoSize Child To Panel
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "Servidor de Datos"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   255
-      Index           =   7
       Left            =   90
       TabIndex        =   7
       Top             =   2925
-      Width           =   1635
+      Width           =   1
    End
-   Begin VBX.SSPanel ServidorDatos 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel ServidorDatos 
       Height          =   300
       Left            =   1815
       TabIndex        =   6
       Top             =   2925
-      Width           =   5400
+      Width           =   1
    End
-   Begin VBX.SSPanel Nodo 
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Nodo 
       Height          =   300
       Left            =   1500
       TabIndex        =   5
       Top             =   1305
-      Width           =   615
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   1  'Left Justify - MIDDLE
-      AutoSize        =   3  'AutoSize Child To Panel
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "Nodo Destino"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   255
-      Index           =   2
       Left            =   90
       TabIndex        =   4
       Top             =   1305
-      Width           =   1335
+      Width           =   1
    End
-   Begin VBX.SSPanel Servidor 
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Servidor 
       Height          =   300
       Left            =   3180
       TabIndex        =   3
       Top             =   1305
-      Width           =   615
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "Servidor"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   300
-      Index           =   4
       Left            =   2190
       TabIndex        =   2
       Top             =   1305
-      Width           =   915
+      Width           =   1
    End
-   Begin VBX.SSPanel Operacion 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelInner      =   1  'Inset
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Font3D          =   3  'Inset w/light shading
-      ForeColor       =   &H00000080&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Operacion 
       Height          =   300
       Left            =   4920
       TabIndex        =   1
       Top             =   1305
-      Width           =   2280
+      Width           =   1
    End
-   Begin VBX.SSPanel Panel3D1 
-      Alignment       =   1  'Left Justify - MIDDLE
-      BevelOuter      =   0  'None
-      BorderWidth     =   1
-      Caption         =   "Operaci髇"
-      Font3D          =   2  'Raised w/heavy shading
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   9.75
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
-      ForeColor       =   &H00000000&
+   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+   Begin Threed.SSPanel Panel3D1 
       Height          =   300
-      Index           =   6
       Left            =   3870
       TabIndex        =   0
       Top             =   1305
-      Width           =   1005
+      Width           =   1
    End
+
    Begin Threed.SSCommand Imprimir 
       Height          =   645
       Left            =   5445
@@ -340,6 +171,7 @@ Begin VB.Form ErrorComunicacion
       autosize        =   1
       picture         =   "ERRORCOM.frx":0000
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   645
       Left            =   6270
@@ -387,8 +219,8 @@ End Sub
 Private Sub Imprimir_Click()
   Screen.MousePointer = 11
 On Error GoTo ErrorDeImpresion
-  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi髇 : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora Emisi髇  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi贸n : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora Emisi贸n  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.Print Tab(55); "DETALLE ERROR DE COMUNICACION"
@@ -397,12 +229,12 @@ On Error GoTo ErrorDeImpresion
   Printer.FontBold = True
   Printer.Print Tab(5); "Rut Cliente : " + FormateaRut(Rut)
   Printer.Print Tab(5); "Producto : " + PRODUCTOACCESADO
-  Printer.Print Tab(5); "Aplicaci髇 : " + Mid$(EJECUTABLE, 1, 5) + Producto + Mid$(EJECUTABLE, 9)
+  Printer.Print Tab(5); "Aplicaci贸n : " + Mid$(EJECUTABLE, 1, 5) + Producto + Mid$(EJECUTABLE, 9)
   Printer.FontBold = False
   Printer.Print
   Printer.Print Tab(7); "Nodo Destino : " + Nodo.Caption
   Printer.Print Tab(7); "Servidor : " + Servidor.Caption
-  Printer.Print Tab(7); "Operaci髇 :" + Operacion.Caption
+  Printer.Print Tab(7); "Operaci贸n :" + Operacion.Caption
   Printer.Print Tab(7); "Llave de Acceso :" + Llave.Caption
   Printer.Print Tab(7); "Retorno SRM :" + RetFuncion.Caption
   Printer.Print Tab(7); "Status :" + Status.Caption
@@ -412,7 +244,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   I% = MsgBox("Error de Impresi髇", 5 + 48 + 0, "Impresi髇 Cancelada")
+   I% = MsgBox("Error de Impresi贸n", 5 + 48 + 0, "Impresi贸n Cancelada")
    If I% = 4 Then
     Resume 0
    Else

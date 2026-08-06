@@ -30,6 +30,7 @@ Begin VB.Form FRMVLD03
       Top             =   2988
       Width           =   1524
    End
+
    Begin VB.Frame Frame1 
       Caption         =   "Modalidad de Abono"
       BeginProperty Font 
@@ -64,10 +65,11 @@ Begin VB.Form FRMVLD03
          Top             =   1890
          Width           =   4185
       End
+
       Begin VB.Label Label2 
          BackColor       =   &H00FFFFFF&
          BorderStyle     =   1  'Fixed Single
-         Caption         =   " Abono Autom·tico en lÌnea"
+         Caption         =   " Abono Autom√°tico en l√≠nea"
          BeginProperty Font 
             name            =   "MS Sans Serif"
             charset         =   1
@@ -83,6 +85,7 @@ Begin VB.Form FRMVLD03
          Top             =   450
          Width           =   2625
       End
+
       Begin VB.Label Label1 
          Caption         =   "Modalidad Actual"
          BeginProperty Font 
@@ -100,6 +103,7 @@ Begin VB.Form FRMVLD03
          Top             =   480
          Width           =   1665
       End
+
       Begin VB.Label Label3 
          Caption         =   $"VLDCRS03.frx":0000
          BeginProperty Font 

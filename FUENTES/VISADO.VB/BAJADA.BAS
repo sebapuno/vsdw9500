@@ -1,5 +1,5 @@
 Attribute VB_Name = "Bajada"
-Private Declare Function SRMW8 Lib "C:\Bin\F\SRMW8.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Integer, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
+Private Declare Function Srmw32 Lib "C:\Bin\F\srmw32.dll" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Long, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
 Private Sub ErrorSRM(ByVal Nodo As String, ByVal Aplicacion As String, ByVal RetFuncion As Integer, ByVal RetStatus As String, ByVal RetSRM As String, ByVal Llave As String, ByVal TipoTransaccion As String, ByVal Modo As String)
 Dim Mensaje As String
 Dim NumError As String
@@ -32,7 +32,7 @@ Dim NumError As String
   ErrorComunicacion.Llave.Caption = " " + Mid(Llave, 1, 50)
   ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones." + Chr(10) + _
                                       "Por favor Reporte esto a Central de Fallas (3030) " + _
-                                      "describiendo la siguiente informaci�n."
+                                      "describiendo la siguiente información."
                                       
   ErrorComunicacion.Transaccion.Caption = " (" + Mid$(RetSRM, 1, 2) + ") " + Mensaje
                                       
@@ -57,7 +57,7 @@ Dim CControl As String * 10000
 Dim Ret_Dato As String
 Dim Nodo_Dst As String * 4
 Dim Buff_Data As String * 10000
-Dim Largo_Msg As Integer
+Dim Largo_Msg As Long  ' FI2026 Integer→Long (Srmw32 32-bit)
   Status = "00"
   funcion = "01"
   CControl = ""
@@ -65,7 +65,7 @@ Dim Largo_Msg As Integer
   Nodo_Dst = Nodo
   Buff_Data = Llave
   Largo_Msg = Len(Trim$(Buff_Data))
-  Ret = SRMW8(Nodo_Dst, Aplicacion, Buff_Data, Largo_Msg, Status, funcion, Contexto, CControl)
+  Ret = Srmw32(Nodo_Dst, Aplicacion, Buff_Data, Largo_Msg, Status, funcion, Contexto, CControl)
   Ret_Dato = Mid(Buff_Data, 1, 2)
   Retorno = String$(6, 0)
   Retorno = Format$(Str$(Ret), "00") + Format$(Status, "00") + Ret_Dato
@@ -78,7 +78,7 @@ Dim Largo_Msg As Integer
 End Function
 Public Function Llamada(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String, ByVal Kilos As String) As String
 Dim Retorno As Integer
-Dim Sd_Largo As Integer
+Dim Sd_Largo As Long  ' FI2026 Integer→Long (Srmw32 32-bit)
 Dim Sd_Datos As String * 8000
 Dim Sd_Status As String * 2
 Dim Sd_Control As String * 10000
@@ -99,7 +99,7 @@ Dim Sd_Contexto As String * 2
     Call registra_las_llamadas(Sd_Nodo, Sd_Aplicacion, Sd_Datos)
   End If
   
-  Retorno = SRMW8(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
+  Retorno = Srmw32(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
   Sd_Status = Format$(Val(Sd_Status), "00")
   Sd_RetSRM = Mid$(Sd_Datos, 1, 2)
   Llamada = Format$(Retorno, "00") + Sd_Status + Sd_Datos
@@ -107,7 +107,7 @@ End Function
 
 Public Function Llamada_ConReintentar(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String, ByVal Kilos As String) As String
 Dim Retorno As Integer
-Dim Sd_Largo As Integer
+Dim Sd_Largo As Long  ' FI2026 Integer→Long (Srmw32 32-bit)
 Dim Sd_Datos As String * 8000
 Dim Sd_Status As String * 2
 Dim Sd_Control As String * 10000
@@ -145,7 +145,7 @@ Dim Num_registro  As Integer
       Call registra_las_llamadas(Sd_Nodo, Sd_Aplicacion, Sd_Datos)
     End If
     
-    Retorno = SRMW8(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
+    Retorno = Srmw32(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
     Sd_Status = Format$(Val(Sd_Status), "00")
     Sd_RetSRM = Mid$(Sd_Datos, 1, 2)
     

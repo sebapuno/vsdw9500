@@ -29,7 +29,7 @@ Begin VB.Form DefineImpresora
       _extentx        =   5265
       _extenty        =   1693
       _stockprops     =   14
-      caption         =   "Selección Impresora a Usar ..."
+      caption         =   "SelecciÃ³n Impresora a Usar ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -55,6 +55,7 @@ Begin VB.Form DefineImpresora
          _stockprops     =   78
          caption         =   "&HP modelos DeskJet "
       End
+
       Begin Threed.SSOption OpcionImpresora 
          Height          =   240
          Index           =   0
@@ -69,6 +70,7 @@ Begin VB.Form DefineImpresora
          caption         =   "&Epson modelo FX-1170"
       End
    End
+
    Begin Threed.SSCommand Aceptar 
       Height          =   615
       Left            =   1215
@@ -84,6 +86,7 @@ Begin VB.Form DefineImpresora
       font3d          =   3
       picture         =   "IMPRESOR.frx":0000
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   615
       Left            =   2115
@@ -114,7 +117,7 @@ Dim ImpresoraTemporal As String
   End If
   If Not PoneValorINI("Visado", "Impresora", DefinicionImpresora, DIRECTORIO_01 + ARCHIVO_INI01) Then
     DefinicionImpresora = ImpresoraTemporal
-    MsgBox "Imposible Actualizar Archivo " + Chr(34) + "Visado.INI" + Chr(34), 0 + 16, "Error de Actualización"
+    MsgBox "Imposible Actualizar Archivo " + Chr(34) + "Visado.INI" + Chr(34), 0 + 16, "Error de ActualizaciÃ³n"
   End If
   Unload Me
 End Sub

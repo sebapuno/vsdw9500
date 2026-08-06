@@ -1,6 +1,6 @@
 Attribute VB_Name = "Bajada"
-Public Declare Function SRMW8 Lib "C:\Bin\F\SRMW8.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Integer, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
-Public Declare Function GetPrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer
+Public Declare Function Srmw32 Lib "C:\Bin\F\srmw32.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Long, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
+Public Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
 
 
 Private Sub ErrorSRM(ByVal Nodo As String, ByVal Aplicacion As String, ByVal RetFuncion As Integer, ByVal RetStatus As String, ByVal RetSRM As String, ByVal Llave As String, ByVal TipoTransaccion As String, ByVal Modo As String)
@@ -35,7 +35,7 @@ Dim NumError As String
   ErrorComunicacion.Llave.Caption = " " + Mid(Llave, 1, 50)
   ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones." + Chr(10) + _
                                       "Por favor Reporte esto a Central de Fallas (3030) " + _
-                                      "describiendo la siguiente informaci�n."
+                                      "describiendo la siguiente informaciÃ³n."
                                       
   ErrorComunicacion.Transaccion.Caption = " (" + Mid$(RetSRM, 1, 2) + ") " + Mensaje
                                       

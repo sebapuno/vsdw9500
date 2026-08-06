@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ConfiguraProducto 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Modificaci�n Productos a Visar"
+   Caption         =   "ModificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Productos a Visar"
    ClientHeight    =   5010
    ClientLeft      =   2445
    ClientTop       =   3225
@@ -28,7 +28,7 @@ Begin VB.Form ConfiguraProducto
       _extentx        =   9790
       _extenty        =   8758
       _stockprops     =   14
-      caption         =   "Selecci�n de Productos ..."
+      caption         =   "SelecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos ..."
       forecolor       =   32768
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -41,30 +41,19 @@ Begin VB.Form ConfiguraProducto
       EndProperty
       font3d          =   1
       shadowstyle     =   1
-      Begin VBX.SpreadSheet GrillaVigenciaProductos 
-         BorderStyle     =   0  'None
-         DAutoSizeCols   =   0  'Off
-         DisplayColHeaders=   0   'False
-         DisplayRowHeaders=   0   'False
-         FontBold        =   0   'False
-         FontItalic      =   0   'False
-         FontName        =   "MS Sans Serif"
-         FontSize        =   8.25
-         FontStrikethru  =   0   'False
-         FontUnderline   =   0   'False
+      ' FI2026 - VBX.SpreadSheet migrado a MSFlexGrid (MSFLXGRD.OCX)
+      Begin MSFlexGridLib.MSFlexGrid GrillaVigenciaProductos 
          Height          =   3345
-         InterfaceDesigner=   "VIGENCIA.frx":0000
          Left            =   150
-         MaxCols         =   2
-         MaxRows         =   0
-         ScrollBars      =   2  'Vertical
-         ShadowColor     =   &H00C8D0D4&
-         ShadowDark      =   &H00C0C0C0&
-         ShadowText      =   &H00C0C0C0&
          TabIndex        =   0
          Top             =   570
          Width           =   5295
+         Cols            =   2
+         Rows            =   2
+         ScrollBars      =   2  'flexScrollBarVertical
+         SelectionMode   =   1  'flexSelectionByRow
       End
+
       Begin Threed.SSCommand Todos 
          Height          =   615
          Left            =   225
@@ -80,6 +69,7 @@ Begin VB.Form ConfiguraProducto
          font3d          =   3
          picture         =   "VIGENCIA.frx":0004
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -101,6 +91,7 @@ Begin VB.Form ConfiguraProducto
          Top             =   315
          Width           =   1200
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -122,6 +113,7 @@ Begin VB.Form ConfiguraProducto
          Top             =   315
          Width           =   3870
       End
+
       Begin Threed.SSCommand Aceptar 
          Height          =   615
          Left            =   3555
@@ -137,6 +129,7 @@ Begin VB.Form ConfiguraProducto
          font3d          =   3
          picture         =   "VIGENCIA.frx":0796
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   615
          Left            =   4455
@@ -161,15 +154,15 @@ Dim PunteroTabPrd As Recordset
 Private Sub Aceptar_Click()
 Dim I As Integer
 Dim Valor As String
-Dim FiltroTabVisar As Snapshot
+Dim FiltroTabVisar As Recordset
 Dim AntiguaVigencia As Integer
 Dim CodigoProducto As String
 Dim CadenaProducto As String
-  I = MsgBox("�Seguro de Cambiar la Vigencia de los Productos?", 4 + 32 + 256, "Confirmar Modificaci�n")
+  I = MsgBox("ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿Seguro de Cambiar la Vigencia de los Productos?", 4 + 32 + 256, "Confirmar ModificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
   If I = 6 Then
     Screen.MousePointer = 11
     With GrillaVigenciaProductos
-      For I = 1 To .MaxRows
+      For I = 1 To .Rows
         .Row = I
         .Col = 4
         AntiguaVigencia = .Text
@@ -248,12 +241,12 @@ End Sub
 Private Sub Form_Load()
 Dim CodigoProducto As String
 Dim CadenaProducto As String
-Dim FiltroTabCfgProd As Snapshot
+Dim FiltroTabCfgProd As Recordset
   Screen.MousePointer = 11
   Principal.Enabled = False
   Call CentrarVentana(Me)
   With GrillaVigenciaProductos
-    .MaxCols = 4
+    .Cols = 4
     .ColWidth(1) = 10
     .ColWidth(2) = 32
     .ColWidth(3) = 0
@@ -263,7 +256,7 @@ Dim FiltroTabCfgProd As Snapshot
     .Col = 4
     .ColHidden = True
   End With
-  Set FiltroTabCfgProd = BaseVisado.CreateSnapshot("SELECT * FROM Tab_CfgProd ORDER BY Cfg_Glosa ASC;")
+  Set FiltroTabCfgProd = BaseVisado.OpenRecordset("SELECT * FROM Tab_CfgProd ORDER BY Cfg_Glosa ASC;")
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   PunteroTabPrd.Index = "Tab_Prd"
   While Not FiltroTabCfgProd.EOF
@@ -277,8 +270,8 @@ Dim FiltroTabCfgProd As Snapshot
         CadenaProducto = ""
         PunteroTabPrd.Seek "=", CodigoProducto
         With GrillaVigenciaProductos
-          .MaxRows = .MaxRows + 1
-          .Row = .MaxRows
+          .Rows = .Rows + 1
+          .Row = .Rows
           .UserResizeRow = 2
           .Col = 1
           .BackColor = COLOR_06
@@ -305,7 +298,7 @@ Dim FiltroTabCfgProd As Snapshot
     FiltroTabCfgProd.MoveNext
   Wend
   FiltroTabCfgProd.Close
-  Call BloquearEdicionGrilla(1, 2, GrillaVigenciaProductos.MaxRows, 2, GrillaVigenciaProductos)
+  Call BloquearEdicionGrilla(1, 2, GrillaProductos.Rows, 2, GrillaVigenciaProductos)
   GrillaVigenciaProductos.CursorType = 0
   GrillaVigenciaProductos.CursorStyle = 2
 End Sub
@@ -314,7 +307,7 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 Private Sub GrillaVigenciaProductos_DblClick(Col As Long, Row As Long)
   If GrillaVigenciaProductos.ActiveCol = 2 Then
-    GrillaVigenciaProductos.Row = GrillaVigenciaProductos.ActiveRow
+    GrillaVigenciaProductos.Row = GrillaVigenciaProductos.Row
     GrillaVigenciaProductos.Col = 1
     GrillaVigenciaProductos.Text = Abs(GrillaVigenciaProductos.Text - 1)
   End If
@@ -326,14 +319,14 @@ Private Sub GrillaVigenciaProductos_KeyPress(KeyAscii As Integer)
     Case 27
       Unload Me
     Case 32
-      Call GrillaVigenciaProductos_DblClick(GrillaVigenciaProductos.ActiveCol, GrillaVigenciaProductos.ActiveRow)
+      Call GrillaVigenciaProductos_DblClick(GrillaVigenciaProductos.ActiveCol, GrillaVigenciaProductos.Row)
   End Select
 End Sub
 
 Private Function ProductoRelacionadoCompartidoVigente(ByVal ProductoPrincipal As String, ByVal ProductoRelacionado As String) As Boolean
-Dim FiltroTabVisar As Snapshot
-  Set FiltroTabVisar = BaseVisado.CreateSnapshot("SELECT Vis_CodProd FROM " + _
-                                                                                   "Tab_Visar WHERE Vis_CodRel='" + ProductoRelacionado + "';")
+Dim FiltroTabVisar As Recordset
+  Set FiltroTabVisar = BaseVisado.OpenRecordset("SELECT Vis_CodProd FROM " + _
+                                                                                   "Tab_Visar WHERE Vis_CodRel='" + ProductoRelacionado + "';", dbOpenSnapshot)
   ProductoRelacionadoCompartidoVigente = False
   Do While Not FiltroTabVisar.EOF
     If FiltroTabVisar("Vis_CodProd") <> ProductoPrincipal Then
@@ -359,11 +352,11 @@ Dim PosicionComa As Integer
     Cadena = Mid$(Cadena, PosicionComa + 1)
   End If
 End Function
-Private Sub Todos_Click()
+Private Sub Todos_Click(, dbOpenSnapshot)
 Dim I As Integer
   With GrillaVigenciaProductos
     .Col = 1
-    For I = 1 To .MaxRows
+    For I = 1 To .Rows
       .Row = I
       .Text = 1
     Next I

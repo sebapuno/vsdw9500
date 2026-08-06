@@ -60,6 +60,7 @@ Begin VB.Form Visando
          picture         =   "VISANDO.frx":0000
       End
    End
+
    Begin Threed.SSPanel Panel3D3 
       Height          =   795
       Left            =   3390
@@ -101,6 +102,7 @@ Begin VB.Form Visando
          font3d          =   3
          picture         =   "VISANDO.frx":0AE2
       End
+
       Begin Threed.SSCommand DesMarca 
          Height          =   675
          Left            =   1965
@@ -117,6 +119,7 @@ Begin VB.Form Visando
          font3d          =   3
          picture         =   "VISANDO.frx":1274
       End
+
       Begin Threed.SSCommand Visar 
          Height          =   675
          Left            =   90
@@ -132,6 +135,7 @@ Begin VB.Form Visando
          font3d          =   3
          picture         =   "VISANDO.frx":1C06
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   675
          Left            =   2895
@@ -148,6 +152,7 @@ Begin VB.Form Visando
          picture         =   "VISANDO.frx":25EC
       End
    End
+
    Begin Threed.SSPanel Panel3D2 
       Height          =   3270
       Left            =   90
@@ -174,32 +179,19 @@ Begin VB.Form Visando
       bevelinner      =   1
       shadowcolor     =   1
       font3d          =   3
-      Begin VBX.SpreadSheet GrillaProductos 
-         BorderStyle     =   0  'None
-         ColHeaderDisplay=   0  'Blank
-         DAutoSizeCols   =   0  'Off
-         DisplayColHeaders=   0   'False
-         FontBold        =   0   'False
-         FontItalic      =   0   'False
-         FontName        =   "MS Sans Serif"
-         FontSize        =   8.25
-         FontStrikethru  =   0   'False
-         FontUnderline   =   0   'False
+      ' FI2026 - VBX.SpreadSheet migrado a MSFlexGrid (MSFLXGRD.OCX)
+      Begin MSFlexGridLib.MSFlexGrid GrillaProductos 
          Height          =   2865
-         InterfaceDesigner=   "VISANDO.frx":2ABE
          Left            =   120
-         MaxCols         =   3
-         MaxRows         =   12
-         OperationMode   =   2  'RowMode
-         ScrollBars      =   2  'Vertical
-         SelectBlockOptions=   0
-         ShadowColor     =   &H00808080&
-         ShadowText      =   &H0000FFFF&
          TabIndex        =   0
          Top             =   360
-         UserResize      =   0
          Width           =   7010
+         Cols            =   2
+         Rows            =   2
+         ScrollBars      =   2  'flexScrollBarVertical
+         SelectionMode   =   1  'flexSelectionByRow
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -212,6 +204,7 @@ Begin VB.Form Visando
          Top             =   90
          Width           =   4320
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -224,6 +217,7 @@ Begin VB.Form Visando
          Top             =   90
          Width           =   960
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -237,6 +231,7 @@ Begin VB.Form Visando
          Width           =   960
       End
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   735
       Left            =   90
@@ -282,6 +277,7 @@ Begin VB.Form Visando
          Top             =   105
          Width           =   330
       End
+
       Begin VB.Label NombreCliente 
          Alignment       =   2  'Center
          BackColor       =   &H00FFFFFF&
@@ -292,6 +288,7 @@ Begin VB.Form Visando
          Top             =   345
          Width           =   2955
       End
+
       Begin VB.Label RutCliente 
          Alignment       =   2  'Center
          BackColor       =   &H00FFFFFF&
@@ -302,6 +299,7 @@ Begin VB.Form Visando
          Top             =   345
          Width           =   2280
       End
+
       Begin VB.Label Etiqueta 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -323,6 +321,7 @@ Begin VB.Form Visando
          Top             =   345
          Width           =   585
       End
+
       Begin VB.Label Etiqueta 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -345,6 +344,7 @@ Begin VB.Form Visando
          Width           =   270
       End
    End
+
    Begin Threed.SSPanel PortaColor 
       Height          =   600
       Left            =   270
@@ -379,6 +379,7 @@ Begin VB.Form Visando
          Top             =   330
          Width           =   1150
       End
+
       Begin VB.Label Label5 
          BackStyle       =   0  'Transparent
          Caption         =   "Aprobado"
@@ -397,6 +398,7 @@ Begin VB.Form Visando
          Top             =   60
          Width           =   1080
       End
+
       Begin VB.Image Image1 
          Height          =   240
          Index           =   1
@@ -405,6 +407,7 @@ Begin VB.Form Visando
          Top             =   315
          Width           =   285
       End
+
       Begin VB.Image Image1 
          Height          =   240
          Index           =   0
@@ -414,6 +417,7 @@ Begin VB.Form Visando
          Width           =   290
       End
    End
+
    Begin VB.Image Aprobado 
       Height          =   240
       Left            =   1890
@@ -422,6 +426,7 @@ Begin VB.Form Visando
       Visible         =   0   'False
       Width           =   285
    End
+
    Begin VB.Image Rechazado 
       Height          =   240
       Left            =   2205
@@ -430,6 +435,7 @@ Begin VB.Form Visando
       Visible         =   0   'False
       Width           =   255
    End
+
    Begin VB.Label SombraColor 
       BackColor       =   &H00000000&
       Height          =   600
@@ -439,6 +445,7 @@ Begin VB.Form Visando
       Visible         =   0   'False
       Width           =   1545
    End
+
    Begin VB.Label Label1 
       BackColor       =   &H00000000&
       Height          =   3270
@@ -448,6 +455,7 @@ Begin VB.Form Visando
       Top             =   1020
       Width           =   7200
    End
+
    Begin VB.Label Label1 
       BackColor       =   &H00000000&
       Height          =   735
@@ -503,12 +511,12 @@ End Function
 Private Sub LlenarGrillaProductos()
 Dim Rut As String
 Dim NumeroFila As Integer
-Dim FiltroVsdPrd As Snapshot
+Dim FiltroVsdPrd As Recordset
 Dim DatoRelevante As String
 Dim PunteroTabPrd As Recordset
   Rut = DesformateaRut(RutCliente.Caption)
-  Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Prd WHERE Prd_RutCli='" + Rut + _
-                                                                                 "' ORDER BY Prd_CodProd, Prd_Correl ASC;")
+  Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT * FROM Vsd_Prd WHERE Prd_RutCli='" + Rut + _
+                                                                                 "' ORDER BY Prd_CodProd, Prd_Correl ASC;", dbOpenSnapshot)
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   NumeroFila = 1
   PunteroTabPrd.Index = "Tab_Prd"
@@ -518,10 +526,11 @@ Dim PunteroTabPrd As Recordset
       If NumeroFila = 1 Then
         Call HabilitarGrillaProductos(True)
       End If
-      GrillaProductos.MaxRows = NumeroFila
+      GrillaProductos.Rows = NumeroFila
       GrillaProductos.Row = NumeroFila
       GrillaProductos.Col = 1
-      GrillaProductos.TypeHAlign = 2
+      ' FI2026 - GrillaProductos.TypeHAlign = 2 migrado a GrillaProductos.CellAlignment
+      GrillaProductos.CellAlignment = 4  ' flexAlignCenterCenter
       If PunteroTabPrd("Prd_Pos_Eje") <> "0,0" Then
          GrillaProductos.Text = Mid$(FiltroVsdPrd("Prd_Data"), _
                                            Interpreta(PunteroTabPrd("Prd_Pos_Eje"), SIMBOLOPOSICION), _
@@ -530,7 +539,8 @@ Dim PunteroTabPrd As Recordset
          GrillaProductos.Text = "000"
       End If
       GrillaProductos.Col = 2
-      GrillaProductos.TypeHAlign = 2
+      ' FI2026 - GrillaProductos.TypeHAlign = 2 migrado a GrillaProductos.CellAlignment
+      GrillaProductos.CellAlignment = 4  ' flexAlignCenterCenter
       GrillaProductos.Text = ObtenerDescripcionGlosa(FiltroVsdPrd("Prd_CodProd"), _
                                            Mid$(FiltroVsdPrd("Prd_Data"), _
                                            Interpreta(PunteroTabPrd("Prd_Pos_Fec"), SIMBOLOPOSICION), _
@@ -577,10 +587,10 @@ End Sub
 Private Sub DesMarca_Click()
 Dim i As Integer
   With GrillaProductos
-    .Row = .ActiveRow
+    .Row = .Row
     .Col = 1
     If .BackColor <> COLOR_04 Then
-      i = MsgBox("� Seguro de Desmarcar ?", 4 + 32 + 256, "Verificar Desmarcado")
+      i = MsgBox("ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ Seguro de Desmarcar ?", 4 + 32 + 256, "Verificar Desmarcado")
       If i = 6 Then
         .OperationMode = 3
         For i = 1 To 3
@@ -589,7 +599,8 @@ Dim i As Integer
         Next i
         .Col = 0
         .CellType = 5
-        .TypeHAlign = 2
+        ' FI2026 - .TypeHAlign = 2 migrado a .CellAlignment
+        .CellAlignment = 4  ' flexAlignCenterCenter
         .TypeTextShadow = True
         .ForeColor = COLOR_08
         .OperationMode = 2
@@ -616,8 +627,8 @@ Dim Datos As String
 Dim Producto As String
 Dim TotalFilas As Integer
 Dim Correlativo As Integer
-Dim FiltroTabVisar As Snapshot
-Dim FiltroProdVisar As Snapshot
+Dim FiltroTabVisar As Recordset
+Dim FiltroProdVisar As Recordset
 Dim PunteroVsdPrd As Recordset
 Dim IncrementoAvance As Integer
 Dim PatronProductoPrincipal As String
@@ -627,12 +638,12 @@ Dim PorLoMenosUnoNoTransmitido As Boolean
 Dim SubOpcion As Integer
 
   EnviarVisado.Enabled = False
-  i% = MsgBox("� Desea Transmitir Ahora ?", 4 + 32 + 256, "Verificar Transmisi�n")
+  i% = MsgBox("ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ Desea Transmitir Ahora ?", 4 + 32 + 256, "Verificar TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
   If i% = 6 Then
     Screen.MousePointer = 11
     TotalFilas = 0
     GrillaProductos.Col = 1
-    For i% = 1 To GrillaProductos.MaxRows
+    For i% = 1 To GrillaProductos.Rows
       GrillaProductos.Row = i%
       If GrillaProductos.BackColor <> COLOR_04 Then
         TotalFilas = TotalFilas + 1
@@ -650,9 +661,9 @@ Dim SubOpcion As Integer
     BaseVisado.Close
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     Rut = DesformateaRut(RutCliente.Caption)
-    TotalFilas = GrillaProductos.MaxRows
+    TotalFilas = GrillaProductos.Rows
     AlMenosUnoTransmitido = False
     PorLoMenosUnoNoTransmitido = False
     i% = 1
@@ -672,16 +683,16 @@ Dim SubOpcion As Integer
            Call LlenarArregloTMP(Rut, Producto, Correlativo, Datos, Color)
         End If
         GrillaProductos.Col = 1
-        Set FiltroTabVisar = BaseVisado.CreateSnapshot("SELECT * FROM Tab_Visar WHERE Vis_CodProd='" + _
-                                                                                          Producto + "' ORDER BY Vis_Correl;")
+        Set FiltroTabVisar = BaseVisado.OpenRecordset("SELECT * FROM Tab_Visar WHERE Vis_CodProd='" + _
+                                                                                          Producto + "' ORDER BY Vis_Correl;", dbOpenSnapshot)
         Do While Not FiltroTabVisar.EOF
           If Trim$(FiltroTabVisar("Vis_PosProd")) <> "0,0" Then
             PatronProductoPrincipal = Mid$(Datos, _
                                                                 Interpreta(Trim(FiltroTabVisar("Vis_PosProd")), SIMBOLOPOSICION), _
                                                                 Interpreta(Trim(FiltroTabVisar("Vis_PosProd")), SIMBOLOLARGO))
-            Set FiltroProdVisar = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Prd WHERE Prd_RutCli='" + _
+            Set FiltroProdVisar = BaseVisado.OpenRecordset("SELECT * FROM Vsd_Prd WHERE Prd_RutCli='" + _
                                                                                                Rut + "' AND Prd_CodProd='" + _
-                                                                                               FiltroTabVisar("Vis_CodRel") + "';")
+                                                                                               FiltroTabVisar("Vis_CodRel") + "';", dbOpenSnapshot)
             Do While Not FiltroProdVisar.EOF
               If FiltroTabVisar("Vis_PosRel") <> "0,0" Then
                 PatronProductoRelacionado = Mid$(FiltroProdVisar("Prd_Data"), _
@@ -729,12 +740,12 @@ Dim SubOpcion As Integer
           Else
             PorLoMenosUnoNoTransmitido = True
             Call RealizarLlamado(Rut, Producto, Correlativo, Color)
-            MsgBox "Hubo Errores en la Transmisi�n del Producto " + Producto, 0 + 48, "Estado de la Transmisi�n"
+            MsgBox "Hubo Errores en la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n del Producto " + Producto, 0 + 48, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
           End If
         Else
           PorLoMenosUnoNoTransmitido = True
           MsgBox "Por una Incongruencia en Producto " + Producto + "," + Chr(10) + _
-                        "No se ha Realizado Dicho Visado.", 0 + 48, "Estado de la Transmisi�n"
+                        "No se ha Realizado Dicho Visado.", 0 + 48, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
         End If
         Principal.Avance.Width = Principal.Avance.Width + IncrementoAvance
       End If
@@ -747,16 +758,16 @@ Dim SubOpcion As Integer
       .Encabezado(2).Visible = True
       .PanelStatus.Visible = False
     End With
-    GrillaProductos.MaxRows = TotalFilas
+    GrillaProductos.Rows = TotalFilas
     
     If Not QuedanFilasMarcadas Then
       If TotalFilas = 0 Then
         Visar.Enabled = False
         Rechazar.Enabled = False ' **
         If Ventana = "RUT" Then
-          '*Principal.Grilla.RowHidden = False
+          '*Principal.Grilla.RowHeight(Grilla.Row) = 0 = False
         Else
-          Principal.Grilla.RowHidden = True
+          Principal.Grilla.RowHeight(Grilla.Row) = 0 = True
         End If
       End If
       Me.Refresh
@@ -767,12 +778,12 @@ Dim SubOpcion As Integer
     End If
     If AlMenosUnoTransmitido Then
       If PorLoMenosUnoNoTransmitido Then
-        MsgBox "Transmisi�n de Productos Completamente Exitosa" + Chr(10) + "S�lo en un Cierto Porcentaje", 0 + 64, "Estado de la Transmisi�n"
+        MsgBox "TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos Completamente Exitosa" + Chr(10) + "SÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³lo en un Cierto Porcentaje", 0 + 64, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
       Else
-        MsgBox "Transmisi�n de Productos" + Chr(10) + "Completamente Exitosa", 0 + 64, "Estado de la Transmisi�n"
+        MsgBox "TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos" + Chr(10) + "Completamente Exitosa", 0 + 64, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
       End If
     Else
-      MsgBox "Transmisi�n de Productos" + Chr(10) + "Fallida", 0 + 64, "Estado de la Transmisi�n"
+      MsgBox "TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos" + Chr(10) + "Fallida", 0 + 64, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
     End If
     Screen.MousePointer = 0
   Else
@@ -824,7 +835,7 @@ Dim RutCl As String
   End If
   
   With GrillaProductos
-    .MaxCols = 6
+    .Cols = 6
     .ColWidth(1) = 8
     .ColWidth(2) = 8
     .ColWidth(3) = 36
@@ -842,7 +853,7 @@ Dim RutCl As String
     .CursorStyle = 2
   End With
   Call LlenarGrillaProductos
-  Call BloquearEdicionGrilla(1, 1, GrillaProductos.MaxRows, 3, GrillaProductos)
+  Call BloquearEdicionGrilla(1, 1, GrillaProductos.Rows, 3, GrillaProductos)
   Call OrdenarGrilla(1, 2, GrillaProductos, 1)
   
 End Sub
@@ -853,14 +864,14 @@ Private Sub HabilitarBotonTransmision()
     .EnviarVisado.Enabled = True
     .PortaColor.Visible = True
     .SombraColor.Visible = True
-    .GrillaProductos.Row = .GrillaProductos.ActiveRow
+    .GrillaProductos.Row = .GrillaProductos.Row
   End With
 End Sub
 
 
 Private Sub ColocarTickGrillaProductos(ByVal Tick As Image, ByVal ColorFondo As Long)
 
-Visando.GrillaProductos.Row = Visando.GrillaProductos.ActiveRow
+Visando.GrillaProductos.Row = Visando.GrillaProductos.Row
 
   With Visando.GrillaProductos
     .Col = 0
@@ -885,7 +896,7 @@ Dim Correlativo As String
 Dim NumeroRut As String
   Screen.MousePointer = 11
   PermitirRechazoProducto = True
-  Visando.GrillaProductos.Row = Visando.GrillaProductos.ActiveRow
+  Visando.GrillaProductos.Row = Visando.GrillaProductos.Row
   Visando.GrillaProductos.Col = 4
   Producto = Visando.GrillaProductos.Text
   Archivo = UCase$(DIRECTORIO_02 + Mid(ARCHIVO_EXE06, 1, Len(ARCHIVO_EXE06) - 9) + _
@@ -974,7 +985,7 @@ Dim Tipo_Producto As String
 '*******************************************************************
 Recorte = False
 If EsSiebel Then
-   GrillaProductos.Row = GrillaProductos.ActiveRow
+   GrillaProductos.Row = GrillaProductos.Row
    GrillaProductos.Col = 4
    Producto = GrillaProductos.Text
    
@@ -996,7 +1007,7 @@ If EsSiebel Then
 If Not Recorte Then
 
   Visar.Enabled = False
-  GrillaProductos.Row = GrillaProductos.ActiveRow
+  GrillaProductos.Row = GrillaProductos.Row
   GrillaProductos.Col = 1
   If GrillaProductos.BackColor = COLOR_04 Then
     Rut = DesformateaRut(RutCliente.Caption)
@@ -1005,7 +1016,7 @@ If Not Recorte Then
     GrillaProductos.Col = 5
     Correlativo = GrillaProductos.Text
     
-    If AprobarProductoUnicaLlave(GrillaProductos.ActiveRow) Then
+    If AprobarProductoUnicaLlave(GrillaProductos.Row) Then
       RespVal = ValidarProducto("1", Rut, Producto, Correlativo)
     End If
     
@@ -1033,7 +1044,7 @@ If Not Recorte Then
                      .EnviarVisado.Enabled = True
                      .PortaColor.Visible = True
                      .SombraColor.Visible = True
-                     .GrillaProductos.Row = .GrillaProductos.ActiveRow
+                     .GrillaProductos.Row = .GrillaProductos.Row
                      .Panel3D3.Enabled = True
                      .Panel3D4.Enabled = True
                      .Enabled = True
@@ -1062,7 +1073,7 @@ If Not Recorte Then
                      .EnviarVisado.Enabled = True
                      .PortaColor.Visible = True
                      .SombraColor.Visible = True
-                     .GrillaProductos.Row = .GrillaProductos.ActiveRow
+                     .GrillaProductos.Row = .GrillaProductos.Row
                      .Panel3D3.Enabled = True
                      .Panel3D4.Enabled = True
                      .Enabled = True
@@ -1077,7 +1088,7 @@ If Not Recorte Then
                
     End Select
   Else
-    MsgBox "Producto esta Listo para Transmitir" + Chr(13) + "Si Desea Utilice la Opci�n Desmarcar", 0 + 16, "Re-Intento de Visado"
+    MsgBox "Producto esta Listo para Transmitir" + Chr(13) + "Si Desea Utilice la OpciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Desmarcar", 0 + 16, "Re-Intento de Visado"
     GrillaProductos.SetFocus
   End If
   Visar.Enabled = True
@@ -1121,8 +1132,8 @@ Dim ResultadoBorrado As Boolean
   Set PunteroTabVsd = BaseVisado.OpenRecordset("Tab_Vsd", dbOpenTable)
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
   PunteroTabPrd.Index = "Tab_Prd"
-  PunteroTabVsd.Index = PunteroTabVsd.Indexes(0).Name
-  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' FI2026 - PunteroTabVsd.Index = PunteroTabVsd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PrepararTransmision = False
   PunteroTabPrd.Seek "=", Producto
   Call GrabarTxSAT(PunteroTabPrd("Prd_Transac"), Color, PunteroTabPrd("Prd_Sincro"), Producto)
@@ -1188,9 +1199,9 @@ Dim ResultadoBorrado As Boolean
         PrepararTransmision = ResultadoBorrado
       End If
     Else
-      MsgBox "Producto " + Chr(34) + ArregloTemporal(i).Producto + Chr(34) + " No Tiene Operaci�n" + Chr(10) + _
-                    "SRM en Tabla " + Chr(34) + "Tab_Oper" + Chr(34) + "," + Chr(10) + "Producto No Ser� Visado", _
-                    0 + 48, "Falta Operaci�n"
+      MsgBox "Producto " + Chr(34) + ArregloTemporal(i).Producto + Chr(34) + " No Tiene OperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n" + Chr(10) + _
+                    "SRM en Tabla " + Chr(34) + "Tab_Oper" + Chr(34) + "," + Chr(10) + "Producto No SerÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ Visado", _
+                    0 + 48, "Falta OperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
     End If
   Next i
   PunteroTabPrd.Close
@@ -1279,9 +1290,9 @@ Dim PunteroVsdPrd As Recordset
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     PunteroVsdPrd.Seek "=", RutCliente, CodigoProducto, Correlativo
-    Visando.GrillaProductos.Row = Visando.GrillaProductos.ActiveRow
+    Visando.GrillaProductos.Row = Visando.GrillaProductos.Row
     Visando.GrillaProductos.Col = 6
     Visando.GrillaProductos.Text = PunteroVsdPrd("Prd_Data")
     PunteroVsdPrd.Close
@@ -1306,7 +1317,7 @@ Dim Monto As String
 Dim Cuenta As String
 Dim PunteroTabTX As Recordset
   Set PunteroTabTX = BaseVisado.OpenRecordset("Tab_Tx", dbOpenTable)
-  PunteroTabTX.Index = PunteroTabTX.Indexes(0).Name
+  ' FI2026 - PunteroTabTX.Index = PunteroTabTX.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabTX.Seek "=", Producto
   If Not PunteroTabTX.NoMatch Then
     If PunteroTabTX("Tx_Prod") = Producto Then
@@ -1330,7 +1341,7 @@ Dim PunteroTabTX As Recordset
         Datos = Input$(462, #1)
         Close #1
         If Mid$(Datos, 292, 4) = "9999" Then
-           MsgBox "Transacci�n Monetaria Pendiente", 0 + 48, "Atenci�n"
+           MsgBox "TransacciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Monetaria Pendiente", 0 + 48, "AtenciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
         End If
         Call LoguearTransaccion("00000000", Datos)
       End If
@@ -1339,7 +1350,7 @@ Dim PunteroTabTX As Recordset
   PunteroTabTX.Close
 End Sub
 Private Sub CrearRespaldoHistorico(ByVal Rut As String, ByVal Producto As String, ByVal Correlativo As Integer, ByVal Datos As String)
-Dim PunteroDBF As Snapshot
+Dim PunteroDBF As Recordset
 Dim BaseDbfCRE As Database
 Dim PunteroVsdNot As Recordset
 Dim PunteroVsdHst As Recordset
@@ -1354,7 +1365,7 @@ Dim PunteroVsdHst As Recordset
   PunteroVsdHst.Close
   If Producto = "CRE" Then
     Set PunteroVsdNot = BaseVisado.OpenRecordset("Vsd_PagNot", dbOpenTable)
-    PunteroVsdNot.Index = PunteroVsdNot.Indexes(0).Name
+    ' FI2026 - PunteroVsdNot.Index = PunteroVsdNot.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     PunteroVsdNot.Seek "=", Rut, Mid$(Datos, 20, 6), Mid$(Datos, 27, 3)
     If Not PunteroVsdNot.NoMatch Then
       Set BaseDbfCRE = OpenDatabase(DIRECTORIO_01, True, False, "dbase III;")
@@ -1399,7 +1410,7 @@ Dim i As Integer
   QuedanFilasMarcadas = False
   With GrillaProductos
     .Col = 1
-    For i = 1 To .MaxRows
+    For i = 1 To .Rows
       .Row = i
       If .BackColor <> COLOR_04 Then
         QuedanFilasMarcadas = True
@@ -1460,7 +1471,7 @@ Dim PunteroVistas As Recordset
        p_VsdPrd.Close
        '***
        
-       '** Encuentra Operaci�n Borrado Origen
+       '** Encuentra OperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Borrado Origen
        Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
        Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
        PunteroVistas.Index = "Vistas"
@@ -1636,7 +1647,7 @@ Dim FechaFila2 As String
 
 AprobarProductoUnicaLlave = True
 
-If GrillaProductos.MaxRows > 1 Then
+If GrillaProductos.Rows > 1 Then
   
   NRow1% = Fila
   
@@ -1649,7 +1660,7 @@ If GrillaProductos.MaxRows > 1 Then
   GrillaProductos.Col = 6
   LlaveFila1 = Trim$(Mid$(GrillaProductos.Text, 10, 30))
    
-  For NRow2% = 1 To GrillaProductos.MaxRows
+  For NRow2% = 1 To GrillaProductos.Rows
   
     If NRow2% <> NRow1% Then
     
@@ -1667,7 +1678,7 @@ If GrillaProductos.MaxRows > 1 Then
       
         If IsDate(FechaFila1) And IsDate(FechaFila2) Then
           If CDate(FechaFila1) < CDate(FechaFila2) Then
-            resprd = MsgBox("Existe un producto m�s reciente y con iguales caracter�sticas." + Chr(10) + "�Desea continuar de todas formas?", 48 + 4, "Atenci�n")
+            resprd = MsgBox("Existe un producto mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡s reciente y con iguales caracterÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­sticas." + Chr(10) + "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿Desea continuar de todas formas?", 48 + 4, "AtenciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
             If resprd <> vbYes Then
                AprobarProductoUnicaLlave = False
             End If
@@ -1675,7 +1686,7 @@ If GrillaProductos.MaxRows > 1 Then
           End If
           
         Else
-           resprd = MsgBox("Existe otro producto del cliente con iguales caracter�sticas, pero la fecha no es identificable." + Chr(10) + "�Desea continuar de todas formas?", 48 + 4, "Atenci�n")
+           resprd = MsgBox("Existe otro producto del cliente con iguales caracterÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­sticas, pero la fecha no es identificable." + Chr(10) + "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿Desea continuar de todas formas?", 48 + 4, "AtenciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
            If resprd <> vbYes Then
               AprobarProductoUnicaLlave = False
            End If

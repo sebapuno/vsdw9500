@@ -2,7 +2,7 @@ VERSION 4.00
 Begin VB.Form Frm_BajCTD 
    BackColor       =   &H00C0C0C0&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Actualización de Parámetros CTD LCD "
+   Caption         =   "ActualizaciÃ³n de ParÃ¡metros CTD LCD "
    ClientHeight    =   1005
    ClientLeft      =   3780
    ClientTop       =   3450
@@ -54,6 +54,7 @@ Begin VB.Form Frm_BajCTD
          Width           =   2895
       End
    End
+
    Begin VB.Label Label1 
       Alignment       =   2  'Center
       BackColor       =   &H00C0C0C0&
@@ -125,8 +126,8 @@ Exit Sub
 
 ErrorBajada:
 
-MsgBox "Se produjo un error durante la actualización de datos." + Chr(10) + Chr(10) + _
-       Str(Err.Number) + Space(2) + Err.Description, 16, "Problema en Tabla de Validación"
+MsgBox "Se produjo un error durante la actualizaciÃ³n de datos." + Chr(10) + Chr(10) + _
+       Str(Err.Number) + Space(2) + Err.Description, 16, "Problema en Tabla de ValidaciÃ³n"
 
 BaseEnvioSRM.Close
 BaseVldCta.Close

@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form Frm_Detalle 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Visado - MAC Hist�rico Empresas B"
+   Caption         =   "Visado - MAC HistÃƒÂ³rico Empresas B"
    ClientHeight    =   6300
    ClientLeft      =   1155
    ClientTop       =   1500
@@ -29,7 +29,7 @@ Begin VB.Form Frm_Detalle
       _extentx        =   19341
       _extenty        =   8520
       _stockprops     =   14
-      caption         =   "Detalle de los Cr�ditos"
+      caption         =   "Detalle de los CrÃƒÂ©ditos"
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -42,28 +42,19 @@ Begin VB.Form Frm_Detalle
       EndProperty
       font3d          =   1
       shadowstyle     =   1
-      Begin VBX.SpreadSheet Grid 
-         DisplayRowHeaders=   0   'False
-         Enabled         =   0   'False
-         FontBold        =   0   'False
-         FontItalic      =   0   'False
-         FontName        =   "MS Sans Serif"
-         FontSize        =   8.25
-         FontStrikethru  =   0   'False
-         FontUnderline   =   0   'False
+      ' FI2026 - VBX.SpreadSheet migrado a MSFlexGrid (MSFLXGRD.OCX)
+      Begin MSFlexGridLib.MSFlexGrid Grid 
          Height          =   2505
-         InterfaceDesigner=   "PTAMHB00.frx":0000
          Left            =   150
-         MaxCols         =   8
-         MaxRows         =   9
-         OperationMode   =   1  'ReadOnly
-         RetainSelBlock  =   0   'False
-         ScrollBars      =   2  'Vertical
-         ShadowColor     =   &H00C8D0D4&
          TabIndex        =   4
          Top             =   675
          Width           =   10600
+         Cols            =   2
+         Rows            =   2
+         ScrollBars      =   2  'flexScrollBarVertical
+         SelectionMode   =   1  'flexSelectionByRow
       End
+
       Begin Threed.SSPanel SSPanel1 
          Height          =   465
          Index           =   0
@@ -75,10 +66,11 @@ Begin VB.Form Frm_Detalle
          _extentx        =   3360
          _extenty        =   820
          _stockprops     =   15
-         caption         =   "    Ap. Sugerida Seg�n      Segmento y EEFF"
+         caption         =   "    Ap. Sugerida SegÃƒÂºn      Segmento y EEFF"
          forecolor       =   16777215
          backcolor       =   8388608
       End
+
       Begin Threed.SSPanel SSPanel1 
          Height          =   465
          Index           =   1
@@ -94,6 +86,7 @@ Begin VB.Form Frm_Detalle
          forecolor       =   16777215
          backcolor       =   8388608
       End
+
       Begin Threed.SSPanel SSPanel1 
          Height          =   465
          Index           =   2
@@ -109,6 +102,7 @@ Begin VB.Form Frm_Detalle
          forecolor       =   16777215
          backcolor       =   8388608
       End
+
       Begin Threed.SSPanel SSPanel1 
          Height          =   465
          Index           =   3
@@ -120,10 +114,11 @@ Begin VB.Form Frm_Detalle
          _extentx        =   2037
          _extenty        =   820
          _stockprops     =   15
-         caption         =   "Sometido a Aprobaci�n"
+         caption         =   "Sometido a AprobaciÃƒÂ³n"
          forecolor       =   16777215
          backcolor       =   8388608
       End
+
       Begin Threed.SSPanel pnl_Dolar 
          Height          =   240
          Left            =   1500
@@ -138,6 +133,7 @@ Begin VB.Form Frm_Detalle
          forecolor       =   8388608
          backcolor       =   13160660
       End
+
       Begin Threed.SSPanel pnl_UF 
          Height          =   240
          Left            =   3825
@@ -152,6 +148,7 @@ Begin VB.Form Frm_Detalle
          forecolor       =   8388608
          backcolor       =   13160660
       End
+
       Begin VB.Label Label1 
          Caption         =   "U.F."
          Height          =   270
@@ -161,6 +158,7 @@ Begin VB.Form Frm_Detalle
          Top             =   3840
          Width           =   390
       End
+
       Begin VB.Label Label1 
          Caption         =   "US$ Observado"
          Height          =   315
@@ -170,6 +168,7 @@ Begin VB.Form Frm_Detalle
          Top             =   3840
          Width           =   1215
       End
+
       Begin MSGrid.Grid Grid2 
          Height          =   1455
          Left            =   5895
@@ -188,6 +187,7 @@ Begin VB.Form Frm_Detalle
          highlight       =   0   'False
          mouseicon       =   "PTAMHB00.frx":0573
       End
+
       Begin MSGrid.Grid Grid1 
          Height          =   250
          Left            =   750
@@ -207,6 +207,7 @@ Begin VB.Form Frm_Detalle
          mouseicon       =   "PTAMHB00.frx":058F
       End
    End
+
    Begin Threed.SSFrame Frame3D1 
       Height          =   1320
       Left            =   75
@@ -239,6 +240,7 @@ Begin VB.Form Frm_Detalle
          Width           =   7755
       End
    End
+
    Begin Threed.SSCommand Aceptar 
       Height          =   615
       Left            =   8625
@@ -254,6 +256,7 @@ Begin VB.Form Frm_Detalle
       font3d          =   3
       picture         =   "PTAMHB00.frx":05AB
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   615
       Left            =   9750
@@ -324,7 +327,7 @@ Correlativo = SacaValorINI("Parametros", "Param3", DIRECTORIO_01 + ARCHIVO_INI01
 Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
 
 Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
 PunteroVsdPrd.Seek "=", Rut, Producto, Val(Correlativo)
 
 If Not PunteroVsdPrd.NoMatch Then
@@ -354,7 +357,7 @@ Grid1.ColWidth(1) = 790
 Grid1.ColWidth(2) = 1090
 
 Grid1.Col = 0
-Grid1.Text = "Garant�a y Monto Total Sugerido"
+Grid1.Text = "GarantÃƒÂ­a y Monto Total Sugerido"
 Grid1.FixedAlignment(0) = 2 ' centro
 Grid1.ColAlignment(1) = 2 ' centro
 Grid1.ColAlignment(2) = 1 ' Derecha
@@ -446,25 +449,29 @@ For I = 1 To Cantidad
   Grid.Row = I
   Grid.Col = 1
   Grid.Text = Mid$(DataPatron, 79, 3)
-  Grid.TypeHAlign = 2 ' center
+  ' FI2026 - Grid.TypeHAlign = 2 migrado a Grid.CellAlignment
+  Grid.CellAlignment = 4  ' flexAlignCenterCenter
    
   Grid.Col = 2
   Grid.Text = StrConv(Trim$(Mid$(DataPatron, 82, 60)), 3)
       
   Grid.Col = 3
   Grid.Text = Trim$(Mid$(DataPatron, 142, 2))
-  Grid.TypeHAlign = 2 ' center
+  ' FI2026 - Grid.TypeHAlign = 2 migrado a Grid.CellAlignment
+  Grid.CellAlignment = 4  ' flexAlignCenterCenter
  
   Grid.Col = 4
   num = Format$(Val(Mid$(DataPatron, 144, 19)), "0")
   'num = num + "," + Mid$(DataPatron, 163, 2) ' 4)
   Grid.Text = ColocarSeparadorDeMiles(num)
-  Grid.TypeHAlign = 1 ' derecha
+  ' FI2026 - Grid.TypeHAlign = 1 migrado a Grid.CellAlignment
+  Grid.CellAlignment = 1  ' flexAlignCenterCenter
     
   Grid.Col = 5
   Moneda = TraeMoneda(Mid$(DataPatron, 167, 3))
   Grid.Text = Moneda
-  Grid.TypeHAlign = 2 ' centro
+  ' FI2026 - Grid.TypeHAlign = 2 migrado a Grid.CellAlignment
+  Grid.CellAlignment = 4  ' flexAlignCenterCenter
   
   Grid.Col = 6
   num = Format$(Val(Mid$(DataPatron, 170, 19)), "0")
@@ -476,7 +483,8 @@ For I = 1 To Cantidad
   Else
     Grid.Text = ""
   End If
-  Grid.TypeHAlign = 1 ' derecha
+  ' FI2026 - Grid.TypeHAlign = 1 migrado a Grid.CellAlignment
+  Grid.CellAlignment = 1  ' flexAlignCenterCenter
   
   Grid.Col = 7
   num = Format$(Val(Mid$(DataPatron, 193, 19)), "0")
@@ -488,7 +496,8 @@ For I = 1 To Cantidad
   Else
     Grid.Text = ""
   End If
-  Grid.TypeHAlign = 1 ' derecha
+  ' FI2026 - Grid.TypeHAlign = 1 migrado a Grid.CellAlignment
+  Grid.CellAlignment = 1  ' flexAlignCenterCenter
   
   Grid.Col = 8
   num = Format$(Val(Mid$(DataPatron, 216, 19)), "0")
@@ -500,7 +509,8 @@ For I = 1 To Cantidad
   Else
     Grid.Text = ""
   End If
-  Grid.TypeHAlign = 1 ' derecha
+  ' FI2026 - Grid.TypeHAlign = 1 migrado a Grid.CellAlignment
+  Grid.CellAlignment = 1  ' flexAlignCenterCenter
     
 Next I
 
@@ -563,13 +573,13 @@ End Select
 End Function
 Private Function ProductoAsociadoEncontrado(ByVal PatronBusqueda As String, ByVal Posicion As String) As Boolean
 Dim Largo As String
-Dim FiltroVsdPrd  As Snapshot
+Dim FiltroVsdPrd  As Recordset
 
   Largo = LTrim$(Str(Len(PatronBusqueda)))
   ProductoAsociadoEncontrado = False
-  Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT Prd_Data FROM Vsd_Prd WHERE " + _
+  Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT Prd_Data FROM Vsd_Prd WHERE " + _
                                                "Mid$(Prd_Data, " + Posicion + ", " + Largo + ")='" + _
-                                                PatronBusqueda + "';")
+                                                PatronBusqueda + "';", dbOpenSnapshot)
   If FiltroVsdPrd.RecordCount > 0 Then
     ProductoAsociadoEncontrado = True
     DataPatron = FiltroVsdPrd!Prd_Data
@@ -604,7 +614,7 @@ SomAp_UF = 0
 TotalSug = 0
 Garantia = ""
 
-For j# = 1 To Grid.MaxRows
+For j# = 1 To Grid.Rows
   
   Grid.Row = j#
   

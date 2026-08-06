@@ -1,17 +1,17 @@
 Attribute VB_Name = "PTAFCT00"
-Declare Function WritePrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Integer
-Declare Function GetPrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer
-Declare Function SetWindowPos Lib "user" (ByVal h%, ByVal hb%, ByVal x%, ByVal y%, ByVal cx%, ByVal cy%, ByVal f%) As Integer
+Declare Function WritePrivateProfileString Lib "KERNEL32.DLL" Alias "WritePrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Long
+Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
+Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb%, ByVal x&, ByVal y&, ByVal cx%, ByVal cy%, ByVal f&) As Long
 
 Global BaseVisado As Database
-Global PunteroVsdPrd As Snapshot
+Global PunteroVsdPrd As Recordset
 Global DataPatron As String
 
 Public Const DIRECTORIO_01 = "C:\Data\Visado\"
 Public Const ARCHIVO_INI01 = "Visado.INI"
 Public Const ARCHIVO_MDB01 = "Visado.MDB"
 
-Public Const PRODUCTOACCESADO = "(MHB) MAC Hist�rico Empresas B"
+Public Const PRODUCTOACCESADO = "(MHB) MAC HistÃƒÂ³rico Empresas B"
 Public Const EJECUTABLE = "PTAMHB00.EXE"
 
 Public Const HWND_TOPMOST = -1

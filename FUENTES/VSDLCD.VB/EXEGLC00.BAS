@@ -1,7 +1,8 @@
 Attribute VB_Name = "GesATC01"
-Declare Function AisGetUsr Lib "C:\Bin\F\Wais.Dll" (ByVal Estructura As String) As Integer
-Declare Function SetWindowPos Lib "user" (ByVal h%, ByVal hb%, ByVal X%, ByVal Y%, ByVal cx%, ByVal cy%, ByVal f%) As Integer
-Declare Function GetPrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer
+' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
+Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb%, ByVal X&, ByVal Y&, ByVal cx%, ByVal cy%, ByVal f&) As Long
+Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
 
 Public Const HWND_TOPMOST = -1
 Public Const SWP_NOSIZENOMOVE = 3
@@ -13,7 +14,7 @@ Public Const ARCHIVO_INI02 = "ErrorSRM.INI"
 Public Const ARCHIVO_MDB01 = "Visado.MDB"
 Public Const ARCHIVO_MDB02 = "EnvioSRM.MDB"
 Public Const ARCHIVO_MDB03 = "Oficina.MDB"
-Public Const PRODUCTOACCESADO = "(ATC) Activaci�n Tarjeta Bancaria"
+Public Const PRODUCTOACCESADO = "(ATC) ActivaciÃƒÂ³n Tarjeta Bancaria"
 
 Global Rut As String
 Global Modo As String
@@ -23,7 +24,7 @@ Dim BaseSucur As Database
 Dim PunteroSucursales As Recordset
   Set BaseSucur = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB03)
   Set PunteroSucursales = BaseSucur.OpenRecordset("Sucursales", dbOpenTable)
-  PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name
+  ' FI2026 - PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroSucursales.Seek "=", CodigoOficina
   If PunteroSucursales.NoMatch Then
     GlosaOficina = "Oficina " + CodigoOficina + " (No Determinada)"

@@ -56,9 +56,10 @@ Dim TipoVisado  As String * 2
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
     Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     PunteroTabPrd.Index = "Tab_Prd"
-    Respuesta = AisGetUsr(GetAis)
+    ' FI2026 SHG - AisGetUsr (WAIS.DLL 16-bit) deshabilitado
+    'Respuesta = AisGetUsr(GetAis)
     IdUsuario = Format(Mid(GetAis, 1, 8), "00000000")
     Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
     Producto = SacaValorINI("Parametros", "Param2", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -140,7 +141,7 @@ Dim AplicacionDestino As String * 4
       TransmiteInformacion = True
     End If
   Else
-    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista NÂº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String
@@ -148,7 +149,7 @@ Dim PunteroVistas As Recordset
 Dim BaseEnvioSRM As Database
   Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVistas.Seek "=", Vista
   If PunteroVistas.NoMatch Then
     DeterminaNodo = ""

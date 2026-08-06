@@ -1,8 +1,9 @@
 Attribute VB_Name = "Vld2FC01"
-Declare Function AisGetUsr Lib "C:\Bin\F\Wais.Dll" (ByVal Estructura As String) As Integer
-Declare Function SetWindowPos Lib "user" (ByVal h%, ByVal hb%, ByVal x%, ByVal y%, ByVal cx%, ByVal cy%, ByVal f%) As Integer
-Declare Function GetPrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer
-Declare Function WritePrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Integer
+' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
+Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb%, ByVal x&, ByVal y&, ByVal cx%, ByVal cy%, ByVal f&) As Long
+Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
+Declare Function WritePrivateProfileString Lib "KERNEL32.DLL" Alias "WritePrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Long
 
 Public Const HWND_TOPMOST = -1
 Public Const SWP_NOSIZENOMOVE = 3
@@ -36,7 +37,7 @@ Dim BaseEnvioSRM As Database
   
      Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
      Set PunteroVista = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-     PunteroVista.Index = PunteroVista.Indexes(0).Name
+     ' FI2026 - PunteroVista.Index = PunteroVista.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
      PunteroVista.Seek "=", NumeroVista
      If PunteroVista.NoMatch Then
        DeterminaNodo = SINNODO
@@ -53,7 +54,7 @@ Dim BaseEnvioSRM As Database
        
        ' Analiza si el producto ya es 2000
        'Set PunteroPrd = BaseVisado.OpenRecordset("TAB_PRD", dbOpenTable)
-       'PunteroPrd.Index = PunteroPrd.Indexes(0).Name
+       ' FI2026 - 'PunteroPrd.Index = 'PunteroPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
        'PunteroPrd.Seek "=", Producto
        'If PunteroPrd("Prd_2000") And PunteroVista("Vta_Aplicacion") = "SPLA" Then
        '   Aplicacion = "SPL2"

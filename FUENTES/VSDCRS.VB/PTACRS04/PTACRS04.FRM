@@ -57,6 +57,7 @@ Begin VB.Form Principal
          Top             =   2610
          Width           =   1365
       End
+
       Begin VB.ComboBox VistoBueno 
          Height          =   300
          Index           =   6
@@ -69,6 +70,7 @@ Begin VB.Form Principal
          Top             =   2250
          Width           =   1365
       End
+
       Begin VB.ComboBox VistoBueno 
          Height          =   300
          Index           =   5
@@ -81,6 +83,7 @@ Begin VB.Form Principal
          Top             =   1890
          Width           =   1365
       End
+
       Begin VB.ComboBox VistoBueno 
          Height          =   300
          Index           =   4
@@ -93,6 +96,7 @@ Begin VB.Form Principal
          Top             =   1530
          Width           =   1365
       End
+
       Begin VB.ComboBox VistoBueno 
          Height          =   300
          Index           =   3
@@ -105,6 +109,7 @@ Begin VB.Form Principal
          Top             =   1170
          Width           =   1365
       End
+
       Begin VB.ComboBox VistoBueno 
          Height          =   300
          Index           =   2
@@ -117,6 +122,7 @@ Begin VB.Form Principal
          Top             =   810
          Width           =   1365
       End
+
       Begin VB.ComboBox VistoBueno 
          Height          =   300
          Index           =   1
@@ -129,6 +135,7 @@ Begin VB.Form Principal
          Top             =   450
          Width           =   1365
       End
+
       Begin VB.ComboBox VistoBueno 
          Height          =   300
          Index           =   0
@@ -141,201 +148,82 @@ Begin VB.Form Principal
          Top             =   90
          Width           =   1365
       End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
          Height          =   250
-         Index           =   7
          Left            =   90
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
          TabIndex        =   22
-         Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
          Top             =   2620
          Width           =   980
-      End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
-         Height          =   250
-         Index           =   6
-         Left            =   105
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
-         TabIndex        =   19
          Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
+      End
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
+         Height          =   250
+         Left            =   105
+         TabIndex        =   19
          Top             =   2260
          Width           =   980
-      End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
-         Height          =   250
-         Index           =   5
-         Left            =   105
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
-         TabIndex        =   16
          Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
+      End
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
+         Height          =   250
+         Left            =   105
+         TabIndex        =   16
          Top             =   1900
          Width           =   980
-      End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
-         Height          =   250
-         Index           =   4
-         Left            =   90
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
-         TabIndex        =   13
          Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
+      End
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
+         Height          =   250
+         Left            =   90
+         TabIndex        =   13
          Top             =   1540
          Width           =   980
-      End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
-         Height          =   250
-         Index           =   3
-         Left            =   90
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
-         TabIndex        =   10
          Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
+      End
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
+         Height          =   250
+         Left            =   90
+         TabIndex        =   10
          Top             =   1180
          Width           =   980
-      End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
-         Height          =   250
-         Index           =   2
-         Left            =   90
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
-         TabIndex        =   7
          Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
+      End
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
+         Height          =   250
+         Left            =   90
+         TabIndex        =   7
          Top             =   820
          Width           =   980
-      End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
-         Height          =   250
-         Index           =   1
-         Left            =   90
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
-         TabIndex        =   4
          Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
+      End
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
+         Height          =   250
+         Left            =   90
+         TabIndex        =   4
          Top             =   460
          Width           =   980
-      End
-      Begin VBX.DateTextBox FechaCompromiso 
-         BackColor       =   &H00C0C0C0&
-         Century         =   -1  'True
-         ForeColor       =   &H00000000&
-         Format          =   1  'DDMMYY
-         Height          =   250
-         Index           =   0
-         Left            =   90
-         Max             =   "12312100"
-         Min             =   "01011900"
-         ReadOnly        =   0   'False
-         SelStart        =   0
-         Separator       =   47
-         Spin            =   0   'False
-         TabIndex        =   1
          Text            =   "28/01/1997"
-         ThreeD          =   0   'False
-         ThreeDHighlightColor=   &H00FFFFFF&
-         ThreeDIn        =   -1  'True
-         ThreeDShadowColor=   &H00808080&
-         ThreeDShadowSize=   1
+      End
+      ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
+      Begin VB.TextBox FechaCompromiso 
+         Height          =   250
+         Left            =   90
+         TabIndex        =   1
          Top             =   100
          Width           =   980
+         Text            =   "28/01/1997"
       End
    End
+
    Begin VB.CheckBox Normas 
-      Caption         =   "Certificaci�n &Notarial de Pagar� en Orden."
+      Caption         =   "CertificaciÃƒÂ³n &Notarial de PagarÃƒÂ© en Orden."
       Height          =   250
       Index           =   7
       Left            =   90
@@ -343,8 +231,9 @@ Begin VB.Form Principal
       Top             =   3150
       Width           =   4600
    End
+
    Begin VB.CheckBox Normas 
-      Caption         =   "&Garant�as Cumplen con las Normas Exigidas."
+      Caption         =   "&GarantÃƒÂ­as Cumplen con las Normas Exigidas."
       Height          =   250
       Index           =   6
       Left            =   90
@@ -352,6 +241,7 @@ Begin VB.Form Principal
       Top             =   2790
       Width           =   4600
    End
+
    Begin VB.CheckBox Normas 
       Caption         =   "Cliente Creado y con Ejecutivo Control en C.&D.R."
       Height          =   250
@@ -361,8 +251,9 @@ Begin VB.Form Principal
       Top             =   2430
       Width           =   4600
    End
+
    Begin VB.CheckBox Normas 
-      Caption         =   "&L�nea de Cr�dito Vigente y Margen Disponible."
+      Caption         =   "&LÃƒÂ­nea de CrÃƒÂ©dito Vigente y Margen Disponible."
       Height          =   250
       Index           =   4
       Left            =   90
@@ -370,6 +261,7 @@ Begin VB.Form Principal
       Top             =   2070
       Width           =   4600
    End
+
    Begin VB.CheckBox Normas 
       Caption         =   "&M.A.C. o Solicitud con Atribuciones y Facultades Suficientes."
       Height          =   255
@@ -379,8 +271,9 @@ Begin VB.Form Principal
       Top             =   1710
       Width           =   4600
    End
+
    Begin VB.CheckBox Normas 
-      Caption         =   "Pagar� Bien &Extendido y Consistente."
+      Caption         =   "PagarÃƒÂ© Bien &Extendido y Consistente."
       Height          =   250
       Index           =   2
       Left            =   90
@@ -388,6 +281,7 @@ Begin VB.Form Principal
       Top             =   1350
       Width           =   4600
    End
+
    Begin VB.CheckBox Normas 
       Caption         =   "&Vigencia de Sociedad."
       Height          =   250
@@ -397,8 +291,9 @@ Begin VB.Form Principal
       Top             =   990
       Width           =   4600
    End
+
    Begin VB.CheckBox Normas 
-      Caption         =   "&Prohibici�n y M�rgenes Articulos 64 y 65."
+      Caption         =   "&ProhibiciÃƒÂ³n y MÃƒÂ¡rgenes Articulos 64 y 65."
       ForeColor       =   &H00000000&
       Height          =   250
       Index           =   0
@@ -407,6 +302,7 @@ Begin VB.Form Principal
       Top             =   630
       Width           =   4600
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   615
       Left            =   6570
@@ -422,6 +318,7 @@ Begin VB.Form Principal
       font3d          =   3
       picture         =   "PTACRS04.frx":0020
    End
+
    Begin Threed.SSCommand Aceptar 
       Height          =   615
       Left            =   5625
@@ -437,6 +334,7 @@ Begin VB.Form Principal
       font3d          =   3
       picture         =   "PTACRS04.frx":0832
    End
+
    Begin VB.Label Encabezado 
       Alignment       =   2  'Center
       BackColor       =   &H00800000&
@@ -449,6 +347,7 @@ Begin VB.Form Principal
       Top             =   135
       Width           =   1515
    End
+
    Begin VB.Label Encabezado 
       Alignment       =   2  'Center
       BackColor       =   &H00800000&
@@ -461,6 +360,7 @@ Begin VB.Form Principal
       Top             =   135
       Width           =   4710
    End
+
    Begin VB.Label Encabezado 
       Alignment       =   2  'Center
       BackColor       =   &H00800000&
@@ -481,6 +381,7 @@ Begin VB.Form Principal
       Top             =   45
       Width           =   1515
    End
+
    Begin VB.Label Encabezado 
       Alignment       =   2  'Center
       BackColor       =   &H00800000&
@@ -493,6 +394,7 @@ Begin VB.Form Principal
       Top             =   45
       Width           =   1110
    End
+
    Begin VB.Label Encabezado 
       Alignment       =   2  'Center
       BackColor       =   &H00800000&
@@ -539,7 +441,7 @@ Dim Rut As String
 Dim PunteroVsdPrd As Recordset
   If SeIngresaronExcepciones Then
     If TodosLosCamposLlenos Then
-      I = MsgBox("� Son Correctas las Excepciones ?", 4 + 32 + 256, "Verificar Excepciones")
+      I = MsgBox("Ã‚Â¿ Son Correctas las Excepciones ?", 4 + 32 + 256, "Verificar Excepciones")
       If I = 6 Then
         For I = 0 To 7
           If (Normas(I).Enabled) And (Normas(I).Value = 1) Then
@@ -573,7 +475,7 @@ Dim PunteroVsdPrd As Recordset
           End If
         Next I
         Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-        PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+        ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
         PunteroVsdPrd.Seek "=", RutCliente, "EXC", Correlativo
         If PunteroVsdPrd.NoMatch Then
           PunteroVsdPrd.AddNew
@@ -591,7 +493,7 @@ Dim PunteroVsdPrd As Recordset
         End
       End If
     Else
-      MsgBox "Se Detect� Excepci�n Incompleta", 0 + 16, "Faltan Datos"
+      MsgBox "Se DetectÃƒÂ³ ExcepciÃƒÂ³n Incompleta", 0 + 16, "Faltan Datos"
     End If
   Else
     MsgBox "No se Han Ingresado Excepciones", 0 + 16, "Faltan Datos"
@@ -625,7 +527,7 @@ Dim mmdd As String * 4
   
   mmdd = Mid$(FechaCompromiso(Index).Text, 4, 2) + Mid$(FechaCompromiso(Index).Text, 1, 2)
   If WeekDay(CDate(FechaCompromiso(Index).Text)) = 7 Or WeekDay(CDate(FechaCompromiso(Index).Text)) = 1 Then
-     MsgBox " La fecha Ingresada no es Dia H�bil  "
+     MsgBox " La fecha Ingresada no es Dia HÃƒÂ¡bil  "
      FechaCompromiso(Index).SetFocus
   Else
      If InStr("0101,0328,0329,0501,0521,0529,0815,0911,0918,0919,1101,1208,1225,1231", mmdd) > 0 Then
@@ -650,8 +552,8 @@ Dim Posicion As Integer
 Dim Producto As String
 Dim LineaDatos As String
 Dim NombreCliente  As String * 30
-Dim FiltroVsdPrd   As Snapshot
-Dim FiltroTabVisar As Snapshot
+Dim FiltroVsdPrd   As Recordset
+Dim FiltroTabVisar As Recordset
 Dim PatronProductoPrincipal As String
 Dim PatronProductoRelacionado As String
   TieneEXC = False
@@ -668,7 +570,7 @@ Dim PatronProductoRelacionado As String
   RutCliente = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
   PatronProductoPrincipal = SacaValorINI("Parametros", "LlaveVisad", DIRECTORIO_01 + ARCHIVO_INI01)
   Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
-  Set FiltroTabVisar = BaseVisado.CreateSnapshot("SELECT * FROM Tab_Visar WHERE Vis_CodProd='" + Producto + "' AND Vis_CodRel='EXC';")
+  Set FiltroTabVisar = BaseVisado.OpenRecordset("SELECT * FROM Tab_Visar WHERE Vis_CodProd='" + Producto + "' AND Vis_CodRel='EXC';")
   Oficina = Environ$("OFICINA")
   Largo = Interpreta(FiltroTabVisar("Vis_PosProd"), "L")
   Posicion = Interpreta(FiltroTabVisar("Vis_PosProd"), "P")
@@ -680,11 +582,11 @@ Dim PatronProductoRelacionado As String
                 String(30, " ") + Oficina + Mid$(PatronProductoPrincipal, 61, 17) + _
                 Mid$(PatronProductoPrincipal, 26, 1) + Mid$(PatronProductoPrincipal, 39, 3) + String(91, " ")
   PatronProductoPrincipal = Mid$(PatronProductoPrincipal, Posicion + 3, Largo - 3)
-  Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Prd WHERE Prd_RutCli='" + _
-                                                                                 RutCliente + "' AND Prd_CodProd='EXC' ORDER BY Prd_Correl;")
+  Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT * FROM Vsd_Prd WHERE Prd_RutCli='" + _
+                                                                                 RutCliente + "' AND Prd_CodProd='EXC' ORDER BY Prd_Correl;", dbOpenSnapshot)
   If FiltroVsdPrd.RecordCount > 0 Then
     Do While Not FiltroVsdPrd.EOF
-      Set FiltroTabVisar = BaseVisado.CreateSnapshot("SELECT * FROM Tab_Visar WHERE Vis_CodProd='" + Producto + "' AND Vis_CodRel='EXC';")
+      Set FiltroTabVisar = BaseVisado.OpenRecordset("SELECT * FROM Tab_Visar WHERE Vis_CodProd='" + Producto + "' AND Vis_CodRel='EXC';", dbOpenSnapshot)
       Largo = Interpreta(FiltroTabVisar("Vis_PosRel"), "L")
       Posicion = Interpreta(FiltroTabVisar("Vis_PosRel"), "P")
       FiltroTabVisar.Close
@@ -743,15 +645,15 @@ Dim PatronProductoRelacionado As String
            End If
         Else
            MsgBox "Debe antes ingresar los Ruts Autorizadores" + Chr(13) + _
-                  "por Mantenci�n de Excepciones"
+                  "por MantenciÃƒÂ³n de Excepciones"
            End
         End If
       Next I
     Wend
     Close 1
   Else
-    MsgBox "No se Encontr� Archivo" + Chr(10) + DIRECTORIO_02 + ARCHIVO_DAT01 + Chr(13) + _
-           "Debe Cargar el Producto " + Chr(13) + " Mantenci�n de Excepciones", 0 + 16, "PTACRE04"
+    MsgBox "No se EncontrÃƒÂ³ Archivo" + Chr(10) + DIRECTORIO_02 + ARCHIVO_DAT01 + Chr(13) + _
+           "Debe Cargar el Producto " + Chr(13) + " MantenciÃƒÂ³n de Excepciones", 0 + 16, "PTACRE04"
     End
   End If
 End Sub
@@ -861,7 +763,7 @@ Private Function SeIngresaronExcepciones() As Boolean
 Dim I As Integer
   SeIngresaronExcepciones = False
   For I = 0 To 7
-    If (Normas(I).Enabled) And (Normas(I).Value = 1) Then
+    If (Normas(I).Enabled) And (Normas(I).Value = 1, dbOpenSnapshot) Then
       SeIngresaronExcepciones = True
       Exit For
     End If

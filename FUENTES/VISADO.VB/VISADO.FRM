@@ -71,35 +71,14 @@ Begin VB.Form Principal
          bevelouter      =   1
          shadowcolor     =   1
          font3d          =   3
-         Begin VBX.vaBln EtiquetaAyuda 
-            BackColor       =   &H00C0FFFF&
-            BorderColor     =   &H00000000&
-            BorderWidth     =   1
-            CloudInset      =   100
-            CloudMinWidth   =   600
-            FontBold        =   0   'False
-            FontItalic      =   0   'False
-            FontName        =   "MS Sans Serif"
-            FontSize        =   8.25
-            FontStrikethru  =   0   'False
-            FontUnderline   =   0   'False
-            ForeColor       =   &H00C00000&
+         ' FI2026 - VBX.vaBln migrado a VB.Label nativo
+         Begin VB.Label EtiquetaAyuda 
             Height          =   375
             Left            =   2775
-            MaxWidth        =   2160
-            PosOffsetX      =   -100
-            PosOffsetY      =   300
-            Shape           =   1  'Square
-            ShapeRoundHeight=   200
-            ShapeRoundWidth =   200
-            TailBaseOffsetInside=   100
-            TailBaseOffsetOutside=   300
-            TailShape       =   2  'Curl In
-            ThreeDStyle     =   0  'None
             Top             =   225
-            UseTagProp      =   -1  'True
             Width           =   1155
          End
+
          Begin Threed.SSCommand BtnConsultaPorRut 
             Height          =   345
             Left            =   450
@@ -126,6 +105,7 @@ Begin VB.Form Principal
             roundedcorners  =   0   'False
             picture         =   "VISADO.frx":030A
          End
+
          Begin Threed.SSCommand BtnReparaArchivos 
             Height          =   345
             Left            =   2415
@@ -152,12 +132,13 @@ Begin VB.Form Principal
             roundedcorners  =   0   'False
             picture         =   "VISADO.frx":0758
          End
+
          Begin Threed.SSCommand BtnSalirVisado 
             Height          =   345
             Left            =   2835
             TabIndex        =   23
             TabStop         =   0   'False
-            Tag             =   "Salir Sesi�n Visado"
+            Tag             =   "Salir SesiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Visado"
             Top             =   45
             Width           =   360
             _version        =   65536
@@ -178,6 +159,7 @@ Begin VB.Form Principal
             roundedcorners  =   0   'False
             picture         =   "VISADO.frx":0F6A
          End
+
          Begin Threed.SSCommand BtnPagoNotario 
             Height          =   345
             Left            =   2040
@@ -204,6 +186,7 @@ Begin VB.Form Principal
             roundedcorners  =   0   'False
             picture         =   "VISADO.frx":168C
          End
+
          Begin Threed.SSCommand BtnConfiguraProductos 
             Height          =   345
             Left            =   1665
@@ -230,6 +213,7 @@ Begin VB.Form Principal
             roundedcorners  =   0   'False
             picture         =   "VISADO.frx":1CB2
          End
+
          Begin Threed.SSCommand BtnCambiaImpresora 
             Height          =   345
             Left            =   1290
@@ -256,6 +240,7 @@ Begin VB.Form Principal
             roundedcorners  =   0   'False
             picture         =   "VISADO.frx":24C4
          End
+
          Begin Threed.SSCommand BtnImprimeVisados 
             Height          =   345
             Left            =   900
@@ -282,6 +267,7 @@ Begin VB.Form Principal
             roundedcorners  =   0   'False
             picture         =   "VISADO.frx":2C22
          End
+
          Begin Threed.SSCommand BtnConsultaParaVisar 
             Height          =   345
             Left            =   40
@@ -309,6 +295,7 @@ Begin VB.Form Principal
             picture         =   "VISADO.frx":33BC
          End
       End
+
       Begin Threed.SSPanel PortaTitulo 
          Height          =   405
          Left            =   1080
@@ -336,6 +323,7 @@ Begin VB.Form Principal
          shadowcolor     =   1
          font3d          =   3
       End
+
       Begin Threed.SSPanel PortaGrilla 
          Height          =   3930
          Left            =   1080
@@ -362,36 +350,20 @@ Begin VB.Form Principal
          bevelinner      =   1
          shadowcolor     =   1
          font3d          =   3
-         Begin VBX.SpreadSheet Grilla 
-            AutoCalc        =   0   'False
-            AutoClipboard   =   0   'False
-            BorderStyle     =   0  'None
-            DAutoHeadings   =   0   'False
-            DAutoSave       =   0   'False
-            DAutoSizeCols   =   0  'Off
-            DInformActiveRowChange=   0   'False
-            DisplayColHeaders=   0   'False
-            DisplayRowHeaders=   0   'False
-            FontBold        =   0   'False
-            FontItalic      =   0   'False
-            FontName        =   "MS Sans Serif"
-            FontSize        =   8.25
-            FontStrikethru  =   0   'False
-            FontUnderline   =   0   'False
-            GridColor       =   &H00808080&
+         ' FI2026 - VBX.SpreadSheet migrado a MSFlexGrid (MSFLXGRD.OCX)
+         Begin MSFlexGridLib.MSFlexGrid Grilla 
             Height          =   2640
-            InterfaceDesigner=   "VISADO.frx":3ADE
             Left            =   405
-            MaxCols         =   2
-            MaxRows         =   0
-            OperationMode   =   3  'SingleSelect
-            ScrollBars      =   2  'Vertical
-            SelectBlockOptions=   0
-            ShadowColor     =   &H00C8D0D4&
             TabIndex        =   15
             Top             =   900
             Width           =   4340
+            Cols            =   2
+            Rows            =   2
+            ScrollBars      =   2  'flexScrollBarVertical
+            SelectionMode   =   1  'flexSelectionByRow
+            AllowUserResizing=   1  'flexResizeColumns
          End
+
          Begin Threed.SSPanel IdOficina 
             Height          =   405
             Left            =   495
@@ -420,6 +392,7 @@ Begin VB.Form Principal
             shadowcolor     =   1
             font3d          =   3
          End
+
          Begin Threed.SSPanel Panel 
             Height          =   2865
             Left            =   4875
@@ -462,6 +435,7 @@ Begin VB.Form Principal
                   font3d          =   1
                   picture         =   "VISADO.frx":3AE2
                End
+
                Begin Threed.SSCommand BtnProductos 
                   Height          =   675
                   Left            =   90
@@ -478,6 +452,7 @@ Begin VB.Form Principal
                   picture         =   "VISADO.frx":3FB4
                End
             End
+
             Begin Threed.SSFrame Borde 
                Height          =   900
                Index           =   0
@@ -516,6 +491,7 @@ Begin VB.Form Principal
                   EndProperty
                   font3d          =   1
                End
+
                Begin Threed.SSOption OpcionRut 
                   Height          =   210
                   Left            =   120
@@ -542,6 +518,7 @@ Begin VB.Form Principal
                End
             End
          End
+
          Begin VB.Label Encabezado 
             Alignment       =   2  'Center
             BackColor       =   &H00800000&
@@ -563,6 +540,7 @@ Begin VB.Form Principal
             Top             =   660
             Width           =   2890
          End
+
          Begin VB.Label Encabezado 
             Alignment       =   2  'Center
             BackColor       =   &H00800000&
@@ -585,6 +563,7 @@ Begin VB.Form Principal
             Width           =   1205
          End
       End
+
       Begin Threed.SSPanel PanelStatus 
          Height          =   375
          Left            =   5940
@@ -634,6 +613,7 @@ Begin VB.Form Principal
             Top             =   50
             Width           =   1350
          End
+
          Begin VB.Image Status 
             Height          =   195
             Left            =   90
@@ -643,6 +623,7 @@ Begin VB.Form Principal
             Visible         =   0   'False
             Width           =   2630
          End
+
          Begin VB.Image Avance 
             Height          =   195
             Left            =   90
@@ -653,6 +634,7 @@ Begin VB.Form Principal
             Width           =   2630
          End
       End
+
       Begin VB.Label SombraPortaGrilla 
          BackColor       =   &H00000000&
          Caption         =   "Label1"
@@ -662,6 +644,7 @@ Begin VB.Form Principal
          Top             =   1140
          Width           =   6450
       End
+
       Begin VB.Image Image1 
          Height          =   630
          Left            =   90
@@ -669,6 +652,7 @@ Begin VB.Form Principal
          Top             =   5490
          Width           =   2700
       End
+
       Begin VB.Image Image2 
          Height          =   1140
          Left            =   3700
@@ -678,6 +662,7 @@ Begin VB.Form Principal
          Width           =   1155
       End
    End
+
    Begin MSComDlg.CommonDialog CommonDialog1 
       Left            =   0
       Top             =   720
@@ -689,102 +674,126 @@ Begin VB.Form Principal
       helpkey         =   "F1"
       topage          =   15
    End
+
    Begin VB.Menu Accion 
-      Caption         =   "&Gesti�n"
+      Caption         =   "&GestiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n"
       Begin VB.Menu Consultar 
          Caption         =   "&Consultar por Oficina"
          Shortcut        =   ^C
       End
+
       Begin VB.Menu ConsultaPorRut 
          Caption         =   "Consultar por &Rut"
       End
+
       Begin VB.Menu Ordenar 
          Caption         =   "&Ordenar"
          Begin VB.Menu RutOrdenado 
             Caption         =   "Por &Rut"
             Shortcut        =   ^R
          End
+
          Begin VB.Menu NombreOrdenado 
             Caption         =   "Por &Nombre"
             Shortcut        =   ^B
          End
       End
+
       Begin VB.Menu Linea1 
          Caption         =   "-"
       End
+
       Begin VB.Menu Impresoras 
          Caption         =   "Con&figurar Impresora"
          Begin VB.Menu TipoImpresora 
             Caption         =   "&Tipo de Impresora..."
          End
+
          Begin VB.Menu AdministraImpresion 
-            Caption         =   "&Administrador de Impresi�n..."
+            Caption         =   "&Administrador de ImpresiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n..."
          End
       End
+
       Begin VB.Menu Imprimir 
          Caption         =   "&Imprimir"
          Begin VB.Menu ProdVisa 
             Caption         =   "Productos &Visados..."
             Shortcut        =   ^V
          End
+
          Begin VB.Menu PagoNota 
             Caption         =   "Pagos por &Notario..."
             Shortcut        =   ^N
          End
+
          Begin VB.Menu FichCred 
-            Caption         =   "Ficha de &Cr�ditos"
+            Caption         =   "Ficha de &CrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ditos"
             Shortcut        =   ^F
          End
       End
+
       Begin VB.Menu Linea2 
          Caption         =   "-"
       End
+
       Begin VB.Menu Salir 
          Caption         =   "&Salir"
          Shortcut        =   ^X
       End
    End
+
    Begin VB.Menu Configurar 
       Caption         =   "&Opciones"
       Begin VB.Menu Productos 
          Caption         =   "Seleccionar &Productos..."
          Shortcut        =   ^P
       End
+
       Begin VB.Menu Oficinas 
          Caption         =   "Seleccionar &Oficina..."
          Shortcut        =   ^O
       End
+
       Begin VB.Menu Honorarios 
          Caption         =   "Determinar &Honorarios Notario..."
       End
+
       Begin VB.Menu RFolio 
          Caption         =   "&Rango de Folios..."
       End
+
       Begin VB.Menu mnu_ConfOfi 
          Caption         =   "&Configura Oficina"
       End
+
       Begin VB.Menu Linea3 
          Caption         =   "-"
       End
+
       Begin VB.Menu EnviaLog 
-         Caption         =   "&Envia Log Visado (Gesti�n)"
+         Caption         =   "&Envia Log Visado (GestiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n)"
       End
+
       Begin VB.Menu mnu_ActParam 
-         Caption         =   "Consultar Tabla de Par�metros CTD"
+         Caption         =   "Consultar Tabla de ParÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡metros CTD"
       End
+
       Begin VB.Menu RepararBD 
          Caption         =   "Reparar Bases de Datos..."
       End
+
       Begin VB.Menu mnu_ActSGT 
          Caption         =   "Actualizar Tablas SGT"
       End
    End
+
    Begin VB.Menu Ayuda 
       Caption         =   "&Ayuda"
       Begin VB.Menu Contenido 
          Caption         =   "&Contenido"
          Shortcut        =   {F1}
       End
+
       Begin VB.Menu Referencias 
          Caption         =   "&Referencias..."
       End
@@ -793,7 +802,9 @@ End
 Attribute VB_Name = "Principal"
 Attribute VB_Creatable = False
 Attribute VB_Exposed = False
-Private Declare Function AisGetUsr Lib "C:\Bin\F\WAIS.DLL" (ByVal Usuario As String) As Integer
+' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Private ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
 
 
 
@@ -849,15 +860,13 @@ Dim IncrementoStatus As Integer
   End If
 End Function
 
+' FI2026 SHG - ObtieneRutUsuarioLogueado reemplazado: AisGetUsr (WAIS.DLL 16-bit)
+' reemplazado por login SRM via ctrlClave/modAcceso
 Private Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = RUTDEFECTO
-  End If
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
 End Function
 
 Private Sub AdministraImpresion_Click()
@@ -879,7 +888,7 @@ Private Sub BtnCambiaImpresora_Click()
 End Sub
 
 Private Sub BtnCambiaImpresora_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-  EtiquetaAyuda.Text = BtnCambiaImpresora.Tag
+  EtiquetaAyuda.Caption = BtnCambiaImpresora.Tag
 End Sub
 
 
@@ -898,7 +907,7 @@ Private Sub BtnConfiguraProductos_Click()
 End Sub
 
 Private Sub BtnConfiguraProductos_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-   EtiquetaAyuda.Text = BtnConfiguraProductos.Tag
+   EtiquetaAyuda.Caption = BtnConfiguraProductos.Tag
 End Sub
 
 
@@ -920,7 +929,7 @@ BtnConsultaParaVisar.Enabled = True
 End Sub
 
 Private Sub BtnConsultaParaVisar_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
- EtiquetaAyuda.Text = BtnConsultaParaVisar.Tag
+ EtiquetaAyuda.Caption = BtnConsultaParaVisar.Tag
 End Sub
 
 
@@ -941,7 +950,7 @@ BtnConsultaPorRut.Enabled = True
 End Sub
 
 Private Sub BtnConsultaPorRut_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-EtiquetaAyuda.Text = BtnConsultaPorRut.Tag
+EtiquetaAyuda.Caption = BtnConsultaPorRut.Tag
 End Sub
 
 
@@ -952,7 +961,7 @@ Private Sub BtnImprimeVisados_Click()
 End Sub
 
 Private Sub BtnImprimeVisados_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-  EtiquetaAyuda.Text = BtnImprimeVisados.Tag
+  EtiquetaAyuda.Caption = BtnImprimeVisados.Tag
 End Sub
 
 
@@ -961,7 +970,7 @@ Private Sub BtnPagoNotario_Click()
 End Sub
 
 Private Sub BtnPagoNotario_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-  EtiquetaAyuda.Text = BtnPagoNotario.Tag
+  EtiquetaAyuda.Caption = BtnPagoNotario.Tag
 End Sub
 
 
@@ -975,9 +984,10 @@ End Sub
 Private Sub BtnProductos_KeyPress(KeyAscii As Integer)
   Select Case KeyAscii
     Case 13
-      Grilla.Row = Grilla.ActiveRow
-      If Not Grilla.RowHidden Then
-        Visando.Show
+      Grilla.Row = Grilla.Row
+       ' FI2026 - RowHidden no existe en MSFlexGrid; RowHeight fila=0 es el equivalente
+       If Not Grilla.RowHeight(Grilla.Row) = 0 Then
+         Visando.Show
       End If
     Case 27
       Call BtnCancelar_Click
@@ -989,7 +999,7 @@ Private Sub BtnReparaArchivos_Click()
 End Sub
 
 Private Sub BtnReparaArchivos_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-  EtiquetaAyuda.Text = BtnReparaArchivos.Tag
+  EtiquetaAyuda.Caption = BtnReparaArchivos.Tag
 End Sub
 
 
@@ -998,7 +1008,7 @@ Private Sub BtnSalirVisado_Click()
 End Sub
 
 Private Sub BtnSalirVisado_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-  EtiquetaAyuda.Text = BtnSalirVisado.Tag
+  EtiquetaAyuda.Caption = BtnSalirVisado.Tag
 End Sub
 
 
@@ -1036,29 +1046,29 @@ Ayuda.Enabled = False
 
 If BajarDatosVisado(MostrarMensaje) Then
     Screen.MousePointer = 11
-    Grilla.MaxRows = 0
+    Grilla.Rows = 0
     Set PunteroVsdCli = BaseVisado.OpenRecordset("Vsd_Cli", dbOpenTable)
     While Not PunteroVsdCli.EOF
-      Grilla.MaxRows = Grilla.MaxRows + 1
-      Grilla.Row = Grilla.MaxRows
+      Grilla.Rows = Grilla.Rows + 1
+      Grilla.Row = Grilla.Rows
       Grilla.Col = 1
-      Grilla.CellType = 4
-      Grilla.TypePicMask = "NNN.NNN.NNN-N"
-      Grilla.TypeHAlign = 2
+      ' FI2026 - Spread-only property, no MSFlexGrid equivalent
+      ' FI2026 - Spread-only property, no MSFlexGrid equivalent
+      ' FI2026 - Spread-only property, no MSFlexGrid equivalent
       DigitoRut = Mid$(PunteroVsdCli("Cli_Rut"), Len(PunteroVsdCli("Cli_Rut")))
       NumeroRut = Mid$(PunteroVsdCli("Cli_Rut"), 1, Len(PunteroVsdCli("Cli_Rut")) - 1)
       NumeroRut = Format$(NumeroRut, "###,###,###") + "-" + DigitoRut
       Grilla.Text = String(13 - Len(NumeroRut), " ") + NumeroRut
       Grilla.Col = 2
       Grilla.Text = PunteroVsdCli("Cli_Nombre")
-      For j% = 1 To Grilla.MaxCols
+      For j% = 1 To Grilla.Cols
         Grilla.Col = j%
         Grilla.BackColor = COLOR_06
-        Grilla.CellType = 5
+        ' FI2026 - Spread-only property, no MSFlexGrid equivalent
         If j% Mod 2 <> 0 Then
-          Grilla.TypeHAlign = 2
+          ' FI2026 - Spread-only property, no MSFlexGrid equivalent
         End If
-        Grilla.TypeTextShadow = True
+        ' FI2026 - Spread-only property, no MSFlexGrid equivalent
       Next j%
       PunteroVsdCli.MoveNext
     Wend
@@ -1068,7 +1078,7 @@ If BajarDatosVisado(MostrarMensaje) Then
     Call DesplieguePantalla(True)
 Else
     If MostrarMensaje Then
-      MsgBox "No se ha Localizado Informaci�n a Visar", 0 + 16, "Datos No Recepcionados"
+      MsgBox "No se ha Localizado InformaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n a Visar", 0 + 16, "Datos No Recepcionados"
     End If
 End If
 
@@ -1101,7 +1111,7 @@ End Sub
 Private Sub FichCred_Click()
 
 If Dir("c:\data\visado\hist_vsd.mdb") <> "HIST_VSD.MDB" Then
-     MsgBox "No se encontr� la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
+     MsgBox "No se encontrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
      Screen.MousePointer = 0
      Exit Sub
 Else
@@ -1112,8 +1122,9 @@ End Sub
 Private Sub Form_Activate()
 Dim NumeroFilaDestino As Integer
   If Grilla.Visible Then
-    If Grilla.RowHidden Then
-      If Grilla.Row = Grilla.MaxRows Then
+    ' FI2026 - RowHidden no existe en MSFlexGrid; RowHeight(fila)=0 es el equivalente
+    If Grilla.RowHeight(Grilla.Row) = 0 Then
+      If Grilla.Row = Grilla.Rows Then
         NumeroFilaDestino = 1
       Else
         NumeroFilaDestino = Grilla.Row + 1
@@ -1168,7 +1179,7 @@ If Not App.PrevInstance Then
     'jsa 30/03/2007
     'Recorte de Plataforma Siebel Fase V
     'Recorte de Visado de Cuentas Vista
-    'Verifica si estaci�n esta en Siebel V
+    'Verifica si estaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n esta en Siebel V
     '***********************************************
     BuscaINI = False
     fecha_ini = CVDate(SacaValorINI("SIEBEL", "FECHA", DIRECTORIO_01 + ARCHIVO_INI01))
@@ -1224,7 +1235,7 @@ If Not App.PrevInstance Then
     End If
     
     If Not IsNumeric(Oficina) Then
-       MsgBox "La variable Oficina no ha sido configurada, las consultas presentar�n problemas." + _
+       MsgBox "La variable Oficina no ha sido configurada, las consultas presentarÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡n problemas." + _
           Chr(10) + "Utilice el Configurador de Posventa para solucionar esto.", 16, "Visado de Productos"
     End If
     
@@ -1245,11 +1256,12 @@ If Not App.PrevInstance Then
     PanelStatus.Top = Panel3D1.Height - PanelStatus.Height - 90
     SombraPortaGrilla.Left = PortaGrilla.Left + 60
     SombraPortaGrilla.Top = PortaGrilla.Top + 60
-    Grilla.ColWidth(1) = 10
-    Grilla.ColWidth(2) = 24
+    ' FI2026 - ColWidth unit change: Spread (chars) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ MSFlexGrid (twips)
+    Grilla.ColWidth(0) = 1200   ' Rut column
+    Grilla.ColWidth(1) = 3000   ' Name column
     Call ConfigurarNodoDestinoSAT
 Else
-    MsgBox "Visado Ya Est� Ejecut�ndose", 0 + 16, "Doble Ejecuci�n"
+    MsgBox "Visado Ya EstÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ EjecutÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ndose", 0 + 16, "Doble EjecuciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n"
     End
 End If
   
@@ -1274,7 +1286,7 @@ Private Sub Form_Unload(Cancel As Integer)
   
   On Error GoTo error_base
   
-  '* se cambia de 120 a 365 d�as el hist�rico
+  '* se cambia de 120 a 365 dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­as el histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rico
   FechaPasada = Format$(Year(Date - 365), "0000") + Format$(Month(Date - 365), "00") + _
               Format$(Day(Date - 365), "00")
               
@@ -1300,7 +1312,7 @@ error_base:
   
   
 End Sub
-Private Sub Grilla_DblClick(Col As Long, Row As Long)
+Private Sub Grilla_DblClick()
   Call BtnProductos_KeyPress(13)
 End Sub
 
@@ -1327,7 +1339,7 @@ Archivo = UCase(DIRECTORIO_02 + ARCHIVO_VISPAR)
 If Dir(Archivo) = Mid$(Archivo, Len(Archivo) - 11) Then
   Call EjecutarPrograma(Archivo, 1)
 Else
-  MsgBox "No se encuentra el archivo " + Archivo, 16, "Operaci�n Cancelada"
+  MsgBox "No se encuentra el archivo " + Archivo, 16, "OperaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Cancelada"
 End If
 
 Principal.Enabled = True
@@ -1348,7 +1360,7 @@ Archivo = UCase("c:\bin\s\baplsgt.exe ")
 If Dir("C:\BIN\S\BAPLSGT.EXE") = "BAPLSGT.EXE" Then
    Call EjecutarPrograma(Archivo + TablasSgt, 1) '"suc cui")
 Else
-   MsgBox "No se encuentra el archivo " + Archivo, 16, "Operaci�n Cancelada"
+   MsgBox "No se encuentra el archivo " + Archivo, 16, "OperaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Cancelada"
 End If
 
 Screen.MousePointer = 0
@@ -1412,7 +1424,7 @@ End Sub
 Private Sub ProdVisa_Click()
 
 If Dir("c:\data\visado\hist_vsd.mdb") <> "HIST_VSD.MDB" Then
-     MsgBox "No se encontr� la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
+     MsgBox "No se encontrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
      Screen.MousePointer = 0
      Exit Sub
 Else
@@ -1486,7 +1498,7 @@ Dim PunteroVistas As Recordset
      Else
        MsgBox "La Variable de Ambiente " + Chr(34) + "SRM_NS" + Chr(34) + " No Fue" + Chr(10) + _
               "Encontrada en Tabla " + Chr(34) + "SAT" + Chr(34) + ", las Transacciones" + Chr(10) + _
-              "Via S.A.T. Podr�an Tener Conflictos", 0 + 48, "Advertencia"
+              "Via S.A.T. PodrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­an Tener Conflictos", 0 + 48, "Advertencia"
      End If
      PunteroVistas.Close
      PunteroSAT.Close

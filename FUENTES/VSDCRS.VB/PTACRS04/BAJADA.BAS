@@ -1,5 +1,5 @@
 Attribute VB_Name = "Bajada"
-Private Declare Function SRMW8 Lib "C:\Bin\F\SRMW8.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Integer, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
+Private Declare Function Srmw32 Lib "C:\Bin\F\srmw32.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Long, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
 Public Function Llamada(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String, ByVal Kilos As String) As String
 Dim Retorno As Integer
 Dim Sd_Largo As Integer
@@ -51,11 +51,11 @@ Dim NumError As String
     ErrorComunicacion.ServidorDatos.Caption = " (" + RetSRM + ")"
   End If
   ErrorComunicacion.Llave.Caption = " " + Llave
-  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la Validación de la " + _
+  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la ValidaciÃ³n de la " + _
                                                                   Mid$(PRODUCTOACCESADO, 7) + " " + _
                                                                   Mid$(PRODUCTOACCESADO, 1, 5) + ".  " + _
                                                                   "Por favor Reporte esto a Central de Fallas (3030) describiendo la " + _
-                                                                  "siguiente información."
+                                                                  "siguiente informaciÃ³n."
   ErrorComunicacion.nombreAplicacion.Caption = " " + Mid$(EJECUTABLE, 1, 5) + Producto + Mid$(EJECUTABLE, 9)
   ErrorComunicacion.Show 1
 End Sub

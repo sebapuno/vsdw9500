@@ -1,5 +1,7 @@
 Attribute VB_Name = "Logueo"
-Declare Function LInsert_2 Lib "c:\bin\f\waislog.dll" (ByVal Nodo As String, ByVal prall As String, ByVal sdall As String, ByVal trall As String, ByVal ctall As String, ByVal FLAGS As String, ByVal autorizo As String, ByVal Resultado As String, ByVal perError As String, ByVal sdoError As String, ByVal logdata As String, ByVal Largo As Integer, ByVal hora_S As String, ByVal ind As String, ByVal funcion As Integer, ByVal msg As String) As Integer
+' FI2026 SHG - waislog.dll 16-bit deshabilitado
+'' FI2026 SHG - waislog.dll 16-bit deshabilitado
+'Declare Function LInsert_2 Lib \"...waislog.dll\" As Integer
 
 Const MODOLOGUEO = 2
 
@@ -39,9 +41,11 @@ Dim PunteroTabPrd As Recordset
   Data = Data + String$(256 - Len(Data), " ") + HoraLogueo$
   Indice = String(8, " ")
   Buffer = String(2000, " ")
-  Respuesta% = LInsert_2(NodoLog, Llave1, Llave2, Llave3, Llave4, FLAGS, RutOper, Result, _
-                                       Err1, Err2, Data, 262, HoraInicioSesion, _
-                                       Indice, MODOLOGUEO, Buffer)
+  ' FI2026 SHG - LInsert_2 deshabilitado (waislog.dll 16-bit)
+  'Respuesta% = LInsert_2(NodoLog, Llave1, Llave2, Llave3, Llave4, FLAGS, RutOper, Result, _
+  '                                     Err1, Err2, Data, 262, HoraInicioSesion, _
+  '                                     Indice, MODOLOGUEO, Buffer)
+  Respuesta% = 0
   If (Respuesta% > 0) And (Respuesta% <> 32) Then
     Call ErrorDeLogueo("V", Respuesta%)
   End If
@@ -74,8 +78,10 @@ Dim Operacion As String * 1
   Llave4 = Mid$(Datos, 400, 32)
   NodoLog = Environ("Srm_NO")
   Operacion = Mid$(Datos, 462, 1)
-  Respuesta% = LInsert_2(NodoLog, Llave1, Llave2, Llave3, Llave4, FLAGS, RutOper, Operacion, _
-                                       Err1, Err2, Data, 262, Hora, Indice, MODOLOGUEO, Buffer)
+  ' FI2026 SHG - LInsert_2 deshabilitado (waislog.dll 16-bit)
+  'Respuesta% = LInsert_2(NodoLog, Llave1, Llave2, Llave3, Llave4, FLAGS, RutOper, Operacion, _
+  '                                     Err1, Err2, Data, 262, Hora, Indice, MODOLOGUEO, Buffer)
+  Respuesta% = 0
   If (Respuesta% > 0) And (Respuesta% <> 32) Then
     Call ErrorDeLogueo("T", Respuesta%)
   End If
@@ -85,7 +91,7 @@ Dim Mensaje As String
 Dim NumError As String
   Select Case CualTitulo
     Case "T"
-      ErrorLogueo.Caption = "Error en Logueo de la Transacci�n"
+      ErrorLogueo.Caption = "Error en Logueo de la TransacciÃ³n"
     Case "V"
       ErrorLogueo.Caption = "Error en Logueo del Visado"
   End Select

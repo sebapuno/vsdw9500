@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ConfiguraHonorarios 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Modificaci�n Honorarios Notario"
+   Caption         =   "ModificaciÃƒÆ’Ã‚Â³n Honorarios Notario"
    ClientHeight    =   3045
    ClientLeft      =   2880
    ClientTop       =   2415
@@ -28,7 +28,7 @@ Begin VB.Form ConfiguraHonorarios
       _extentx        =   11721
       _extenty        =   5371
       _stockprops     =   14
-      caption         =   "Selecci�n de Notario ..."
+      caption         =   "SelecciÃƒÆ’Ã‚Â³n de Notario ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -41,32 +41,19 @@ Begin VB.Form ConfiguraHonorarios
       EndProperty
       font3d          =   1
       shadowstyle     =   1
-      Begin VBX.SpreadSheet GrillaHonorarios 
-         BorderStyle     =   0  'None
-         DAutoSizeCols   =   0  'Off
-         DisplayColHeaders=   0   'False
-         DisplayRowHeaders=   0   'False
-         EditEnterAction =   5  'Next
-         FontBold        =   0   'False
-         FontItalic      =   0   'False
-         FontName        =   "MS Sans Serif"
-         FontSize        =   8.25
-         FontStrikethru  =   0   'False
-         FontUnderline   =   0   'False
-         GridColor       =   &H00808080&
+      ' FI2026 - VBX.SpreadSheet migrado a MSFlexGrid (MSFLXGRD.OCX)
+      Begin MSFlexGridLib.MSFlexGrid GrillaHonorarios 
          Height          =   1440
-         InterfaceDesigner=   "NOTARIO.frx":0000
          Left            =   120
-         MaxCols         =   4
-         MaxRows         =   7
-         Protect         =   0   'False
-         ScrollBars      =   2  'Vertical
-         ShadowColor     =   &H00C8D0D4&
-         ShadowText      =   &H00404000&
          TabIndex        =   1
          Top             =   840
          Width           =   6425
+         Cols            =   2
+         Rows            =   2
+         ScrollBars      =   2  'flexScrollBarVertical
+         SelectionMode   =   1  'flexSelectionByRow
       End
+
       Begin VB.Label Instrucciones 
          Alignment       =   2  'Center
          AutoSize        =   -1  'True
@@ -89,6 +76,7 @@ Begin VB.Form ConfiguraHonorarios
          Top             =   2520
          Width           =   1440
       End
+
       Begin VB.Label Instrucciones 
          Alignment       =   2  'Center
          AutoSize        =   -1  'True
@@ -111,6 +99,7 @@ Begin VB.Form ConfiguraHonorarios
          Top             =   2340
          Width           =   1560
       End
+
       Begin VB.Label Instrucciones 
          Alignment       =   2  'Center
          AutoSize        =   -1  'True
@@ -133,6 +122,7 @@ Begin VB.Form ConfiguraHonorarios
          Top             =   2520
          Width           =   480
       End
+
       Begin VB.Label Instrucciones 
          Alignment       =   2  'Center
          AutoSize        =   -1  'True
@@ -155,10 +145,11 @@ Begin VB.Form ConfiguraHonorarios
          Top             =   2340
          Width           =   600
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "Costo Renovaci�n"
+         Caption         =   "Costo RenovaciÃƒÆ’Ã‚Â³n"
          BeginProperty Font 
             name            =   "MS Sans Serif"
             charset         =   1
@@ -177,6 +168,7 @@ Begin VB.Form ConfiguraHonorarios
          Width           =   1320
          WordWrap        =   -1  'True
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -199,6 +191,7 @@ Begin VB.Form ConfiguraHonorarios
          Width           =   1320
          WordWrap        =   -1  'True
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -220,6 +213,7 @@ Begin VB.Form ConfiguraHonorarios
          Top             =   450
          Width           =   2400
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -241,6 +235,7 @@ Begin VB.Form ConfiguraHonorarios
          Top             =   450
          Width           =   1080
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   615
          Left            =   5670
@@ -256,6 +251,7 @@ Begin VB.Form ConfiguraHonorarios
          font3d          =   3
          picture         =   "NOTARIO.frx":0004
       End
+
       Begin Threed.SSCommand Aceptar 
          Height          =   615
          Left            =   4770
@@ -271,6 +267,7 @@ Begin VB.Form ConfiguraHonorarios
          font3d          =   3
          picture         =   "NOTARIO.frx":031E
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -292,6 +289,7 @@ Begin VB.Form ConfiguraHonorarios
          Width           =   2400
          WordWrap        =   -1  'True
       End
+
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -327,12 +325,12 @@ Dim I As Integer
 Dim Criterio As String
 Dim RutNotario As String
 Dim PunteroNotarios As Recordset
-  I = MsgBox("� Son los Datos Correctos ?", 4 + 32 + 256, "Verificar Modificaci�n")
+  I = MsgBox("Ãƒâ€šÃ‚Â¿ Son los Datos Correctos ?", 4 + 32 + 256, "Verificar ModificaciÃƒÆ’Ã‚Â³n")
   If I = 6 Then
     Screen.MousePointer = 11
-    For I = 1 To GrillaHonorarios.MaxRows
+    For I = 1 To GrillaProductos.Rows
       GrillaHonorarios.Row = I
-      If Not GrillaHonorarios.RowHidden Then
+      If Not GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 Then
         If TodaLaFilaLlena Then
           GrillaHonorarios.Col = 1
           RutNotario = DesformateaRut(GrillaHonorarios.Text)
@@ -348,7 +346,7 @@ Dim PunteroNotarios As Recordset
       End If
     Next I
     Set PunteroNotarios = BaseNotarios.OpenRecordset("Hono_Rut", dbOpenDynaset)
-    For I = 1 To GrillaHonorarios.MaxRows
+    For I = 1 To GrillaProductos.Rows
       GrillaHonorarios.Row = I
       GrillaHonorarios.Col = 5
       Criterio = "Rut=" + Trim$(GrillaHonorarios.Text)
@@ -358,7 +356,7 @@ Dim PunteroNotarios As Recordset
           Call IngresarDatosTabla(PunteroNotarios)
           PunteroNotarios.Update
       Else
-        If GrillaHonorarios.RowHidden Then
+        If GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 Then
           PunteroNotarios.Delete
         Else
           PunteroNotarios.Edit
@@ -398,7 +396,7 @@ Private Sub Encabezado_Click(Index As Integer)
 End Sub
 Private Sub Form_Activate()
   Editando = False
-  FilasVisibles = GrillaHonorarios.MaxRows
+  FilasVisibles = GrillaProductos.Rows
   CeldaModificada = False
   Screen.MousePointer = 0
 End Sub
@@ -407,8 +405,8 @@ Dim PunteroNotarios As Recordset
   Screen.MousePointer = 11
   Principal.Enabled = False
   Call CentrarVentana(Me)
-  GrillaHonorarios.MaxCols = 5
-  GrillaHonorarios.MaxRows = 0
+  GrillaHonorarios.Cols = 5
+  GrillaProductos.Rows = 0
   GrillaHonorarios.ColWidth(1) = 9
   GrillaHonorarios.ColWidth(2) = 20
   GrillaHonorarios.ColWidth(3) = 11
@@ -420,8 +418,8 @@ Dim PunteroNotarios As Recordset
   Set BaseNotarios = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB04)
   Set PunteroNotarios = BaseNotarios.OpenRecordset("Hono_Rut", dbOpenTable)
   While Not PunteroNotarios.EOF
-    GrillaHonorarios.MaxRows = GrillaHonorarios.MaxRows + 1
-    GrillaHonorarios.Row = GrillaHonorarios.MaxRows
+    GrillaProductos.Rows = GrillaProductos.Rows + 1
+    GrillaHonorarios.Row = GrillaProductos.Rows
     Call FormateaCeldasGrilla
     GrillaHonorarios.Col = 1
     GrillaHonorarios.Text = Format(PunteroNotarios("Rut"), "00,000,000") + "-" + PunteroNotarios("DV")
@@ -459,31 +457,31 @@ Dim InsertarFila As Boolean
         Call Cancelar_Click
       Case 45
         InsertarFila = True
-        If GrillaHonorarios.MaxRows > 0 Then
-          GrillaHonorarios.Row = GrillaHonorarios.MaxRows
-          If Not GrillaHonorarios.RowHidden Then
+        If GrillaProductos.Rows > 0 Then
+          GrillaHonorarios.Row = GrillaProductos.Rows
+          If Not GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 Then
             If Not TodaLaFilaLlena Then
               InsertarFila = False
             End If
           End If
         End If
         If InsertarFila Then
-          GrillaHonorarios.MaxRows = GrillaHonorarios.MaxRows + 1
-          GrillaHonorarios.Row = GrillaHonorarios.MaxRows
+          GrillaProductos.Rows = GrillaProductos.Rows + 1
+          GrillaHonorarios.Row = GrillaProductos.Rows
           Call FormateaCeldasGrilla
-          Call IrCeldaEspecifica(GrillaHonorarios.MaxRows, 1)
+          Call IrCeldaEspecifica(GrillaProductos.Rows, 1)
           FilasVisibles = FilasVisibles + 1
         End If
       Case 46
         If FilasVisibles > 0 Then
-          GrillaHonorarios.Row = GrillaHonorarios.ActiveRow
+          GrillaHonorarios.Row = GrillaHonorarios.Row
           If TodaLaFilaVacia Then
-            GrillaHonorarios.MaxRows = GrillaHonorarios.MaxRows - 1
+            GrillaProductos.Rows = GrillaProductos.Rows - 1
             FilasVisibles = FilasVisibles - 1
           Else
-            I% = MsgBox("� Seguro de Eliminar a Dicho Notario ?", 4 + 32 + 256, "Verificar Borrado")
+            I% = MsgBox("Ãƒâ€šÃ‚Â¿ Seguro de Eliminar a Dicho Notario ?", 4 + 32 + 256, "Verificar Borrado")
             If I% = 6 Then
-              GrillaHonorarios.RowHidden = True
+              GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 = True
               FilasVisibles = FilasVisibles - 1
             End If
           End If
@@ -495,13 +493,16 @@ Private Sub FormateaCeldasGrilla()
   GrillaHonorarios.Col = 1
   GrillaHonorarios.CellType = 4
   GrillaHonorarios.TypePicMask = "NN.NNN.NNN-N"
-  GrillaHonorarios.TypeHAlign = 2
+  ' FI2026 - GrillaHonorarios.TypeHAlign = 2 migrado a GrillaHonorarios.CellAlignment
+  GrillaHonorarios.CellAlignment = 4  ' flexAlignCenterCenter
   GrillaHonorarios.Col = 3
   GrillaHonorarios.CellType = 3
-  GrillaHonorarios.TypeHAlign = 2
+  ' FI2026 - GrillaHonorarios.TypeHAlign = 2 migrado a GrillaHonorarios.CellAlignment
+  GrillaHonorarios.CellAlignment = 4  ' flexAlignCenterCenter
   GrillaHonorarios.Col = 4
   GrillaHonorarios.CellType = 3
-  GrillaHonorarios.TypeHAlign = 2
+  ' FI2026 - GrillaHonorarios.TypeHAlign = 2 migrado a GrillaHonorarios.CellAlignment
+  GrillaHonorarios.CellAlignment = 4  ' flexAlignCenterCenter
 End Sub
 Private Function TodaLaFilaVacia() As Boolean
   TodaLaFilaVacia = True
@@ -541,12 +542,12 @@ Dim NumeroTemporal As String
             GrillaHonorarios.Text = FormateaRut(NumeroTemporal)
             Call IrCeldaEspecifica(NewRow, NewCol)
           Else
-            MsgBox "D�gito Verificador Erroneo", 0 + 16, "Error de Validaci�n"
+            MsgBox "DÃƒÆ’Ã‚Â­gito Verificador Erroneo", 0 + 16, "Error de ValidaciÃƒÆ’Ã‚Â³n"
             GrillaHonorarios.Text = ""
             Call IrCeldaEspecifica(Row, Col)
           End If
         Else
-          MsgBox "No es Rut V�lido", 0 + 16, "Faltan Datos"
+          MsgBox "No es Rut VÃƒÆ’Ã‚Â¡lido", 0 + 16, "Faltan Datos"
           GrillaHonorarios.Text = ""
           Call IrCeldaEspecifica(Row, Col)
         End If

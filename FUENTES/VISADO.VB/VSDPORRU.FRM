@@ -70,6 +70,7 @@ Begin VB.Form VsdPorRut
             Top             =   150
             Width           =   1665
          End
+
          Begin VB.Label Label1 
             AutoSize        =   -1  'True
             Caption         =   "RUT"
@@ -89,6 +90,7 @@ Begin VB.Form VsdPorRut
             Width           =   555
          End
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   615
          Left            =   2325
@@ -104,6 +106,7 @@ Begin VB.Form VsdPorRut
          font3d          =   3
          picture         =   "VSDPORRU.frx":0000
       End
+
       Begin Threed.SSCommand Aceptar 
          Height          =   615
          Left            =   1200
@@ -172,7 +175,7 @@ If ObtenerDigitoVerificador(RutC) = DigV Then ' RUT VALIDADO
      GRut_Continua = False
   End If
 Else
-  MsgBox "El Rut ingresado no es v·lido.", 16, "Visado de Productos"
+  MsgBox "El Rut ingresado no es v√°lido.", 16, "Visado de Productos"
   GRut_Continua = False
 End If
 

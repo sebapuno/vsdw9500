@@ -43,7 +43,7 @@ If Not App.PrevInstance Then
   Correl = Val(SacaValorINI("Parametros", "Param3", DIRECTORIO_01 + ARCHIVO_INI01))
  
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVsdPrd.Seek "=", RutCliente, Producto, Correl
   DataINI = Trim$(PunteroVsdPrd!Prd_Data)
   PunteroVsdPrd.Close

@@ -56,7 +56,7 @@ End If
 If NumeroVista <> "" Then
   Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
   Set PunteroVista = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  PunteroVista.Index = PunteroVista.Indexes(0).Name
+  ' FI2026 - PunteroVista.Index = PunteroVista.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVista.Seek "=", NumeroVista
   If PunteroVista.NoMatch Then
     DeterminaNodo = SINNODO
@@ -82,7 +82,7 @@ Usuario = IdUsuario + Vista + Modo
 CadenaDatos = Llamada(Nodo, Apli, Usuario, Llave, "1K")
 If Mid$(CadenaDatos, 1, 6) = "000096" Then
   MsgBox "No Existe la Cuenta Corriente Asociada" + Chr(10) + _
-         "al Producto Otorgamiento ChileCard", 0 + 16, "Problemas de Validaci�n"
+         "al Producto Otorgamiento ChileCard", 0 + 16, "Problemas de ValidaciÃ³n"
 Else
   If Mid$(CadenaDatos, 1, 6) = "000000" Then
     ExisteChileCardVax = True
@@ -112,8 +112,9 @@ Dim Continuar   As Boolean
 If Not App.PrevInstance Then
   Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
-  Respuesta = AisGetUsr(GetAis)
+  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 SHG - AisGetUsr (WAIS.DLL 16-bit) deshabilitado
+  'Respuesta = AisGetUsr(GetAis)
   IdUsuario = Format(Mid(GetAis, 1, 8), "00000000")
   Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
   Producto = SacaValorINI("Parametros", "Param2", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -137,7 +138,7 @@ If Not App.PrevInstance Then
      If Val(Mid$(Rut, 1, Len(Rut) - 1)) > 50000000 And TipoCuenta <> "3" Then '* 3=C
        If ExisteCtaCTR("0" + CtaCorriente, RetCon) Then
           MsgBox "El producto Chilecard asociado a una Cuenta Corriente Empresa" + Chr(10) + _
-                 "con Inter�s s�lo est� habilitado para Cuentas tipo C.", 16, "Problemas de Validaci�n"
+                 "con InterÃ©s sÃ³lo estÃ¡ habilitado para Cuentas tipo C.", 16, "Problemas de ValidaciÃ³n"
           Continuar = False
        ElseIf RetCon = False Then
           Continuar = False
@@ -161,7 +162,7 @@ If Not App.PrevInstance Then
      End If
      
   Else
-    MsgBox "La Cuenta Corrriente asociada al producto Chilecard NO EXISTE.", 16, "Problemas de Validaci�n"
+    MsgBox "La Cuenta Corrriente asociada al producto Chilecard NO EXISTE.", 16, "Problemas de ValidaciÃ³n"
   End If
   
   PunteroVsdPrd.Close
@@ -199,7 +200,7 @@ If Trim$(NodoDestino) <> SINNODO Then
     End If
   End If
 Else
-  MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+  MsgBox "Vista NÂº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
 End If
 
 End Function
@@ -225,17 +226,17 @@ Usuario = IdUsuario + Vista + Modo
 CadenaDatos = Llamada(Nodo, Apli, Usuario, Llave, "1K")
 If Mid$(CadenaDatos, 1, 6) = "000096" Then
   MsgBox "No Existe la Cuenta Corriente Asociada" + Chr(10) + _
-         "al Producto Otorgamiento ChileCard", 0 + 16, "Problemas de Validaci�n"
+         "al Producto Otorgamiento ChileCard", 0 + 16, "Problemas de ValidaciÃ³n"
 Else
   If Mid$(CadenaDatos, 1, 6) = "000000" Then
     DatResp = Mid$(CadenaDatos, 7)
     If (Mid$(DatResp, 151, 1) <> " ") And (Mid$(DatResp, 151, 1) <> "0") Then
       MsgBox "La Cuenta Corriente Asociada al Producto" + Chr(10) + _
-             "Otorgamiento de ChileCard Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
+             "Otorgamiento de ChileCard EstÃ¡ Cerrada", 0 + 16, "Problemas de ValidaciÃ³n"
     Else
       If Mid$(DatResp, 154, 1) = "4" Then
        MsgBox "La Cuenta Corriente Asociada al Producto Otorgamiento" + Chr(10) + _
-               "de ChileCard Est� en Proceso de ser Cerrada", 0 + 16, "Problemas de Validaci�n"
+               "de ChileCard EstÃ¡ en Proceso de ser Cerrada", 0 + 16, "Problemas de ValidaciÃ³n"
       Else
         ExisteChileCardIBM = True
       End If

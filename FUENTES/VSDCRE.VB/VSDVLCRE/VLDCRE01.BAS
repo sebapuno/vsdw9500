@@ -103,12 +103,14 @@ Function Ap_Visado()
    Dim nTO As String
    Dim DestTO As String
    
-   Ret = AisGetUsr(GetAis)
+   ' FI2026 SHG - AisGetUsr (WAIS.DLL 16-bit) deshabilitado
+   
+   'Ret = AisGetUsr(GetAis)
    IdUsuario = Format(Mid(GetAis, 1, 8), "00000000")
    
    Set BaseVisado = OpenDatabase("C:\DATA\VISADO\VISADO.MDB")
    Set Ap_VsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-   Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name
+   ' FI2026 - Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
    Set Ap_TabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
    Ap_TabPrd.Index = "TAB_PRD"
    
@@ -135,7 +137,7 @@ Function Ap_Visado()
             '
             '  If Not ExisteUF(FechaOtor) Then
             '    Continuar = False
-            '    MsgBox "No se encuentra el valor de la UF para la fecha de otorgamiento del cr�dito.", 16, "Error de Validaci�n"
+            '    MsgBox "No se encuentra el valor de la UF para la fecha de otorgamiento del crÃ©dito.", 16, "Error de ValidaciÃ³n"
             '  Else
             '    Continuar = True
             '  End If
@@ -198,7 +200,7 @@ Function NodoSybase(C_SY As String) As String
   Set BaseEnvioSRM = OpenDatabase("C:\DATA\VISADO\ENVIOSRM.MDB")
   
   Set PunteroSy = BaseEnvioSRM.OpenRecordset("SYBASE", dbOpenTable)
-  PunteroSy.Index = PunteroSy.Indexes(0).Name
+  ' FI2026 - PunteroSy.Index = PunteroSy.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroSy.Seek "=", C_SY
   If Not PunteroSy.NoMatch Then
      If Environ("DESA") = "DESA" Then

@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ConfiguraOficina 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Modificación Oficina a Visar"
+   Caption         =   "ModificaciÃ³n Oficina a Visar"
    ClientHeight    =   3165
    ClientLeft      =   2505
    ClientTop       =   1770
@@ -28,7 +28,7 @@ Begin VB.Form ConfiguraOficina
       _extentx        =   8996
       _extenty        =   5477
       _stockprops     =   14
-      caption         =   "Selección de Oficina ..."
+      caption         =   "SelecciÃ³n de Oficina ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -59,6 +59,7 @@ Begin VB.Form ConfiguraOficina
          Top             =   360
          Width           =   4845
       End
+
       Begin Threed.SSFrame Frame3D1 
          Height          =   1095
          Left            =   120
@@ -82,7 +83,7 @@ Begin VB.Form ConfiguraOficina
          EndProperty
          font3d          =   1
          Begin VB.OptionButton Option1 
-            Caption         =   "15 Días"
+            Caption         =   "15 DÃ­as"
             BeginProperty Font 
                name            =   "MS Sans Serif"
                charset         =   1
@@ -98,8 +99,9 @@ Begin VB.Form ConfiguraOficina
             Top             =   330
             Width           =   1125
          End
+
          Begin VB.OptionButton Option2 
-            Caption         =   "30 Días"
+            Caption         =   "30 DÃ­as"
             BeginProperty Font 
                name            =   "MS Sans Serif"
                charset         =   1
@@ -115,8 +117,9 @@ Begin VB.Form ConfiguraOficina
             Top             =   630
             Width           =   1125
          End
+
          Begin VB.OptionButton Option3 
-            Caption         =   "60 Días"
+            Caption         =   "60 DÃ­as"
             BeginProperty Font 
                name            =   "MS Sans Serif"
                charset         =   1
@@ -132,6 +135,7 @@ Begin VB.Form ConfiguraOficina
             Top             =   330
             Width           =   1125
          End
+
          Begin VB.OptionButton Option4 
             Caption         =   "Inhabilitado"
             BeginProperty Font 
@@ -150,6 +154,7 @@ Begin VB.Form ConfiguraOficina
             Width           =   1425
          End
       End
+
       Begin Threed.SSPanel Modo 
          Height          =   330
          Left            =   180
@@ -172,6 +177,7 @@ Begin VB.Form ConfiguraOficina
          EndProperty
          font3d          =   3
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   615
          Left            =   4170
@@ -187,6 +193,7 @@ Begin VB.Form ConfiguraOficina
          font3d          =   3
          picture         =   "OFICINA.frx":0000
       End
+
       Begin Threed.SSCommand Aceptar 
          Height          =   615
          Left            =   3270
@@ -212,7 +219,7 @@ Dim Respuesta As Integer
 Private Sub Aceptar_Click()
 
 If ListaOficinas.ListCount > 0 Then
-  I% = MsgBox("¿Seguro de Cambiar la Oficina?", 4 + 32 + 256, "Confirmar Modificación")
+  I% = MsgBox("Â¿Seguro de Cambiar la Oficina?", 4 + 32 + 256, "Confirmar ModificaciÃ³n")
   If I% = 6 Then
     Oficina = Mid$(ListaOficinas.Text, 1, 3)
     Respuesta = PoneValorINI("Visado", "Oficina", Oficina, DIRECTORIO_01 + ARCHIVO_INI01)

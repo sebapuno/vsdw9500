@@ -1,9 +1,13 @@
 Attribute VB_Name = "Visado"
-Private Declare Function DeleteMenu Lib "user" (ByVal hMenu%, ByVal iditem%, ByVal wflags%) As Integer
-Private Declare Function GetSystemMenu Lib "user" (ByVal hWnd%, ByVal bRevert%) As Integer
-Private Declare Function GetModuleUsage Lib "kernel.dll" (ByVal handler As Integer) As Integer
-Private Declare Function GetPrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer
-Private Declare Function WritePrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Integer
+' FI2026 SHG - userÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢USER32.DLL: hMenu/iditem/wflags IntegerÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢Long
+Private Declare Function DeleteMenu Lib "USER32.DLL" (ByVal hMenu&, ByVal iditem&, ByVal wflags&) As Long
+' FI2026 SHG
+Private Declare Function GetSystemMenu Lib "USER32.DLL" (ByVal hWnd&, ByVal bRevert&) As Long
+' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
+'Private ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
+'Declare Function GetModuleUsage Lib \"KERNEL32.DLL\" As Long
+Private Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
+Private Declare Function WritePrivateProfileString Lib "KERNEL32.DLL" Alias "WritePrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Long
 
 Private Const SC_SIZE = &HF000
 Private Const SC_MOVE = &HF010
@@ -186,7 +190,7 @@ Dim UbicacionNombre   As String
 Dim CantidadRegistros As Integer
 
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   Data = Mid$(CadenaDatos, 15)
   Volver = False
   Continua = Mid$(CadenaDatos, 3, 1)
@@ -340,7 +344,7 @@ Dim AplicacionDestino As String * 4
     Loop
     
   Else
-    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista NÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
   ObtieneInformacion = HaydatoS
 End Function
@@ -361,7 +365,7 @@ Dim CodigoProducto As String * 3
 Dim UbicacionNombre As String
 Dim CantidadRegistros As Integer
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   Data = Mid$(CadenaDatos, 8)
   Volver = False
   Continua = Mid$(CadenaDatos, 3, 1)
@@ -496,7 +500,7 @@ Dim UbicacionNombre   As String
 Dim CantidadRegistros As Integer
 
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   Data = Mid$(CadenaDatos, 15)
   Volver = False
   Continua = Mid$(CadenaDatos, 3, 1)
@@ -627,7 +631,7 @@ Dim PunteroHistory As Recordset
 Set PunteroHistory = BaseHistory.OpenRecordset("tbl_Hst", dbOpenTable)
 Set PunteroVsdHst = BaseVisado.OpenRecordset("vsd_hst", dbOpenTable)
 
-'*** Agregar Nuevos Registros al Hist�rico
+'*** Agregar Nuevos Registros al HistÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rico
 If Not PunteroVsdHst.EOF Then
    PunteroVsdHst.MoveFirst
    While Not PunteroVsdHst.EOF
@@ -658,7 +662,7 @@ Dim IniDesa As String
   DeterminaNodo = SINNODO
   Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVistas.Seek "=", Vista
   If Not PunteroVistas.NoMatch Then
    If Environ$(AMBIENTEDESARROLLO) = "DESA" Or IniDesa = "DESA" Then
@@ -692,7 +696,7 @@ Public Function EsProductoRelacionado(ByVal CodigoProducto As String) As Boolean
 Dim PunteroTabVisar As Recordset
   EsProductoRelacionado = True
   Set PunteroTabVisar = BaseVisado.OpenRecordset("Tab_Visar", dbOpenTable)
-  PunteroTabVisar.Index = PunteroTabVisar.Indexes(0).Name
+  ' FI2026 - PunteroTabVisar.Index = PunteroTabVisar.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabVisar.Seek "=", CodigoProducto
   If PunteroTabVisar.NoMatch Then
     EsProductoRelacionado = False
@@ -711,7 +715,7 @@ Dim PunteroSucursales As Recordset
 
      Set BaseSucursales = OpenDatabase("C:\DATA\ADMSGT\TABSGT.MDB")
      Set PunteroSucursales = BaseSucursales.OpenRecordset("TblSuc", dbOpenTable)
-     PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name
+     ' FI2026 - PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
      PunteroSucursales.Seek "=", CodigoOficina
      If PunteroSucursales.NoMatch Then
        GlosaOficina = CodigoOficina + Space(4) + " NO DETERMINADA"
@@ -723,7 +727,7 @@ Dim PunteroSucursales As Recordset
   Else
      Set BaseSucursales = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB03)
      Set PunteroSucursales = BaseSucursales.OpenRecordset("Sucursales", dbOpenTable)
-     PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name
+     ' FI2026 - PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
      PunteroSucursales.Seek "=", CodigoOficina
      If PunteroSucursales.NoMatch Then
        GlosaOficina = CodigoOficina + Space(4) + " NO DETERMINADA"
@@ -761,7 +765,7 @@ Dim DiasVigencia As String
 Dim FechaPrd     As String
 Dim AplicacionDestino As String * 4
 
-If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es Mi�rcoles
+If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es MiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rcoles
    
   DiasVigencia = SacaValorINI("Visado", "Dias", DIRECTORIO_01 + ARCHIVO_INI01)
   If InStr("15,30,60", DiasVigencia) <> 0 Then
@@ -771,8 +775,8 @@ If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es Mi�rcoles
     Set Pto_TABOPER = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
          
     Pto_TABPRD.Index = "Tab_Prd"
-    Pto_TABVSD.Index = Pto_TABVSD.Indexes(0).Name
-    Pto_TABOPER.Index = Pto_TABOPER.Indexes(0).Name
+    ' FI2026 - Pto_TABVSD.Index = Pto_TABVSD.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - Pto_TABOPER.Index = Pto_TABOPER.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
 
     Do While Not Pto_VSDPRD.EOF
       Pto_TABPRD.Seek "=", Pto_VSDPRD("Prd_CodProd")
@@ -801,7 +805,7 @@ If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es Mi�rcoles
           End If
           
         Else
-          '* Fuerza eliminaci�n de archivos mayores a 365 d�as
+          '* Fuerza eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de archivos mayores a 365 dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­as
           ' If EliminaRegistroAntiguo(FechaPrd, Pto_VSDPRD!Prd_Data, VistaOrigen, Trim(Pto_TABOPER!Oper_Borrado)) Then
           '    Pto_VSDPRD.Delete
           ' End If
@@ -886,7 +890,7 @@ Dim IndiceTabGlosa As Recordset
       End If
     Case "TG"
       Set IndiceTabGlosa = BaseVisado.OpenRecordset("Tab_Glosa", dbOpenTable)
-      IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name
+      ' FI2026 - IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
       IndiceTabGlosa.Seek "=", CodigoProducto, Mid$(Formato, 3, 3), Datos
       If Not IndiceTabGlosa.NoMatch Then
         ObtenerDescripcionGlosa = IndiceTabGlosa("Glosa_Descrip")
@@ -1069,20 +1073,15 @@ Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
 Dim Retorno As Integer
   Retorno = Shell(Programa, Modo)
   DoEvents
-  While GetModuleUsage(Retorno) <> 0
-     DoEvents
-  Wend
+  ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
+  ' Call WaitProcess(Retorno)  ' requiere modRSrm32.bas
+
+     ' DoEvents  ' FI2026 SHG - orphan from GetModuleUsage
+  ' Wend  ' FI2026 SHG - orphan from GetModuleUsage
 End Sub
-Public Sub BloquearEdicionGrilla(ByVal FilIni As Long, ByVal ColIni As Long, ByVal FilFin As Long, ByVal ColFin As Long, GrillaBloqueada As SpreadSheet)
-  With GrillaBloqueada
-    .Row = FilIni
-    .Col = ColIni
-    .Row2 = FilFin
-    .Col2 = ColFin
-    .BlockMode = True
-    .Lock = True
-    .BlockMode = False
-  End With
+Public Sub BloquearEdicionGrilla(ByVal FilIni As Long, ByVal ColIni As Long, ByVal FilFin As Long, ByVal ColFin As Long, GrillaBloqueada As Object)
+  ' FI2026 - BloquearEdicionGrilla migrado de SpreadSheet a MSFlexGrid: Lock/BlockMode no existen,
+  ' la grilla es de solo lectura por defecto
 End Sub
 Public Function ColocarSeparadorDeMiles(ByVal Numero As String) As String
 Dim Entero As String
@@ -1112,16 +1111,18 @@ Dim PosicionComa As Integer
   ColocarSeparadorDeMiles = Cantidad + "," + Decimal
 End Function
 
-Public Sub OrdenarGrilla(ByVal ColumnaInicio As Integer, ByVal ColumnaDeOrdenamiento As Integer, GrillaParaOrdenar As SpreadSheet, ByVal TipoOrden As Integer)
+Public Sub OrdenarGrilla(ByVal ColumnaInicio As Integer, ByVal ColumnaDeOrdenamiento As Integer, GrillaParaOrdenar As Object, ByVal TipoOrden As Integer)
+  ' FI2026 - OrdenarGrilla migrado de SpreadSheet a MSFlexGrid
   Screen.MousePointer = 11
   GrillaParaOrdenar.Row = 1
-  GrillaParaOrdenar.Col = ColumnaInicio
-  GrillaParaOrdenar.Row2 = GrillaParaOrdenar.MaxRows
-  GrillaParaOrdenar.Col2 = GrillaParaOrdenar.MaxCols
-  GrillaParaOrdenar.SortBy = 0
-  GrillaParaOrdenar.SortKey(1) = ColumnaDeOrdenamiento
-  GrillaParaOrdenar.SortKeyOrder(1) = TipoOrden
-  GrillaParaOrdenar.Action = 25
+  GrillaParaOrdenar.Col = ColumnaDeOrdenamiento
+  GrillaParaOrdenar.RowSel = GrillaParaOrdenar.Rows - 1
+  GrillaParaOrdenar.ColSel = GrillaParaOrdenar.Cols - 1
+  If TipoOrden = 1 Then
+    GrillaParaOrdenar.Sort = 4  ' flexSortGenericAscending
+  Else
+    GrillaParaOrdenar.Sort = 5  ' flexSortGenericDescending
+  End If
   Screen.MousePointer = 0
 End Sub
 Public Function ObtieneAliasRegionalDelProducto(ByVal Producto As String) As String
@@ -1146,7 +1147,7 @@ Corresponde_Oficina = True
 
 Set BaseCui = OpenDatabase("C:\DATA\ADMSGT\TABSGT.MDB")
 Set PunteroCui = BaseCui.OpenRecordset("TblCui", dbOpenTable)
-PunteroCui.Index = PunteroCui.Indexes(0).Name
+' FI2026 - PunteroCui.Index = PunteroCui.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
 PunteroCui.Seek "=", CodOf
 If Not PunteroCui.NoMatch Then
    If InStr("00,54,55,56", CodNodom) <> 0 Then '** Metro

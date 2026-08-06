@@ -37,7 +37,7 @@ Dim PunteroVsdPrd  As Recordset
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
     Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     PunteroTabPrd.Index = "Tab_Prd"
     GestionLCD = False
     IdUsuario = ObtieneRutUsuarioLogueado()
@@ -68,7 +68,7 @@ Dim PunteroVsdPrd  As Recordset
                 'End If
         '     End If
         '  Else
-        '     MsgBox "No Se Puede Determinar Gesti�n de LCD", 0 + 48, "Error de Validacion"
+        '     MsgBox "No Se Puede Determinar GestiÃƒÆ’Ã‚Â³n de LCD", 0 + 48, "Error de Validacion"
         '     End
         '  End If
         'End If
@@ -124,7 +124,7 @@ Dim AplicacionDestino As String * 4
       End If
     End If
   Else
-    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
     Es_FCampana = "SRM"
   End If
 End Function
@@ -197,44 +197,44 @@ Dim AplicacionDestino As String * 4
         If Mid$(Llave, 3, 8) = Mid$(CadenaDatos, 18, 8) Then
           ObtieneInformacion = True
         Else
-          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de Validaci�n"
+          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
         End If
       Else
         If DebeExistirLinea Then
           If Mid$(Llave, 1, 10) = Mid$(CadenaDatos, 16, 10) Then
             If Val(Mid$(CadenaDatos, 149, 6)) <> 0 Then
-              MsgBox "La L�nea de Cr�dito Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
+              MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
             Else
               If Mid$(CadenaDatos, 291, 1) = "4" Then
-                MsgBox "La L�nea de Cr�dito Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                              "Problemas de Validaci�n"
+                MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                              "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
               Else
                 ObtieneInformacion = True
               End If
             End If
           Else
-            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
+            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
           End If
         Else
           If Llave = Mid$(CadenaDatos, 16, 12) Then
             ObtieneInformacion = True
-            'MsgBox "Ya Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
+            'MsgBox "Ya Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
           End If
         End If
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
         If SeEstaBuscandoCuenta Then
-          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de Validaci�n"
+          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
         Else
           If DebeExistirLinea Then
-            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
+            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
           End If
         End If
       End If
     End If
   Else
-    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function ExisteCuentaCorriente(ByVal Llave As String, ByVal Vista As String) As Boolean
@@ -247,7 +247,7 @@ Dim PunteroPrd   As Recordset
 
      Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
      Set PunteroVista = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-     PunteroVista.Index = PunteroVista.Indexes(0).Name
+     ' FI2026 - PunteroVista.Index = PunteroVista.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
      PunteroVista.Seek "=", Vista
      If PunteroVista.NoMatch Then
        DeterminaNodo = SINNODO
@@ -264,7 +264,7 @@ Dim PunteroPrd   As Recordset
        
        ' Analiza si el producto ya es 2000
        'Set PunteroPrd = BaseVisado.OpenRecordset("TAB_PRD", dbOpenTable)
-       'PunteroPrd.Index = PunteroPrd.Indexes(0).Name
+       ' FI2026 - 'PunteroPrd.Index = 'PunteroPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
        'PunteroPrd.Seek "=", Producto
        'If PunteroPrd("Prd_2000") And PunteroVista("Vta_Aplicacion") = "SPLA" Then
        '   Aplicacion = "SPL2"
@@ -278,12 +278,8 @@ Dim PunteroPrd   As Recordset
 End Function
 
 Private Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = RUTDEFECTO
-  End If
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
 End Function

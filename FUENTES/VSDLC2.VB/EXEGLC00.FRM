@@ -35,13 +35,14 @@ Dim FechaHoy As String
 Dim Tx_SAT As String * 4
 
   If Not App.PrevInstance Then
-    Ret = AisGetUsr(GetAis)
+    ' FI2026 SHG - AisGetUsr (WAIS.DLL 16-bit) deshabilitado
+    'Ret = AisGetUsr(GetAis)
     IdUsuario = Format(Mid(GetAis, 1, 8), "00000000")
     SalirAplicacion = False
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
     Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     PunteroTabPrd.Index = "Tab_Prd"
     Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
     Producto = SacaValorINI("Parametros", "Param2", DIRECTORIO_01 + ARCHIVO_INI01)

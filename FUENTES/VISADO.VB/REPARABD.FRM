@@ -28,7 +28,7 @@ Begin VB.Form RepararArchivos
       _extentx        =   4842
       _extenty        =   3334
       _stockprops     =   14
-      caption         =   "Selección de Archivos..."
+      caption         =   "SelecciÃ³n de Archivos..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -54,6 +54,7 @@ Begin VB.Form RepararArchivos
          _stockprops     =   78
          caption         =   "  Base Hist_Vsd.MDB"
       End
+
       Begin Threed.SSCheck NombreBase 
          Height          =   240
          Index           =   3
@@ -67,6 +68,7 @@ Begin VB.Form RepararArchivos
          _stockprops     =   78
          caption         =   "  Base Notarios.MDB"
       End
+
       Begin Threed.SSCheck NombreBase 
          Height          =   240
          Index           =   2
@@ -80,6 +82,7 @@ Begin VB.Form RepararArchivos
          _stockprops     =   78
          caption         =   "  Base Oficina.MDB"
       End
+
       Begin Threed.SSCheck NombreBase 
          Height          =   240
          Index           =   1
@@ -93,6 +96,7 @@ Begin VB.Form RepararArchivos
          _stockprops     =   78
          caption         =   "  Base EnvioSRM.MDB"
       End
+
       Begin Threed.SSCheck NombreBase 
          Height          =   240
          Index           =   0
@@ -107,6 +111,7 @@ Begin VB.Form RepararArchivos
          caption         =   "  Base Visado.MDB"
       End
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   615
       Left            =   1575
@@ -122,6 +127,7 @@ Begin VB.Form RepararArchivos
       font3d          =   3
       picture         =   "REPARABD.frx":0000
    End
+
    Begin Threed.SSCommand Aceptar 
       Height          =   615
       Left            =   450
@@ -149,7 +155,7 @@ Dim NombreArchivoTemporal As String
 Dim ContadorBasesParaReparar As Integer
 Dim ContadorBasesMalReparadas As Integer
   If HaySeleccionados Then
-    I = MsgBox("¿ Seguro de Reparar ?", 4 + 32 + 256, "Confirmar Reparación")
+    I = MsgBox("Â¿ Seguro de Reparar ?", 4 + 32 + 256, "Confirmar ReparaciÃ³n")
     If I = 6 Then
       Screen.MousePointer = 11
       ContadorBasesParaReparar = 0
@@ -180,16 +186,16 @@ Dim ContadorBasesMalReparadas As Integer
       Screen.MousePointer = 0
       Select Case ContadorBasesMalReparadas
         Case 0
-          MsgBox "Los Archivos Fueron Reparados Exitosamente", 0 + 64, "Estado Reparación"
+          MsgBox "Los Archivos Fueron Reparados Exitosamente", 0 + 64, "Estado ReparaciÃ³n"
         Case ContadorBasesParaReparar
-          MsgBox "Ningún Archivo Pudo Ser Reparado", 0 + 64, "Estado Reparación"
+          MsgBox "NingÃºn Archivo Pudo Ser Reparado", 0 + 64, "Estado ReparaciÃ³n"
         Case Else
-          MsgBox "No Todos los Archivos Fueron Reparados", 0 + 64, "Estado Reparación"
+          MsgBox "No Todos los Archivos Fueron Reparados", 0 + 64, "Estado ReparaciÃ³n"
       End Select
       Cancelar.SetFocus
     End If
   Else
-    MsgBox "No Hay Archivo Seleccionado", 0 + 16, "Faltan Parámetros"
+    MsgBox "No Hay Archivo Seleccionado", 0 + 16, "Faltan ParÃ¡metros"
   End If
   Exit Sub
   
@@ -222,8 +228,8 @@ Dim I As Integer
   ExisteArchivoCompactado = False
   If Dir(ArchivoTemporal) = UCase$(Mid(ArchivoTemporal, Len(ArchivoTemporal) - 10)) Then
     ExisteArchivoCompactado = True
-    I = MsgBox("Archivo " + Chr(34) + ArchivoOriginal + Chr(34) + Chr(10) + "Ya Se Intentó Reparar Anteriormente", _
-                        5 + 48 + 0, "Reparación Incompleta")
+    I = MsgBox("Archivo " + Chr(34) + ArchivoOriginal + Chr(34) + Chr(10) + "Ya Se IntentÃ³ Reparar Anteriormente", _
+                        5 + 48 + 0, "ReparaciÃ³n Incompleta")
     If I = 4 Then
       Call BorrarArchivo(ArchivoTemporal)
       ExisteArchivoCompactado = False

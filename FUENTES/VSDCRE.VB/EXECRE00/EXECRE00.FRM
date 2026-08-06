@@ -53,7 +53,7 @@ If Not App.PrevInstance Then
   VarTO = SacaValorINI("SIEBEL", "CRETO", DIRECTORIO_01 + ARCHIVO_INI01)
 
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVsdPrd.Seek "=", RutCliente, Producto, Correl
   DataINI = PunteroVsdPrd("Prd_Data")
   PunteroVsdPrd.Close
@@ -62,7 +62,7 @@ If Not App.PrevInstance Then
   OperCRE = Mid$(DataINI, 26, 1)
   
   If strEstado <> 1 Then
-  '*** SI RECHAZO TRANSACCIÓN *****
+  '*** SI RECHAZO TRANSACCIÃ“N *****
     
     strEstado = "R"
      
@@ -112,7 +112,7 @@ If Not App.PrevInstance Then
     Call ActualizarEnvioSRM(IdUsuario + Vista + Operacion + Mid$(DataINI, 1, 26), Mid$(DataINI, 27, 464) + "L")
     
   Else
-    '*** TRANSACCIÓN NORMAL
+    '*** TRANSACCIÃ“N NORMAL
     
     strEstado = "A"
     '*** Arma Transaccion CRE (Credito Empresas PYME)

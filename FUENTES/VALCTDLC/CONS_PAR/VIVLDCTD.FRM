@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form VisorValidaciones 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Imprimir Validaciones Cuenta Corriente y LÌnea de CrÈdito"
+   Caption         =   "Imprimir Validaciones Cuenta Corriente y L√≠nea de Cr√©dito"
    ClientHeight    =   5370
    ClientLeft      =   1125
    ClientTop       =   1710
@@ -39,28 +39,19 @@ Begin VB.Form VisorValidaciones
       EndProperty
       font3d          =   1
       shadowstyle     =   1
-      Begin VBX.SpreadSheet Grilla 
-         DisplayColHeaders=   0   'False
-         DisplayRowHeaders=   0   'False
-         FontBold        =   0   'False
-         FontItalic      =   0   'False
-         FontName        =   "MS Sans Serif"
-         FontSize        =   8.25
-         FontStrikethru  =   0   'False
-         FontUnderline   =   0   'False
+      ' FI2026 - VBX.SpreadSheet migrado a MSFlexGrid (MSFLXGRD.OCX)
+      Begin MSFlexGridLib.MSFlexGrid Grilla 
          Height          =   3540
-         InterfaceDesigner=   "VIVLDCTD.frx":0000
          Left            =   120
-         MaxCols         =   6
-         MaxRows         =   0
-         OperationMode   =   1  'ReadOnly
-         RetainSelBlock  =   0   'False
-         ScrollBars      =   2  'Vertical
-         ShadowColor     =   &H00C8D0D4&
          TabIndex        =   6
          Top             =   450
          Width           =   9105
+         Cols            =   2
+         Rows            =   2
+         ScrollBars      =   2  'flexScrollBarVertical
+         SelectionMode   =   1  'flexSelectionByRow
       End
+
       Begin Threed.SSFrame Frame3D1 
          Height          =   990
          Left            =   150
@@ -71,7 +62,7 @@ Begin VB.Form VisorValidaciones
          _extentx        =   11033
          _extenty        =   1746
          _stockprops     =   14
-         caption         =   "SelecciÛn a Desplegar"
+         caption         =   "Selecci√≥n a Desplegar"
          forecolor       =   0
          BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
             name            =   "MS Sans Serif"
@@ -103,6 +94,7 @@ Begin VB.Form VisorValidaciones
             Top             =   525
             Width           =   1140
          End
+
          Begin VB.ComboBox cb_Oper 
             BeginProperty Font 
                name            =   "MS Sans Serif"
@@ -123,6 +115,7 @@ Begin VB.Form VisorValidaciones
             Top             =   525
             Width           =   1515
          End
+
          Begin VB.ComboBox cb_Prod 
             BeginProperty Font 
                name            =   "MS Sans Serif"
@@ -143,6 +136,7 @@ Begin VB.Form VisorValidaciones
             Top             =   525
             Width           =   1890
          End
+
          Begin Threed.SSPanel SSPanel1 
             Height          =   240
             Index           =   0
@@ -170,6 +164,7 @@ Begin VB.Form VisorValidaciones
             font3d          =   3
             alignment       =   1
          End
+
          Begin Threed.SSPanel SSPanel1 
             Height          =   240
             Index           =   1
@@ -181,7 +176,7 @@ Begin VB.Form VisorValidaciones
             _extentx        =   2275
             _extenty        =   423
             _stockprops     =   15
-            caption         =   "OperaciÛn"
+            caption         =   "Operaci√≥n"
             forecolor       =   -2147483630
             backcolor       =   13160660
             BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
@@ -197,6 +192,7 @@ Begin VB.Form VisorValidaciones
             font3d          =   3
             alignment       =   1
          End
+
          Begin Threed.SSPanel SSPanel1 
             Height          =   240
             Index           =   2
@@ -224,6 +220,7 @@ Begin VB.Form VisorValidaciones
             font3d          =   3
             alignment       =   1
          End
+
          Begin Threed.SSCommand btn_Consultar 
             Height          =   645
             Left            =   5250
@@ -240,6 +237,7 @@ Begin VB.Form VisorValidaciones
             picture         =   "VIVLDCTD.frx":0093
          End
       End
+
       Begin Threed.SSCommand btn_Actualiza 
          Height          =   645
          Left            =   6600
@@ -255,10 +253,11 @@ Begin VB.Form VisorValidaciones
          font3d          =   3
          picture         =   "VIVLDCTD.frx":051D
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "CategorÌa"
+         Caption         =   "Categor√≠a"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   0
@@ -267,6 +266,7 @@ Begin VB.Form VisorValidaciones
          Top             =   225
          Width           =   795
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -279,6 +279,7 @@ Begin VB.Form VisorValidaciones
          Top             =   225
          Width           =   945
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -291,10 +292,11 @@ Begin VB.Form VisorValidaciones
          Top             =   225
          Width           =   855
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "PosiciÛn"
+         Caption         =   "Posici√≥n"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   4
@@ -303,6 +305,7 @@ Begin VB.Form VisorValidaciones
          Top             =   225
          Width           =   860
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
@@ -315,10 +318,11 @@ Begin VB.Form VisorValidaciones
          Top             =   225
          Width           =   840
       End
+
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "DescripciÛn"
+         Caption         =   "Descripci√≥n"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   3
@@ -327,6 +331,7 @@ Begin VB.Form VisorValidaciones
          Top             =   225
          Width           =   4480
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   645
          Left            =   8400
@@ -342,6 +347,7 @@ Begin VB.Form VisorValidaciones
          font3d          =   1
          picture         =   "VIVLDCTD.frx":0837
       End
+
       Begin Threed.SSCommand Imprimir 
          Height          =   645
          Left            =   7500
@@ -400,7 +406,7 @@ BaseEnvioSRM.Close
 BaseVldCta.Close
 
 
-MsgBox "Tablas Actualizadas en forma exitosa.", 64, "ActualizaciÛn Tablas de Par·metros"
+MsgBox "Tablas Actualizadas en forma exitosa.", 64, "Actualizaci√≥n Tablas de Par√°metros"
 
 Screen.MousePointer = 0
 
@@ -420,7 +426,7 @@ Dim PuntVld As Recordset
 
 Screen.MousePointer = 11
 
-Grilla.MaxRows = 0
+Grilla.Rows = 0
 
 Tabla = IIf(UCase(cb_Orig.Text) = "METRO", "Tbl_ValMet", "Tbl_ValReg")
 TipoProd = IIf(UCase(cb_Prod.Text) = "CUENTA CORRIENTE", "0", "1")
@@ -430,9 +436,9 @@ Select Case UCase(cb_Oper.Text)
         CodOper = "0" 'OPER_APERTURA   ' 0
      Case "CIERRE"
         CodOper = "1" 'OPER_CIERRE   ' 1
-     Case "RENOVACI”N"
+     Case "RENOVACI√ìN"
         CodOper = "2" 'OPER_RENOVACION   ' 2
-     Case "MODIFICACI”N"
+     Case "MODIFICACI√ìN"
         CodOper = "3" 'OPER_MODIFICACION   ' 3
   End Select
 
@@ -445,8 +451,8 @@ If PuntVld.RecordCount > 0 Then
   PuntVld.MoveFirst
    
   For j% = 1 To PuntVld.RecordCount
-    Grilla.MaxRows = Grilla.MaxRows + 1
-    Grilla.Row = Grilla.MaxRows
+    Grilla.Rows = Grilla.Rows + 1
+    Grilla.Row = Grilla.Rows
     Grilla.Col = 1
     Grilla.Text = PuntVld!Ctd_Categ
     Grilla.Col = 2
@@ -489,7 +495,7 @@ End Sub
 
 Private Sub cb_Oper_Click()
 
-Grilla.MaxRows = 0
+Grilla.Rows = 0
 
 End Sub
 
@@ -504,7 +510,7 @@ End Sub
 
 Private Sub cb_Orig_Click()
 
-Grilla.MaxRows = 0
+Grilla.Rows = 0
 
 End Sub
 
@@ -519,7 +525,7 @@ End Sub
 
 Private Sub cb_Prod_Click()
 
-Grilla.MaxRows = 0
+Grilla.Rows = 0
 
 End Sub
 
@@ -539,12 +545,12 @@ Dim Success As Integer
 Screen.MousePointer = 11
   
 If Dir("C:\DATA\VISADO\VALCTDLC.MDB") <> "VALCTDLC.MDB" Then
-     MsgBox "No se encontrÛ la base de datos VALCTDLC.MDB", 16, "Archivo no encontrado"
+     MsgBox "No se encontr√≥ la base de datos VALCTDLC.MDB", 16, "Archivo no encontrado"
      Screen.MousePointer = 0
      Exit Sub
 End If
   
-Grilla.MaxCols = 6
+Grilla.Cols = 6
 Grilla.ColWidth(1) = 6.5
 Grilla.ColWidth(2) = 7
 Grilla.ColWidth(3) = 37.4
@@ -572,12 +578,12 @@ Dim FilaGrid As Integer
 
   Screen.MousePointer = 11
   
-If Grilla.MaxRows > 0 Then
+If Grilla.Rows > 0 Then
   
-  If Grilla.MaxRows Mod 55 = 0 Then
-     TotPag = Grilla.MaxRows \ 55
+  If Grilla.Rows Mod 55 = 0 Then
+     TotPag = Grilla.Rows \ 55
   Else
-     TotPag = (Grilla.MaxRows \ 55) + 1
+     TotPag = (Grilla.Rows \ 55) + 1
   End If
   FilaGrid = 0
   PagActual = 1
@@ -591,7 +597,7 @@ If Grilla.MaxRows > 0 Then
   Printer.Print
   Printer.FontUnderline = True
   Printer.FontBold = True
-  Printer.Print Tab(6); "TABLA DE PAR¡METROS - VALIDACI”N CUENTA CORRIENTE Y LÕNEA DE CR…DITO "
+  Printer.Print Tab(6); "TABLA DE PAR√ÅMETROS - VALIDACI√ìN CUENTA CORRIENTE Y L√çNEA DE CR√âDITO "
   Printer.FontUnderline = False
   
   Printer.FontSize = "10"
@@ -605,7 +611,7 @@ If Grilla.MaxRows > 0 Then
   Printer.Print UCase(cb_Prod.Text) + Space(4);
   Printer.FontBold = False
   
-  Printer.Print "OperaciÛn : ";
+  Printer.Print "Operaci√≥n : ";
   
   Printer.FontBold = True
   Printer.Print UCase(cb_Oper.Text) + Space(4);
@@ -621,10 +627,10 @@ If Grilla.MaxRows > 0 Then
   Printer.Print
   Printer.FontSize = "10"
   Printer.Print Tab(7); String(87, "-")
-  Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI”N"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
+  Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI√ìN"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
   Printer.Print Tab(7); String(87, "-")
   
-  For I = 1 To Grilla.MaxRows
+  For I = 1 To Grilla.Rows
     FilaGrid = FilaGrid + 1
     Grilla.Row = I
     
@@ -648,7 +654,7 @@ If Grilla.MaxRows > 0 Then
     
     Printer.Print Tab(7); Cadena
     
-    If FilaGrid = 55 And Grilla.Row < Grilla.MaxRows Then
+    If FilaGrid = 55 And Grilla.Row < Grilla.Rows Then
         Printer.EndDoc
         PagActual = PagActual + 1
         FilaGrid = 0
@@ -659,15 +665,15 @@ If Grilla.MaxRows > 0 Then
         Printer.Print
         'Printer.FontUnderline = True
         'Printer.FontBold = True
-        'Printer.Print Tab(5); "TABLA DE PAR¡METROS - VALIDACI”N CUENTA CORRIENTE Y LÕNEA DE CR…DITO "
+        'Printer.Print Tab(5); "TABLA DE PAR√ÅMETROS - VALIDACI√ìN CUENTA CORRIENTE Y L√çNEA DE CR√âDITO "
         'Printer.FontUnderline = False
         'Printer.FontBold = False
         'Printer.Print
-        'Printer.Print Tab(5); "Producto : " + UCase(cb_Prod.Text) + Space(4) + "OperaciÛn : " + UCase(cb_Oper.Text) + Space(4) + "Origen : " + UCase(cb_Orig.Text)
+        'Printer.Print Tab(5); "Producto : " + UCase(cb_Prod.Text) + Space(4) + "Operaci√≥n : " + UCase(cb_Oper.Text) + Space(4) + "Origen : " + UCase(cb_Orig.Text)
         Printer.Print
         Printer.FontSize = "10"
         Printer.Print Tab(7); String(87, "-")
-        Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI”N"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
+        Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI√ìN"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
         Printer.Print Tab(7); String(87, "-")
   
     End If

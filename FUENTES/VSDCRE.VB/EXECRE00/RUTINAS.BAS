@@ -3,13 +3,13 @@ Option Explicit
 
 Public Function DatoClienteEncontrado(pRutcliente As String) As String
 
-Dim FiltroVsdCli  As Snapshot
+Dim FiltroVsdCli  As Recordset
 Dim SQL           As String
 
 Set BaseVisado = Workspaces(0).OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
 SQL = "SELECT Cli_Nombre FROM Vsd_Cli WHERE CLI_RUT='" + pRutcliente + "';"
                                                
-Set FiltroVsdCli = BaseVisado.CreateSnapshot(SQL)
+Set FiltroVsdCli = BaseVisado.OpenRecordset(SQL)
 If FiltroVsdCli.RecordCount > 0 Then
   DatoClienteEncontrado = Left$(FiltroVsdCli!Cli_Nombre + Space(35), 35)
 Else
@@ -21,7 +21,7 @@ End Function
 Public Function TraeRutEjecutivo(Cod_Ejc As String) As String
 
 Dim BaseSGT As Database
-Dim FiltroTabEjc  As Snapshot
+Dim FiltroTabEjc  As Recordset
 Dim SQL           As String
 Dim CODOFI As String
 Dim CODEJC As String
@@ -32,7 +32,7 @@ CODEJC = Mid(Cod_Ejc, 4, 3)
 Set BaseSGT = Workspaces(0).OpenDatabase(DIRECTORIO_02 + ARCHIVO_MDB03)
 SQL = "SELECT EJC_EJCRUT FROM TBLEJC WHERE EJC_EJCOFI=" + CODOFI + " AND EJC_EJCCOD=" + CODEJC + ";"
                                                
-Set FiltroTabEjc = BaseSGT.CreateSnapshot(SQL)
+Set FiltroTabEjc = BaseSGT.OpenRecordset(SQL, dbOpenSnapshot)
 If FiltroTabEjc.RecordCount > 0 Then
   TraeRutEjecutivo = Left$(FiltroTabEjc!EJC_EJCRUT + Space(10), 10)
 Else
@@ -66,22 +66,19 @@ Public Function GrabaParametro(grupo As String, llave As String, parametro As St
 
 End Function
 Public Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = RUTDEFECTO
-  End If
+Private Function ObtieneRutUsuarioLogueado() As String
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
+End Function
 End Function
 
 Public Function ObtenerVistaDestino(CodPrd As String)
 Dim PunteroTabprd As Recordset
   
   Set PunteroTabprd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-  PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name
+  ' FI2026 - PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabprd.Seek "=", CodPrd
   ObtenerVistaDestino = Trim$(PunteroTabprd!Prd_Vista_Dst)
   PunteroTabprd.Close
@@ -91,7 +88,7 @@ Public Function ObtenerOperacionSRM(Producto As String, Actividad As String) As 
 Dim PunteroTabOper As Recordset
   
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabOper.Seek "=", Producto, Actividad
   ObtenerOperacionSRM = Trim$(PunteroTabOper!Oper_SRM)
   PunteroTabOper.Close
@@ -134,7 +131,7 @@ Public Function ObtenerOperacionBorrado(Producto As String, Actividad As String)
 Dim PunteroTabOper As Recordset
   
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabOper.Seek "=", Producto, Actividad
   ObtenerOperacionBorrado = Trim$(PunteroTabOper!Oper_Borrado)
   PunteroTabOper.Close
@@ -146,9 +143,9 @@ Dim PunteroTabprd As Recordset
   
 Set PunteroTabprd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   
-PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name
+' FI2026 - PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
 PunteroTabprd.Seek "=", CodPrd
-ObtenerVistaOrigen = Trim$(PunteroTabprd!Prd_Vista_Ori)
+ObtenerVistaOrigen = Trim$(PunteroTabprd!Prd_Vista_Ori, dbOpenSnapshot)
 PunteroTabprd.Close
   
 End Function

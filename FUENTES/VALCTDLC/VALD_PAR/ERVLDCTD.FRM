@@ -2,7 +2,7 @@ VERSION 4.00
 Begin VB.Form Frm_ERVL 
    BackColor       =   &H00C8D0D4&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Errores de Validaci�n de Datos"
+   Caption         =   "Errores de ValidaciÃ³n de Datos"
    ClientHeight    =   4740
    ClientLeft      =   1935
    ClientTop       =   2025
@@ -49,6 +49,7 @@ Begin VB.Form Frm_ERVL
          strikethrough   =   0   'False
       EndProperty
    End
+
    Begin Threed.SSPanel Lb_Prod 
       Height          =   690
       Left            =   1725
@@ -86,6 +87,7 @@ Begin VB.Form Frm_ERVL
          Top             =   375
          Width           =   3165
       End
+
       Begin VB.Label lb_NomPrd 
          Alignment       =   2  'Center
          Caption         =   "lb_NomPrd"
@@ -105,6 +107,7 @@ Begin VB.Form Frm_ERVL
          Width           =   3765
       End
    End
+
    Begin Threed.SSPanel lb_Accion 
       Height          =   690
       Left            =   150
@@ -115,7 +118,7 @@ Begin VB.Form Frm_ERVL
       _extentx        =   2408
       _extenty        =   1217
       _stockprops     =   15
-      caption         =   "Modificaci�n"
+      caption         =   "ModificaciÃ³n"
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
          charset         =   1
@@ -126,6 +129,7 @@ Begin VB.Form Frm_ERVL
          strikethrough   =   0   'False
       EndProperty
    End
+
    Begin Threed.SSPanel SSPanel1 
       Height          =   615
       Left            =   150
@@ -148,6 +152,7 @@ Begin VB.Form Frm_ERVL
          strikethrough   =   0   'False
       EndProperty
    End
+
    Begin MSGrid.Grid GridErr 
       Height          =   2865
       Left            =   150
@@ -174,6 +179,7 @@ Begin VB.Form Frm_ERVL
       highlight       =   0   'False
       mouseicon       =   "ERVLDCTD.frx":0058
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   645
       Left            =   6225
@@ -198,6 +204,7 @@ Begin VB.Form Frm_ERVL
       font3d          =   3
       picture         =   "ERVLDCTD.frx":0074
    End
+
    Begin Threed.SSCommand Imprimir 
       Height          =   645
       Left            =   5100
@@ -268,7 +275,7 @@ If Not App.PrevInstance Then
   Set BaseVLDCTD = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB03)
     
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVsdPrd.Seek "=", Rut, Producto, Val(Correlativo)
   
   Call ObtenerDatosDeCorte(Producto, InicioLlave, LargoLlave, InicioData, LargoData, NombreProducto, Vista)
@@ -288,10 +295,10 @@ If Not App.PrevInstance Then
         lb_Accion.Caption = "Cierre"
      Case "R"
         CodOper = OPER_RENOVACION   ' 2
-        lb_Accion.Caption = "Renovaci�n"
+        lb_Accion.Caption = "RenovaciÃ³n"
      Case "M"
         CodOper = OPER_MODIFICACION   ' 3
-        lb_Accion.Caption = "Modificaci�n"
+        lb_Accion.Caption = "ModificaciÃ³n"
   End Select
   
    
@@ -362,13 +369,13 @@ Public Sub PreparaGrid_Errores()
 GridErr.Row = 0
 
 GridErr.Col = 0
-GridErr.Text = " Descripci�n Dato No V�lido"
+GridErr.Text = " DescripciÃ³n Dato No VÃ¡lido"
 GridErr.FixedAlignment(0) = 0
 GridErr.Col = 1
 GridErr.Text = "Valor Incorrecto"
 GridErr.FixedAlignment(1) = 2
 GridErr.Col = 2
-GridErr.Text = "Posici�n"
+GridErr.Text = "PosiciÃ³n"
 GridErr.FixedAlignment(2) = 2
 
 GridErr.ColWidth(0) = 4095
@@ -403,12 +410,12 @@ Screen.MousePointer = 11
   
   Printer.FontName = "Courier New"
   Printer.FontSize = 12
-  Printer.Print "BANCO DE CHILE"; Tab(54); "Fecha Emisi�n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora Emisi�n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "BANCO DE CHILE"; Tab(54); "Fecha EmisiÃ³n : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora EmisiÃ³n  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.FontBold = True
-  Printer.Print Tab(25); "DETALLE ERRORES DE VALIDACI�N"
+  Printer.Print Tab(25); "DETALLE ERRORES DE VALIDACIÃ“N"
   Printer.FontUnderline = False
   Printer.FontBold = False
   Printer.Print
@@ -416,12 +423,12 @@ Screen.MousePointer = 11
   Printer.FontSize = 10
   Printer.Print Tab(10); "Oficina"; Tab(22); ": " + Oficina
   Printer.Print Tab(10); "Rut Cliente"; Tab(22); ": " + Format$(Mid$(Rut, 1, Len(Rut) - 1), "###,###,###") + "-" + Right(Rut, 1)
-  Printer.Print Tab(10); "Producto"; Tab(22); ": " + lb_NomPrd.Caption + "   N� " + lb_NumPrd.Caption
-  Printer.Print Tab(10); "Acci�n"; Tab(22); ": " + lb_Accion.Caption
+  Printer.Print Tab(10); "Producto"; Tab(22); ": " + lb_NomPrd.Caption + "   NÂ° " + lb_NumPrd.Caption
+  Printer.Print Tab(10); "AcciÃ³n"; Tab(22); ": " + lb_Accion.Caption
   Printer.Print Tab(10); "Origen"; Tab(22); ": " + Lb_Zona.Caption
   Printer.Print
   Printer.Print
-  Printer.Print Tab(10); UCase("Descripci�n Dato No V�lido" + Space(10) + "Valor Incorrecto" + Space(5) + "Posici�n")
+  Printer.Print Tab(10); UCase("DescripciÃ³n Dato No VÃ¡lido" + Space(10) + "Valor Incorrecto" + Space(5) + "PosiciÃ³n")
   Printer.Print Tab(10); String(65, "-")
   
   For s% = 1 To GridErr.Rows - 1
@@ -482,7 +489,7 @@ Screen.MousePointer = 11
   Printer.FontSize = 12
   Printer.FontBold = True
   Printer.FontItalic = True
-  Printer.Print Tab(15); "ANALIZAR ESTA SITUACI�N CON EL EJECUTIVO ASOCIADO,"
+  Printer.Print Tab(15); "ANALIZAR ESTA SITUACIÃ“N CON EL EJECUTIVO ASOCIADO,"
   Printer.Print Tab(15); "  Y SI CORRESPONDE REPORTAR A LA MESA DE AYUDA."
   Printer.FontItalic = False
   Printer.FontBold = False
@@ -498,7 +505,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   i% = MsgBox("Error de Impresi�n", 5 + 48 + 0, "Impresi�n Cancelada")
+   i% = MsgBox("Error de ImpresiÃ³n", 5 + 48 + 0, "ImpresiÃ³n Cancelada")
    If i% = 4 Then
      Resume 0
    Else

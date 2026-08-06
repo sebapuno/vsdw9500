@@ -58,6 +58,7 @@ Begin VB.Form GrupoOficina
          Top             =   2520
          Width           =   4935
       End
+
       Begin VB.ListBox ListaOficinas 
          BeginProperty Font 
             name            =   "MS Sans Serif"
@@ -75,6 +76,7 @@ Begin VB.Form GrupoOficina
          Top             =   480
          Width           =   4935
       End
+
       Begin Threed.SSPanel SSPanel1 
          Height          =   255
          Index           =   0
@@ -99,6 +101,7 @@ Begin VB.Form GrupoOficina
          EndProperty
          font3d          =   2
       End
+
       Begin Threed.SSPanel SSPanel1 
          Height          =   255
          Index           =   1
@@ -123,6 +126,7 @@ Begin VB.Form GrupoOficina
          EndProperty
          font3d          =   2
       End
+
       Begin Threed.SSCommand btn_Eliminar 
          Height          =   615
          Left            =   1200
@@ -138,6 +142,7 @@ Begin VB.Form GrupoOficina
          font3d          =   3
          picture         =   "GRUPOOFI.frx":0000
       End
+
       Begin Threed.SSCommand btn_Agregar 
          Height          =   615
          Left            =   240
@@ -153,6 +158,7 @@ Begin VB.Form GrupoOficina
          font3d          =   3
          picture         =   "GRUPOOFI.frx":031A
       End
+
       Begin Threed.SSCommand Aceptar 
          Height          =   615
          Left            =   3120
@@ -168,6 +174,7 @@ Begin VB.Form GrupoOficina
          font3d          =   3
          picture         =   "GRUPOOFI.frx":0634
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   615
          Left            =   4080
@@ -244,7 +251,7 @@ Encontrado = False
 If OfiSelec.ListCount > 0 Then
   For I = 0 To OfiSelec.ListCount - 1
      If ListaOficinas.Text = OfiSelec.List(I) Then
-        MsgBox "La Oficina ya est· seleccionada.", 64
+        MsgBox "La Oficina ya est√° seleccionada.", 64
         Encontrado = True
         Exit For
      End If
@@ -253,8 +260,8 @@ End If
 
 If Not Encontrado Then
   If Not CoincideRegion(Mid$(ListaOficinas.Text, 1, 3)) Then
-    valen = MsgBox("La oficina seleccionada (" + Mid$(ListaOficinas.Text, 1, 3) + ") pertenece a una regiÛn distinta a la correspondiente al PC." + _
-                     Chr(10) + "Esto puede generar problemas al realizar consultas de visado." + Chr(10) + "øDesea agregarla de todas formas?", 52, "Advertencia")
+    valen = MsgBox("La oficina seleccionada (" + Mid$(ListaOficinas.Text, 1, 3) + ") pertenece a una regi√≥n distinta a la correspondiente al PC." + _
+                     Chr(10) + "Esto puede generar problemas al realizar consultas de visado." + Chr(10) + "¬øDesea agregarla de todas formas?", 52, "Advertencia")
   Else
     valen = vbYes ' TIENE MISMA REGION
   End If
@@ -293,7 +300,7 @@ If OfiSelec.ListIndex > -1 Then
         OfiSelec.Selected(0) = True
       End If
     Else
-      MsgBox "La oficina est· relacionada con la correspondiente al PC.", 48, "No se puede eliminar la oficina"
+      MsgBox "La oficina est√° relacionada con la correspondiente al PC.", 48, "No se puede eliminar la oficina"
     End If
   Else
     NumeroLista = OfiSelec.ListIndex

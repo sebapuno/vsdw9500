@@ -30,7 +30,7 @@ Dim PunteroVsdPrd  As Recordset
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
     Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     PunteroTabPrd.Index = "Tab_Prd"
     IdUsuario = ObtieneRutUsuarioLogueado()
     Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -61,7 +61,7 @@ Dim Ret As Integer
 End Function
 Private Function ExisteLineaDeCredito(ByVal Llave As String, ByVal Vista As String) As Boolean
   Modo = "V"
-  ExisteLineaDeCredito = ObtieneInformacion(Vista, "0" + Llave, "L�nea de Cr�dito", 16, 10)
+  ExisteLineaDeCredito = ObtieneInformacion(Vista, "0" + Llave, "LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 16, 10)
 End Function
 Private Function ObtieneInformacion(ByVal Vista As String, ByVal Llave As String, ByVal DatoBuscado As String, ByVal Posicion As Integer, ByVal Largo As Integer) As Boolean
 Dim Usuario As String
@@ -75,25 +75,25 @@ Dim AplicacionDestino As String * 4
     If Mid$(CadenaDatos, 1, 6) = "000000" Then
       If Mid$(Llave, 1, Largo) = Mid$(CadenaDatos, Posicion, Largo) Then
         If Val(Mid(CadenaDatos, 149, 6)) <> 0 Then
-          MsgBox "La " + DatoBuscado + " Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
+          MsgBox "La " + DatoBuscado + " EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
         Else
           If Mid$(CadenaDatos, 291, 1) <> "0" Then
-            MsgBox "La " + DatoBuscado + " Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                          "Problemas de Validaci�n"
+            MsgBox "La " + DatoBuscado + " EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                          "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
           Else
             ObtieneInformacion = True
           End If
         End If
       Else
-        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de Validaci�n"
+        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
-        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de Validaci�n"
+        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
       End If
     End If
   Else
-    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String
@@ -102,7 +102,7 @@ Dim BaseEnvioSRM As Database
   DeterminaNodo = SINNODO
   Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVistas.Seek "=", Vista
   If Not PunteroVistas.NoMatch Then
     If Environ$(AMBIENTEDESARROLLO) = "DESA" Then
@@ -121,12 +121,8 @@ Dim BaseEnvioSRM As Database
 End Function
 
 Private Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = RUTDEFECTO
-  End If
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
 End Function

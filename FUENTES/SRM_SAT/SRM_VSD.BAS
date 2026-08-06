@@ -1,8 +1,10 @@
 Attribute VB_Name = "Srm_Vsd"
-Declare Function AisGetUsr Lib "C:\Bin\F\Wais.Dll" (ByVal Estructura As String) As Integer
-Declare Function GetPrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Integer, ByVal lpFileName As String) As Integer
-Declare Function WritePrivateProfileString Lib "Kernel" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Integer
-Private Declare Function GetModuleUsage Lib "kernel.dll" (ByVal handler As Integer) As Integer
+' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
+Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
+Declare Function WritePrivateProfileString Lib "KERNEL32.DLL" Alias "WritePrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Long
+' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
+'Private Declare Function GetModuleUsage Lib "KERNEL32.DLL" (ByVal handler As Long) As Long
 
 Public Const SINNODO = "9999"
 Public Const EJECUTABLE = "Srm_Vsd.EXE"
@@ -39,9 +41,11 @@ Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
 Dim Retorno As Integer
   Retorno = Shell(Programa, Modo)
   DoEvents
-  While GetModuleUsage(Retorno) <> 0
-     DoEvents
-  Wend
+  ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
+  ' Call WaitProcess(Retorno)  ' requiere modRSrm32.bas
+
+     ' DoEvents  ' FI2026 SHG - orphan from GetModuleUsage
+  ' Wend  ' FI2026 SHG - orphan from GetModuleUsage
 End Sub
 
 Public Function BuscaNodoOfi(CodOfi As String) As String

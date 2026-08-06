@@ -39,6 +39,7 @@ Begin VB.Form PantallaVisar
          Visible         =   0   'False
          Width           =   192
       End
+
       Begin VB.PictureBox Aceptar 
          ForeColor       =   &H00800000&
          Height          =   345
@@ -50,9 +51,10 @@ Begin VB.Form PantallaVisar
          Visible         =   0   'False
          Width           =   735
       End
+
       Begin VB.Label Numero 
          BackStyle       =   0  'Transparent
-         Caption         =   "N�"
+         Caption         =   "NÃƒâ€šÃ‚Âº"
          BeginProperty Font 
             name            =   "Arial"
             charset         =   1
@@ -70,6 +72,7 @@ Begin VB.Form PantallaVisar
          Top             =   120
          Width           =   300
       End
+
       Begin VB.Label Glosa 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -93,6 +96,7 @@ Begin VB.Form PantallaVisar
          WordWrap        =   -1  'True
       End
    End
+
    Begin VB.PictureBox Sombra 
       BackColor       =   &H00000000&
       BeginProperty Font 
@@ -115,6 +119,7 @@ Begin VB.Form PantallaVisar
       Visible         =   0   'False
       Width           =   4650
    End
+
    Begin VB.PictureBox Panel3D3 
       BeginProperty Font 
          name            =   "Arial"
@@ -144,6 +149,7 @@ Begin VB.Form PantallaVisar
          Top             =   60
          Width           =   855
       End
+
       Begin VB.PictureBox Cancelar 
          ForeColor       =   &H000000C0&
          Height          =   615
@@ -155,6 +161,7 @@ Begin VB.Form PantallaVisar
          Width           =   855
       End
    End
+
    Begin VB.PictureBox Panel3D1 
       BeginProperty Font 
          name            =   "Arial"
@@ -183,6 +190,7 @@ Begin VB.Form PantallaVisar
          Top             =   60
          Width           =   855
       End
+
       Begin VB.PictureBox Aprobar 
          Enabled         =   0   'False
          ForeColor       =   &H00808000&
@@ -195,6 +203,7 @@ Begin VB.Form PantallaVisar
          Width           =   855
       End
    End
+
    Begin VB.PictureBox Panel3D2 
       BeginProperty Font 
          name            =   "Arial"
@@ -223,6 +232,7 @@ Begin VB.Form PantallaVisar
          Top             =   540
          Width           =   3795
       End
+
       Begin VB.Label Accion 
          Alignment       =   2  'Center
          BackColor       =   &H00C0C0C0&
@@ -233,10 +243,11 @@ Begin VB.Form PantallaVisar
          Top             =   300
          Width           =   3795
       End
+
       Begin VB.Label Etiqueta 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "Acci�n"
+         Caption         =   "AcciÃƒÆ’Ã‚Â³n"
          BeginProperty Font 
             name            =   "Times New Roman"
             charset         =   1
@@ -254,6 +265,7 @@ Begin VB.Form PantallaVisar
          Top             =   300
          Width           =   510
       End
+
       Begin VB.Label Etiqueta 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -275,6 +287,7 @@ Begin VB.Form PantallaVisar
          Top             =   540
          Width           =   660
       End
+
       Begin VB.Label Nombre 
          Alignment       =   2  'Center
          BackColor       =   &H00C0C0C0&
@@ -285,6 +298,7 @@ Begin VB.Form PantallaVisar
          Top             =   540
          Width           =   2535
       End
+
       Begin VB.Label Rut 
          Alignment       =   2  'Center
          BackColor       =   &H00C0C0C0&
@@ -295,6 +309,7 @@ Begin VB.Form PantallaVisar
          Top             =   300
          Width           =   2535
       End
+
       Begin VB.Label Etiqueta 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -316,6 +331,7 @@ Begin VB.Form PantallaVisar
          Top             =   540
          Width           =   585
       End
+
       Begin VB.Label Etiqueta 
          AutoSize        =   -1  'True
          BackColor       =   &H00808000&
@@ -339,6 +355,7 @@ Begin VB.Form PantallaVisar
          Width           =   270
       End
    End
+
    Begin VB.PictureBox GrillaVisado 
       BorderStyle     =   0  'None
       Height          =   2325
@@ -349,6 +366,7 @@ Begin VB.Form PantallaVisar
       Top             =   1410
       Width           =   8805
    End
+
    Begin VB.Image Rechazado 
       Height          =   240
       Left            =   5715
@@ -357,6 +375,7 @@ Begin VB.Form PantallaVisar
       Visible         =   0   'False
       Width           =   255
    End
+
    Begin VB.Image Aprobado 
       Height          =   240
       Left            =   5400
@@ -365,6 +384,7 @@ Begin VB.Form PantallaVisar
       Visible         =   0   'False
       Width           =   285
    End
+
    Begin VB.Label Label1 
       BackColor       =   &H00000000&
       Caption         =   "Label1"
@@ -390,7 +410,7 @@ Dim Posicion       As Integer
 Dim Columna        As Integer
 Dim Producto       As String
 Dim IndiceTabPrd   As Recordset
-Dim FiltroTabDesp  As Snapshot
+Dim FiltroTabDesp  As Recordset
 Dim IndiceTabOper  As Recordset
 Dim PosicionComa   As Integer
 Dim NombreArchivo  As String
@@ -457,7 +477,7 @@ Dim AplicacionDestino As String * 4
   Retorno% = PoneValorINI("Parametros", "LlaveVisad", Data, DIRECTORIO_01 + ARCHIVO_INI01)
   
   IndiceTabPrd.Index = "Tab_Prd"
-  IndiceTabOper.Index = IndiceTabOper.Indexes(0).Name
+  ' FI2026 - IndiceTabOper.Index = IndiceTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   IndiceTabPrd.Seek "=", Producto
   Llave = IndiceTabPrd("Prd_Pos_Act")
   If Interpreta(Llave, SIMBOLOPOSICION) <> -1 Then
@@ -475,12 +495,12 @@ Dim AplicacionDestino As String * 4
                                Mid$(ARCHIVO_EXE07, 1, Len(ARCHIVO_EXE07) - 7) + _
                                Producto + Mid$(ARCHIVO_EXE07, Len(ARCHIVO_EXE07) - 3, Len(ARCHIVO_EXE07)))
   If Dir(NombreArchivo) <> Mid$(NombreArchivo, Len(NombreArchivo) - 11) Then
-    Set FiltroTabDesp = BaseVisado.CreateSnapshot("SELECT * FROM Tab_Desp WHERE Desp_Prod='" + _
-                                                                                       Producto + "';")
+    Set FiltroTabDesp = BaseVisado.OpenRecordset("SELECT * FROM Tab_Desp WHERE Desp_Prod='" + _
+                                                                                       Producto + "';", dbOpenSnapshot)
                                                                                        
     While Not FiltroTabDesp.EOF And Not Recorte
-      If FiltroTabDesp("Desp_Fil") > GrillaVisado.MaxRows Then
-        GrillaVisado.MaxRows = FiltroTabDesp("Desp_Fil")
+      If FiltroTabDesp("Desp_Fil") > GrillaProductos.Rows Then
+        GrillaProductos.Rows = FiltroTabDesp("Desp_Fil")
       End If
       GrillaVisado.Col = FiltroTabDesp("Desp_Col")
       GrillaVisado.Row = FiltroTabDesp("Desp_Fil")
@@ -504,8 +524,8 @@ Dim AplicacionDestino As String * 4
         GrillaVisado.Row = 1
         gCodConvenio = GrillaVisado.Text
         
-        GrillaVisado.MaxRows = GrillaVisado.MaxRows + 1
-        li_filo = GrillaVisado.MaxRows
+        GrillaProductos.Rows = GrillaProductos.Rows + 1
+        li_filo = GrillaProductos.Rows
 
         inicio = 1
         sigue = True
@@ -801,7 +821,7 @@ Dim AplicacionDestino As String * 4
                     
                     If ls_glosa = "convenio" Then
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
     
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -817,7 +837,7 @@ Dim AplicacionDestino As String * 4
                        
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Tipo de Rendici�n  "
+                        GrillaVisado.Text = "Tipo de RendiciÃƒÆ’Ã‚Â³n  "
                         
 '*********************** validacion de campo con_entrega_vv ****************
 'Modificado por        : Entersoft
@@ -837,7 +857,7 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = ls_rendicion
                         
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         'Siguiente linea.
                         '****************
                         GrillaVisado.Col = 1
@@ -851,7 +871,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta. Cte. Rendici�n  "
+                        GrillaVisado.Text = "Cta. Cte. RendiciÃƒÆ’Ã‚Â³n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
@@ -864,7 +884,7 @@ Dim AplicacionDestino As String * 4
                         'Siguiente linea. //ras
                         '****************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -884,7 +904,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
          
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -904,7 +924,7 @@ Dim AplicacionDestino As String * 4
         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -924,7 +944,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -944,7 +964,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -955,18 +975,18 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = Format(Trim(ls_ctacte_empresa), "0-000-00000-00")
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta.Cte.Facturaci�n  "
+                        GrillaVisado.Text = "Cta.Cte.FacturaciÃƒÆ’Ã‚Â³n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
                         GrillaVisado.Text = Format(Trim(ls_ctacte_factu), "0-000-00000-00")
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Personer�a Jur�dica  "
+                        GrillaVisado.Text = "PersonerÃƒÆ’Ã‚Â­a JurÃƒÆ’Ã‚Â­dica  "
                         
                         GrillaVisado.Col = 2
                         GrillaVisado.Row = li_filo
@@ -982,7 +1002,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -994,7 +1014,7 @@ Dim AplicacionDestino As String * 4
 
                          GrillaVisado.Col = 3
                          GrillaVisado.Row = li_filo
-                         GrillaVisado.Text = "Conciliaci�n  "
+                         GrillaVisado.Text = "ConciliaciÃƒÆ’Ã‚Â³n  "
       
                          GrillaVisado.Col = 4
                          GrillaVisado.Row = li_filo
@@ -1002,7 +1022,7 @@ Dim AplicacionDestino As String * 4
           
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1022,7 +1042,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1064,14 +1084,14 @@ Dim AplicacionDestino As String * 4
       While Not EOF(1)
         Input #1, Linea
         Columna = 1
-        If Fila > GrillaVisado.MaxRows Then
-          GrillaVisado.MaxRows = Fila
+        If Fila > GrillaProductos.Rows Then
+          GrillaProductos.Rows = Fila
         End If
-        While InStr(Linea, "�") <> 0
+        While InStr(Linea, "Ãƒâ€šÃ‚Â¬") <> 0
           GrillaVisado.Col = Columna
           GrillaVisado.Row = Fila
-          GrillaVisado.Text = Mid$(Linea, 1, InStr(Linea, "�") - 1)
-          Linea = Mid$(Linea, InStr(Linea, "�") + 1)
+          GrillaVisado.Text = Mid$(Linea, 1, InStr(Linea, "Ãƒâ€šÃ‚Â¬") - 1)
+          Linea = Mid$(Linea, InStr(Linea, "Ãƒâ€šÃ‚Â¬") + 1)
           
           If InStr(Linea, ";") Then
               Mid$(Linea, InStr(Linea, ";"), 1) = ","
@@ -1088,8 +1108,8 @@ Dim AplicacionDestino As String * 4
         GrillaVisado.Row = 1
         gCodConvenio = GrillaVisado.Text
         
-        GrillaVisado.MaxRows = GrillaVisado.MaxRows + 1
-        li_filo = GrillaVisado.MaxRows
+        GrillaProductos.Rows = GrillaProductos.Rows + 1
+        li_filo = GrillaProductos.Rows
 
         inicio = 1
         sigue = True
@@ -1397,7 +1417,7 @@ Dim AplicacionDestino As String * 4
 '***************************************************************************
                     If ls_glosa = "convenio" Then
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
     
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1415,7 +1435,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Tipo de Rendici�n  "
+                        GrillaVisado.Text = "Tipo de RendiciÃƒÆ’Ã‚Â³n  "
                         
 '*********************** validacion de campo con_entrega_vv ****************
 'Modificado por        : Entersoft
@@ -1439,7 +1459,7 @@ Dim AplicacionDestino As String * 4
                         
                         
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         'Siguiente linea.
                         '****************
                         GrillaVisado.Col = 1
@@ -1456,7 +1476,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta. Cte. Rendici�n  "
+                        GrillaVisado.Text = "Cta. Cte. RendiciÃƒÆ’Ã‚Â³n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
@@ -1469,7 +1489,7 @@ Dim AplicacionDestino As String * 4
                         'Siguiente linea. //ras
                         '****************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1489,7 +1509,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                          
                         GrillaVisado.Col = 1
                   
@@ -1511,7 +1531,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1531,7 +1551,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1551,7 +1571,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1562,18 +1582,18 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = Format(Trim(ls_ctacte_empresa), "0-000-00000-00")
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta.Cte.Facturaci�n  "
+                        GrillaVisado.Text = "Cta.Cte.FacturaciÃƒÆ’Ã‚Â³n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
                         GrillaVisado.Text = Format(Trim(ls_ctacte_factu), "0-000-00000-00")
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Personer�a Jur�dica  "
+                        GrillaVisado.Text = "PersonerÃƒÆ’Ã‚Â­a JurÃƒÆ’Ã‚Â­dica  "
                         
                         GrillaVisado.Col = 2
                         GrillaVisado.Row = li_filo
@@ -1589,7 +1609,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1601,7 +1621,7 @@ Dim AplicacionDestino As String * 4
 
                          GrillaVisado.Col = 3
                          GrillaVisado.Row = li_filo
-                         GrillaVisado.Text = "Conciliaci�n  "
+                         GrillaVisado.Text = "ConciliaciÃƒÆ’Ã‚Â³n  "
       
                          GrillaVisado.Col = 4
                          GrillaVisado.Row = li_filo
@@ -1609,7 +1629,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1629,7 +1649,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.MaxRows = li_filo
+                        GrillaProductos.Rows = li_filo
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1746,13 +1766,13 @@ Private Sub Form_Load()
     .Panel3D4.Enabled = False
     Rut.Caption = .RutCliente.Caption
     Nombre.Caption = .NombreCliente.Caption
-    .GrillaProductos.Row = .GrillaProductos.ActiveRow
+    .GrillaProductos.Row = .GrillaProductos.Row
     .GrillaProductos.Col = 3
     Producto.Caption = .GrillaProductos.Text
   End With
   Call CentrarVentana(Me)
   With GrillaVisado
-    .MaxCols = 4
+    .Cols = 4
     .ColWidth(1) = 16
     .ColWidth(2) = 18
     .ColWidth(3) = 15
@@ -1783,7 +1803,7 @@ Private Sub Form_Unload(Cancel As Integer)
   End With
 End Sub
 Private Sub ColorearGrillaProductos()
-  For i% = 1 To GrillaVisado.MaxRows
+  For i% = 1 To GrillaProductos.Rows
     GrillaVisado.Row = i%
     For j% = 1 To 4
       GrillaVisado.Col = j%
@@ -1797,15 +1817,15 @@ End Sub
 Private Function CrearPautaValidacion() As Boolean
 Dim i As Integer
 Dim Tope As Integer
-Dim FiltroTabPta As Snapshot
+Dim FiltroTabPta As Recordset
 Dim IndiceMayorBoton As Integer
 Dim IndiceMayorCheck As Integer
 Dim SeUsoPrimerBoton As Boolean
 Dim SeUsoPrimerCheck As Boolean
   CrearPautaValidacion = False
   Visando.GrillaProductos.Col = 4
-  Set FiltroTabPta = BaseVisado.CreateSnapshot("SELECT * FROM Tab_Pta WHERE Pta_Prod='" + _
-                                                                                 Visando.GrillaProductos.Text + "' ORDER BY Pta_Orden ASC;")
+  Set FiltroTabPta = BaseVisado.OpenRecordset("SELECT * FROM Tab_Pta WHERE Pta_Prod='" + _
+                                                                                 Visando.GrillaProductos.Text + "' ORDER BY Pta_Orden ASC;", dbOpenSnapshot)
   If FiltroTabPta.RecordCount > 0 Then
     i = 0
     Tope = 110
@@ -1893,8 +1913,8 @@ On Error GoTo ErrorDeImpresion
   Printer.FontName = "Arial"
   Printer.FontName = "Courier New"
   Printer.FontSize = "10"
-  Printer.Print "Banco de Chile"; Tab(60); "Fecha Emisi�n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(60); "Hora Emisi�n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(60); "Fecha EmisiÃƒÆ’Ã‚Â³n : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(60); "Hora EmisiÃƒÆ’Ã‚Â³n  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.Print
   Printer.Print Spc(26); "INFORME DEL PRODUCTO A VISAR"
@@ -1903,7 +1923,7 @@ On Error GoTo ErrorDeImpresion
   Printer.Print Tab(10); "Rut Cliente"; Tab(27); ": " + Rut.Caption
   Printer.Print Tab(10); "Nombre Cliente"; Tab(27); ": " + Nombre.Caption
   Printer.Print Tab(10); "Producto"; Tab(27); ": " + Producto.Caption
-  Printer.Print Tab(10); "Acci�n"; Tab(27); ": " + Accion.Caption
+  Printer.Print Tab(10); "AcciÃƒÆ’Ã‚Â³n"; Tab(27); ": " + Accion.Caption
   Printer.Print Tab(10); "Oficina"; Tab(27); ": " + Oficina
   With Visando
     .GrillaProductos.Col = 1
@@ -1912,9 +1932,9 @@ On Error GoTo ErrorDeImpresion
   Printer.Print
   LargoGlosaMasLarga = 0
   With GrillaVisado
-    For i% = 1 To .MaxRows
+    For i% = 1 To .Rows
       .Row = i%
-      For j% = 1 To .MaxCols
+      For j% = 1 To .Cols
         If j% Mod 2 <> 0 Then
           .Col = j%
           If Len(Trim(.Text)) > LargoGlosaMasLarga Then
@@ -1923,9 +1943,9 @@ On Error GoTo ErrorDeImpresion
         End If
       Next j%
     Next i%
-    For i% = 1 To .MaxRows
+    For i% = 1 To .Rows
       .Row = i%
-      For j% = 1 To .MaxCols
+      For j% = 1 To .Cols
         .Col = j%
         If j% Mod 2 <> 0 Then
           Cadena = Space(2) + Trim$(.Text) + String(LargoGlosaMasLarga - Len(Trim(.Text)), " ")
@@ -1946,7 +1966,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   i% = MsgBox("Error de Impresi�n", 5 + 48 + 0, "Impresi�n Cancelada")
+   i% = MsgBox("Error de ImpresiÃƒÆ’Ã‚Â³n", 5 + 48 + 0, "ImpresiÃƒÆ’Ã‚Â³n Cancelada")
    If i% = 4 Then
     Resume 0
    Else
@@ -2038,9 +2058,9 @@ Dim CorrelativoSegunPauta As String
       Visando.GrillaProductos.Col = 5
       Correlativo = Visando.GrillaProductos.Text
       Visando.GrillaProductos.Col = 6
-      Set PunteroTabVld = BaseVisado.CreateSnapshot("SELECT * FROM Tab_Vld WHERE Vld_Prod='" + _
+      Set PunteroTabVld = BaseVisado.OpenRecordset("SELECT * FROM Tab_Vld WHERE Vld_Prod='" + _
                                          Producto + "' AND Vld_PosPauta=" + CorrelativoSegunPauta + _
-                                         " AND Vld_Sistema='VALPTA' ORDER BY Vld_Correl ASC")
+                                         " AND Vld_Sistema='VALPTA' ORDER BY Vld_Correl ASC", dbOpenSnapshot)
       If PunteroTabVld.RecordCount > 0 Then
         Do While Not PunteroTabVld.EOF
           If Interpreta(PunteroTabVld("Vld_PosData"), SIMBOLOLARGO) = -1 Then
@@ -2086,13 +2106,13 @@ Dim Numero As Integer
       IndiceDependencias = Mid$(IndiceDependencias, i + 1)
       If Glosa(Numero).Enabled Then
         EjecutarActualBoton = False
-        MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta Validaci�n"
+        MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta ValidaciÃƒÆ’Ã‚Â³n"
       End If
     Loop
     Numero = Val(IndiceDependencias)
     If Glosa(Numero).Enabled Then
       EjecutarActualBoton = False
-      MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta Validaci�n"
+      MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta ValidaciÃƒÆ’Ã‚Â³n"
     End If
   End If
 End Function
@@ -2112,7 +2132,7 @@ Dim i As Integer
 End Function
 Private Sub ColocarTickGrillaProductos(ByVal Tick As Image, ByVal ColorFondo As Long)
   With Visando.GrillaProductos
-    .Row = .ActiveRow
+    .Row = .Row
     .Col = 0
     .CellType = 9
     .BackColor = COLOR_07
@@ -2132,7 +2152,7 @@ Private Sub HabilitarBotonTransmision()
     .EnviarVisado.Enabled = True
     .PortaColor.Visible = True
     .SombraColor.Visible = True
-    .GrillaProductos.Row = .GrillaProductos.ActiveRow
+    .GrillaProductos.Row = .GrillaProductos.Row
   End With
 End Sub
 

@@ -26,13 +26,13 @@ Dim BaseVisado As Database
 Dim DatoProducto As String * 11
 Dim PunteroVsdPrd  As Recordset
 Dim PunteroTabPrd  As Recordset
-Dim FiltroVsdPrd As Snapshot
+Dim FiltroVsdPrd As Recordset
 
   If Not App.PrevInstance Then
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
     Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     PunteroTabPrd.Index = "Tab_Prd"
     IdUsuario = ObtieneRutUsuarioLogueado()
     Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -45,8 +45,8 @@ Dim FiltroVsdPrd As Snapshot
       If ExisteClasificacionDeRiesgo(Mid(Rut, 1, 9), "1348") Then
         '** Si Tiene Producto Asociado "ACR"
         Dataini = Mid$(PunteroVsdPrd("Prd_Data"), 1, 40)
-        Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Prd WHERE prd_rutcli='" + Rut + "' AND " + _
-                             "Mid$(prd_data, 1, 40 )='" + Mid$(PunteroVsdPrd("Prd_Data"), 1, 6) + "ACR" + Mid$(PunteroVsdPrd("Prd_Data"), 10, 31) + "' ;")
+        Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT * FROM Vsd_Prd WHERE prd_rutcli='" + Rut + "' AND " + _
+                             "Mid$(prd_data, 1, 40 )='" + Mid$(PunteroVsdPrd("Prd_Data"), 1, 6) + "ACR" + Mid$(PunteroVsdPrd("Prd_Data"), 10, 31) + "' ;", dbOpenSnapshot)
         If FiltroVsdPrd.RecordCount > 0 Then
            If Not PoneValorINI("Parametros", "Retorno", "OK", DIRECTORIO_01 + ARCHIVO_INI01) Then
                MsgBox "No Se Puede Actualizar" + Chr(10) + "Archivo " + Chr(34) + "Visado.INI" + Chr(34), 0 + 48, _
@@ -78,14 +78,10 @@ Private Sub BuscarFirma(ByVal Llave As String, ByVal Vista As String)
   End If
 End Sub
 Private Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = RUTDEFECTO
-  End If
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
 End Function
 Private Function PoneValorINI(Grupo As String, Titulo As String, palabra As String, NombreArchivo As String) As Boolean
 Dim Ret As Integer
@@ -111,10 +107,10 @@ Dim AplicacionDestino As String * 4
     If Mid$(CadenaDatos, 1, 6) = "000000" Then
       If SeEstaBuscandoCuenta Then
         ObtieneInformacion = True
-        MsgBox "Ya Existe la Cuenta Corriente", 0 + 16, "Problemas de Validaci�n"
+        MsgBox "Ya Existe la Cuenta Corriente", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
       Else
         If Mid$(CadenaDatos, 132, 2) = "SC" Then
-          MsgBox "No Existe la Clasificaci�n de Riesgo", 0 + 16, "Problemas de Validaci�n"
+          MsgBox "No Existe la ClasificaciÃƒÆ’Ã‚Â³n de Riesgo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
         Else
           ObtieneInformacion = True
         End If
@@ -126,12 +122,12 @@ Dim AplicacionDestino As String * 4
         End If
       Else
           If Mid$(CadenaDatos, 1, 6) = "000096" Then
-            MsgBox "El Cliente No Est� Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de Validaci�n"
+            MsgBox "El Cliente No EstÃƒÆ’Ã‚Â¡ Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
           End If
       End If
     End If
   Else
-    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String
@@ -140,7 +136,7 @@ Dim BaseEnvioSRM As Database
   DeterminaNodo = SINNODO
   Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVistas.Seek "=", Vista
   If Not PunteroVistas.NoMatch Then
     If Environ$(AMBIENTEDESARROLLO) = "DESA" Then
@@ -156,7 +152,7 @@ Dim BaseEnvioSRM As Database
     ' Analiza si el producto ya es 2000
     'Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     'Set PunteroPrd = BaseVisado.OpenRecordset("TAB_PRD", dbOpenTable)
-    'PunteroPrd.Index = PunteroPrd.Indexes(0).Name
+    ' FI2026 - 'PunteroPrd.Index = 'PunteroPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     'PunteroPrd.Seek "=", Producto
     'If PunteroPrd("Prd_2000") And PunteroVistas("Vta_Aplicacion") = "SPLA" Then
     '   Aplicacion = "SPL2"

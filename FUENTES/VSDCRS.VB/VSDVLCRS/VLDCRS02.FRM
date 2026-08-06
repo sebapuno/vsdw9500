@@ -47,10 +47,11 @@ Begin VB.Form FRMVLD02
          Top             =   1920
          Width           =   4185
       End
+
       Begin VB.Label Label1 
          BackColor       =   &H00FFFFFF&
          BorderStyle     =   1  'Fixed Single
-         Caption         =   " Abono Autom·tico en lÌnea"
+         Caption         =   " Abono Autom√°tico en l√≠nea"
          BeginProperty Font 
             name            =   "MS Sans Serif"
             charset         =   1
@@ -66,6 +67,7 @@ Begin VB.Form FRMVLD02
          Top             =   420
          Width           =   2625
       End
+
       Begin VB.Label Label3 
          Caption         =   $"VLDCRS02.frx":0000
          BeginProperty Font 
@@ -84,6 +86,7 @@ Begin VB.Form FRMVLD02
          Top             =   990
          Width           =   5550
       End
+
       Begin VB.Label Label2 
          Caption         =   "Modalidad Actual"
          BeginProperty Font 
@@ -102,6 +105,7 @@ Begin VB.Form FRMVLD02
          Width           =   1605
       End
    End
+
    Begin VB.CommandButton Command1 
       Caption         =   "&Aceptar"
       BeginProperty Font 

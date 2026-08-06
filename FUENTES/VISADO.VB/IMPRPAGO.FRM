@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ImprimePagoNotario 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Impresión Pagos Notario"
+   Caption         =   "ImpresiÃ³n Pagos Notario"
    ClientHeight    =   2535
    ClientLeft      =   1665
    ClientTop       =   2190
@@ -78,6 +78,7 @@ Begin VB.Form ImprimePagoNotario
             Top             =   120
             Width           =   1275
          End
+
          Begin VB.Label Label1 
             AutoSize        =   -1  'True
             BackColor       =   &H00C0C0C0&
@@ -100,6 +101,7 @@ Begin VB.Form ImprimePagoNotario
             Width           =   1200
          End
       End
+
       Begin Threed.SSPanel SSPanel1 
          Height          =   570
          Left            =   225
@@ -138,6 +140,7 @@ Begin VB.Form ImprimePagoNotario
             Top             =   120
             Width           =   1275
          End
+
          Begin VB.Label Label2 
             AutoSize        =   -1  'True
             BackColor       =   &H00C0C0C0&
@@ -160,6 +163,7 @@ Begin VB.Form ImprimePagoNotario
             Width           =   1110
          End
       End
+
       Begin VB.Label Label3 
          Caption         =   "Formato : aaaammdd"
          Height          =   255
@@ -168,6 +172,7 @@ Begin VB.Form ImprimePagoNotario
          Top             =   1920
          Width           =   1485
       End
+
       Begin Threed.SSCommand Imprimir 
          Height          =   645
          Left            =   1800
@@ -184,6 +189,7 @@ Begin VB.Form ImprimePagoNotario
          autosize        =   1
          picture         =   "IMPRPAGO.frx":0000
       End
+
       Begin Threed.SSCommand Cancelar 
          Height          =   645
          Left            =   2610
@@ -294,7 +300,7 @@ Dim NombreArchivo As String
           Call EjecutarPrograma(NombreArchivo, 0)
           Screen.MousePointer = 1
         Else
-          MsgBox "No se Encontró Programa " + NombreArchivo, 0 + 16, "Falta Programa para Imprimir"
+          MsgBox "No se EncontrÃ³ Programa " + NombreArchivo, 0 + 16, "Falta Programa para Imprimir"
         End If
       Else
         MsgBox "Fechas Intercambiadas", 0 + 16, "Datos Incorrectos"

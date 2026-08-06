@@ -22,22 +22,19 @@ Public Function GrabaParametro(grupo As String, llave As String, parametro As St
 
 End Function
 Public Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = RUTDEFECTO
-  End If
+Private Function ObtieneRutUsuarioLogueado() As String
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
+End Function
 End Function
 
 Public Function ObtenerVistaDestino(CodPrd As String)
 Dim PunteroTabprd As Recordset
   
   Set PunteroTabprd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-  PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name
+  ' FI2026 - PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabprd.Seek "=", CodPrd
   ObtenerVistaDestino = Trim$(PunteroTabprd!Prd_Vista_Dst)
   PunteroTabprd.Close
@@ -47,7 +44,7 @@ Public Function ObtenerOperacionSRM(Producto As String, Actividad As String) As 
 Dim PunteroTabOper As Recordset
   
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabOper.Seek "=", Producto, Actividad
   ObtenerOperacionSRM = Trim$(PunteroTabOper!Oper_SRM)
   PunteroTabOper.Close
@@ -73,7 +70,7 @@ Public Function ObtenerOperacionBorrado(Producto As String, Actividad As String)
 Dim PunteroTabOper As Recordset
   
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabOper.Seek "=", Producto, Actividad
   ObtenerOperacionBorrado = Trim$(PunteroTabOper!Oper_Borrado)
   PunteroTabOper.Close
@@ -85,7 +82,7 @@ Dim PunteroTabprd As Recordset
   
 Set PunteroTabprd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   
-PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name
+' FI2026 - PunteroTabprd.Index = PunteroTabprd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
 PunteroTabprd.Seek "=", CodPrd
 ObtenerVistaOrigen = Trim$(PunteroTabprd!Prd_Vista_Ori)
 PunteroTabprd.Close

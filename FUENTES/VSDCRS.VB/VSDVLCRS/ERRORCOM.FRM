@@ -2,7 +2,7 @@ VERSION 4.00
 Begin VB.Form ErrorComunicacion 
    BackColor       =   &H00C0C0C0&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Problemas de Comunicaci�n"
+   Caption         =   "Problemas de ComunicaciÃƒÂ³n"
    ClientHeight    =   4875
    ClientLeft      =   1950
    ClientTop       =   2115
@@ -43,6 +43,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   3
       alignment       =   1
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
       Index           =   8
@@ -54,7 +55,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   2884
       _extenty        =   450
       _stockprops     =   15
-      caption         =   "Transacci�n"
+      caption         =   "TransacciÃƒÂ³n"
       forecolor       =   0
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -71,6 +72,7 @@ Begin VB.Form ErrorComunicacion
       alignment       =   1
       autosize        =   3
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
       Index           =   0
@@ -99,6 +101,7 @@ Begin VB.Form ErrorComunicacion
       alignment       =   1
       autosize        =   2
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   1140
       Index           =   1
@@ -110,7 +113,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   12197
       _extenty        =   2011
       _stockprops     =   15
-      caption         =   " Atenci�n :"
+      caption         =   " AtenciÃƒÂ³n :"
       forecolor       =   192
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -146,6 +149,7 @@ Begin VB.Form ErrorComunicacion
          WordWrap        =   -1  'True
       End
    End
+
    Begin Threed.SSPanel Llave 
       Height          =   300
       Left            =   1815
@@ -172,6 +176,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   3
       alignment       =   1
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
       Index           =   3
@@ -200,6 +205,7 @@ Begin VB.Form ErrorComunicacion
       alignment       =   0
       autosize        =   3
    End
+
    Begin Threed.SSPanel RetFuncion 
       Height          =   300
       Left            =   1815
@@ -226,6 +232,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   3
       alignment       =   1
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
       Index           =   5
@@ -254,6 +261,7 @@ Begin VB.Form ErrorComunicacion
       alignment       =   1
       autosize        =   2
    End
+
    Begin Threed.SSPanel Status 
       Height          =   300
       Left            =   1815
@@ -280,6 +288,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   3
       alignment       =   1
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
       Index           =   7
@@ -308,6 +317,7 @@ Begin VB.Form ErrorComunicacion
       alignment       =   1
       autosize        =   3
    End
+
    Begin Threed.SSPanel ServidorDatos 
       Height          =   570
       Left            =   1815
@@ -334,6 +344,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   3
       alignment       =   0
    End
+
    Begin Threed.SSPanel Nodo 
       Height          =   300
       Left            =   1500
@@ -359,6 +370,7 @@ Begin VB.Form ErrorComunicacion
       bevelinner      =   1
       font3d          =   3
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
       Index           =   2
@@ -387,6 +399,7 @@ Begin VB.Form ErrorComunicacion
       alignment       =   1
       autosize        =   3
    End
+
    Begin Threed.SSPanel Servidor 
       Height          =   300
       Left            =   3180
@@ -412,6 +425,7 @@ Begin VB.Form ErrorComunicacion
       bevelinner      =   1
       font3d          =   3
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   300
       Index           =   4
@@ -439,6 +453,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   2
       alignment       =   1
    End
+
    Begin Threed.SSPanel Operacion 
       Height          =   300
       Left            =   4920
@@ -465,6 +480,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   3
       alignment       =   1
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   300
       Index           =   6
@@ -476,7 +492,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   1773
       _extenty        =   529
       _stockprops     =   15
-      caption         =   "Operaci�n"
+      caption         =   "OperaciÃƒÂ³n"
       forecolor       =   0
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -492,6 +508,7 @@ Begin VB.Form ErrorComunicacion
       font3d          =   2
       alignment       =   1
    End
+
    Begin Threed.SSCommand Imprimir 
       Height          =   645
       Left            =   5445
@@ -508,6 +525,7 @@ Begin VB.Form ErrorComunicacion
       autosize        =   1
       picture         =   "ERRORCOM.frx":0000
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   645
       Left            =   6270
@@ -527,7 +545,7 @@ End
 Attribute VB_Name = "ErrorComunicacion"
 Attribute VB_Creatable = False
 Attribute VB_Exposed = False
-Private Declare Function SetWindowPos Lib "user" (ByVal h%, ByVal hb%, ByVal x%, ByVal y%, ByVal cx%, ByVal cy%, ByVal f%) As Integer
+Private Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb%, ByVal x&, ByVal y&, ByVal cx%, ByVal cy%, ByVal f&) As Long
 
 Const HWND_TOPMOST = -1
 Const SWP_NOSIZENOMOVE = 3
@@ -551,31 +569,31 @@ End Sub
 Private Sub Imprimir_Click()
   Screen.MousePointer = 11
 On Error GoTo ErrorDeImpresion
-  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi�n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora Emisi�n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(54); "Fecha EmisiÃƒÂ³n : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora EmisiÃƒÂ³n  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.Print Tab(55); "DETALLE ERROR DE COMUNICACION"
   Printer.FontUnderline = False
   Printer.Print
   Printer.FontBold = True
-  Printer.Print Tab(5); "Aplicaci�n : " + EJECUTABLE
+  Printer.Print Tab(5); "AplicaciÃƒÂ³n : " + EJECUTABLE
   Printer.FontBold = False
   Printer.Print
   Printer.Print Tab(7); "Nodo Destino : " + Nodo.Caption
   Printer.Print Tab(7); "Servidor : " + Servidor.Caption
-  Printer.Print Tab(7); "Operaci�n :" + Operacion.Caption
+  Printer.Print Tab(7); "OperaciÃƒÂ³n :" + Operacion.Caption
   Printer.Print Tab(7); "Llave de Acceso :" + Mid$(Llave.Caption, 1, 80)
   Printer.Print Tab(7); "Retorno SRM :" + RetFuncion.Caption
   Printer.Print Tab(7); "Status :" + Status.Caption
   Printer.Print Tab(7); "Servidor de Datos :" + ServidorDatos.Caption
-  Printer.Print Tab(7); "Transacci�n :" + Transaccion.Caption
+  Printer.Print Tab(7); "TransacciÃƒÂ³n :" + Transaccion.Caption
   Printer.EndDoc
 On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   I% = MsgBox("Error de Impresi�n", 5 + 48 + 0, "Impresi�n Cancelada")
+   I% = MsgBox("Error de ImpresiÃƒÂ³n", 5 + 48 + 0, "ImpresiÃƒÂ³n Cancelada")
    If I% = 4 Then
     Resume 0
    Else

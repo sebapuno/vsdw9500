@@ -1,5 +1,5 @@
 Attribute VB_Name = "Bajada"
-Private Declare Function SRMW8 Lib "C:\Bin\F\SRMW8.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Integer, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
+Private Declare Function Srmw32 Lib "C:\Bin\F\srmw32.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Long, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
 
 
 
@@ -85,9 +85,9 @@ Dim NumError As String
     ErrorComunicacion.ServidorDatos.Caption = " (00)"
   End If
   ErrorComunicacion.Llave.Caption = " " + Mid(Llave, 1, 50)
-  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la Transmisión " + _
+  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la TransmisiÃ³n " + _
                                                                   "de un Producto.  Por favor Reporte esto a Central de Fallas (3030) " + _
-                                                                  "describiendo la siguiente información."
+                                                                  "describiendo la siguiente informaciÃ³n."
   Select Case TipoTransaccion
     Case "C"
       ErrorComunicacion.Transaccion.Caption = " Consulta"

@@ -46,6 +46,7 @@ Begin VB.Form ErrorLogueo
       alignment       =   1
       autosize        =   2
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   915
       Index           =   1
@@ -57,7 +58,7 @@ Begin VB.Form ErrorLogueo
       _extentx        =   12197
       _extenty        =   1614
       _stockprops     =   15
-      caption         =   " Atenci髇 :"
+      caption         =   " Atenci贸n :"
       forecolor       =   192
       backcolor       =   -2147483644
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
@@ -96,6 +97,7 @@ Begin VB.Form ErrorLogueo
          WordWrap        =   -1  'True
       End
    End
+
    Begin Threed.SSPanel Glosa 
       Height          =   300
       Left            =   1710
@@ -123,6 +125,7 @@ Begin VB.Form ErrorLogueo
       font3d          =   3
       alignment       =   1
    End
+
    Begin Threed.SSPanel Tipo 
       Height          =   300
       Left            =   1710
@@ -150,6 +153,7 @@ Begin VB.Form ErrorLogueo
       font3d          =   3
       alignment       =   1
    End
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
       Index           =   2
@@ -179,6 +183,7 @@ Begin VB.Form ErrorLogueo
       alignment       =   1
       autosize        =   1
    End
+
    Begin Threed.SSCommand Imprimir 
       Height          =   645
       Left            =   5490
@@ -195,6 +200,7 @@ Begin VB.Form ErrorLogueo
       autosize        =   1
       picture         =   "ERRORLOG.frx":0060
    End
+
    Begin Threed.SSCommand Cancelar 
       Height          =   645
       Left            =   6300
@@ -239,8 +245,8 @@ End Sub
 Private Sub Imprimir_Click()
   Screen.MousePointer = 11
 On Error GoTo ErrorDeImpresion
-  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi髇 : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora Emisi髇  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi贸n : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora Emisi贸n  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.Print Tab(58); "DETALLE ERROR DE LOGUEO"
@@ -253,7 +259,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   I% = MsgBox("Error de Impresi髇", 5 + 48 + 0, "Impresi髇 Cancelada")
+   I% = MsgBox("Error de Impresi贸n", 5 + 48 + 0, "Impresi贸n Cancelada")
    If I% = 4 Then
     Resume 0
    Else

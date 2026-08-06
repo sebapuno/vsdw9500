@@ -32,7 +32,7 @@ Dim NumeroLineaCredito As String
   If Not App.PrevInstance Then
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-    PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
     Producto = SacaValorINI("Parametros", "Param2", DIRECTORIO_01 + ARCHIVO_INI01)
     Correlativo = SacaValorINI("Parametros", "Param3", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -65,14 +65,10 @@ Dim PunteroEnvioSRM As Recordset
   BaseSRM.Close
 End Sub
 Private Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = RUTDEFECTO
-  End If
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
 End Function
 Private Function Interpreta(Cadena As String, DatoBuscado As String) As Integer
 Dim PosicionComa As Integer
@@ -124,12 +120,12 @@ Dim PunteroTabPrd As Recordset
 End Function
 Private Sub LocalizaProductoAsociado(ByVal PatronBusqueda As String, ByVal Producto As String, LineaBuscada As String, ByVal Posicion As String, ByVal CambiaNumeroLinea As Boolean)
 Dim Largo As String
-Dim FiltroVsdPrd  As Snapshot
+Dim FiltroVsdPrd  As Recordset
   Largo = LTrim$(Str(Len(LineaBuscada)))
-  Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT Prd_Data FROM Vsd_Prd WHERE " + _
+  Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT Prd_Data FROM Vsd_Prd WHERE " + _
                                                                                  "Mid$(Prd_Data, 1, 6)='" + PatronBusqueda + _
                                                                                  "' AND " + "Mid$(Prd_Data, " + Posicion + ", " + Largo + ")='" + _
-                                                                                 LineaBuscada + "' AND Prd_CodProd='" + Producto + "';")
+                                                                                 LineaBuscada + "' AND Prd_CodProd='" + Producto + "';", dbOpenSnapshot)
   If FiltroVsdPrd.RecordCount > 0 Then
     If CambiaNumeroLinea Then
       LineaBuscada = Mid$(FiltroVsdPrd("Prd_Data"), 61, 11)
@@ -143,7 +139,7 @@ End Sub
 Private Function ObtenerOperacionSRM(ByVal Producto As String, ByVal Actividad As String) As String
 Dim PunteroTabOper As Recordset
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTabOper.Seek "=", Producto, Actividad
   OperacionBorrado = Trim$(PunteroTabOper("Oper_Borrado"))
   ObtenerOperacionSRM = Trim$(PunteroTabOper("Oper_Srm"))
@@ -192,10 +188,10 @@ Dim PunteroTabOper As Recordset
    PunteroTabPrd.Index = "Tab_Prd"
    
    Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-   PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+   ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
    
    Set PunteroTabVsd = BaseVisado.OpenRecordset("Tab_Vsd", dbOpenTable)
-   PunteroTabVsd.Index = PunteroTabVsd.Indexes(0).Name
+   ' FI2026 - PunteroTabVsd.Index = PunteroTabVsd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
 
   PunteroTabPrd.Seek "=", Producto
   VistaOrigen = PunteroTabPrd("PRD_VISTA_ORI")

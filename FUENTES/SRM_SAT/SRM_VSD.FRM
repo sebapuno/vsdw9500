@@ -29,7 +29,7 @@ Function Es_Sybase(C_SY As String) As String
 Dim PunteroSy  As Recordset
 
   Set PunteroSy = BaseEnvioSRM.OpenRecordset("SYBASE", dbOpenTable)
-  PunteroSy.Index = PunteroSy.Indexes(0).Name
+  ' FI2026 - PunteroSy.Index = PunteroSy.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroSy.Seek "=", C_SY
   If Not PunteroSy.NoMatch Then
      If Ambiente = "DESA" Then
@@ -99,7 +99,7 @@ End If
      Aplicacion = Mid$(Resp_Sy, 5, 4)
   Else
      Set PunteroVista = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-     PunteroVista.Index = PunteroVista.Indexes(0).Name
+     ' FI2026 - PunteroVista.Index = PunteroVista.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
      PunteroVista.Seek "=", NumeroVista
      If PunteroVista.NoMatch Then
        DeterminaNodo = SINNODO
@@ -131,14 +131,14 @@ End If
        
        ProductoRelacionado = ProdPrinc
        Set PunteroAlias = BaseVisado.OpenRecordset("TAB_SYBALIAS", dbOpenTable)
-       PunteroAlias.Index = PunteroAlias.Indexes(0).Name
+       ' FI2026 - PunteroAlias.Index = PunteroAlias.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
        PunteroAlias.Seek "=", ProdPrinc
        If Not PunteroAlias.NoMatch Then
          ProductoRelacionado = PunteroAlias!syb_prod_nvo
        End If
        If PunteroAlias.NoMatch Then
          Set PunteroAlias = BaseVisado.OpenRecordset("TAB_ALIAS", dbOpenTable)
-         PunteroAlias.Index = PunteroAlias.Indexes(0).Name
+         ' FI2026 - PunteroAlias.Index = PunteroAlias.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
          PunteroAlias.Seek "=", ProdPrinc
          If Not PunteroAlias.NoMatch Then
            ProductoRelacionado = PunteroAlias!alias_prod_nuev
@@ -157,7 +157,7 @@ Private Function BuscaNumeroTransaccion(ByVal Vista As String) As String
 Dim PunteroTx As Recordset
   BuscaNumeroTransaccion = SINENCONTRAR
   Set PunteroTx = BaseEnvioSRM.OpenRecordset("Tx", dbOpenTable)
-  PunteroTx.Index = PunteroTx.Indexes(0).Name
+  ' FI2026 - PunteroTx.Index = PunteroTx.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroTx.Seek "=", Vista
   If Not PunteroTx.NoMatch Then
     BuscaNumeroTransaccion = PunteroTx("Tx_NroTx")
@@ -226,7 +226,7 @@ Dim Aplicacion As String
 Dim PunteroTx As Recordset
   Set PunteroTx = BaseEnvioSRM.OpenRecordset("Tx", dbOpenTable)
   If PunteroTx.RecordCount > 0 Then
-    MsgBox "Se Realizar� RollBack a la Transacci�n", 0 + 64, "Anular Transacci�n"
+    MsgBox "Se RealizarÃ¡ RollBack a la TransacciÃ³n", 0 + 64, "Anular TransacciÃ³n"
     PunteroTx.MoveLast
     Do While Not PunteroTx.BOF
       NumVista = PunteroTx("Tx_Vista")
@@ -259,7 +259,10 @@ Dim D_TRANSAC As String * 4
 Dim MsgBack_Temp As String
 
 
-  Ret = AisGetUsr(GetAis)
+  ' FI2026 SHG - AisGetUsr (WAIS.DLL 16-bit) deshabilitado
+
+
+  'Ret = AisGetUsr(GetAis)
   IdUsuario = Format$(Mid(GetAis, 1, 8), "00000000")
   
   
@@ -381,7 +384,7 @@ Dim MsgBack_Temp As String
            If Mid$(NumVista, 1, 4) = "CTD1" Or Mid$(NumVista, 1, 4) = "CTR1" Then
               Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
            End If
-           ' Prepara data simple para CRP0 - Credito en Cuotas Fusi�n
+           ' Prepara data simple para CRP0 - Credito en Cuotas FusiÃ³n
            If Mid$(NumVista, 1, 4) = "CRP0" Then
               Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
            End If
@@ -431,7 +434,7 @@ Dim MsgBack_Temp As String
               End If
            Else
              MsgBox "No Existe la Vista " + NumVista + " en la Tabla " + Chr(34) + "Vistas" + Chr(34), _
-                           0 + 16, "Transmisi�n Cancelada"
+                           0 + 16, "TransmisiÃ³n Cancelada"
            End If
          End If
        End If
@@ -537,7 +540,7 @@ Do While PosFin > 0
       If Mid$(NumVista, 1, 4) = "CTD1" Or Mid$(NumVista, 1, 4) = "CTR1" Then
         Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
       End If
-      ' Prepara data simple para CRP0 - Credito en Cuotas Fusi�n
+      ' Prepara data simple para CRP0 - Credito en Cuotas FusiÃ³n
       If Mid$(NumVista, 1, 4) = "CRP0" Then
         Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
       End If
@@ -576,7 +579,7 @@ Do While PosFin > 0
         End If
       Else
         MsgBox "No Existe la Vista " + NumVista + " en la Tabla " + Chr(34) + "Vistas" + Chr(34), _
-                   0 + 16, "Transmisi�n Cancelada"
+                   0 + 16, "TransmisiÃ³n Cancelada"
       End If
     End If
   End If

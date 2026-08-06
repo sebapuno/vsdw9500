@@ -14,30 +14,17 @@ Begin VB.Form Principal
    Top             =   1080
    Visible         =   0   'False
    Width           =   3435
-   Begin VBX.SpreadSheet GrillaProducto 
-      BorderStyle     =   0  'None
-      ColHeaderDisplay=   0  'Blank
-      DisplayColHeaders=   0   'False
-      DisplayRowHeaders=   0   'False
-      FontBold        =   0   'False
-      FontItalic      =   0   'False
-      FontName        =   "MS Sans Serif"
-      FontSize        =   8.25
-      FontStrikethru  =   0   'False
-      FontUnderline   =   0   'False
+   ' FI2026 - VBX.SpreadSheet migrado a MSFlexGrid (MSFLXGRD.OCX)
+   Begin MSFlexGridLib.MSFlexGrid GrillaProducto 
       Height          =   1320
-      InterfaceDesigner=   "ROTOR2CB.frx":0000
       Left            =   45
-      MaxCols         =   0
-      MaxRows         =   0
-      OperationMode   =   1  'ReadOnly
-      RowHeaderDisplay=   0  'Blank
-      ScrollBars      =   0  'None
-      ShadowColor     =   &H00C8D0D4&
       TabIndex        =   0
       Top             =   45
-      Visible         =   0   'False
       Width           =   3210
+      Cols            =   2
+      Rows            =   2
+      ScrollBars      =   2  'flexScrollBarVertical
+      SelectionMode   =   1  'flexSelectionByRow
    End
 End
 Attribute VB_Name = "Principal"
@@ -93,7 +80,7 @@ Dim Respuesta As Integer
   If Not App.PrevInstance Then
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Data = SacaValorINI("Parametros", "LlaveVisad", DIRECTORIO_01 + ARCHIVO_INI01)
-    GrillaProducto.MaxCols = 4
+    GrillaProducto.Cols = 4
     Call LlenadoGrillaProducto
     Call LlenarArchivoTexto
     Respuesta = PoneValorINI("Parametros", "Retorno", "OK", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -113,8 +100,8 @@ End Function
 Private Sub LlenadoGrillaProducto()
 Dim RutCliente As String
 Dim Encabezado As String
-Dim FiltroTabDesp As Snapshot
-Dim RegistroAsociado As Snapshot
+Dim FiltroTabDesp As Recordset
+Dim RegistroAsociado As Recordset
 
 Dim Detalle1 As String * 1000
 Dim Detalle2 As String * 1000
@@ -129,10 +116,10 @@ numero_cuenta = Mid$(Data, 10, 30)
 Detalle1 = Mid$(Data, 61)
 
 ' ** COLOCA DATOS DE CRB  **********
-Set FiltroTabDesp = BaseVisado.CreateSnapshot("SELECT * FROM Tab_Desp WHERE Desp_Prod='2CB';")
+Set FiltroTabDesp = BaseVisado.OpenRecordset("SELECT * FROM Tab_Desp WHERE Desp_Prod='2CB';")
 While Not FiltroTabDesp.EOF
-  If FiltroTabDesp!Desp_Fil > GrillaProducto.MaxRows Then
-    GrillaProducto.MaxRows = FiltroTabDesp!Desp_Fil
+  If FiltroTabDesp!Desp_Fil > GrillaProducto.Rows Then
+    GrillaProducto.Rows = FiltroTabDesp!Desp_Fil
   End If
   GrillaProducto.Col = FiltroTabDesp!Desp_Col
   GrillaProducto.Row = FiltroTabDesp!Desp_Fil
@@ -145,13 +132,13 @@ While Not FiltroTabDesp.EOF
 Wend
 FiltroTabDesp.Close
 
-FilaInicio = GrillaProducto.MaxRows + 2
+FilaInicio = GrillaProducto.Rows + 2
 
 '***COLOCA DATOS DE CR1 , SI EXISTE
 If ProductoAsociadoEncontrado(Encabezado + "CR1" + numero_cuenta, "1", "39") Then
   Databuscada = Encabezado + "CR1" + numero_cuenta
-  GrillaProducto.MaxRows = GrillaProducto.MaxRows + 4
-  Set RegistroAsociado = BaseVisado.CreateSnapshot("SELECT * FROM vsd_prd WHERE prd_codprod='2SV' and prd_rutcli='" + RutCliente + "';")
+  GrillaProducto.Rows = GrillaProducto.Rows + 4
+  Set RegistroAsociado = BaseVisado.OpenRecordset("SELECT * FROM vsd_prd WHERE prd_codprod='2SV' and prd_rutcli='" + RutCliente + "';", dbOpenSnapshot)
   If RegistroAsociado.RecordCount > 0 Then
      RegistroAsociado.MoveLast
      RegistroAsociado.MoveFirst
@@ -171,8 +158,8 @@ End If
 '***COLOCA DATOS DE CR5 , SI EXISTE
 If ProductoAsociadoEncontrado(Encabezado + "CR5" + numero_cuenta, "1", "39") Then
   Databuscada = Encabezado + "CR5" + numero_cuenta
-  GrillaProducto.MaxRows = GrillaProducto.MaxRows + 4
-  Set RegistroAsociado = BaseVisado.CreateSnapshot("SELECT * FROM vsd_prd WHERE prd_codprod='2SC' and prd_rutcli='" + RutCliente + "';")
+  GrillaProducto.Rows = GrillaProducto.Rows + 4
+  Set RegistroAsociado = BaseVisado.OpenRecordset("SELECT * FROM vsd_prd WHERE prd_codprod='2SC' and prd_rutcli='" + RutCliente + "';", dbOpenSnapshot)
   If RegistroAsociado.RecordCount > 0 Then
      RegistroAsociado.MoveLast
      RegistroAsociado.MoveFirst
@@ -207,7 +194,7 @@ End If
 
 If Mid$(Formato, 1, 2) = "TG" Then
   Set IndiceTabGlosa = BaseVisado.OpenRecordset("Tab_Glosa", dbOpenTable)
-  IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name
+  ' FI2026 - IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   IndiceTabGlosa.Seek "=", "2CB", Mid$(Formato, 3, 3), Seccion
   If Not IndiceTabGlosa.NoMatch Then
     ObtenerDescripcionGlosa = IndiceTabGlosa!Glosa_Descrip
@@ -218,7 +205,7 @@ ElseIf Mid$(Formato, 1, 2) = "ND" Then
   numero = Mid$(Seccion, 1, Len(Seccion) - deci)
   numero = Format(Val(numero), "###,###,###,##0")
   ObtenerDescripcionGlosa = numero + ";" + Mid$(Seccion, Len(Seccion) - deci + 1)
-  ' , InStr(Seccion, ",") - 1) + ";" + Mid$(Seccion, InStr(Seccion, ",") + 1)
+  ' , InStr(Seccion, ",") - 1) + ";" + Mid$(Seccion, InStr(Seccion, ",") + 1, dbOpenSnapshot)
 Else
   Select Case Formato
      Case "SN"
@@ -249,14 +236,14 @@ Dim I As Integer
 Dim J As Integer
 Dim Linea As String
   Open DIRECTORIO_01 + ARCHIVO_TXT01 For Output As #1
-  For I = 1 To GrillaProducto.MaxRows
+  For I = 1 To GrillaProducto.Rows
     Linea = ""
     GrillaProducto.Row = I
-    For J = 1 To GrillaProducto.MaxCols
+    For J = 1 To GrillaProducto.Cols
       GrillaProducto.Col = J
-      Linea = Linea + Trim$(GrillaProducto.Text) + "�"
+      Linea = Linea + Trim$(GrillaProducto.Text) + "Ã‚Â¬"
     Next J
-    Do While Mid$(Linea, Len(Linea), 1) = "�"
+    Do While Mid$(Linea, Len(Linea), 1) = "Ã‚Â¬"
       Linea = Mid$(Linea, 1, Len(Linea) - 1)
       If Len(Linea) = 0 Then
         Exit Do
@@ -268,10 +255,10 @@ Dim Linea As String
 End Sub
 
 Private Function ProductoAsociadoEncontrado(ByVal PatronBusqueda As String, ByVal Posicion As String, ByVal Largo As String) As Boolean
-Dim FiltroVsdPrd  As Snapshot
+Dim FiltroVsdPrd  As Recordset
   ProductoAsociadoEncontrado = False
-  Set FiltroVsdPrd = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Prd WHERE " + _
-                           "Mid$(Prd_Data, " + Posicion + ", " + Largo + ")='" + PatronBusqueda + "';")
+  Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT * FROM Vsd_Prd WHERE " + _
+                           "Mid$(Prd_Data, " + Posicion + ", " + Largo + ")='" + PatronBusqueda + "';", dbOpenSnapshot)
   If FiltroVsdPrd.RecordCount > 0 Then
     DataPatron = FiltroVsdPrd("Prd_Data")
     ProductoAsociadoEncontrado = True

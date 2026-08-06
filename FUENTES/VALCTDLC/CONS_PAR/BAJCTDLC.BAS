@@ -1,7 +1,9 @@
 Attribute VB_Name = "Modulo1"
-Private Declare Function AisGetUsr Lib "C:\Bin\F\WAIS.DLL" (ByVal Usuario As String) As Integer
-Private Declare Function GetModuleUsage Lib "kernel.dll" (ByVal handler As Integer) As Integer
-Declare Function SetWindowPos Lib "user" (ByVal h%, ByVal hb%, ByVal X%, ByVal y%, ByVal cx%, ByVal cy%, ByVal f%) As Integer
+Private ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
+' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
+'Private Declare Function GetModuleUsage Lib "KERNEL32.DLL" (ByVal handler As Long) As Long
+Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb%, ByVal X&, ByVal y&, ByVal cx%, ByVal cy%, ByVal f&) As Long
 
 Global BaseEnvioSRM As Database
 Global BaseVldCta As Database
@@ -19,9 +21,11 @@ Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
 Dim Retorno As Integer
   Retorno = Shell(Programa, Modo)
   DoEvents
-  While GetModuleUsage(Retorno) <> 0
-     DoEvents
-  Wend
+  ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
+  ' Call WaitProcess(Retorno)  ' requiere modRSrm32.bas
+
+     ' DoEvents  ' FI2026 SHG - orphan from GetModuleUsage
+  ' Wend  ' FI2026 SHG - orphan from GetModuleUsage
 End Sub
 Public Function FormateaDatos(NuevaLlave As String, HaydatoS As Boolean, NumVista As String) As Boolean
 Dim I As Integer
@@ -126,20 +130,18 @@ Dim HaydatoS As Boolean
       
     Loop
   Else
-    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista NÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 
 
 End Sub
 Public Function ObtieneRutUsuarioLogueado() As String
-Dim Rut As String * 70
-Dim Retorno As Integer
-  Retorno = AisGetUsr(Rut)
-  If Retorno = 1 Then
-    ObtieneRutUsuarioLogueado = Format$(Mid(Rut, 1, 8), "00000000")
-  Else
-    ObtieneRutUsuarioLogueado = "12345678"
-  End If
+Private Function ObtieneRutUsuarioLogueado() As String
+  TIPO_RUT = 0
+  ctrlClave.Show 1
+  If Not RET_ACCESO Then End
+  ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
+End Function
 End Function
 
 
@@ -158,7 +160,7 @@ Dim PunteroVistas As Recordset
   
   DeterminaNodo = SINNODO
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
   PunteroVistas.Seek "=", Vista
   If Not PunteroVistas.NoMatch Then
     If PunteroVistas("Vta_NodoProd") = "U???" Then

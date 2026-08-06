@@ -1,5 +1,5 @@
 Attribute VB_Name = "ENVIAR"
-Declare Function srmw8 Lib "c:\bin\f\srmw8.dll" (ByVal shost As String, ByVal sapli As String, ByVal smensaje As String, slargo_mensaje As Integer, ByVal sstatus As String, ByVal sfuncion As String, ByVal sctx As String, ByVal scontrol As String) As Integer
+Declare Function Srmw32 Lib "c:\bin\f\srmw32.dll" (ByVal shost As String, ByVal sapli As String, ByVal smensaje As String, slargo_mensaje As Long, ByVal sstatus As String, ByVal sfuncion As String, ByVal sctx As String, ByVal scontrol As String) As Integer
 Global sd_error  As Integer
 
 Dim Usuario As String
@@ -100,39 +100,39 @@ Dim descripcion As String
          Case 1
                descripcion = "[Error FBSS SRPI]"
          Case 2
-               descripcion = "[Proceso Abortado por otra interrupci�n]"
+               descripcion = "[Proceso Abortado por otra interrupciÃ³n]"
          Case 3
-               descripcion = "[Fall� Obtenci�n de variable de ambiente LAN]"
+               descripcion = "[FallÃ³ ObtenciÃ³n de variable de ambiente LAN]"
          Case 4
-               descripcion = "[Fall� apertura de Log File]"
+               descripcion = "[FallÃ³ apertura de Log File]"
          Case 5
-               descripcion = "[Fall� inicializaci�n de comunicaciones]"
+               descripcion = "[FallÃ³ inicializaciÃ³n de comunicaciones]"
          Case 6
-               descripcion = "[Mensaje aceptado, hab�a respuesta previa]"
+               descripcion = "[Mensaje aceptado, habÃ­a respuesta previa]"
          Case 7
-               descripcion = "[Env�o de ejecuci�n. Esperando Respuesta]"
+               descripcion = "[EnvÃ­o de ejecuciÃ³n. Esperando Respuesta]"
          Case 9
-               descripcion = "[Funci�n incorrecta en llamado Padre-Hijo]"
+               descripcion = "[FunciÃ³n incorrecta en llamado Padre-Hijo]"
          Case 10
-               descripcion = "[Fall� obtenci�n de LUNUMBER]"
+               descripcion = "[FallÃ³ obtenciÃ³n de LUNUMBER]"
          Case 11
-               descripcion = "[Fall� obtenci�n de TIMEOUT]"
+               descripcion = "[FallÃ³ obtenciÃ³n de TIMEOUT]"
          Case 21
-               descripcion = "[Fall� obtenci�n de CICS_NAME]"
+               descripcion = "[FallÃ³ obtenciÃ³n de CICS_NAME]"
          Case 30
-               descripcion = "[Fall� obtenci�n de NODENAME]"
+               descripcion = "[FallÃ³ obtenciÃ³n de NODENAME]"
          Case 41
-               descripcion = "[Error en apertura de canal de comunicaci�n]"
+               descripcion = "[Error en apertura de canal de comunicaciÃ³n]"
          Case 42
-               descripcion = "[Error en escritura de canal de comunicaci�n]"
+               descripcion = "[Error en escritura de canal de comunicaciÃ³n]"
          Case 43
-               descripcion = "[Error en lectura de canal de comunicaci�n]"
+               descripcion = "[Error en lectura de canal de comunicaciÃ³n]"
          Case 44
-               descripcion = "[Error en cierre de canal de comunicaci�n]"
+               descripcion = "[Error en cierre de canal de comunicaciÃ³n]"
          Case 45
                descripcion = "[Error en largo de la data de respuesta]"
          Case 90, 91
-               descripcion = "[Error en inicializaci�n de comunicaci�n]"
+               descripcion = "[Error en inicializaciÃ³n de comunicaciÃ³n]"
          Case 92
                descripcion = "[Fallaron 3 intentos]"
          Case 93
@@ -142,7 +142,7 @@ Dim descripcion As String
          Case 98
                descripcion = "[Error en contexto de comunicaciones Padre Hijo]"
          Case 99
-               descripcion = "[Error en versi�n de Padre Hijo]"
+               descripcion = "[Error en versiÃ³n de Padre Hijo]"
      End Select
 
      If retfun <> 0 Then
@@ -155,7 +155,7 @@ Dim descripcion As String
           Case "02"
                descripcion = descripcion + "[LU no definida como receptora en nodo destino]"
           Case "03"
-               descripcion = descripcion + "[No existe aplicaci�n en nodo destino]"
+               descripcion = descripcion + "[No existe aplicaciÃ³n en nodo destino]"
           Case "04"
                descripcion = descripcion + "[LU no definida en nodo]"
           Case "05"
@@ -169,15 +169,15 @@ Dim descripcion As String
           Case "10"
                descripcion = descripcion + "[Nodo de destino no existe en tabla de SRM]"
           Case "11"
-               descripcion = descripcion + "[Aplicaci�n de origen/destino no existe en tabla SRM]"
+               descripcion = descripcion + "[AplicaciÃ³n de origen/destino no existe en tabla SRM]"
           Case "12"
                descripcion = descripcion + "[Tabla de contexto llena (SRM VAX)]"
           Case "13"
-               descripcion = descripcion + "[Sesi�n inv�lida]"
+               descripcion = descripcion + "[SesiÃ³n invÃ¡lida]"
           Case "14"
-               descripcion = descripcion + "[C�digo contexto inv�lido]"
+               descripcion = descripcion + "[CÃ³digo contexto invÃ¡lido]"
           Case "15"
-               descripcion = descripcion + "[Aplicaci�n de destino no activa]"
+               descripcion = descripcion + "[AplicaciÃ³n de destino no activa]"
           Case "16"
                descripcion = descripcion + "[No existe PID de proceso originador]"
           Case "17"
@@ -185,7 +185,7 @@ Dim descripcion As String
           Case "18"
                descripcion = descripcion + "[FILE TRANSFER terminado]"
           Case "19"
-               descripcion = descripcion + "[C�digo desconocido en campo tipo mensaje]"
+               descripcion = descripcion + "[CÃ³digo desconocido en campo tipo mensaje]"
           Case "20"
                descripcion = descripcion + "[Mensaje de origen no tiene formato SRM]"
           Case "21"
@@ -195,7 +195,7 @@ Dim descripcion As String
           Case "23"
                descripcion = descripcion + "[SRM inactivo en nodo local]"
           Case "24"
-               descripcion = descripcion + "[NODO ALIAS no est� en tabla SRM]"
+               descripcion = descripcion + "[NODO ALIAS no estÃ¡ en tabla SRM]"
           Case "25"
                descripcion = descripcion + "[Error en largo en data transmitida]"
           Case "26"
@@ -203,11 +203,11 @@ Dim descripcion As String
           Case "27"
                descripcion = descripcion + "[No hay memoria suficiente]"
           Case "28"
-               descripcion = descripcion + "[Se rompi� enlace]"
+               descripcion = descripcion + "[Se rompiÃ³ enlace]"
           Case "29"
                descripcion = descripcion + "[Nodo origen desconocido]"
           Case "30"
-               descripcion = descripcion + "[PID inv�lido]"
+               descripcion = descripcion + "[PID invÃ¡lido]"
           Case "31"
                descripcion = descripcion + "[SRM bloqueado por el operador]"
           Case "32"
@@ -217,29 +217,29 @@ Dim descripcion As String
           Case "34"
                descripcion = descripcion + "[No hay LU's enviadoras en nodo de destino]"
           Case "35"
-               descripcion = descripcion + "[Informaci�n de seguridad inconsistente]"
+               descripcion = descripcion + "[InformaciÃ³n de seguridad inconsistente]"
           Case "36"
                descripcion = descripcion + "[No autorizado]"
           Case "37"
                descripcion = descripcion + "[Error en comando CICS]"
           Case "38"
-               descripcion = descripcion + "[Fall� carga o enganche de PGM]"
+               descripcion = descripcion + "[FallÃ³ carga o enganche de PGM]"
           Case "39"
                descripcion = descripcion + "[Fuera de horario]"
           Case "40"
                descripcion = descripcion + "[No corresponde]"
           Case "41"
-               descripcion = descripcion + "[Condici�n de excepci�n en manejo de archivos]"
+               descripcion = descripcion + "[CondiciÃ³n de excepciÃ³n en manejo de archivos]"
           Case "42"
                descripcion = descripcion + "[Error en HOOK-LINK abortado]"
           Case "61"
-               descripcion = descripcion + "[Generaci�n de PID-OK]"
+               descripcion = descripcion + "[GeneraciÃ³n de PID-OK]"
           Case "62"
-               descripcion = descripcion + "[Se validar� autorizaci�n]"
+               descripcion = descripcion + "[Se validarÃ¡ autorizaciÃ³n]"
           Case "63"
-               descripcion = descripcion + "[No se valida autorizaci�n]"
+               descripcion = descripcion + "[No se valida autorizaciÃ³n]"
           Case "64"
-               descripcion = descripcion + "[Solicita validaci�n de PID]"
+               descripcion = descripcion + "[Solicita validaciÃ³n de PID]"
           Case "65"
                descripcion = descripcion + "[Seguridad completa OK]"
                
@@ -253,15 +253,15 @@ Dim descripcion As String
          Case "53"
               descripcion = descripcion + "[Vista no existe]"
          Case "54"
-              descripcion = descripcion + "[Operaci�n no existe]"
+              descripcion = descripcion + "[OperaciÃ³n no existe]"
          Case "55"
               descripcion = descripcion + "[Error en formato (clave o datos de input)]"
          Case "56"
-              descripcion = descripcion + "[C�digo de transacci�n no num�rica]"
+              descripcion = descripcion + "[CÃ³digo de transacciÃ³n no numÃ©rica]"
          Case "57"
-              descripcion = descripcion + "[C�digo de transacci�n no existe o no inicializada]"
+              descripcion = descripcion + "[CÃ³digo de transacciÃ³n no existe o no inicializada]"
          Case "58"
-              descripcion = descripcion + "[M�ximo de transacciones alcanzado, no se puede comenzar una nueva]"
+              descripcion = descripcion + "[MÃ¡ximo de transacciones alcanzado, no se puede comenzar una nueva]"
          Case "59"
               descripcion = descripcion + "[Error al leer archivo de transacciones]"
          Case "60"
@@ -269,7 +269,7 @@ Dim descripcion As String
          Case "61"
               descripcion = descripcion + "[Error de dato en el Host]"
          Case "65"
-              descripcion = descripcion + "[Operaci�n no autorizada para la vista especificada]"
+              descripcion = descripcion + "[OperaciÃ³n no autorizada para la vista especificada]"
          Case "70"
               descripcion = descripcion + "[Debe inicializar clave]"
          Case "71"
@@ -283,15 +283,15 @@ Dim descripcion As String
          Case "75"
               descripcion = descripcion + "[Usuario inactivo]"
          Case "76"
-              descripcion = descripcion + "[Super� intentos permitidos para login]"
+              descripcion = descripcion + "[SuperÃ³ intentos permitidos para login]"
          Case "80"
               descripcion = descripcion + "[Registro Bloqueado]"
          Case "81"
-              descripcion = descripcion + "[Tabla de locks est� llena]"
+              descripcion = descripcion + "[Tabla de locks estÃ¡ llena]"
          Case "82"
               descripcion = descripcion + "[Error en formato de datos]"
          Case "83"
-              descripcion = descripcion + "[Registro no est� bloqueado]"
+              descripcion = descripcion + "[Registro no estÃ¡ bloqueado]"
          Case "84"
               descripcion = descripcion + "[Registro bloqueado por servidor]"
          Case "88"
@@ -305,13 +305,13 @@ Dim descripcion As String
          Case "92"
               descripcion = descripcion + "[ILLOGIC]"
          Case "93"
-              descripcion = descripcion + "[Requerimientos inv�lidos (INVREQ)]"
+              descripcion = descripcion + "[Requerimientos invÃ¡lidos (INVREQ)]"
          Case "94"
               descripcion = descripcion + "[IOERR o error al abriri el archivo]"
          Case "95"
               descripcion = descripcion + "[LENGERR]"
          Case "96"
-              descripcion = descripcion + "[Dato solicitado no se encontr�]"
+              descripcion = descripcion + "[Dato solicitado no se encontrÃ³]"
          Case "97"
               descripcion = descripcion + "[Archivos cerrados]"
          Case "98"
@@ -322,7 +322,7 @@ Dim descripcion As String
      descripcion = descripcion + "Llave : [" + ERR_LLAVE + "]" + Chr$(13)
      descripcion = descripcion + "Nodo  : [" + NODO + "]"
 
-     MsgBox descripcion + Chr(13) + "RET: " + Format$(retfun, "00") + "   STATUS: " + st + "   RET_SRM: " + retsrm, 16, "Problemas de Comunicaci�n"
+     MsgBox descripcion + Chr(13) + "RET: " + Format$(retfun, "00") + "   STATUS: " + st + "   RET_SRM: " + retsrm, 16, "Problemas de ComunicaciÃ³n"
      
      End
 End Sub
