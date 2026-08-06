@@ -4,17 +4,17 @@ Option Explicit
 Global FUNCIONALIDAD As Integer
 Global TIPO_RUT As Integer  '0 => utilice rut AIS
                             '1 => utilice rut ingresado por usuario
-Global RET_ACCESO As Integer  'true usuario ingresó clave correcta
-                              'false usuario ingresó clave incorrecta
+Global RET_ACCESO As Integer  'true usuario ingresÃ³ clave correcta
+                              'false usuario ingresÃ³ clave incorrecta
 
 
-' FI2026: stub de Valida_Migracion — modRSrm32.bas la llama (Call
+' FI2026: stub de Valida_Migracion â€” modRSrm32.bas la llama (Call
 ' Valida_Migracion(...) en SendQuery) pero no existe en ningun .bas de
 ' WCRE9500 (ni siquiera comentado con el nombre correcto: el stub original
 ' aqui decia "Valida_Migracion_ant", con sufijo "_ant" que no matchea la
-' llamada real — confirmado que esto no compila ni en el WCRE9500 original,
+' llamada real â€” confirmado que esto no compila ni en el WCRE9500 original,
 ' es un bug preexistente nunca detectado porque la compilacion se bloquea
-' antes por la licencia de THREED32.OCX). Sin efecto — solo satisface la
+' antes por la licencia de THREED32.OCX). Sin efecto â€” solo satisface la
 ' referencia para que el proyecto compile.
 Public Sub Valida_Migracion(p_sBaseApli As String, p_sApli As String, p_sNodoApli As String)
 End Sub
@@ -30,11 +30,11 @@ Dim aux_monmax As String, aux_reqcla As String
 Dim aux_nombre As String, aux_prefijo As String
 Dim li_pos1, li_pos2 As Integer
 
-'inicialización de Variables
+'inicializaciÃ³n de Variables
 sw_requiere_clave = False
 Usuario_Valido = False
 
-'Valor por defecto de la funcionalidad (se usará si el SP no devuelve aux_funcion numérico)
+'Valor por defecto de la funcionalidad (se usarÃ¡ si el SP no devuelve aux_funcion numÃ©rico)
 If IsNumeric(pr_funcion) Then
    FUNCIONALIDAD = CInt(pr_funcion)
 End If
@@ -58,10 +58,10 @@ RET_ACCESO = True
 
   
 ' ## SE COMENTA CODIGO ORIGINAL ##
-                'Verifica si el usuario está conectado al Ais Windows
+                'Verifica si el usuario estÃ¡ conectado al Ais Windows
                 'nRet = AISGetUsr(DatosUser)
                 ''If nRet = 0 Then
-                '   MsgBox "Usted no está conectado en AISWindows", 16, "Control de Acceso"
+                '   MsgBox "Usted no estÃ¡ conectado en AISWindows", 16, "Control de Acceso"
                 '   Exit Function
                 'Else
 
@@ -168,13 +168,14 @@ End Function
 ' Secciones requeridas en el INI:
 '   [BASEACCESO]   NODO=, APLI=, BASEACC=
 '   [FUNCIONALIDAD]  FUNCIONALIDAD=
-Function Inicializar_Acceso(sPathINI As String) As Boolean
-    NAME_BD = SacaValorDeINI("BASEACCESO", "BASEACC", sPathINI)
-    SERV_BD = SacaValorDeINI("BASEACCESO", "APLI", sPathINI)
-    NODO_BD = SacaValorDeINI("BASEACCESO", "NODO", sPathINI)
-    FUNCIONALIDAD = CInt(SacaValorDeINI("FUNCIONALIDAD", "FUNCIONALIDAD", sPathINI))
-  'jp2  Inicializar_Acceso = Usuario_Valido(CStr(FUNCIONALIDAD))
-End Function
+' FI2026 SHG - Inicializar_Acceso comentada: SacaValorDeINI sin implementacion
+' Function Inicializar_Acceso(sPathINI As String) As Boolean
+'     NAME_BD = SacaValorDeINI("BASEACCESO", "BASEACC", sPathINI)
+'     SERV_BD = SacaValorDeINI("BASEACCESO", "APLI", sPathINI)
+'     NODO_BD = SacaValorDeINI("BASEACCESO", "NODO", sPathINI)
+'     FUNCIONALIDAD = CInt(SacaValorDeINI("FUNCIONALIDAD", "FUNCIONALIDAD", sPathINI))
+'   'jp2  Inicializar_Acceso = Usuario_Valido(CStr(FUNCIONALIDAD))
+' End Function
 
 ' --- FI2026 - DvCalc: calcula digito verificador de RUT
 ' Implementado inline (CREDITOS no tiene ObtenerDigitoVerificador)
