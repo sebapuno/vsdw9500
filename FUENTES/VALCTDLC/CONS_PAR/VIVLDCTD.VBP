@@ -3,7 +3,6 @@ Module=modRSrm32; modRSrm32.bas
 Module=modAcceso; modAcceso.bas
 Form=VIVLDCTD.FRM
 Form=ctrlClave.frm
-VBX=C:\WINDOWS\SYSTEM\SPREAD20.VBX
 Module=Bajada; BAJADA.BAS
 Module=Modulo1; BAJCTDLC.BAS
 Form=ERRORCOM.FRM

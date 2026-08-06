@@ -3,7 +3,6 @@ Module=modRSrm32; modRSrm32.bas
 Module=modAcceso; modAcceso.bas
 Form=ROTOR3RC.FRM
 Form=ctrlClave.frm
-VBX=C:\WINDOWS\SYSTEM\SPREAD20.VBX
 Module=Rotor3RC; ROTOR3RC.BAS
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\system32\STDOLE2.TLB#Standard OLE Types
 Reference=*\G{00025E01-0000-0000-C000-000000000046}#3.6#0#C:\Program Files\Common Files\Microsoft Shared\DAO\DAO360.DLL#Microsoft DAO 3.6 Object Library

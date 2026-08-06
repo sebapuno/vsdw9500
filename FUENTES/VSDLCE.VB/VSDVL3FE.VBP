@@ -4,7 +4,6 @@ Module=modAcceso; modAcceso.bas
 Form=VLD3FE01.FRM
 Form=ctrlClave.frm
 Module=Bajada; BAJADA.BAS
-VBX=..\..\..\..\WINDOWS\SYSTEM\THREED.VBX
 Module=Vld1GR01; VLD3FE01.BAS
 Form=ERRORCOM.FRM
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\system32\STDOLE2.TLB#Standard OLE Types

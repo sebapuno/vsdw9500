@@ -1,6 +1,5 @@
 Type=Exe
 Module=Bajada; BAJADA.BAS
-VBX=C:\WINDOWS\system\THREED.VBX
 Module=modRSrm32; modRSrm32.bas
 Module=modAcceso; modAcceso.bas
 Form=ERRORCOM.FRM

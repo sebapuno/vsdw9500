@@ -5,7 +5,6 @@ Form=VLD1DD01.FRM
 Form=ctrlClave.frm
 Module=Vld1DD01; VLD1DD01.BAS
 Module=Bajada; BAJADA.BAS
-VBX=..\..\..\..\WINDOWS\SYSTEM\THREED.VBX
 Form=ERRORCOM.FRM
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\system32\STDOLE2.TLB#Standard OLE Types
 Reference=*\G{00025E01-0000-0000-C000-000000000046}#3.6#0#C:\Program Files\Common Files\Microsoft Shared\DAO\DAO360.DLL#Microsoft DAO 3.6 Object Library
