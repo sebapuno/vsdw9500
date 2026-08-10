@@ -1,5 +1,5 @@
 Attribute VB_Name = "Modulo1"
-Private ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Private ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
 'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
 
 Global BaseVisado As Database
@@ -11,12 +11,10 @@ Global CadenaDatos As String
 Global GReintento As Boolean
 Global Terminar As Boolean
 Public Function ObtieneRutUsuarioLogueado() As String
-Private Function ObtieneRutUsuarioLogueado() As String
   TIPO_RUT = 0
   ctrlClave.Show 1
   If Not RET_ACCESO Then End
   ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
-End Function
 End Function
 
 

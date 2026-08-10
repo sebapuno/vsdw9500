@@ -22,12 +22,10 @@ Public Function GrabaParametro(grupo As String, llave As String, parametro As St
 
 End Function
 Public Function ObtieneRutUsuarioLogueado() As String
-Private Function ObtieneRutUsuarioLogueado() As String
   TIPO_RUT = 0
   ctrlClave.Show 1
   If Not RET_ACCESO Then End
   ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
-End Function
 End Function
 
 Public Function ObtenerVistaDestino(CodPrd As String)

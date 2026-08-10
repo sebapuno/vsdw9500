@@ -1,5 +1,5 @@
 Attribute VB_Name = "Modulo1"
-Private ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
+'Private ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
 'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
 ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
 'Private Declare Function GetModuleUsage Lib "KERNEL32.DLL" (ByVal handler As Long) As Long
@@ -133,12 +133,10 @@ Dim HaydatoS As Boolean
 
 End Sub
 Public Function ObtieneRutUsuarioLogueado() As String
-Private Function ObtieneRutUsuarioLogueado() As String
   TIPO_RUT = 0
   ctrlClave.Show 1
   If Not RET_ACCESO Then End
   ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
-End Function
 End Function
 
 
