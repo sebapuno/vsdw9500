@@ -138,7 +138,7 @@ Begin VB.Form Principal
             Left            =   2835
             TabIndex        =   23
             TabStop         =   0   'False
-            Tag             =   "Salir SesiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Visado"
+            Tag             =   "Salir Sesi�n Visado"
             Top             =   45
             Width           =   360
             _version        =   65536
@@ -676,7 +676,7 @@ Begin VB.Form Principal
    End
 
    Begin VB.Menu Accion 
-      Caption         =   "&GestiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n"
+      Caption         =   "&Gesti�n"
       Begin VB.Menu Consultar 
          Caption         =   "&Consultar por Oficina"
          Shortcut        =   ^C
@@ -710,7 +710,7 @@ Begin VB.Form Principal
          End
 
          Begin VB.Menu AdministraImpresion 
-            Caption         =   "&Administrador de ImpresiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n..."
+            Caption         =   "&Administrador de Impresi�n..."
          End
       End
 
@@ -727,7 +727,7 @@ Begin VB.Form Principal
          End
 
          Begin VB.Menu FichCred 
-            Caption         =   "Ficha de &CrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ditos"
+            Caption         =   "Ficha de &Cr�ditos"
             Shortcut        =   ^F
          End
       End
@@ -771,11 +771,11 @@ Begin VB.Form Principal
       End
 
       Begin VB.Menu EnviaLog 
-         Caption         =   "&Envia Log Visado (GestiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n)"
+         Caption         =   "&Envia Log Visado (Gesti�n)"
       End
 
       Begin VB.Menu mnu_ActParam 
-         Caption         =   "Consultar Tabla de ParÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡metros CTD"
+         Caption         =   "Consultar Tabla de Par�metros CTD"
       End
 
       Begin VB.Menu RepararBD 
@@ -1080,7 +1080,7 @@ If BajarDatosVisado(MostrarMensaje) Then
     Call DesplieguePantalla(True)
 Else
     If MostrarMensaje Then
-      MsgBox "No se ha Localizado InformaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n a Visar", 0 + 16, "Datos No Recepcionados"
+      MsgBox "No se ha Localizado Informaci�n a Visar", 0 + 16, "Datos No Recepcionados"
     End If
 End If
 
@@ -1113,7 +1113,7 @@ End Sub
 Private Sub FichCred_Click()
 
 If Dir("c:\data\visado\hist_vsd.mdb") <> "HIST_VSD.MDB" Then
-     MsgBox "No se encontrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
+     MsgBox "No se encontr� la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
      Screen.MousePointer = 0
      Exit Sub
 Else
@@ -1182,7 +1182,7 @@ If Not App.PrevInstance Then
     'jsa 30/03/2007
     'Recorte de Plataforma Siebel Fase V
     'Recorte de Visado de Cuentas Vista
-    'Verifica si estaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n esta en Siebel V
+    'Verifica si estaci�n esta en Siebel V
     '***********************************************
     BuscaINI = False
     fecha_ini = CVDate(SacaValorINI("SIEBEL", "FECHA", DIRECTORIO_01 + ARCHIVO_INI01))
@@ -1238,7 +1238,7 @@ If Not App.PrevInstance Then
     End If
     
     If Not IsNumeric(Oficina) Then
-       MsgBox "La variable Oficina no ha sido configurada, las consultas presentarÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡n problemas." + _
+       MsgBox "La variable Oficina no ha sido configurada, las consultas presentar�n problemas." + _
           Chr(10) + "Utilice el Configurador de Posventa para solucionar esto.", 16, "Visado de Productos"
     End If
     
@@ -1270,7 +1270,7 @@ If Not App.PrevInstance Then
     Grilla.RowHeight(0) = 0     ' fila fija oculta (DisplayColHeaders=0)
     Call ConfigurarNodoDestinoSAT
 Else
-    MsgBox "Visado Ya EstÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ EjecutÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ndose", 0 + 16, "Doble EjecuciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n"
+    MsgBox "Visado Ya Est� Ejecut�ndose", 0 + 16, "Doble Ejecuci�n"
     End
 End If
   
@@ -1295,7 +1295,7 @@ Private Sub Form_Unload(Cancel As Integer)
   
   On Error GoTo error_base
   
-  '* se cambia de 120 a 365 dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­as el histÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rico
+  '* se cambia de 120 a 365 d�as el hist�rico
   FechaPasada = Format$(Year(Date - 365), "0000") + Format$(Month(Date - 365), "00") + _
               Format$(Day(Date - 365), "00")
               
@@ -1348,7 +1348,7 @@ Archivo = UCase(DIRECTORIO_02 + ARCHIVO_VISPAR)
 If Dir(Archivo) = Mid$(Archivo, Len(Archivo) - 11) Then
   Call EjecutarPrograma(Archivo, 1)
 Else
-  MsgBox "No se encuentra el archivo " + Archivo, 16, "OperaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Cancelada"
+  MsgBox "No se encuentra el archivo " + Archivo, 16, "Operaci�n Cancelada"
 End If
 
 Principal.Enabled = True
@@ -1369,7 +1369,7 @@ Archivo = UCase("c:\bin\s\baplsgt.exe ")
 If Dir("C:\BIN\S\BAPLSGT.EXE") = "BAPLSGT.EXE" Then
    Call EjecutarPrograma(Archivo + TablasSgt, 1) '"suc cui")
 Else
-   MsgBox "No se encuentra el archivo " + Archivo, 16, "OperaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n Cancelada"
+   MsgBox "No se encuentra el archivo " + Archivo, 16, "Operaci�n Cancelada"
 End If
 
 Screen.MousePointer = 0
@@ -1433,7 +1433,7 @@ End Sub
 Private Sub ProdVisa_Click()
 
 If Dir("c:\data\visado\hist_vsd.mdb") <> "HIST_VSD.MDB" Then
-     MsgBox "No se encontrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
+     MsgBox "No se encontr� la base de datos Hist_vsd.mdb", 16, "No se pueden consultar datos"
      Screen.MousePointer = 0
      Exit Sub
 Else
@@ -1507,7 +1507,7 @@ Dim PunteroVistas As Recordset
      Else
        MsgBox "La Variable de Ambiente " + Chr(34) + "SRM_NS" + Chr(34) + " No Fue" + Chr(10) + _
               "Encontrada en Tabla " + Chr(34) + "SAT" + Chr(34) + ", las Transacciones" + Chr(10) + _
-              "Via S.A.T. PodrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­an Tener Conflictos", 0 + 48, "Advertencia"
+              "Via S.A.T. Podr�an Tener Conflictos", 0 + 48, "Advertencia"
      End If
      PunteroVistas.Close
      PunteroSAT.Close

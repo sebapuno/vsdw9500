@@ -29,7 +29,7 @@ Begin VB.Form DefineImpresora
       _extentx        =   5265
       _extenty        =   1693
       _stockprops     =   14
-      caption         =   "SelecciÃ³n Impresora a Usar ..."
+      caption         =   "Selección Impresora a Usar ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -117,7 +117,7 @@ Dim ImpresoraTemporal As String
   End If
   If Not PoneValorINI("Visado", "Impresora", DefinicionImpresora, DIRECTORIO_01 + ARCHIVO_INI01) Then
     DefinicionImpresora = ImpresoraTemporal
-    MsgBox "Imposible Actualizar Archivo " + Chr(34) + "Visado.INI" + Chr(34), 0 + 16, "Error de ActualizaciÃ³n"
+    MsgBox "Imposible Actualizar Archivo " + Chr(34) + "Visado.INI" + Chr(34), 0 + 16, "Error de Actualización"
   End If
   Unload Me
 End Sub

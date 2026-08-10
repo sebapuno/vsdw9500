@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ConfiguraHonorarios 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ModificaciÃƒÆ’Ã‚Â³n Honorarios Notario"
+   Caption         =   "Modificaci�n Honorarios Notario"
    ClientHeight    =   3045
    ClientLeft      =   2880
    ClientTop       =   2415
@@ -28,7 +28,7 @@ Begin VB.Form ConfiguraHonorarios
       _extentx        =   11721
       _extenty        =   5371
       _stockprops     =   14
-      caption         =   "SelecciÃƒÆ’Ã‚Â³n de Notario ..."
+      caption         =   "Selecci�n de Notario ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -149,7 +149,7 @@ Begin VB.Form ConfiguraHonorarios
       Begin VB.Label Encabezado 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "Costo RenovaciÃƒÆ’Ã‚Â³n"
+         Caption         =   "Costo Renovaci�n"
          BeginProperty Font 
             name            =   "MS Sans Serif"
             charset         =   1
@@ -325,7 +325,7 @@ Dim I As Integer
 Dim Criterio As String
 Dim RutNotario As String
 Dim PunteroNotarios As Recordset
-  I = MsgBox("Ãƒâ€šÃ‚Â¿ Son los Datos Correctos ?", 4 + 32 + 256, "Verificar ModificaciÃƒÆ’Ã‚Â³n")
+  I = MsgBox("� Son los Datos Correctos ?", 4 + 32 + 256, "Verificar Modificaci�n")
   If I = 6 Then
     Screen.MousePointer = 11
     For I = 1 To GrillaHonorarios.Rows - 1 ' FI2026 - era .MaxRows
@@ -500,7 +500,7 @@ Dim InsertarFila As Boolean
             GrillaHonorarios.Rows = GrillaHonorarios.Rows - 1
             FilasVisibles = FilasVisibles - 1
           Else
-            I% = MsgBox("Ãƒâ€šÃ‚Â¿ Seguro de Eliminar a Dicho Notario ?", 4 + 32 + 256, "Verificar Borrado")
+            I% = MsgBox("� Seguro de Eliminar a Dicho Notario ?", 4 + 32 + 256, "Verificar Borrado")
             If I% = 6 Then
               ' FI2026 - era .RowHidden = True (Spread). En MSFlexGrid se oculta la
               ' fila poniendole altura 0. El '= True' que quedaba pegado hacia que VB6

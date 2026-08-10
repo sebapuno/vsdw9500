@@ -32,7 +32,7 @@ Dim NumError As String
   ErrorComunicacion.Llave.Caption = " " + Mid(Llave, 1, 50)
   ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones." + Chr(10) + _
                                       "Por favor Reporte esto a Central de Fallas (3030) " + _
-                                      "describiendo la siguiente información."
+                                      "describiendo la siguiente informaci�n."
                                       
   ErrorComunicacion.Transaccion.Caption = " (" + Mid$(RetSRM, 1, 2) + ") " + Mensaje
                                       
@@ -57,7 +57,7 @@ Dim CControl As String * 10000
 Dim Ret_Dato As String
 Dim Nodo_Dst As String * 4
 Dim Buff_Data As String * 10000
-Dim Largo_Msg As Long  ' FI2026 Integer→Long (Srmw32 32-bit)
+Dim Largo_Msg As Long  ' FI2026 Integer->Long (Srmw32 32-bit)
   Status = "00"
   funcion = "01"
   CControl = ""
@@ -78,7 +78,7 @@ Dim Largo_Msg As Long  ' FI2026 Integer→Long (Srmw32 32-bit)
 End Function
 Public Function Llamada(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String, ByVal Kilos As String) As String
 Dim Retorno As Integer
-Dim Sd_Largo As Long  ' FI2026 Integer→Long (Srmw32 32-bit)
+Dim Sd_Largo As Long  ' FI2026 Integer->Long (Srmw32 32-bit)
 Dim Sd_Datos As String * 8000
 Dim Sd_Status As String * 2
 Dim Sd_Control As String * 10000
@@ -107,7 +107,7 @@ End Function
 
 Public Function Llamada_ConReintentar(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String, ByVal Kilos As String) As String
 Dim Retorno As Integer
-Dim Sd_Largo As Long  ' FI2026 Integer→Long (Srmw32 32-bit)
+Dim Sd_Largo As Long  ' FI2026 Integer->Long (Srmw32 32-bit)
 Dim Sd_Datos As String * 8000
 Dim Sd_Status As String * 2
 Dim Sd_Control As String * 10000

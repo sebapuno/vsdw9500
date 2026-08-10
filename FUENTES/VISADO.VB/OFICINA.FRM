@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ConfiguraOficina 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ModificaciÃ³n Oficina a Visar"
+   Caption         =   "Modificación Oficina a Visar"
    ClientHeight    =   3165
    ClientLeft      =   2505
    ClientTop       =   1770
@@ -28,7 +28,7 @@ Begin VB.Form ConfiguraOficina
       _extentx        =   8996
       _extenty        =   5477
       _stockprops     =   14
-      caption         =   "SelecciÃ³n de Oficina ..."
+      caption         =   "Selección de Oficina ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -83,7 +83,7 @@ Begin VB.Form ConfiguraOficina
          EndProperty
          font3d          =   1
          Begin VB.OptionButton Option1 
-            Caption         =   "15 DÃ­as"
+            Caption         =   "15 Días"
             BeginProperty Font 
                name            =   "MS Sans Serif"
                charset         =   1
@@ -101,7 +101,7 @@ Begin VB.Form ConfiguraOficina
          End
 
          Begin VB.OptionButton Option2 
-            Caption         =   "30 DÃ­as"
+            Caption         =   "30 Días"
             BeginProperty Font 
                name            =   "MS Sans Serif"
                charset         =   1
@@ -119,7 +119,7 @@ Begin VB.Form ConfiguraOficina
          End
 
          Begin VB.OptionButton Option3 
-            Caption         =   "60 DÃ­as"
+            Caption         =   "60 Días"
             BeginProperty Font 
                name            =   "MS Sans Serif"
                charset         =   1
@@ -219,7 +219,7 @@ Dim Respuesta As Integer
 Private Sub Aceptar_Click()
 
 If ListaOficinas.ListCount > 0 Then
-  I% = MsgBox("Â¿Seguro de Cambiar la Oficina?", 4 + 32 + 256, "Confirmar ModificaciÃ³n")
+  I% = MsgBox("¿Seguro de Cambiar la Oficina?", 4 + 32 + 256, "Confirmar Modificación")
   If I% = 6 Then
     Oficina = Mid$(ListaOficinas.Text, 1, 3)
     Respuesta = PoneValorINI("Visado", "Oficina", Oficina, DIRECTORIO_01 + ARCHIVO_INI01)

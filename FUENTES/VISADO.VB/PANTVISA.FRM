@@ -54,7 +54,7 @@ Begin VB.Form PantallaVisar
 
       Begin VB.Label Numero 
          BackStyle       =   0  'Transparent
-         Caption         =   "NÃƒâ€šÃ‚Âº"
+         Caption         =   "N�"
          BeginProperty Font 
             name            =   "Arial"
             charset         =   1
@@ -247,7 +247,7 @@ Begin VB.Form PantallaVisar
       Begin VB.Label Etiqueta 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "AcciÃƒÆ’Ã‚Â³n"
+         Caption         =   "Acci�n"
          BeginProperty Font 
             name            =   "Times New Roman"
             charset         =   1
@@ -839,7 +839,7 @@ Dim AplicacionDestino As String * 4
                        
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Tipo de RendiciÃƒÆ’Ã‚Â³n  "
+                        GrillaVisado.Text = "Tipo de Rendici�n  "
                         
 '*********************** validacion de campo con_entrega_vv ****************
 'Modificado por        : Entersoft
@@ -873,7 +873,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta. Cte. RendiciÃƒÆ’Ã‚Â³n  "
+                        GrillaVisado.Text = "Cta. Cte. Rendici�n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
@@ -977,7 +977,7 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = Format(Trim(ls_ctacte_empresa), "0-000-00000-00")
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta.Cte.FacturaciÃƒÆ’Ã‚Â³n  "
+                        GrillaVisado.Text = "Cta.Cte.Facturaci�n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
@@ -988,7 +988,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "PersonerÃƒÆ’Ã‚Â­a JurÃƒÆ’Ã‚Â­dica  "
+                        GrillaVisado.Text = "Personer�a Jur�dica  "
                         
                         GrillaVisado.Col = 2
                         GrillaVisado.Row = li_filo
@@ -1016,7 +1016,7 @@ Dim AplicacionDestino As String * 4
 
                          GrillaVisado.Col = 3
                          GrillaVisado.Row = li_filo
-                         GrillaVisado.Text = "ConciliaciÃƒÆ’Ã‚Â³n  "
+                         GrillaVisado.Text = "Conciliaci�n  "
       
                          GrillaVisado.Col = 4
                          GrillaVisado.Row = li_filo
@@ -1090,11 +1090,11 @@ Dim AplicacionDestino As String * 4
         If Fila > GrillaVisado.Rows - 1 Then
           GrillaVisado.Rows = Fila + 1 ' FI2026 - era .MaxRows = Fila
         End If
-        While InStr(Linea, "Ãƒâ€šÃ‚Â¬") <> 0
+        While InStr(Linea, "�") <> 0
           GrillaVisado.Col = Columna
           GrillaVisado.Row = Fila
-          GrillaVisado.Text = Mid$(Linea, 1, InStr(Linea, "Ãƒâ€šÃ‚Â¬") - 1)
-          Linea = Mid$(Linea, InStr(Linea, "Ãƒâ€šÃ‚Â¬") + 1)
+          GrillaVisado.Text = Mid$(Linea, 1, InStr(Linea, "�") - 1)
+          Linea = Mid$(Linea, InStr(Linea, "�") + 1)
           
           If InStr(Linea, ";") Then
               Mid$(Linea, InStr(Linea, ";"), 1) = ","
@@ -1438,7 +1438,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Tipo de RendiciÃƒÆ’Ã‚Â³n  "
+                        GrillaVisado.Text = "Tipo de Rendici�n  "
                         
 '*********************** validacion de campo con_entrega_vv ****************
 'Modificado por        : Entersoft
@@ -1479,7 +1479,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta. Cte. RendiciÃƒÆ’Ã‚Â³n  "
+                        GrillaVisado.Text = "Cta. Cte. Rendici�n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
@@ -1585,7 +1585,7 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = Format(Trim(ls_ctacte_empresa), "0-000-00000-00")
                         GrillaVisado.Col = 3
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "Cta.Cte.FacturaciÃƒÆ’Ã‚Â³n  "
+                        GrillaVisado.Text = "Cta.Cte.Facturaci�n  "
                         
                         GrillaVisado.Col = 4
                         GrillaVisado.Row = li_filo
@@ -1596,7 +1596,7 @@ Dim AplicacionDestino As String * 4
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
-                        GrillaVisado.Text = "PersonerÃƒÆ’Ã‚Â­a JurÃƒÆ’Ã‚Â­dica  "
+                        GrillaVisado.Text = "Personer�a Jur�dica  "
                         
                         GrillaVisado.Col = 2
                         GrillaVisado.Row = li_filo
@@ -1624,7 +1624,7 @@ Dim AplicacionDestino As String * 4
 
                          GrillaVisado.Col = 3
                          GrillaVisado.Row = li_filo
-                         GrillaVisado.Text = "ConciliaciÃƒÆ’Ã‚Â³n  "
+                         GrillaVisado.Text = "Conciliaci�n  "
       
                          GrillaVisado.Col = 4
                          GrillaVisado.Row = li_filo
@@ -1922,8 +1922,8 @@ On Error GoTo ErrorDeImpresion
   Printer.FontName = "Arial"
   Printer.FontName = "Courier New"
   Printer.FontSize = "10"
-  Printer.Print "Banco de Chile"; Tab(60); "Fecha EmisiÃƒÆ’Ã‚Â³n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(60); "Hora EmisiÃƒÆ’Ã‚Â³n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(60); "Fecha Emisi�n : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(60); "Hora Emisi�n  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.Print
   Printer.Print Spc(26); "INFORME DEL PRODUCTO A VISAR"
@@ -1932,7 +1932,7 @@ On Error GoTo ErrorDeImpresion
   Printer.Print Tab(10); "Rut Cliente"; Tab(27); ": " + Rut.Caption
   Printer.Print Tab(10); "Nombre Cliente"; Tab(27); ": " + Nombre.Caption
   Printer.Print Tab(10); "Producto"; Tab(27); ": " + Producto.Caption
-  Printer.Print Tab(10); "AcciÃƒÆ’Ã‚Â³n"; Tab(27); ": " + Accion.Caption
+  Printer.Print Tab(10); "Acci�n"; Tab(27); ": " + Accion.Caption
   Printer.Print Tab(10); "Oficina"; Tab(27); ": " + Oficina
   With Visando
     .GrillaProductos.Col = 1
@@ -1975,7 +1975,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   i% = MsgBox("Error de ImpresiÃƒÆ’Ã‚Â³n", 5 + 48 + 0, "ImpresiÃƒÆ’Ã‚Â³n Cancelada")
+   i% = MsgBox("Error de Impresi�n", 5 + 48 + 0, "Impresi�n Cancelada")
    If i% = 4 Then
     Resume 0
    Else
@@ -2115,13 +2115,13 @@ Dim Numero As Integer
       IndiceDependencias = Mid$(IndiceDependencias, i + 1)
       If Glosa(Numero).Enabled Then
         EjecutarActualBoton = False
-        MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta Validaci�n"
       End If
     Loop
     Numero = Val(IndiceDependencias)
     If Glosa(Numero).Enabled Then
       EjecutarActualBoton = False
-      MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta ValidaciÃƒÆ’Ã‚Â³n"
+      MsgBox "Se Debe Primero Revisar el Punto " + LTrim$(Str(Numero + 1)) + ".", 0 + 16, "Falta Validaci�n"
     End If
   End If
 End Function

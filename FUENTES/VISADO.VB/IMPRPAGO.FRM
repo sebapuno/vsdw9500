@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ImprimePagoNotario 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ImpresiÃ³n Pagos Notario"
+   Caption         =   "Impresión Pagos Notario"
    ClientHeight    =   2535
    ClientLeft      =   1665
    ClientTop       =   2190
@@ -300,7 +300,7 @@ Dim NombreArchivo As String
           Call EjecutarPrograma(NombreArchivo, 0)
           Screen.MousePointer = 1
         Else
-          MsgBox "No se EncontrÃ³ Programa " + NombreArchivo, 0 + 16, "Falta Programa para Imprimir"
+          MsgBox "No se Encontró Programa " + NombreArchivo, 0 + 16, "Falta Programa para Imprimir"
         End If
       Else
         MsgBox "Fechas Intercambiadas", 0 + 16, "Datos Incorrectos"

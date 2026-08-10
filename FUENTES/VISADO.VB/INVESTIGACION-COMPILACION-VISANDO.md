@@ -268,16 +268,71 @@ aprobado/rechazado (`.Col = 0` + `.CellPicture`).
 
 ---
 
-## 7. PENDIENTE
+## 7. RESUELTO — `GetModuleUsage` y mojibake
 
-- **`GetModuleUsage`** (API Win16, vía `Krnl386.exe`) — 9 usos en `VISADO.BAS` y
-  `modRSrm32.bas`. Compila (es un `Declare`) pero falla al ejecutarse. Cubierto por el
-  Paso 9 de la guía del framework (reemplazar por `WaitProcess`).
-- **Mojibake** en los textos de 9 forms: los acentos y `¿` quedaron con doble
-  codificación, tanto en captions de diseño como en `MsgBox` en runtime. El original en
-  `main` los tiene bien en latin-1, así que es reversible.
+### 7.1 `GetModuleUsage`: no era un `Declare` muerto, era una espera perdida
+
+El `Declare` de `GetModuleUsage` (API Win16, `kernel.dll`) estaba comentado y el
+validador lo seguía reportando sólo porque el nombre aparecía en los comentarios. Pero
+al comentarlo se había perdido algo real. El original era un `Shell` **síncrono**:
+
+```vb
+Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
+Dim Retorno As Integer
+  Retorno = Shell(Programa, Modo)
+  DoEvents
+  While GetModuleUsage(Retorno) <> 0   ' <-- esperaba a que el programa terminara
+     DoEvents
+  Wend
+End Sub
+```
+
+Migrado quedó sólo el `Shell`: **`EjecutarPrograma` dejaba de esperar**. Sus **21 call
+sites** (impresión, pagos a notario, transmisión SAT) asumen que el programa externo ya
+terminó cuando la función vuelve.
+
+Corregido con `WaitProcess` de `modRSrm32.bas` (`OpenProcess(SYNCHRONIZE)` +
+`WaitForSingleObject`), que es el equivalente Win32 del patrón. Además `Retorno` pasó de
+`Integer` a `Long`: en VB6 32-bit `Shell()` devuelve el **process ID**, muy por encima de
+32767 — con `Integer` habría desbordado. (El `Shell` de `VISADO.FRM:877` se revisó y está
+bien: usa `Variant` y el original tampoco esperaba.)
+
+Se verificó además que no quede ninguna otra API Win16 activa: todos los `Declare` del
+proyecto apuntan a `KERNEL32.DLL`/`USER32.DLL` o a `srmw32.dll`.
+
+### 7.2 Mojibake: revertido y verificado contra el original
+
+Los textos con acentos y `¿` de **22 archivos** (captions de diseño y `MsgBox` en
+runtime) tenían doble codificación. Dos hallazgos que complicaban la reversión:
+
+1. **La profundidad variaba** entre archivos y entre líneas del mismo archivo: de 1 a 4
+   rondas de codificación. Hay que iterar hasta punto fijo, no aplicar una pasada.
+2. **Había un segundo daño mezclado**: comentarios que la propia migración escribió con
+   caracteres Unicode inexistentes en latin-1 (`→`, `—`, comillas tipográficas). Al
+   revertir el primero reaparecían y el archivo dejaba de ser codificable en latin-1.
+   Pasados a ASCII (`->`, `--`, `"`) — están en comentarios, no en texto del programa.
+
+Una sola línea (`modRSrm32.bas:59`) tenía daño **irreversible** — un `U+FFFD`, byte
+perdido para siempre. Se recuperó desde `ejemplos/PR9000/comun/modRSrm32.bas` del
+framework, que conserva la versión sana.
+
+**Verificación:** no alcanza con que "se lea bien". Se compararon los `Caption` con
+acentos contra el original 16-bit en `main`: **38 de 38 idénticos, 0 diferencias**. Y el
+byte de `"Comunicación"` en `ERRORCOM.FRM` volvió a ser `0xF3`, igual que en `main`.
+
+La receta completa quedó documentada en la guía del framework (sección "Si el daño YA
+ocurrió: cómo revertir el mojibake") — la guía explicaba cómo *evitar* el problema pero
+no cómo *revertirlo*.
+
+---
+
+## 8. PENDIENTE
+
+- **Probar la aplicación ejecutándola.** Es lo único que queda y es lo más importante:
+  todo lo corregido hasta acá está verificado por compilación y por comparación contra el
+  original, pero **nada se probó corriendo el `.exe`**. En particular conviene mirar:
+  las 7 pantallas con grilla (error 381), los anchos de columna (el factor 120
+  twips/carácter es una aproximación de la métrica de la fuente), y que
+  `EjecutarPrograma` efectivamente espere.
 - Los 3 items de paridad visual/UX diferidos (checkbox de `VIGENCIA`, edición inline de
   `NOTARIO`, `.Action` de `IMPR_NEW`) — ver secciones 2.6, 2.7 y 2.8.
-- **Nada de esto está probado ejecutando la aplicación**: la verificación hasta acá es
-  que compila y que la traducción es correcta contra el original. Falta correr el `.exe`
-  y abrir las pantallas con grilla.

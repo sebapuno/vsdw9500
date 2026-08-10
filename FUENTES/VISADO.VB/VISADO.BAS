@@ -1,11 +1,13 @@
 Attribute VB_Name = "Visado"
-' FI2026 SHG - userÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢USER32.DLL: hMenu/iditem/wflags IntegerÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢Long
+' FI2026 SHG - user->USER32.DLL: hMenu/iditem/wflags Integer->Long
 Private Declare Function DeleteMenu Lib "USER32.DLL" (ByVal hMenu&, ByVal iditem&, ByVal wflags&) As Long
 ' FI2026 SHG
 Private Declare Function GetSystemMenu Lib "USER32.DLL" (ByVal hWnd&, ByVal bRevert&) As Long
-' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
-'Private ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
-'Declare Function GetModuleUsage Lib \"KERNEL32.DLL\" As Long
+' FI2026 SHG - GetModuleUsage es API Win16 (kernel.dll) y no existe en Win32.
+' El Declare original era:
+'   Private Declare Function GetModuleUsage Lib "kernel.dll" (ByVal handler As Integer) As Integer
+' Su unico uso era la espera de EjecutarPrograma, ahora resuelta con WaitProcess
+' (modRSrm32.bas). Ver Paso 9 de la guia del framework.
 Private Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
 Private Declare Function WritePrivateProfileString Lib "KERNEL32.DLL" Alias "WritePrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, lpString As Any, ByVal lplFileName As String) As Long
 
@@ -344,7 +346,7 @@ Dim AplicacionDestino As String * 4
     Loop
     
   Else
-    MsgBox "Vista NÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
   ObtieneInformacion = HaydatoS
 End Function
@@ -631,7 +633,7 @@ Dim PunteroHistory As Recordset
 Set PunteroHistory = BaseHistory.OpenRecordset("tbl_Hst", dbOpenTable)
 Set PunteroVsdHst = BaseVisado.OpenRecordset("vsd_hst", dbOpenTable)
 
-'*** Agregar Nuevos Registros al HistÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rico
+'*** Agregar Nuevos Registros al Hist�rico
 If Not PunteroVsdHst.EOF Then
    PunteroVsdHst.MoveFirst
    While Not PunteroVsdHst.EOF
@@ -765,7 +767,7 @@ Dim DiasVigencia As String
 Dim FechaPrd     As String
 Dim AplicacionDestino As String * 4
 
-If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es MiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rcoles
+If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es Mi�rcoles
    
   DiasVigencia = SacaValorINI("Visado", "Dias", DIRECTORIO_01 + ARCHIVO_INI01)
   If InStr("15,30,60", DiasVigencia) <> 0 Then
@@ -805,7 +807,7 @@ If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es MiÃƒÆ’Ã†â�
           End If
           
         Else
-          '* Fuerza eliminaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de archivos mayores a 365 dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­as
+          '* Fuerza eliminaci�n de archivos mayores a 365 d�as
           ' If EliminaRegistroAntiguo(FechaPrd, Pto_VSDPRD!Prd_Data, VistaOrigen, Trim(Pto_TABOPER!Oper_Borrado)) Then
           '    Pto_VSDPRD.Delete
           ' End If
@@ -1074,14 +1076,18 @@ Dim hWnd%, hMenu%, Success%
   Success% = DeleteMenu(hMenu%, SC_MOVE, MF_BYCOMMAND)
 End Sub
 Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
-Dim Retorno As Integer
+' FI2026 - Retorno era Integer: Shell() en VB6 32-bit devuelve el process ID
+' (un Double con valores muy por encima de 32767), que desborda un Integer.
+Dim Retorno As Long
   Retorno = Shell(Programa, Modo)
   DoEvents
-  ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
-  ' Call WaitProcess(Retorno)  ' requiere modRSrm32.bas
-
-     ' DoEvents  ' FI2026 SHG - orphan from GetModuleUsage
-  ' Wend  ' FI2026 SHG - orphan from GetModuleUsage
+  ' FI2026 - restaura la espera del original 16-bit, que era:
+  '     While GetModuleUsage(Retorno) <> 0 : DoEvents : Wend
+  ' EjecutarPrograma es SINCRONA: los 21 call sites asumen que el programa
+  ' externo ya termino al volver. Al comentar el While (GetModuleUsage es API
+  ' Win16) se habia perdido esa espera. WaitProcess (modRSrm32.bas) es el
+  ' equivalente Win32: OpenProcess(SYNCHRONIZE) + WaitForSingleObject.
+  Call WaitProcess(Retorno)
 End Sub
 Public Sub BloquearEdicionGrilla(ByVal FilIni As Long, ByVal ColIni As Long, ByVal FilFin As Long, ByVal ColFin As Long, GrillaBloqueada As Object)
   ' FI2026 - BloquearEdicionGrilla migrado de SpreadSheet a MSFlexGrid: Lock/BlockMode no existen,

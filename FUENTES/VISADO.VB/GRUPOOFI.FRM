@@ -251,7 +251,7 @@ Encontrado = False
 If OfiSelec.ListCount > 0 Then
   For I = 0 To OfiSelec.ListCount - 1
      If ListaOficinas.Text = OfiSelec.List(I) Then
-        MsgBox "La Oficina ya est√° seleccionada.", 64
+        MsgBox "La Oficina ya est· seleccionada.", 64
         Encontrado = True
         Exit For
      End If
@@ -260,8 +260,8 @@ End If
 
 If Not Encontrado Then
   If Not CoincideRegion(Mid$(ListaOficinas.Text, 1, 3)) Then
-    valen = MsgBox("La oficina seleccionada (" + Mid$(ListaOficinas.Text, 1, 3) + ") pertenece a una regi√≥n distinta a la correspondiente al PC." + _
-                     Chr(10) + "Esto puede generar problemas al realizar consultas de visado." + Chr(10) + "¬øDesea agregarla de todas formas?", 52, "Advertencia")
+    valen = MsgBox("La oficina seleccionada (" + Mid$(ListaOficinas.Text, 1, 3) + ") pertenece a una regiÛn distinta a la correspondiente al PC." + _
+                     Chr(10) + "Esto puede generar problemas al realizar consultas de visado." + Chr(10) + "øDesea agregarla de todas formas?", 52, "Advertencia")
   Else
     valen = vbYes ' TIENE MISMA REGION
   End If
@@ -300,7 +300,7 @@ If OfiSelec.ListIndex > -1 Then
         OfiSelec.Selected(0) = True
       End If
     Else
-      MsgBox "La oficina est√° relacionada con la correspondiente al PC.", 48, "No se puede eliminar la oficina"
+      MsgBox "La oficina est· relacionada con la correspondiente al PC.", 48, "No se puede eliminar la oficina"
     End If
   Else
     NumeroLista = OfiSelec.ListIndex

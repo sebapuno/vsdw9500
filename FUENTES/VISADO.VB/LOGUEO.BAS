@@ -91,7 +91,7 @@ Dim Mensaje As String
 Dim NumError As String
   Select Case CualTitulo
     Case "T"
-      ErrorLogueo.Caption = "Error en Logueo de la TransacciÃ³n"
+      ErrorLogueo.Caption = "Error en Logueo de la Transacci�n"
     Case "V"
       ErrorLogueo.Caption = "Error en Logueo del Visado"
   End Select

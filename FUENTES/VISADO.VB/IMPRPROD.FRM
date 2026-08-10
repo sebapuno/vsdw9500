@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ImprimeProductoVisado 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ImpresiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Productos Ya Visados"
+   Caption         =   "Impresi�n Productos Ya Visados"
    ClientHeight    =   4320
    ClientLeft      =   1440
    ClientTop       =   2160
@@ -27,7 +27,7 @@ Begin VB.Form ImprimeProductoVisado
       _extentx        =   16457
       _extenty        =   7488
       _stockprops     =   14
-      caption         =   "SelecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Productos a Imprimir ..."
+      caption         =   "Selecci�n Productos a Imprimir ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -63,7 +63,7 @@ Begin VB.Form ImprimeProductoVisado
          _extentx        =   7064
          _extenty        =   1693
          _stockprops     =   14
-         caption         =   "SelecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n a Desplegar"
+         caption         =   "Selecci�n a Desplegar"
          forecolor       =   4210688
          BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
             name            =   "MS Sans Serif"
@@ -96,7 +96,7 @@ Begin VB.Form ImprimeProductoVisado
             _extentx        =   6535
             _extenty        =   582
             _stockprops     =   78
-            caption         =   "Productos Visados &Hasta              DÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­as"
+            caption         =   "Productos Visados &Hasta              D�as"
             forecolor       =   128
             BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
                name            =   "MS Sans Serif"
@@ -120,7 +120,7 @@ Begin VB.Form ImprimeProductoVisado
             _extentx        =   4868
             _extenty        =   582
             _stockprops     =   78
-            caption         =   "Productos Visados en el &DÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a"
+            caption         =   "Productos Visados en el &D�a"
             forecolor       =   128
             BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
                name            =   "MS Sans Serif"
@@ -152,7 +152,7 @@ Begin VB.Form ImprimeProductoVisado
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "IdentificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+         Caption         =   "Identificaci�n"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   6
@@ -178,7 +178,7 @@ Begin VB.Form ImprimeProductoVisado
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "AcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+         Caption         =   "Acci�n"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   4
@@ -411,7 +411,7 @@ Dim FechaPasada As String * 8
   Principal.Enabled = False
   '---------
   If Dir("c:\data\visado\hist_vsd.mdb") <> "HIST_VSD.MDB" Then
-     MsgBox "No se encontrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ la base de datos Hist_vsd.mdb", 16, "Archivo no encontrado"
+     MsgBox "No se encontr� la base de datos Hist_vsd.mdb", 16, "Archivo no encontrado"
      Screen.MousePointer = 0
      Frame3D1.Enabled = False
      Exit Sub
@@ -622,11 +622,11 @@ Private Sub Titulo_Click(Index As Integer)
     Case 3
         lb_OrdenGrilla.Caption = "Producto"
     Case 4
-        lb_OrdenGrilla.Caption = "AcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+        lb_OrdenGrilla.Caption = "Acci�n"
     Case 5
         lb_OrdenGrilla.Caption = "Rut"
     Case 6
-        lb_OrdenGrilla.Caption = "IdentificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+        lb_OrdenGrilla.Caption = "Identificaci�n"
   End Select
  
 

@@ -175,7 +175,7 @@ If ObtenerDigitoVerificador(RutC) = DigV Then ' RUT VALIDADO
      GRut_Continua = False
   End If
 Else
-  MsgBox "El Rut ingresado no es v√°lido.", 16, "Visado de Productos"
+  MsgBox "El Rut ingresado no es v·lido.", 16, "Visado de Productos"
   GRut_Continua = False
 End If
 

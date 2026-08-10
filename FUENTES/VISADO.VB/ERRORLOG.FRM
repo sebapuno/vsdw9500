@@ -58,7 +58,7 @@ Begin VB.Form ErrorLogueo
       _extentx        =   12197
       _extenty        =   1614
       _stockprops     =   15
-      caption         =   " Atenci贸n :"
+      caption         =   " Atenci髇 :"
       forecolor       =   192
       backcolor       =   -2147483644
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
@@ -245,8 +245,8 @@ End Sub
 Private Sub Imprimir_Click()
   Screen.MousePointer = 11
 On Error GoTo ErrorDeImpresion
-  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi贸n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora Emisi贸n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi髇 : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora Emisi髇  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.Print Tab(58); "DETALLE ERROR DE LOGUEO"
@@ -259,7 +259,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   I% = MsgBox("Error de Impresi贸n", 5 + 48 + 0, "Impresi贸n Cancelada")
+   I% = MsgBox("Error de Impresi髇", 5 + 48 + 0, "Impresi髇 Cancelada")
    If I% = 4 Then
     Resume 0
    Else

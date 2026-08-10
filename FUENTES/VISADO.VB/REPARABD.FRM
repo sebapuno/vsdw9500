@@ -28,7 +28,7 @@ Begin VB.Form RepararArchivos
       _extentx        =   4842
       _extenty        =   3334
       _stockprops     =   14
-      caption         =   "SelecciÃ³n de Archivos..."
+      caption         =   "Selección de Archivos..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -155,7 +155,7 @@ Dim NombreArchivoTemporal As String
 Dim ContadorBasesParaReparar As Integer
 Dim ContadorBasesMalReparadas As Integer
   If HaySeleccionados Then
-    I = MsgBox("Â¿ Seguro de Reparar ?", 4 + 32 + 256, "Confirmar ReparaciÃ³n")
+    I = MsgBox("¿ Seguro de Reparar ?", 4 + 32 + 256, "Confirmar Reparación")
     If I = 6 Then
       Screen.MousePointer = 11
       ContadorBasesParaReparar = 0
@@ -186,16 +186,16 @@ Dim ContadorBasesMalReparadas As Integer
       Screen.MousePointer = 0
       Select Case ContadorBasesMalReparadas
         Case 0
-          MsgBox "Los Archivos Fueron Reparados Exitosamente", 0 + 64, "Estado ReparaciÃ³n"
+          MsgBox "Los Archivos Fueron Reparados Exitosamente", 0 + 64, "Estado Reparación"
         Case ContadorBasesParaReparar
-          MsgBox "NingÃºn Archivo Pudo Ser Reparado", 0 + 64, "Estado ReparaciÃ³n"
+          MsgBox "Ningún Archivo Pudo Ser Reparado", 0 + 64, "Estado Reparación"
         Case Else
-          MsgBox "No Todos los Archivos Fueron Reparados", 0 + 64, "Estado ReparaciÃ³n"
+          MsgBox "No Todos los Archivos Fueron Reparados", 0 + 64, "Estado Reparación"
       End Select
       Cancelar.SetFocus
     End If
   Else
-    MsgBox "No Hay Archivo Seleccionado", 0 + 16, "Faltan ParÃ¡metros"
+    MsgBox "No Hay Archivo Seleccionado", 0 + 16, "Faltan Parámetros"
   End If
   Exit Sub
   
@@ -228,8 +228,8 @@ Dim I As Integer
   ExisteArchivoCompactado = False
   If Dir(ArchivoTemporal) = UCase$(Mid(ArchivoTemporal, Len(ArchivoTemporal) - 10)) Then
     ExisteArchivoCompactado = True
-    I = MsgBox("Archivo " + Chr(34) + ArchivoOriginal + Chr(34) + Chr(10) + "Ya Se IntentÃ³ Reparar Anteriormente", _
-                        5 + 48 + 0, "ReparaciÃ³n Incompleta")
+    I = MsgBox("Archivo " + Chr(34) + ArchivoOriginal + Chr(34) + Chr(10) + "Ya Se Intentó Reparar Anteriormente", _
+                        5 + 48 + 0, "Reparación Incompleta")
     If I = 4 Then
       Call BorrarArchivo(ArchivoTemporal)
       ExisteArchivoCompactado = False

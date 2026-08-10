@@ -592,7 +592,7 @@ Dim i As Integer
     .Row = .Row
     .Col = 1
     If .BackColor <> COLOR_04 Then
-      i = MsgBox("ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ Seguro de Desmarcar ?", 4 + 32 + 256, "Verificar Desmarcado")
+      i = MsgBox("� Seguro de Desmarcar ?", 4 + 32 + 256, "Verificar Desmarcado")
       If i = 6 Then
         ' FI2026 SHG - OperationMode (Spread) sin equivalente en MSFlexGrid
         '.OperationMode = 3
@@ -644,7 +644,7 @@ Dim PorLoMenosUnoNoTransmitido As Boolean
 Dim SubOpcion As Integer
 
   EnviarVisado.Enabled = False
-  i% = MsgBox("ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ Desea Transmitir Ahora ?", 4 + 32 + 256, "Verificar TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
+  i% = MsgBox("� Desea Transmitir Ahora ?", 4 + 32 + 256, "Verificar Transmisi�n")
   If i% = 6 Then
     Screen.MousePointer = 11
     TotalFilas = 0
@@ -746,12 +746,12 @@ Dim SubOpcion As Integer
           Else
             PorLoMenosUnoNoTransmitido = True
             Call RealizarLlamado(Rut, Producto, Correlativo, Color)
-            MsgBox "Hubo Errores en la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n del Producto " + Producto, 0 + 48, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+            MsgBox "Hubo Errores en la Transmisi�n del Producto " + Producto, 0 + 48, "Estado de la Transmisi�n"
           End If
         Else
           PorLoMenosUnoNoTransmitido = True
           MsgBox "Por una Incongruencia en Producto " + Producto + "," + Chr(10) + _
-                        "No se ha Realizado Dicho Visado.", 0 + 48, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+                        "No se ha Realizado Dicho Visado.", 0 + 48, "Estado de la Transmisi�n"
         End If
         Principal.Avance.Width = Principal.Avance.Width + IncrementoAvance
       End If
@@ -789,12 +789,12 @@ Dim SubOpcion As Integer
     End If
     If AlMenosUnoTransmitido Then
       If PorLoMenosUnoNoTransmitido Then
-        MsgBox "TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos Completamente Exitosa" + Chr(10) + "SÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³lo en un Cierto Porcentaje", 0 + 64, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+        MsgBox "Transmisi�n de Productos Completamente Exitosa" + Chr(10) + "S�lo en un Cierto Porcentaje", 0 + 64, "Estado de la Transmisi�n"
       Else
-        MsgBox "TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos" + Chr(10) + "Completamente Exitosa", 0 + 64, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+        MsgBox "Transmisi�n de Productos" + Chr(10) + "Completamente Exitosa", 0 + 64, "Estado de la Transmisi�n"
       End If
     Else
-      MsgBox "TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos" + Chr(10) + "Fallida", 0 + 64, "Estado de la TransmisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+      MsgBox "Transmisi�n de Productos" + Chr(10) + "Fallida", 0 + 64, "Estado de la Transmisi�n"
     End If
     Screen.MousePointer = 0
   Else
@@ -1132,7 +1132,7 @@ If Not Recorte Then
                
     End Select
   Else
-    MsgBox "Producto esta Listo para Transmitir" + Chr(13) + "Si Desea Utilice la OpciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Desmarcar", 0 + 16, "Re-Intento de Visado"
+    MsgBox "Producto esta Listo para Transmitir" + Chr(13) + "Si Desea Utilice la Opci�n Desmarcar", 0 + 16, "Re-Intento de Visado"
     GrillaProductos.SetFocus
   End If
   Visar.Enabled = True
@@ -1243,9 +1243,9 @@ Dim ResultadoBorrado As Boolean
         PrepararTransmision = ResultadoBorrado
       End If
     Else
-      MsgBox "Producto " + Chr(34) + ArregloTemporal(i).Producto + Chr(34) + " No Tiene OperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n" + Chr(10) + _
-                    "SRM en Tabla " + Chr(34) + "Tab_Oper" + Chr(34) + "," + Chr(10) + "Producto No SerÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ Visado", _
-                    0 + 48, "Falta OperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+      MsgBox "Producto " + Chr(34) + ArregloTemporal(i).Producto + Chr(34) + " No Tiene Operaci�n" + Chr(10) + _
+                    "SRM en Tabla " + Chr(34) + "Tab_Oper" + Chr(34) + "," + Chr(10) + "Producto No Ser� Visado", _
+                    0 + 48, "Falta Operaci�n"
     End If
   Next i
   PunteroTabPrd.Close
@@ -1385,7 +1385,7 @@ Dim PunteroTabTX As Recordset
         Datos = Input$(462, #1)
         Close #1
         If Mid$(Datos, 292, 4) = "9999" Then
-           MsgBox "TransacciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Monetaria Pendiente", 0 + 48, "AtenciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n"
+           MsgBox "Transacci�n Monetaria Pendiente", 0 + 48, "Atenci�n"
         End If
         Call LoguearTransaccion("00000000", Datos)
       End If
@@ -1515,7 +1515,7 @@ Dim PunteroVistas As Recordset
        p_VsdPrd.Close
        '***
        
-       '** Encuentra OperaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Borrado Origen
+       '** Encuentra Operaci�n Borrado Origen
        Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
        Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
        PunteroVistas.Index = "Vistas"
@@ -1723,7 +1723,7 @@ If GrillaProductos.Rows > 2 Then
       
         If IsDate(FechaFila1) And IsDate(FechaFila2) Then
           If CDate(FechaFila1) < CDate(FechaFila2) Then
-            resprd = MsgBox("Existe un producto mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡s reciente y con iguales caracterÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­sticas." + Chr(10) + "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿Desea continuar de todas formas?", 48 + 4, "AtenciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
+            resprd = MsgBox("Existe un producto m�s reciente y con iguales caracter�sticas." + Chr(10) + "�Desea continuar de todas formas?", 48 + 4, "Atenci�n")
             If resprd <> vbYes Then
                AprobarProductoUnicaLlave = False
             End If
@@ -1731,7 +1731,7 @@ If GrillaProductos.Rows > 2 Then
           End If
           
         Else
-           resprd = MsgBox("Existe otro producto del cliente con iguales caracterÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­sticas, pero la fecha no es identificable." + Chr(10) + "ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿Desea continuar de todas formas?", 48 + 4, "AtenciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
+           resprd = MsgBox("Existe otro producto del cliente con iguales caracter�sticas, pero la fecha no es identificable." + Chr(10) + "�Desea continuar de todas formas?", 48 + 4, "Atenci�n")
            If resprd <> vbYes Then
               AprobarProductoUnicaLlave = False
            End If

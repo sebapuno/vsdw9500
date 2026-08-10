@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ImprimeVisadosNew 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ImpresiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Productos Ya Visados  "
+   Caption         =   "Impresi�n Productos Ya Visados  "
    ClientHeight    =   6690
    ClientLeft      =   570
    ClientTop       =   1335
@@ -27,7 +27,7 @@ Begin VB.Form ImprimeVisadosNew
       _extentx        =   18997
       _extenty        =   11721
       _stockprops     =   14
-      caption         =   "SelecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Productos a Imprimir ..."
+      caption         =   "Selecci�n Productos a Imprimir ..."
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -63,7 +63,7 @@ Begin VB.Form ImprimeVisadosNew
          _extentx        =   7064
          _extenty        =   1693
          _stockprops     =   14
-         caption         =   "SelecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n a Desplegar"
+         caption         =   "Selecci�n a Desplegar"
          forecolor       =   4210688
          BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
             name            =   "MS Sans Serif"
@@ -96,7 +96,7 @@ Begin VB.Form ImprimeVisadosNew
             _extentx        =   6535
             _extenty        =   582
             _stockprops     =   78
-            caption         =   "Productos Visados &Hasta              DÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­as"
+            caption         =   "Productos Visados &Hasta              D�as"
             forecolor       =   128
             BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
                name            =   "MS Sans Serif"
@@ -120,7 +120,7 @@ Begin VB.Form ImprimeVisadosNew
             _extentx        =   4868
             _extenty        =   582
             _stockprops     =   78
-            caption         =   "Productos Visados en el &DÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a"
+            caption         =   "Productos Visados en el &D�a"
             forecolor       =   128
             BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
                name            =   "MS Sans Serif"
@@ -424,7 +424,7 @@ Dim FechaPasada As String * 8
   Principal.Enabled = False
   '---------
   If Dir("c:\data\visado\hist_vsd.mdb") <> "HIST_VSD.MDB" Then
-     MsgBox "No se encontrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ la base de datos Hist_vsd.mdb", 16, "Archivo no encontrado"
+     MsgBox "No se encontr� la base de datos Hist_vsd.mdb", 16, "Archivo no encontrado"
      Screen.MousePointer = 0
      Frame3D1.Enabled = False
      Exit Sub
@@ -601,14 +601,14 @@ Exit Sub
 
 ErrorImpresora:
    If Err.Number = 482 Or Err.Number = 483 Or Err.Number = 484 Then
-     valimp# = MsgBox("Problema para conectarse a la impresora." + Chr(10) + "La impresora no estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ conectada o no tiene papel.", 48 + 5, "Impresora Predeterminada")
+     valimp# = MsgBox("Problema para conectarse a la impresora." + Chr(10) + "La impresora no est� conectada o no tiene papel.", 48 + 5, "Impresora Predeterminada")
      If valimp# = vbRetry Then
         Resume 0
      Else
         Screen.MousePointer = 0
      End If
    Else
-     MsgBox "Error : " + Err.Number + Chr(10) + "DescripciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n : " + Err.Description
+     MsgBox "Error : " + Err.Number + Chr(10) + "Descripci�n : " + Err.Description
      Screen.MousePointer = 0
    End If
    

@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ConfiguraProducto 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ModificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n Productos a Visar"
+   Caption         =   "Modificaci�n Productos a Visar"
    ClientHeight    =   5010
    ClientLeft      =   2445
    ClientTop       =   3225
@@ -28,7 +28,7 @@ Begin VB.Form ConfiguraProducto
       _extentx        =   9790
       _extenty        =   8758
       _stockprops     =   14
-      caption         =   "SelecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de Productos ..."
+      caption         =   "Selecci�n de Productos ..."
       forecolor       =   32768
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -158,7 +158,7 @@ Dim FiltroTabVisar As Recordset
 Dim AntiguaVigencia As Integer
 Dim CodigoProducto As String
 Dim CadenaProducto As String
-  I = MsgBox("ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿Seguro de Cambiar la Vigencia de los Productos?", 4 + 32 + 256, "Confirmar ModificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n")
+  I = MsgBox("�Seguro de Cambiar la Vigencia de los Productos?", 4 + 32 + 256, "Confirmar Modificaci�n")
   If I = 6 Then
     Screen.MousePointer = 11
     With GrillaVigenciaProductos

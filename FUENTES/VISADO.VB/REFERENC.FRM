@@ -56,7 +56,7 @@ Begin VB.Form ReferenciasVisado
       _extentx        =   3757
       _extenty        =   661
       _stockprops     =   15
-      caption         =   "VersiÃ³n  :  "
+      caption         =   "Versión  :  "
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Times New Roman"
@@ -95,7 +95,7 @@ Private Sub Form_Load()
   Principal.Enabled = False
   Call CentrarVentana(Me)
   'Version = SacaValorINI("Visado", "Version", DIRECTORIO_01 + ARCHIVO_INI01)
-  Label1.Caption = "VersiÃ³n  :  " + Version '2.0'"Sistema Visado " + Version + " Para Windows"
+  Label1.Caption = "Versión  :  " + Version '2.0'"Sistema Visado " + Version + " Para Windows"
   
   Label1.FontSize = 12
   Label2.FontSize = 12

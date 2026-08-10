@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ImprimeFichaCredito 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ImpresiÃ³n Excepciones Visado"
+   Caption         =   "Impresi�n Excepciones Visado"
    ClientHeight    =   1050
    ClientLeft      =   3120
    ClientTop       =   3705
@@ -585,7 +585,7 @@ On Error GoTo ErrorImpresion
           Print #1, SIMBOLOLETRACHICA + Linea
           Print #1, SIMBOLOLETRANORMAL + Chr(12)
         Else
-          MsgBox "No Hay ComunicaciÃ³n con el Servidor", 0 + 16, "Problemas de ComunicaciÃ³n"
+          MsgBox "No Hay Comunicaci�n con el Servidor", 0 + 16, "Problemas de Comunicaci�n"
           Close #1
           Kill DIRECTORIO_01 + ARCHIVO_IMD01
           Screen.MousePointer = 0
@@ -622,7 +622,7 @@ On Error GoTo 0
   Exit Sub
 
 ErrorImpresion:
-  MsgBox "Grave Error con la Impresora", 0 + 16, "Falla de ImpresiÃ³n"
+  MsgBox "Grave Error con la Impresora", 0 + 16, "Falla de Impresi�n"
   Close #1
   Kill DIRECTORIO_01 + ARCHIVO_IMD01
 On Error GoTo 0

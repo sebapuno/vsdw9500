@@ -2,7 +2,7 @@ VERSION 4.00
 Begin VB.Form ErrorComunicacion 
    BackColor       =   &H00C0C0C0&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Problemas de ComunicaciÃ³n"
+   Caption         =   "Problemas de Comunicaci�n"
    ClientHeight    =   4875
    ClientLeft      =   1200
    ClientTop       =   1575
@@ -113,7 +113,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   12197
       _extenty        =   2011
       _stockprops     =   15
-      caption         =   " AtenciÃ³n :"
+      caption         =   " Atenci�n :"
       forecolor       =   192
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -492,7 +492,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   1773
       _extenty        =   529
       _stockprops     =   15
-      caption         =   "OperaciÃ³n"
+      caption         =   "Operaci�n"
       forecolor       =   0
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -579,7 +579,7 @@ End
 Attribute VB_Name = "ErrorComunicacion"
 Attribute VB_Creatable = False
 Attribute VB_Exposed = False
-Private Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb&, ByVal x&, ByVal y&, ByVal cx&, ByVal cy&, ByVal f&) As Long  ' FI2026 userâ†’USER32.DLL, Integerâ†’Long
+Private Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb&, ByVal x&, ByVal y&, ByVal cx&, ByVal cy&, ByVal f&) As Long  ' FI2026 user->USER32.DLL, Integer->Long
 
 Const HWND_TOPMOST = -1
 Const SWP_NOSIZENOMOVE = 3
@@ -626,7 +626,7 @@ End Sub
 Private Sub Form_Load()
   Me.Left = (Screen.Width - Me.Width) / 2
   Me.Top = (Screen.Height - Me.Height) / 2
-  Dim Sucess As Long  ' FI2026 Integerâ†’Long (SetWindowPos retorna Long en 32-bit)
+  Dim Sucess As Long  ' FI2026 Integer->Long (SetWindowPos retorna Long en 32-bit)
   Sucess = SetWindowPos(Me.hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZENOMOVE)
 End Sub
 
@@ -639,33 +639,33 @@ End Sub
 Private Sub Imprimir_Click()
   Screen.MousePointer = 11
 On Error GoTo ErrorDeImpresion
-  Printer.Print "Banco de Chile"; Tab(54); "Fecha EmisiÃ³n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora EmisiÃ³n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi�n : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora Emisi�n  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.FontName = "Arial"
   Printer.FontSize = 8
   Printer.FontBold = True
-  Printer.Print Tab(55); "DETALLE ERROR DE COMUNICACIÃ“N"
+  Printer.Print Tab(55); "DETALLE ERROR DE COMUNICACI�N"
   Printer.FontUnderline = False
   Printer.Print
-  Printer.Print Tab(5); "AplicaciÃ³n : " + Ejecutable
+  Printer.Print Tab(5); "Aplicaci�n : " + Ejecutable
   Printer.FontBold = False
   Printer.Print
   Printer.Print Tab(7); "Nodo Destino"; Tab(25); ":  " + Nodo.Caption
   Printer.Print Tab(7); "Servidor"; Tab(25); ":  " + Servidor.Caption
-  Printer.Print Tab(7); "OperaciÃ³n"; Tab(25); ": " + Operacion.Caption
+  Printer.Print Tab(7); "Operaci�n"; Tab(25); ": " + Operacion.Caption
   Printer.Print Tab(7); "Llave de Acceso"; Tab(25); ": " + Mid$(Llave.Caption, 1, 80)
   Printer.Print Tab(7); "Retorno SRM"; Tab(25); ": " + RetFuncion.Caption
   Printer.Print Tab(7); "Status"; Tab(25); ": " + Status.Caption
   Printer.Print Tab(7); "Servidor de Datos"; Tab(25); ":  " + ServidorDatos.Caption
-  Printer.Print Tab(7); "TransacciÃ³n"; Tab(25); ": " + Transaccion.Caption
+  Printer.Print Tab(7); "Transacci�n"; Tab(25); ": " + Transaccion.Caption
   Printer.EndDoc
 On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   I% = MsgBox("Error de ImpresiÃ³n", 5 + 48 + 0, "ImpresiÃ³n Cancelada")
+   I% = MsgBox("Error de Impresi�n", 5 + 48 + 0, "Impresi�n Cancelada")
    If I% = 4 Then
     Resume 0
    Else
