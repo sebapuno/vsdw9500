@@ -48,8 +48,8 @@ Begin VB.Form ConfiguraProducto
          TabIndex        =   0
          Top             =   570
          Width           =   5295
-         Cols            =   2
-         Rows            =   2
+         Cols            =   3
+         Rows            =   1
          ScrollBars      =   2  'flexScrollBarVertical
          SelectionMode   =   1  'flexSelectionByRow
       End
@@ -162,7 +162,7 @@ Dim CadenaProducto As String
   If I = 6 Then
     Screen.MousePointer = 11
     With GrillaVigenciaProductos
-      For I = 1 To .Rows
+      For I = 1 To .Rows - 1 ' FI2026 - era .MaxRows (cantidad de filas de datos)
         .Row = I
         .Col = 4
         AntiguaVigencia = .Text
@@ -246,9 +246,17 @@ Dim FiltroTabCfgProd As Recordset
   Principal.Enabled = False
   Call CentrarVentana(Me)
   With GrillaVigenciaProductos
-    .Cols = 4
-    .ColWidth(1) = 10
-    .ColWidth(2) = 32
+    ' FI2026 - MaxCols=4 (Spread: 4 columnas de DATOS, indices 1..4) -> Cols=5
+    ' (MSFlexGrid cuenta tambien la columna fija 0). Ver guia del framework.
+    .Cols = 5
+    ' FI2026 - el Spread original tenia DisplayColHeaders=0 y DisplayRowHeaders=0
+    ' (sin encabezados: los titulos son Labels aparte). MSFlexGrid siempre reserva
+    ' la fila 0 y la columna 0 como fijas, asi que se ocultan con tamano 0 para
+    ' reproducir el aspecto original.
+    .ColWidth(0) = 0
+    .RowHeight(0) = 0
+    .ColWidth(1) = 1200  ' FI2026 - eran 10 caracteres (Spread)
+    .ColWidth(2) = 3840  ' FI2026 - eran 32 caracteres (Spread)
     .ColWidth(3) = 0
     .ColWidth(4) = 0
     ' FI2026 SHG - ColHidden (Spread) no existe en MSFlexGrid. El equivalente es
@@ -273,7 +281,7 @@ Dim FiltroTabCfgProd As Recordset
         PunteroTabPrd.Seek "=", CodigoProducto
         With GrillaVigenciaProductos
           .Rows = .Rows + 1
-          .Row = .Rows
+          .Row = .Rows - 1 ' FI2026 - era .Row = .MaxRows (ultima fila de datos)
           ' FI2026 SHG - UserResizeRow (Spread) -> AllowUserResizing (MSFlexGrid):
           ' 0=ninguno, 1=columnas, 2=filas, 3=ambos.
           .AllowUserResizing = 2
@@ -308,7 +316,8 @@ Dim FiltroTabCfgProd As Recordset
     FiltroTabCfgProd.MoveNext
   Wend
   FiltroTabCfgProd.Close
-  Call BloquearEdicionGrilla(1, 2, GrillaVigenciaProductos.Rows, 2, GrillaVigenciaProductos)
+  ' FI2026 - .Rows - 1: era .MaxRows (cantidad de filas de datos)
+  Call BloquearEdicionGrilla(1, 2, GrillaVigenciaProductos.Rows - 1, 2, GrillaVigenciaProductos)
   ' FI2026 SHG - CursorType/CursorStyle (Spread) sin equivalente en MSFlexGrid, write-only
   'GrillaVigenciaProductos.CursorType = 0
   'GrillaVigenciaProductos.CursorStyle = 2
@@ -369,7 +378,7 @@ Private Sub Todos_Click()
 Dim I As Integer
   With GrillaVigenciaProductos
     .Col = 1
-    For I = 1 To .Rows
+    For I = 1 To .Rows - 1 ' FI2026 - era .MaxRows (cantidad de filas de datos)
       .Row = I
       .Text = 1
     Next I

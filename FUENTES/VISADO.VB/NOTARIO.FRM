@@ -48,8 +48,8 @@ Begin VB.Form ConfiguraHonorarios
          TabIndex        =   1
          Top             =   840
          Width           =   6425
-         Cols            =   2
-         Rows            =   2
+         Cols            =   5
+         Rows            =   8
          ScrollBars      =   2  'flexScrollBarVertical
          SelectionMode   =   1  'flexSelectionByRow
       End
@@ -328,7 +328,7 @@ Dim PunteroNotarios As Recordset
   I = MsgBox("Ãƒâ€šÃ‚Â¿ Son los Datos Correctos ?", 4 + 32 + 256, "Verificar ModificaciÃƒÆ’Ã‚Â³n")
   If I = 6 Then
     Screen.MousePointer = 11
-    For I = 1 To GrillaHonorarios.Rows
+    For I = 1 To GrillaHonorarios.Rows - 1 ' FI2026 - era .MaxRows
       GrillaHonorarios.Row = I
       If Not GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 Then
         If TodaLaFilaLlena Then
@@ -346,7 +346,7 @@ Dim PunteroNotarios As Recordset
       End If
     Next I
     Set PunteroNotarios = BaseNotarios.OpenRecordset("Hono_Rut", dbOpenDynaset)
-    For I = 1 To GrillaHonorarios.Rows
+    For I = 1 To GrillaHonorarios.Rows - 1 ' FI2026 - era .MaxRows
       GrillaHonorarios.Row = I
       GrillaHonorarios.Col = 5
       Criterio = "Rut=" + Trim$(GrillaHonorarios.Text)
@@ -396,7 +396,7 @@ Private Sub Encabezado_Click(Index As Integer)
 End Sub
 Private Sub Form_Activate()
   Editando = False
-  FilasVisibles = GrillaHonorarios.Rows
+  FilasVisibles = GrillaHonorarios.Rows - 1 ' FI2026 - era .MaxRows
   CeldaModificada = False
   Screen.MousePointer = 0
 End Sub
@@ -405,12 +405,21 @@ Dim PunteroNotarios As Recordset
   Screen.MousePointer = 11
   Principal.Enabled = False
   Call CentrarVentana(Me)
-  GrillaHonorarios.Cols = 5
-  GrillaHonorarios.Rows = 0
-  GrillaHonorarios.ColWidth(1) = 9
-  GrillaHonorarios.ColWidth(2) = 20
-  GrillaHonorarios.ColWidth(3) = 11
-  GrillaHonorarios.ColWidth(4) = 11
+  ' FI2026 - MaxCols=5 (Spread: columnas de DATOS 1..5) -> Cols=6 (MSFlexGrid
+  ' cuenta tambien la columna fija 0)
+  GrillaHonorarios.Cols = 6
+  ' FI2026 - MaxRows=0 (vaciar) -> Rows=1: MSFlexGrid no admite Rows=0 con
+  ' FixedRows=1; 1 = solo la fila fija, sin filas de datos
+  GrillaHonorarios.Rows = 1
+  ' FI2026 - el Spread original tenia DisplayColHeaders=0 y DisplayRowHeaders=0
+  ' (sin encabezados: los titulos son Labels aparte). MSFlexGrid siempre reserva
+  ' la fila 0 y la columna 0 como fijas, asi que se ocultan con tamano 0.
+  GrillaHonorarios.ColWidth(0) = 0
+  GrillaHonorarios.RowHeight(0) = 0
+  GrillaHonorarios.ColWidth(1) = 1080  ' FI2026 - eran 9 caracteres (Spread)
+  GrillaHonorarios.ColWidth(2) = 2400  ' FI2026 - eran 20 caracteres (Spread)
+  GrillaHonorarios.ColWidth(3) = 1320  ' FI2026 - eran 11 caracteres (Spread)
+  GrillaHonorarios.ColWidth(4) = 1320  ' FI2026 - eran 11 caracteres (Spread)
   GrillaHonorarios.ColWidth(5) = 0
   GrillaHonorarios.Col = 5
   ' FI2026 SHG - ColHidden (Spread) no existe en MSFlexGrid. El equivalente es
@@ -423,7 +432,7 @@ Dim PunteroNotarios As Recordset
   Set PunteroNotarios = BaseNotarios.OpenRecordset("Hono_Rut", dbOpenTable)
   While Not PunteroNotarios.EOF
     GrillaHonorarios.Rows = GrillaHonorarios.Rows + 1
-    GrillaHonorarios.Row = GrillaHonorarios.Rows
+    GrillaHonorarios.Row = GrillaHonorarios.Rows - 1 ' FI2026 - ultima fila de datos (era .MaxRows)
     Call FormateaCeldasGrilla
     GrillaHonorarios.Col = 1
     GrillaHonorarios.Text = Format(PunteroNotarios("Rut"), "00,000,000") + "-" + PunteroNotarios("DV")
@@ -469,8 +478,8 @@ Dim InsertarFila As Boolean
         Call Cancelar_Click
       Case 45
         InsertarFila = True
-        If GrillaHonorarios.Rows > 0 Then
-          GrillaHonorarios.Row = GrillaHonorarios.Rows
+        If GrillaHonorarios.Rows > 1 Then ' FI2026 - 'hay datos': era .MaxRows > 0
+          GrillaHonorarios.Row = GrillaHonorarios.Rows - 1 ' FI2026 - ultima fila de datos (era .MaxRows)
           If Not GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 Then
             If Not TodaLaFilaLlena Then
               InsertarFila = False
@@ -479,9 +488,9 @@ Dim InsertarFila As Boolean
         End If
         If InsertarFila Then
           GrillaHonorarios.Rows = GrillaHonorarios.Rows + 1
-          GrillaHonorarios.Row = GrillaHonorarios.Rows
+          GrillaHonorarios.Row = GrillaHonorarios.Rows - 1 ' FI2026 - ultima fila de datos (era .MaxRows)
           Call FormateaCeldasGrilla
-          Call IrCeldaEspecifica(GrillaHonorarios.Rows, 1)
+          Call IrCeldaEspecifica(GrillaHonorarios.Rows - 1, 1) ' FI2026 - era .MaxRows
           FilasVisibles = FilasVisibles + 1
         End If
       Case 46
@@ -493,7 +502,11 @@ Dim InsertarFila As Boolean
           Else
             I% = MsgBox("Ãƒâ€šÃ‚Â¿ Seguro de Eliminar a Dicho Notario ?", 4 + 32 + 256, "Verificar Borrado")
             If I% = 6 Then
-              GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 = True
+              ' FI2026 - era .RowHidden = True (Spread). En MSFlexGrid se oculta la
+              ' fila poniendole altura 0. El '= True' que quedaba pegado hacia que VB6
+              ' evaluara (0 = True) -> False -> 0: daba el resultado correcto por
+              ' accidente, pero la expresion no significaba lo que aparentaba.
+              GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0
               FilasVisibles = FilasVisibles - 1
             End If
           End If

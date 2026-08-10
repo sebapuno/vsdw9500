@@ -194,37 +194,90 @@ Mismo enfoque para las referencias a controles inexistentes (bug de la sección 
 
 ---
 
-## 6. PENDIENTE — índices base 1 (Spread) vs base 0 (MSFlexGrid)
+## 6. RESUELTO — índices base 1 (Spread) vs base 0 (MSFlexGrid)
 
-**No bloquea la compilación, pero rompe la aplicación en tiempo de ejecución.**
+**Esto no bloqueaba la compilación, pero rompía la aplicación en tiempo de ejecución.**
 
-Spread y MSFlexGrid cuentan distinto:
+### 6.1 La diferencia de fondo
 
-- Spread: `MaxCols = N` → N columnas **de datos**, índices **1..N**; la fila/columna 0 es el encabezado.
-- MSFlexGrid: `Cols = N` → N columnas **totales**, índices **0..N-1**; la fila/columna 0 es la fija (`FixedRows`/`FixedCols` = 1 por defecto).
+- **Spread**: `MaxCols = N` → N columnas **de datos**, índices **1..N**. La fila y la
+  columna 0 son los encabezados, y se muestran u ocultan con `DisplayColHeaders` /
+  `DisplayRowHeaders`.
+- **MSFlexGrid**: `Cols = N` → N columnas **totales**, índices **0..N-1**. La fila y la
+  columna 0 son las fijas (`FixedRows`/`FixedCols`, 1 por defecto).
 
 La migración tradujo `MaxCols = N` → `Cols = N` de forma literal. Como el código sigue
-usando índices 1..N, **el índice N queda fuera de rango** → `error 381 (Invalid property
-array index)` al abrir la pantalla.
+usando los índices 1..N, el índice N quedaba **fuera de rango** → `error 381 (Invalid
+property array index)` al abrir la pantalla.
 
-| Form | Original | Migrado | Debería ser | Índice que rompe |
-|---|---|---|---|---|
-| `VISANDO` | `MaxCols = 6` | `Cols = 6` | `Cols = 7` | `ColWidth(6)`, `.Col = 6` |
-| `NOTARIO` | `MaxCols = 5` / `MaxRows = 0` | `Cols = 5` / `Rows = 0` | `Cols = 6` / `Rows = 1` | `ColWidth(5)` |
-| `VIGENCIA` | `MaxCols = 4` | `Cols = 4` | `Cols = 5` | `ColWidth(4)` |
-| `IMPR_NEW` | `MaxCols = 8` / `MaxRows = 0` | `Cols = 8` / `Rows = 0` | `Cols = 9` / `Rows = 1` | `ColWidth(8)` |
-| `IMPRPROD` | `MaxCols = 7` / `MaxRows = 0` | `Cols = 7` / `Rows = 0` | `Cols = 8` / `Rows = 1` | `ColWidth(7)` |
-| `PANTVISA` | `MaxCols = 4` | `Cols = 4` | `Cols = 5` | `ColWidth(4)` |
+La correspondencia correcta es directa y **no obliga a reindexar el código**: el
+encabezado de Spread (fila/columna 0) mapea a la fila/columna fija de MSFlexGrid, y los
+datos 1..N quedan igual. Sólo cambian los **conteos**:
 
-Además, `Rows = 0` es inválido en MSFlexGrid cuando `FixedRows = 1` (default).
+| Spread | MSFlexGrid |
+|---|---|
+| `MaxRows = X` (escritura) | `Rows = X + 1` |
+| `MaxRows` (lectura) | `Rows - 1` |
+| `MaxRows = MaxRows + 1` | `Rows = Rows + 1` (**sin cambio**) |
+| `Row = MaxRows` (última fila) | `Row = Rows - 1` |
+| `If MaxRows > 0` ("hay datos") | `If Rows > 1` |
+| `MaxRows = 0` (vaciar) | `Rows = 1` |
 
-**Y las lecturas también cambian de significado.** Todo sitio que hacía `.MaxRows`
-(= cantidad de filas de datos) y se migró a `.Rows` ahora devuelve una fila **de más**:
+`Rows = 0` es inválido en MSFlexGrid cuando `FixedRows = 1`.
 
-- `For I = 1 To .Rows` → debe ser `For I = 1 To .Rows - 1`
-- `.Rows = .Rows + 1 : .Row = .Rows` → `.Row` debe ser `.Rows - 1`
+### 6.2 Alcance corregido — 7 forms
 
-Alcance: **91 usos de `.Rows`/`.Cols`** en los 6 forms (VISANDO 9, NOTARIO 13,
-VIGENCIA 6, IMPR_NEW 16, IMPRPROD 11, PANTVISA 36). Cada uno hay que compararlo
-contra el original en `main` para saber si venía de `MaxRows`/`MaxCols` (traducción
-que necesita ajuste) o si ya era un índice correcto.
+`VISADO.FRM` **no estaba en el inventario original**: su grilla `Grilla` (la del form
+principal, la que otros forms referencian como `Principal.Grilla`) tiene el mismo
+problema y apareció al revisar. Total: **96 usos en 7 forms**.
+
+| Form | Spread | → MSFlexGrid | Encabezados en el original |
+|---|---|---|---|
+| `VISANDO` | `MaxCols=6`, `MaxRows=12` | `Cols=7`, `Rows=13` | col oculto; **columna 0 visible** (lleva el tick) |
+| `PANTVISA` | `MaxCols=4` | `Cols=5` | fila oculta; **columna 0 visible** (lleva el tick) |
+| `NOTARIO` | `MaxCols=5`, `MaxRows=0` | `Cols=6`, `Rows=1` | ambos ocultos |
+| `VIGENCIA` | `MaxCols=4` | `Cols=5` | ambos ocultos |
+| `IMPR_NEW` | `MaxCols=8`, `MaxRows=0` | `Cols=9`, `Rows=1` | **fila 0 visible con títulos** |
+| `IMPRPROD` | `MaxCols=7`, `MaxRows=0` | `Cols=8`, `Rows=1` | ambos ocultos |
+| `VISADO` | `MaxCols=2`, `MaxRows=0` | `Cols=3`, `Rows=1` | ambos ocultos |
+
+Donde el Spread original tenía `DisplayColHeaders = 0` / `DisplayRowHeaders = 0`, se
+reproduce ocultando la fila/columna fija con `RowHeight(0) = 0` / `ColWidth(0) = 0` —
+MSFlexGrid siempre las reserva, no se pueden eliminar. En `VISANDO` y `PANTVISA` la
+**columna 0 queda visible a propósito**: es donde `ColocarTick…` pone el ícono de
+aprobado/rechazado (`.Col = 0` + `.CellPicture`).
+
+### 6.3 Tres bugs adicionales encontrados en el camino
+
+1. **`ColWidth` cambió de unidad y no se había convertido.** Spread mide en
+   **caracteres**, MSFlexGrid en **twips** (~120 twips por carácter). Los 6 forms
+   conservaban los valores originales (8, 10, 36 …), que como twips son columnas
+   prácticamente invisibles. Convertidos ×120 — y el resultado **valida el factor**:
+   los anchos sumados dan justo el ancho de cada control (`VISANDO` 8+8+36 = 6240 twips
+   en un control de 7200; `PANTVISA` 16+18+15+22 = 8520 en uno de 8805).
+2. **`VISADO.FRM`: anchos aplicados a las columnas equivocadas.** Una migración previa
+   había reindexado a `ColWidth(0)=1200` / `ColWidth(1)=3000`, pero el código escribe el
+   Rut en `.Col = 1` y el Nombre en `.Col = 2`. Corregido a las columnas 1 y 2.
+3. **`RowHeight(...) = 0 = True`** en `NOTARIO.FRM` y `VISANDO.FRM` — resto de migrar
+   `RowHidden = True` (Spread) dejando el `= True` pegado. VB6 lo evaluaba como
+   `(0 = True)` → `False` → `0`, o sea daba el resultado correcto **por accidente**.
+   Limpiado. (Las lecturas `If Not RowHeight(Row) = 0` sí eran correctas: en VB6 `Not`
+   tiene menor precedencia que `=`.)
+
+**Verificado:** compila con todos estos cambios aplicados.
+
+---
+
+## 7. PENDIENTE
+
+- **`GetModuleUsage`** (API Win16, vía `Krnl386.exe`) — 9 usos en `VISADO.BAS` y
+  `modRSrm32.bas`. Compila (es un `Declare`) pero falla al ejecutarse. Cubierto por el
+  Paso 9 de la guía del framework (reemplazar por `WaitProcess`).
+- **Mojibake** en los textos de 9 forms: los acentos y `¿` quedaron con doble
+  codificación, tanto en captions de diseño como en `MsgBox` en runtime. El original en
+  `main` los tiene bien en latin-1, así que es reversible.
+- Los 3 items de paridad visual/UX diferidos (checkbox de `VIGENCIA`, edición inline de
+  `NOTARIO`, `.Action` de `IMPR_NEW`) — ver secciones 2.6, 2.7 y 2.8.
+- **Nada de esto está probado ejecutando la aplicación**: la verificación hasta acá es
+  que compila y que la traducción es correcta contra el original. Falta correr el `.exe`
+  y abrir las pantallas con grilla.

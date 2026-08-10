@@ -362,8 +362,8 @@ Begin VB.Form PantallaVisar
       TabIndex        =   4
       Top             =   1410
       Width           =   8805
-      Cols            =   4
-      Rows            =   2
+      Cols            =   5
+      Rows            =   1
       ScrollBars      =   2  'flexScrollBarVertical
       SelectionMode   =   1  'flexSelectionByRow
    End
@@ -500,8 +500,9 @@ Dim AplicacionDestino As String * 4
                                                                                        Producto + "';", dbOpenSnapshot)
                                                                                        
     While Not FiltroTabDesp.EOF And Not Recorte
-      If FiltroTabDesp("Desp_Fil") > GrillaVisado.Rows Then
-        GrillaVisado.Rows = FiltroTabDesp("Desp_Fil")
+      ' FI2026 - .Rows - 1 = filas de datos (era .MaxRows)
+      If FiltroTabDesp("Desp_Fil") > GrillaVisado.Rows - 1 Then
+        GrillaVisado.Rows = FiltroTabDesp("Desp_Fil") + 1 ' FI2026 - era .MaxRows
       End If
       GrillaVisado.Col = FiltroTabDesp("Desp_Col")
       GrillaVisado.Row = FiltroTabDesp("Desp_Fil")
@@ -526,7 +527,7 @@ Dim AplicacionDestino As String * 4
         gCodConvenio = GrillaVisado.Text
         
         GrillaVisado.Rows = GrillaVisado.Rows + 1
-        li_filo = GrillaVisado.Rows
+        li_filo = GrillaVisado.Rows - 1 ' FI2026 - era .MaxRows: cantidad de filas de DATOS
 
         inicio = 1
         sigue = True
@@ -822,7 +823,7 @@ Dim AplicacionDestino As String * 4
                     
                     If ls_glosa = "convenio" Then
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
     
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -858,7 +859,7 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = ls_rendicion
                         
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         'Siguiente linea.
                         '****************
                         GrillaVisado.Col = 1
@@ -885,7 +886,7 @@ Dim AplicacionDestino As String * 4
                         'Siguiente linea. //ras
                         '****************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -905,7 +906,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
          
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -925,7 +926,7 @@ Dim AplicacionDestino As String * 4
         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -945,7 +946,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -965,7 +966,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -983,7 +984,7 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = Format(Trim(ls_ctacte_factu), "0-000-00000-00")
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1003,7 +1004,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1023,7 +1024,7 @@ Dim AplicacionDestino As String * 4
           
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1043,7 +1044,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1085,8 +1086,9 @@ Dim AplicacionDestino As String * 4
       While Not EOF(1)
         Input #1, Linea
         Columna = 1
-        If Fila > GrillaVisado.Rows Then
-          GrillaVisado.Rows = Fila
+        ' FI2026 - .Rows - 1 = filas de datos (era .MaxRows)
+        If Fila > GrillaVisado.Rows - 1 Then
+          GrillaVisado.Rows = Fila + 1 ' FI2026 - era .MaxRows = Fila
         End If
         While InStr(Linea, "Ãƒâ€šÃ‚Â¬") <> 0
           GrillaVisado.Col = Columna
@@ -1110,7 +1112,7 @@ Dim AplicacionDestino As String * 4
         gCodConvenio = GrillaVisado.Text
         
         GrillaVisado.Rows = GrillaVisado.Rows + 1
-        li_filo = GrillaVisado.Rows
+        li_filo = GrillaVisado.Rows - 1 ' FI2026 - era .MaxRows: cantidad de filas de DATOS
 
         inicio = 1
         sigue = True
@@ -1418,7 +1420,7 @@ Dim AplicacionDestino As String * 4
 '***************************************************************************
                     If ls_glosa = "convenio" Then
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
     
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1460,7 +1462,7 @@ Dim AplicacionDestino As String * 4
                         
                         
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         'Siguiente linea.
                         '****************
                         GrillaVisado.Col = 1
@@ -1490,7 +1492,7 @@ Dim AplicacionDestino As String * 4
                         'Siguiente linea. //ras
                         '****************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1510,7 +1512,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                          
                         GrillaVisado.Col = 1
                   
@@ -1532,7 +1534,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1552,7 +1554,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1572,7 +1574,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1590,7 +1592,7 @@ Dim AplicacionDestino As String * 4
                         GrillaVisado.Text = Format(Trim(ls_ctacte_factu), "0-000-00000-00")
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1610,7 +1612,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1630,7 +1632,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1650,7 +1652,7 @@ Dim AplicacionDestino As String * 4
                         
                         '***************
                         li_filo = li_filo + 1
-                        GrillaVisado.Rows = li_filo
+                        GrillaVisado.Rows = li_filo + 1
                         
                         GrillaVisado.Col = 1
                         GrillaVisado.Row = li_filo
@@ -1773,11 +1775,16 @@ Private Sub Form_Load()
   End With
   Call CentrarVentana(Me)
   With GrillaVisado
-    .Cols = 4
-    .ColWidth(1) = 16
-    .ColWidth(2) = 18
-    .ColWidth(3) = 15
-    .ColWidth(4) = 22
+    ' FI2026 - MaxCols=4 (Spread: columnas de DATOS 1..4) -> Cols=5
+    .Cols = 5
+    ' FI2026 - se oculta la fila fija 0 de MSFlexGrid (el Spread original no
+    ' mostraba encabezado de columna). La COLUMNA 0 queda visible a proposito:
+    ' es donde ColocarTickGrillaVisado pone el icono (.Col = 0 + .CellPicture).
+    .RowHeight(0) = 0
+    .ColWidth(1) = 1920  ' FI2026 - eran 16 caracteres (Spread)
+    .ColWidth(2) = 2160  ' FI2026 - eran 18 caracteres (Spread)
+    .ColWidth(3) = 1800  ' FI2026 - eran 15 caracteres (Spread)
+    .ColWidth(4) = 2640  ' FI2026 - eran 22 caracteres (Spread)
   End With
   Call MuestraDetalleEnGrilla
   Visando.Enabled = False
@@ -1805,7 +1812,7 @@ Private Sub Form_Unload(Cancel As Integer)
   End With
 End Sub
 Private Sub ColorearGrillaProductos()
-  For i% = 1 To GrillaVisado.Rows
+  For i% = 1 To GrillaVisado.Rows - 1 ' FI2026 - era .MaxRows
     GrillaVisado.Row = i%
     For j% = 1 To 4
       GrillaVisado.Col = j%
@@ -1934,9 +1941,9 @@ On Error GoTo ErrorDeImpresion
   Printer.Print
   LargoGlosaMasLarga = 0
   With GrillaVisado
-    For i% = 1 To .Rows
+    For i% = 1 To .Rows - 1 ' FI2026 - era .MaxRows
       .Row = i%
-      For j% = 1 To .Cols
+      For j% = 1 To .Cols - 1 ' FI2026 - era .MaxCols
         If j% Mod 2 <> 0 Then
           .Col = j%
           If Len(Trim(.Text)) > LargoGlosaMasLarga Then
@@ -1945,9 +1952,9 @@ On Error GoTo ErrorDeImpresion
         End If
       Next j%
     Next i%
-    For i% = 1 To .Rows
+    For i% = 1 To .Rows - 1 ' FI2026 - era .MaxRows
       .Row = i%
-      For j% = 1 To .Cols
+      For j% = 1 To .Cols - 1 ' FI2026 - era .MaxCols
         .Col = j%
         If j% Mod 2 <> 0 Then
           Cadena = Space(2) + Trim$(.Text) + String(LargoGlosaMasLarga - Len(Trim(.Text)), " ")

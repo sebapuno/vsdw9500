@@ -357,8 +357,8 @@ Begin VB.Form Principal
             TabIndex        =   15
             Top             =   900
             Width           =   4340
-            Cols            =   2
-            Rows            =   2
+            Cols            =   3
+            Rows            =   1
             ScrollBars      =   2  'flexScrollBarVertical
             SelectionMode   =   1  'flexSelectionByRow
             AllowUserResizing=   1  'flexResizeColumns
@@ -1046,11 +1046,13 @@ Ayuda.Enabled = False
 
 If BajarDatosVisado(MostrarMensaje) Then
     Screen.MousePointer = 11
-    Grilla.Rows = 0
+    ' FI2026 - MaxRows=0 (vaciar) -> Rows=1: MSFlexGrid no admite Rows=0 con
+    ' FixedRows=1; 1 = solo la fila fija (oculta), sin filas de datos
+    Grilla.Rows = 1
     Set PunteroVsdCli = BaseVisado.OpenRecordset("Vsd_Cli", dbOpenTable)
     While Not PunteroVsdCli.EOF
       Grilla.Rows = Grilla.Rows + 1
-      Grilla.Row = Grilla.Rows
+      Grilla.Row = Grilla.Rows - 1 ' FI2026 - ultima fila de datos (era .MaxRows)
       Grilla.Col = 1
       ' FI2026 - Spread-only property, no MSFlexGrid equivalent
       ' FI2026 - Spread-only property, no MSFlexGrid equivalent
@@ -1061,7 +1063,7 @@ If BajarDatosVisado(MostrarMensaje) Then
       Grilla.Text = String(13 - Len(NumeroRut), " ") + NumeroRut
       Grilla.Col = 2
       Grilla.Text = PunteroVsdCli("Cli_Nombre")
-      For j% = 1 To Grilla.Cols
+      For j% = 1 To Grilla.Cols - 1 ' FI2026 - era .MaxCols
         Grilla.Col = j%
         Grilla.BackColor = COLOR_06
         ' FI2026 - Spread-only property, no MSFlexGrid equivalent
@@ -1124,7 +1126,8 @@ Dim NumeroFilaDestino As Integer
   If Grilla.Visible Then
     ' FI2026 - RowHidden no existe en MSFlexGrid; RowHeight(fila)=0 es el equivalente
     If Grilla.RowHeight(Grilla.Row) = 0 Then
-      If Grilla.Row = Grilla.Rows Then
+      ' FI2026 - .Rows - 1: era .MaxRows (ultima fila de datos)
+      If Grilla.Row = Grilla.Rows - 1 Then
         NumeroFilaDestino = 1
       Else
         NumeroFilaDestino = Grilla.Row + 1
@@ -1256,9 +1259,15 @@ If Not App.PrevInstance Then
     PanelStatus.Top = Panel3D1.Height - PanelStatus.Height - 90
     SombraPortaGrilla.Left = PortaGrilla.Left + 60
     SombraPortaGrilla.Top = PortaGrilla.Top + 60
-    ' FI2026 - ColWidth unit change: Spread (chars) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ MSFlexGrid (twips)
-    Grilla.ColWidth(0) = 1200   ' Rut column
-    Grilla.ColWidth(1) = 3000   ' Name column
+    ' FI2026 - ColWidth: Spread mide en CARACTERES, MSFlexGrid en TWIPS
+    ' (~120 twips por caracter). Original: ColWidth(1)=10 y ColWidth(2)=24.
+    ' Los indices tambien se corrigieron: una migracion previa los habia puesto
+    ' en 0 y 1, pero el codigo escribe el Rut en .Col = 1 y el Nombre en .Col = 2,
+    ' asi que los anchos se estaban aplicando a las columnas equivocadas.
+    Grilla.ColWidth(0) = 0      ' columna fija (el Spread no mostraba encabezados)
+    Grilla.ColWidth(1) = 1200   ' Rut    (era 10 caracteres)
+    Grilla.ColWidth(2) = 3000   ' Nombre (era 24 caracteres)
+    Grilla.RowHeight(0) = 0     ' fila fija oculta (DisplayColHeaders=0)
     Call ConfigurarNodoDestinoSAT
 Else
     MsgBox "Visado Ya EstÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ EjecutÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ndose", 0 + 16, "Doble EjecuciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n"

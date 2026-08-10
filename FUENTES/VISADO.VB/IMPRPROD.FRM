@@ -47,8 +47,8 @@ Begin VB.Form ImprimeProductoVisado
          TabIndex        =   0
          Top             =   675
          Width           =   9110
-         Cols            =   2
-         Rows            =   2
+         Cols            =   7
+         Rows            =   1
          ScrollBars      =   2  'flexScrollBarVertical
          SelectionMode   =   1  'flexSelectionByRow
       End
@@ -286,7 +286,9 @@ Dim FechaActual As String * 8
 Dim PunteroVsdHst As Recordset
 Dim PunteroTabPrd As Recordset
 Dim PunteroTabOper As Recordset
-  GrillaProductosVisados.Rows = 0
+  ' FI2026 - MaxRows=0 (vaciar) -> Rows=1: MSFlexGrid no admite Rows=0 con
+  ' FixedRows=1; 1 = solo la fila fija (oculta), sin filas de datos
+  GrillaProductosVisados.Rows = 1
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
   PunteroTabPrd.Index = "Tab_Prd"
@@ -308,7 +310,7 @@ Dim PunteroTabOper As Recordset
   End If
   Do While Not PunteroVsdHst.EOF
     GrillaProductosVisados.Rows = GrillaProductosVisados.Rows + 1
-    GrillaProductosVisados.Row = GrillaProductosVisados.Rows
+    GrillaProductosVisados.Row = GrillaProductosVisados.Rows - 1 ' FI2026 - ultima fila de datos (era .MaxRows)
     PunteroTabPrd.Seek "=", PunteroVsdHst("Hst_Tipo")
     
     GrillaProductosVisados.Col = 1
@@ -374,7 +376,7 @@ Dim PunteroTabOper As Recordset
   
   lb_OrdenGrilla.Caption = ""
   
-  If GrillaProductosVisados.Rows > 0 Then
+  If GrillaProductosVisados.Rows > 1 Then ' FI2026 - 'hay datos': era .MaxRows > 0
     Imprimir.Enabled = True
     Call OrdenarGrilla(1, 3, GrillaProductosVisados, 1)
   Else
@@ -431,15 +433,19 @@ Dim FechaPasada As String * 8
   lb_OrdenGrilla.Caption = ""
   Call ColocaTitulos
   
-  GrillaProductosVisados.Cols = 7
+  ' FI2026 - MaxCols=7 (Spread: columnas de DATOS 1..7) -> Cols=8
+  GrillaProductosVisados.Cols = 8
+  ' FI2026 - el Spread original tenia DisplayColHeaders=0 y DisplayRowHeaders=0:
+  ' se ocultan la columna fija 0 y la fila fija 0 de MSFlexGrid
   GrillaProductosVisados.ColWidth(0) = 0
-  GrillaProductosVisados.ColWidth(1) = 6
-  GrillaProductosVisados.ColWidth(2) = 7
-  GrillaProductosVisados.ColWidth(3) = 8
-  GrillaProductosVisados.ColWidth(4) = 21.7
-  GrillaProductosVisados.ColWidth(5) = 10
-  GrillaProductosVisados.ColWidth(6) = 9
-  GrillaProductosVisados.ColWidth(7) = 11
+  GrillaProductosVisados.RowHeight(0) = 0
+  GrillaProductosVisados.ColWidth(1) = 720  ' FI2026 - eran 6 caracteres (Spread)
+  GrillaProductosVisados.ColWidth(2) = 840  ' FI2026 - eran 7 caracteres (Spread)
+  GrillaProductosVisados.ColWidth(3) = 960  ' FI2026 - eran 8 caracteres (Spread)
+  GrillaProductosVisados.ColWidth(4) = 2604  ' FI2026 - eran 21.7 caracteres (Spread)
+  GrillaProductosVisados.ColWidth(5) = 1200  ' FI2026 - eran 10 caracteres (Spread)
+  GrillaProductosVisados.ColWidth(6) = 1080  ' FI2026 - eran 9 caracteres (Spread)
+  GrillaProductosVisados.ColWidth(7) = 1320  ' FI2026 - eran 11 caracteres (Spread)
   
   'IdOficina.Caption = GlosaOficina(Oficina)
   Call LlenarGrillaProductoVisado
@@ -484,10 +490,11 @@ Dim FilaGrid As Integer
   Screen.MousePointer = 11
   Printer.FontName = "Courier New"
   Printer.FontSize = "10"
-  If GrillaProductosVisados.Rows Mod 60 = 0 Then
-     TotPag = GrillaProductosVisados.Rows \ 60
+  ' FI2026 - (.Rows - 1) = cantidad de filas de datos (era .MaxRows)
+  If (GrillaProductosVisados.Rows - 1) Mod 60 = 0 Then
+     TotPag = (GrillaProductosVisados.Rows - 1) \ 60 ' FI2026 - era .MaxRows
   Else
-     TotPag = (GrillaProductosVisados.Rows \ 60) + 1
+     TotPag = ((GrillaProductosVisados.Rows - 1) \ 60) + 1 ' FI2026 - era .MaxRows
   End If
   FilaGrid = 0
   PagActual = 1
@@ -514,7 +521,7 @@ Dim FilaGrid As Integer
   Printer.Print String(95, "-")
   Printer.Print "OFI EJE FECHA      PRODUCTO                       ACCION          RUT          IDENTIFICACION"
   Printer.Print String(95, "-")
-  For I = 1 To GrillaProductosVisados.Rows
+  For I = 1 To GrillaProductosVisados.Rows - 1 ' FI2026 - era .MaxRows
     FilaGrid = FilaGrid + 1
     GrillaProductosVisados.Row = I
     GrillaProductosVisados.Col = 1
@@ -535,7 +542,8 @@ Dim FilaGrid As Integer
     Cadena = Cadena + Mid$(GrillaProductosVisados.Text, 1, 15)
     Printer.Print Cadena
     
-    If FilaGrid = 60 And GrillaProductosVisados.Row < GrillaProductosVisados.Rows Then
+    ' FI2026 - .Rows - 1: era .MaxRows (ultima fila de datos)
+    If FilaGrid = 60 And GrillaProductosVisados.Row < GrillaProductosVisados.Rows - 1 Then
         Printer.EndDoc
         Printer.FontName = "Courier New"
         Printer.FontSize = "10"
@@ -585,7 +593,7 @@ Private Sub OpcionUnDia_KeyPress(KeyAscii As Integer)
   End If
 End Sub
 Private Sub DarFocoGrillaProductosVisados()
-  If GrillaProductosVisados.Rows > 0 Then
+  If GrillaProductosVisados.Rows > 1 Then ' FI2026 - 'hay datos': era .MaxRows > 0
     GrillaProductosVisados.SetFocus
   End If
 End Sub

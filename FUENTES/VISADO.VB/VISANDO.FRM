@@ -186,8 +186,8 @@ Begin VB.Form Visando
          TabIndex        =   0
          Top             =   360
          Width           =   7010
-         Cols            =   2
-         Rows            =   2
+         Cols            =   4
+         Rows            =   13
          ScrollBars      =   2  'flexScrollBarVertical
          SelectionMode   =   1  'flexSelectionByRow
       End
@@ -527,7 +527,8 @@ Dim PunteroTabPrd As Recordset
       If NumeroFila = 1 Then
         Call HabilitarGrillaProductos(True)
       End If
-      GrillaProductos.Rows = NumeroFila
+      ' FI2026 - era .MaxRows = NumeroFila (Spread cuenta solo filas de datos)
+      GrillaProductos.Rows = NumeroFila + 1
       GrillaProductos.Row = NumeroFila
       GrillaProductos.Col = 1
       ' FI2026 - GrillaProductos.TypeHAlign = 2 migrado a GrillaProductos.CellAlignment
@@ -648,7 +649,7 @@ Dim SubOpcion As Integer
     Screen.MousePointer = 11
     TotalFilas = 0
     GrillaProductos.Col = 1
-    For i% = 1 To GrillaProductos.Rows
+    For i% = 1 To GrillaProductos.Rows - 1 ' FI2026 - era .MaxRows
       GrillaProductos.Row = i%
       If GrillaProductos.BackColor <> COLOR_04 Then
         TotalFilas = TotalFilas + 1
@@ -668,7 +669,7 @@ Dim SubOpcion As Integer
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
     ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
     Rut = DesformateaRut(RutCliente.Caption)
-    TotalFilas = GrillaProductos.Rows
+    TotalFilas = GrillaProductos.Rows - 1 ' FI2026 - era .MaxRows (filas de datos)
     AlMenosUnoTransmitido = False
     PorLoMenosUnoNoTransmitido = False
     i% = 1
@@ -763,7 +764,8 @@ Dim SubOpcion As Integer
       .Encabezado(2).Visible = True
       .PanelStatus.Visible = False
     End With
-    GrillaProductos.Rows = TotalFilas
+    ' FI2026 - era .MaxRows = TotalFilas
+    GrillaProductos.Rows = TotalFilas + 1
     
     If Not QuedanFilasMarcadas Then
       If TotalFilas = 0 Then
@@ -772,7 +774,11 @@ Dim SubOpcion As Integer
         If Ventana = "RUT" Then
           '*Principal.Grilla.RowHeight(Principal.Grilla.Row) = 0 = False
         Else
-          Principal.Grilla.RowHeight(Principal.Grilla.Row) = 0 = True ' FI2026 - Grilla.Row sin calificar -> Principal.Grilla.Row (control vive en VISADO.FRM, no en este form)
+          ' FI2026 - era .RowHidden = True (Spread) -> altura 0 en MSFlexGrid; se saca
+          ' el '= True' que quedaba pegado (VB6 lo evaluaba como (0 = True) -> 0).
+          ' FI2026 - Grilla.Row sin calificar -> Principal.Grilla.Row (el control vive
+          ' en VISADO.FRM, no en este form).
+          Principal.Grilla.RowHeight(Principal.Grilla.Row) = 0
         End If
       End If
       Me.Refresh
@@ -840,10 +846,17 @@ Dim RutCl As String
   End If
   
   With GrillaProductos
-    .Cols = 6
-    .ColWidth(1) = 8
-    .ColWidth(2) = 8
-    .ColWidth(3) = 36
+    ' FI2026 - MaxCols=6 (Spread: columnas de DATOS 1..6) -> Cols=7
+    .Cols = 7
+    ' FI2026 - el Spread original tenia DisplayColHeaders=0 (sin encabezado de
+    ' columna: los titulos son Labels aparte), asi que la fila fija 0 de
+    ' MSFlexGrid se oculta. La COLUMNA 0 en cambio queda visible a proposito:
+    ' es el encabezado de fila donde ColocarTickGrillaProductos pone el icono
+    ' de aprobado/rechazado (.Col = 0 + .CellPicture).
+    .RowHeight(0) = 0
+    .ColWidth(1) = 960  ' FI2026 - eran 8 caracteres (Spread)
+    .ColWidth(2) = 960  ' FI2026 - eran 8 caracteres (Spread)
+    .ColWidth(3) = 4320  ' FI2026 - eran 36 caracteres (Spread)
     .ColWidth(4) = 0
     .ColWidth(5) = 0
     .ColWidth(6) = 0
@@ -861,7 +874,8 @@ Dim RutCl As String
     '.CursorStyle = 2
   End With
   Call LlenarGrillaProductos
-  Call BloquearEdicionGrilla(1, 1, GrillaProductos.Rows, 3, GrillaProductos)
+  ' FI2026 - .Rows - 1: era .MaxRows
+  Call BloquearEdicionGrilla(1, 1, GrillaProductos.Rows - 1, 3, GrillaProductos)
   Call OrdenarGrilla(1, 2, GrillaProductos, 1)
   UltimaFilaGrillaProductos = GrillaProductos.Row ' FI2026 - init tracker de fila para GrillaProductos_RowColChange
   
@@ -1440,7 +1454,7 @@ Dim i As Integer
   QuedanFilasMarcadas = False
   With GrillaProductos
     .Col = 1
-    For i = 1 To .Rows
+    For i = 1 To .Rows - 1 ' FI2026 - era .MaxRows
       .Row = i
       If .BackColor <> COLOR_04 Then
         QuedanFilasMarcadas = True
@@ -1677,7 +1691,8 @@ Dim FechaFila2 As String
 
 AprobarProductoUnicaLlave = True
 
-If GrillaProductos.Rows > 1 Then
+' FI2026 - era .MaxRows > 1 (mas de una fila de datos) -> .Rows > 2
+If GrillaProductos.Rows > 2 Then
   
   NRow1% = Fila
   
@@ -1690,7 +1705,7 @@ If GrillaProductos.Rows > 1 Then
   GrillaProductos.Col = 6
   LlaveFila1 = Trim$(Mid$(GrillaProductos.Text, 10, 30))
    
-  For NRow2% = 1 To GrillaProductos.Rows
+  For NRow2% = 1 To GrillaProductos.Rows - 1 ' FI2026 - era .MaxRows
   
     If NRow2% <> NRow1% Then
     
