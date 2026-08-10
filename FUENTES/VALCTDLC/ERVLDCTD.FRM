@@ -97,30 +97,16 @@ Begin VB.Form Frm_ERVL
       EndProperty
    End
 
-   Begin MSGrid.Grid GridErr 
+   Begin MSFlexGridLib.MSFlexGrid GridErr 
       Height          =   3135
       Left            =   225
       TabIndex        =   5
       Top             =   675
       Width           =   6915
-      _version        =   65536
-      _extentx        =   12197
-      _extenty        =   5530
-      _stockprops     =   77
-      backcolor       =   16777215
-      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
-         name            =   "MS Sans Serif"
-         charset         =   1
-         weight          =   700
-         size            =   8.25
-         underline       =   0   'False
-         italic          =   0   'False
-         strikethrough   =   0   'False
-      EndProperty
-      borderstyle     =   0
-      cols            =   4
-      fixedcols       =   0
-      mouseicon       =   "ERVLDCTD.frx":0000
+      Cols            =   4
+      FixedCols       =   0
+      BackColor       =   16777215
+      BorderStyle     =   0
    End
 
    Begin Threed.SSCommand Cancelar 

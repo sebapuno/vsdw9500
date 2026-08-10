@@ -169,42 +169,32 @@ Begin VB.Form Frm_Detalle
          Width           =   1215
       End
 
-      Begin MSGrid.Grid Grid2 
+      Begin MSFlexGridLib.MSFlexGrid Grid2 
          Height          =   1455
          Left            =   5895
          TabIndex        =   11
          Top             =   3225
          Width           =   4610
-         _version        =   65536
-         _extentx        =   8123
-         _extenty        =   2566
-         _stockprops     =   77
-         backcolor       =   16777215
-         rows            =   6
-         cols            =   4
-         fixedrows       =   0
-         scrollbars      =   0
-         highlight       =   0   'False
-         mouseicon       =   "PTAMHB00.frx":0573
+         Rows            =   6
+         Cols            =   4
+         FixedRows       =   0
+         BackColor       =   16777215
+         ScrollBars      =   0
+         HighLight       =   0   'False
       End
 
-      Begin MSGrid.Grid Grid1 
+      Begin MSFlexGridLib.MSFlexGrid Grid1 
          Height          =   250
          Left            =   750
          TabIndex        =   10
          Top             =   3225
          Width           =   5145
-         _version        =   65536
-         _extentx        =   9075
-         _extenty        =   450
-         _stockprops     =   77
-         backcolor       =   16777215
-         rows            =   1
-         cols            =   3
-         fixedrows       =   0
-         scrollbars      =   0
-         highlight       =   0   'False
-         mouseicon       =   "PTAMHB00.frx":058F
+         Rows            =   1
+         Cols            =   3
+         FixedRows       =   0
+         BackColor       =   16777215
+         ScrollBars      =   0
+         HighLight       =   0   'False
       End
    End
 
