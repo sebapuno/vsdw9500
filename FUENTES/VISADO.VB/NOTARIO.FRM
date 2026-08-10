@@ -328,7 +328,7 @@ Dim PunteroNotarios As Recordset
   I = MsgBox("Ãƒâ€šÃ‚Â¿ Son los Datos Correctos ?", 4 + 32 + 256, "Verificar ModificaciÃƒÆ’Ã‚Â³n")
   If I = 6 Then
     Screen.MousePointer = 11
-    For I = 1 To GrillaProductos.Rows
+    For I = 1 To GrillaHonorarios.Rows
       GrillaHonorarios.Row = I
       If Not GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 Then
         If TodaLaFilaLlena Then
@@ -346,7 +346,7 @@ Dim PunteroNotarios As Recordset
       End If
     Next I
     Set PunteroNotarios = BaseNotarios.OpenRecordset("Hono_Rut", dbOpenDynaset)
-    For I = 1 To GrillaProductos.Rows
+    For I = 1 To GrillaHonorarios.Rows
       GrillaHonorarios.Row = I
       GrillaHonorarios.Col = 5
       Criterio = "Rut=" + Trim$(GrillaHonorarios.Text)
@@ -396,7 +396,7 @@ Private Sub Encabezado_Click(Index As Integer)
 End Sub
 Private Sub Form_Activate()
   Editando = False
-  FilasVisibles = GrillaProductos.Rows
+  FilasVisibles = GrillaHonorarios.Rows
   CeldaModificada = False
   Screen.MousePointer = 0
 End Sub
@@ -406,20 +406,24 @@ Dim PunteroNotarios As Recordset
   Principal.Enabled = False
   Call CentrarVentana(Me)
   GrillaHonorarios.Cols = 5
-  GrillaProductos.Rows = 0
+  GrillaHonorarios.Rows = 0
   GrillaHonorarios.ColWidth(1) = 9
   GrillaHonorarios.ColWidth(2) = 20
   GrillaHonorarios.ColWidth(3) = 11
   GrillaHonorarios.ColWidth(4) = 11
   GrillaHonorarios.ColWidth(5) = 0
   GrillaHonorarios.Col = 5
-  GrillaHonorarios.ColHidden = True
-  GrillaHonorarios.UserResizeRow = 2
+  ' FI2026 SHG - ColHidden (Spread) no existe en MSFlexGrid. El equivalente es
+  ' ColWidth(5) = 0, ya aplicado arriba.
+  'GrillaHonorarios.ColHidden = True
+  ' FI2026 SHG - UserResizeRow (Spread) -> AllowUserResizing (MSFlexGrid):
+  ' 0=ninguno, 1=columnas, 2=filas, 3=ambos.
+  GrillaHonorarios.AllowUserResizing = 2
   Set BaseNotarios = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB04)
   Set PunteroNotarios = BaseNotarios.OpenRecordset("Hono_Rut", dbOpenTable)
   While Not PunteroNotarios.EOF
-    GrillaProductos.Rows = GrillaProductos.Rows + 1
-    GrillaHonorarios.Row = GrillaProductos.Rows
+    GrillaHonorarios.Rows = GrillaHonorarios.Rows + 1
+    GrillaHonorarios.Row = GrillaHonorarios.Rows
     Call FormateaCeldasGrilla
     GrillaHonorarios.Col = 1
     GrillaHonorarios.Text = Format(PunteroNotarios("Rut"), "00,000,000") + "-" + PunteroNotarios("DV")
@@ -441,14 +445,22 @@ Private Sub Form_Unload(Cancel As Integer)
   Principal.Enabled = True
 End Sub
 
-Private Sub GrillaHonorarios_EditMode(Col As Long, Row As Long, Mode As Integer, ChangeMade As Integer)
-  If Mode = 1 Then
-    Editando = True
-  Else
-    Editando = False
-    CeldaModificada = ChangeMade
-  End If
-End Sub
+' FI2026_TODO - GrillaHonorarios_EditMode (evento de Spread, se disparaba al entrar/salir del
+' editor de celda inline nativo) NO EXISTE en MSFlexGrid -- no tiene edicion de celda incorporada.
+' Esto significa que en el original el usuario podia TIPEAR directo en GrillaHonorarios para
+' cargar/editar Rut y Nombre del notario (Editando/CeldaModificada trackeaban ese estado, y
+' GrillaHonorarios_LeaveCell mas abajo validaba el Rut con digito verificador al salir de la celda).
+' Migrado a MSFlexGrid, esa edicion inline deja de ser posible sin construir un editor superpuesto
+' (TextBox flotante sobre la celda). PERDIDA DE FUNCIONALIDAD REAL -- revisar con el usuario como
+' se va a cargar/editar el Rut y Nombre del notario (TextBox flotante vs. formulario aparte).
+'Private Sub GrillaHonorarios_EditMode(Col As Long, Row As Long, Mode As Integer, ChangeMade As Integer)
+'  If Mode = 1 Then
+'    Editando = True
+'  Else
+'    Editando = False
+'    CeldaModificada = ChangeMade
+'  End If
+'End Sub
 Private Sub GrillaHonorarios_KeyDown(KeyCode As Integer, Shift As Integer)
 Dim InsertarFila As Boolean
   If (Not Editando) And (Shift = 0) Then
@@ -457,8 +469,8 @@ Dim InsertarFila As Boolean
         Call Cancelar_Click
       Case 45
         InsertarFila = True
-        If GrillaProductos.Rows > 0 Then
-          GrillaHonorarios.Row = GrillaProductos.Rows
+        If GrillaHonorarios.Rows > 0 Then
+          GrillaHonorarios.Row = GrillaHonorarios.Rows
           If Not GrillaHonorarios.RowHeight(GrillaHonorarios.Row) = 0 Then
             If Not TodaLaFilaLlena Then
               InsertarFila = False
@@ -466,17 +478,17 @@ Dim InsertarFila As Boolean
           End If
         End If
         If InsertarFila Then
-          GrillaProductos.Rows = GrillaProductos.Rows + 1
-          GrillaHonorarios.Row = GrillaProductos.Rows
+          GrillaHonorarios.Rows = GrillaHonorarios.Rows + 1
+          GrillaHonorarios.Row = GrillaHonorarios.Rows
           Call FormateaCeldasGrilla
-          Call IrCeldaEspecifica(GrillaProductos.Rows, 1)
+          Call IrCeldaEspecifica(GrillaHonorarios.Rows, 1)
           FilasVisibles = FilasVisibles + 1
         End If
       Case 46
         If FilasVisibles > 0 Then
           GrillaHonorarios.Row = GrillaHonorarios.Row
           If TodaLaFilaVacia Then
-            GrillaProductos.Rows = GrillaProductos.Rows - 1
+            GrillaHonorarios.Rows = GrillaHonorarios.Rows - 1
             FilasVisibles = FilasVisibles - 1
           Else
             I% = MsgBox("Ãƒâ€šÃ‚Â¿ Seguro de Eliminar a Dicho Notario ?", 4 + 32 + 256, "Verificar Borrado")
@@ -491,16 +503,21 @@ Dim InsertarFila As Boolean
 End Sub
 Private Sub FormateaCeldasGrilla()
   GrillaHonorarios.Col = 1
-  GrillaHonorarios.CellType = 4
-  GrillaHonorarios.TypePicMask = "NN.NNN.NNN-N"
+  ' FI2026 SHG - CellType/TypePicMask (Spread, mascara de edicion) sin equivalente en MSFlexGrid;
+  ' write-only (nunca se lee), sin evento _Change/_Edit visible -- la grilla se puebla por codigo
+  ' desde recordset, no por tipeo directo del usuario. Revisar si en el original se tipeaba a mano.
+  'GrillaHonorarios.CellType = 4
+  'GrillaHonorarios.TypePicMask = "NN.NNN.NNN-N"
   ' FI2026 - GrillaHonorarios.TypeHAlign = 2 migrado a GrillaHonorarios.CellAlignment
   GrillaHonorarios.CellAlignment = 4  ' flexAlignCenterCenter
   GrillaHonorarios.Col = 3
-  GrillaHonorarios.CellType = 3
+  ' FI2026 SHG - CellType (Spread) sin equivalente en MSFlexGrid
+  'GrillaHonorarios.CellType = 3
   ' FI2026 - GrillaHonorarios.TypeHAlign = 2 migrado a GrillaHonorarios.CellAlignment
   GrillaHonorarios.CellAlignment = 4  ' flexAlignCenterCenter
   GrillaHonorarios.Col = 4
-  GrillaHonorarios.CellType = 3
+  ' FI2026 SHG - CellType (Spread) sin equivalente en MSFlexGrid
+  'GrillaHonorarios.CellType = 3
   ' FI2026 - GrillaHonorarios.TypeHAlign = 2 migrado a GrillaHonorarios.CellAlignment
   GrillaHonorarios.CellAlignment = 4  ' flexAlignCenterCenter
 End Sub
@@ -524,45 +541,53 @@ Private Function TodaLaFilaLlena() As Boolean
     End If
   Next I%
 End Function
-Private Sub GrillaHonorarios_LeaveCell(Col As Long, Row As Long, NewCol As Long, NewRow As Long, Cancel As Integer)
-Dim RutNotario As String
-Dim DigitoVerificador As String * 1
-Dim NumeroTemporal As String
-  GrillaHonorarios.Col = Col
-  GrillaHonorarios.Row = Row
-  If (GrillaHonorarios.Text <> "") And (CeldaModificada) Then
-    CeldaModificada = False
-    Select Case Col
-      Case 1
-        NumeroTemporal = Trim$(DesformateaRut(GrillaHonorarios.Text))
-        RutNotario = Mid$(NumeroTemporal, 1, Len(NumeroTemporal) - 1)
-        DigitoVerificador = UCase$(Mid(NumeroTemporal, Len(NumeroTemporal), 1))
-        If (Val(RutNotario) <> 0) Or (DigitoVerificador <> "0") Then
-          If ObtenerDigitoVerificador(RutNotario) = DigitoVerificador Then
-            GrillaHonorarios.Text = FormateaRut(NumeroTemporal)
-            Call IrCeldaEspecifica(NewRow, NewCol)
-          Else
-            MsgBox "DÃƒÆ’Ã‚Â­gito Verificador Erroneo", 0 + 16, "Error de ValidaciÃƒÆ’Ã‚Â³n"
-            GrillaHonorarios.Text = ""
-            Call IrCeldaEspecifica(Row, Col)
-          End If
-        Else
-          MsgBox "No es Rut VÃƒÆ’Ã‚Â¡lido", 0 + 16, "Faltan Datos"
-          GrillaHonorarios.Text = ""
-          Call IrCeldaEspecifica(Row, Col)
-        End If
-      Case 2
-        GrillaHonorarios.Text = StrConv(GrillaHonorarios.Text, 3)
-        Call IrCeldaEspecifica(NewRow, NewCol)
-    End Select
-  End If
-End Sub
+' FI2026_TODO - LeaveCell(Col,Row,NewCol,NewRow,Cancel) (Spread) no existe en MSFlexGrid. El guard
+' "CeldaModificada" de este handler ya queda permanentemente False (ver GrillaHonorarios_EditMode
+' arriba, tambien deshabilitado), asi que este codigo NUNCA se ejecutaba una vez migrado -- quedaba
+' muerto en la practica. Contiene la validacion de Rut con digito verificador y el mayusculado del
+' nombre AL TERMINAR de editar una celda a mano. Comentado completo en vez de dar una firma falsa:
+' revisar junto con el TODO de EditMode arriba (misma decision de UX pendiente).
+'Private Sub GrillaHonorarios_LeaveCell(Col As Long, Row As Long, NewCol As Long, NewRow As Long, Cancel As Integer)
+'Dim RutNotario As String
+'Dim DigitoVerificador As String * 1
+'Dim NumeroTemporal As String
+'  GrillaHonorarios.Col = Col
+'  GrillaHonorarios.Row = Row
+'  If (GrillaHonorarios.Text <> "") And (CeldaModificada) Then
+'    CeldaModificada = False
+'    Select Case Col
+'      Case 1
+'        NumeroTemporal = Trim$(DesformateaRut(GrillaHonorarios.Text))
+'        RutNotario = Mid$(NumeroTemporal, 1, Len(NumeroTemporal) - 1)
+'        DigitoVerificador = UCase$(Mid(NumeroTemporal, Len(NumeroTemporal), 1))
+'        If (Val(RutNotario) <> 0) Or (DigitoVerificador <> "0") Then
+'          If ObtenerDigitoVerificador(RutNotario) = DigitoVerificador Then
+'            GrillaHonorarios.Text = FormateaRut(NumeroTemporal)
+'            Call IrCeldaEspecifica(NewRow, NewCol)
+'          Else
+'            MsgBox "Digito Verificador Erroneo", 0 + 16, "Error de Validacion"
+'            GrillaHonorarios.Text = ""
+'            Call IrCeldaEspecifica(Row, Col)
+'          End If
+'        Else
+'          MsgBox "No es Rut Valido", 0 + 16, "Faltan Datos"
+'          GrillaHonorarios.Text = ""
+'          Call IrCeldaEspecifica(Row, Col)
+'        End If
+'      Case 2
+'        GrillaHonorarios.Text = StrConv(GrillaHonorarios.Text, 3)
+'        Call IrCeldaEspecifica(NewRow, NewCol)
+'    End Select
+'  End If
+'End Sub
 Private Sub IrCeldaEspecifica(ByVal Fila As Integer, ByVal Columna As Integer)
   GrillaHonorarios.Row = Fila
   GrillaHonorarios.Col = Columna
-  GrillaHonorarios.Position = 5
-  GrillaHonorarios.Action = 0
-  GrillaHonorarios.Action = 1
+  ' FI2026 SHG - Position/Action (Spread, navegacion) sin equivalente en MSFlexGrid; redundante,
+  ' Row=/Col= arriba ya selecciona y auto-scrollea a la celda (comportamiento nativo de MSFlexGrid)
+  '.Position = 5
+  '.Action = 0
+  'GrillaHonorarios.Action = 1
 End Sub
 
 Private Sub IngresarDatosTabla(PunteroTabla As Recordset)

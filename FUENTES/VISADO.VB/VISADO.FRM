@@ -826,7 +826,7 @@ Dim IncrementoStatus As Integer
     PanelStatus.Visible = True
     SePresionoTeclaESC = False
     While (Not PunteroTabVsd.EOF) And (Not SePresionoTeclaESC)
-      If CorrespondeTraer(PunteroTabVsd("Vsd_Bajada")) Then
+      If CorrespondeTraer(CStr(PunteroTabVsd("Vsd_Bajada"))) Then
          PosicionRut = PunteroTabVsd("Vsd_Pos_Rut")
          LargoLlaveOrigen = PunteroTabVsd("Vsd_L_LLaveOri")
          PosicionProducto = PunteroTabVsd("Vsd_Pos_CodProd")

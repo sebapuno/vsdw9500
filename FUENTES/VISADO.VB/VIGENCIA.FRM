@@ -251,10 +251,12 @@ Dim FiltroTabCfgProd As Recordset
     .ColWidth(2) = 32
     .ColWidth(3) = 0
     .ColWidth(4) = 0
+    ' FI2026 SHG - ColHidden (Spread) no existe en MSFlexGrid. El equivalente es
+    ' ColWidth(n) = 0, ya aplicado arriba para las columnas 3 y 4.
     .Col = 3
-    .ColHidden = True
+    '.ColHidden = True
     .Col = 4
-    .ColHidden = True
+    '.ColHidden = True
   End With
   Set FiltroTabCfgProd = BaseVisado.OpenRecordset("SELECT * FROM Tab_CfgProd ORDER BY Cfg_Glosa ASC;")
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
@@ -272,12 +274,20 @@ Dim FiltroTabCfgProd As Recordset
         With GrillaVigenciaProductos
           .Rows = .Rows + 1
           .Row = .Rows
-          .UserResizeRow = 2
+          ' FI2026 SHG - UserResizeRow (Spread) -> AllowUserResizing (MSFlexGrid):
+          ' 0=ninguno, 1=columnas, 2=filas, 3=ambos.
+          .AllowUserResizing = 2
           .Col = 1
           .BackColor = COLOR_06
-          .CellType = 10
-          .TypeCheckCenter = True
-          .TypeCheckText = "Vigente"
+          ' FI2026_TODO - CellType=10 + TypeCheckCenter + TypeCheckText (Spread) renderizaba un
+          ' CHECKBOX real en la celda con la etiqueta "Vigente"; MSFlexGrid no tiene celda-checkbox
+          ' nativa. El toggle 0/1 (mas abajo y en GrillaVigenciaProductos_DblClick) sigue funcionando
+          ' sobre .Text, pero visualmente la celda va a mostrar el numero "1"/"0" en vez de un
+          ' checkbox marcado/desmarcado. PERDIDA DE FUNCIONALIDAD VISUAL REAL -- revisar con el
+          ' usuario si alcanza con texto o si hace falta un CheckBox superpuesto sobre la celda.
+          '.CellType = 10
+          '.TypeCheckCenter = True
+          '.TypeCheckText = "Vigente"
           If PunteroTabPrd("Prd_Tag") = "SI" Then
             .Text = 1
             .Col = 4
@@ -298,15 +308,18 @@ Dim FiltroTabCfgProd As Recordset
     FiltroTabCfgProd.MoveNext
   Wend
   FiltroTabCfgProd.Close
-  Call BloquearEdicionGrilla(1, 2, GrillaProductos.Rows, 2, GrillaVigenciaProductos)
-  GrillaVigenciaProductos.CursorType = 0
-  GrillaVigenciaProductos.CursorStyle = 2
+  Call BloquearEdicionGrilla(1, 2, GrillaVigenciaProductos.Rows, 2, GrillaVigenciaProductos)
+  ' FI2026 SHG - CursorType/CursorStyle (Spread) sin equivalente en MSFlexGrid, write-only
+  'GrillaVigenciaProductos.CursorType = 0
+  'GrillaVigenciaProductos.CursorStyle = 2
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
   Principal.Enabled = True
 End Sub
-Private Sub GrillaVigenciaProductos_DblClick(Col As Long, Row As Long)
-  If GrillaVigenciaProductos.ActiveCol = 2 Then
+Private Sub GrillaVigenciaProductos_DblClick()
+  ' FI2026 - DblClick(Col,Row) (Spread) -> DblClick() sin parametros en MSFlexGrid
+  ' FI2026 - ActiveCol (Spread) -> Col (MSFlexGrid), mismo rol: columna de la celda activa
+  If GrillaVigenciaProductos.Col = 2 Then
     GrillaVigenciaProductos.Row = GrillaVigenciaProductos.Row
     GrillaVigenciaProductos.Col = 1
     GrillaVigenciaProductos.Text = Abs(GrillaVigenciaProductos.Text - 1)
@@ -319,7 +332,7 @@ Private Sub GrillaVigenciaProductos_KeyPress(KeyAscii As Integer)
     Case 27
       Unload Me
     Case 32
-      Call GrillaVigenciaProductos_DblClick(GrillaVigenciaProductos.ActiveCol, GrillaVigenciaProductos.Row)
+      Call GrillaVigenciaProductos_DblClick ' FI2026 - sin parametros (ver arriba)
   End Select
 End Sub
 
@@ -352,7 +365,7 @@ Dim PosicionComa As Integer
     Cadena = Mid$(Cadena, PosicionComa + 1)
   End If
 End Function
-Private Sub Todos_Click(, dbOpenSnapshot)
+Private Sub Todos_Click()
 Dim I As Integer
   With GrillaVigenciaProductos
     .Col = 1

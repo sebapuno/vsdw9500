@@ -1,0 +1,4 @@
+# Artefactos de compilacion traidos desde la VM por vb6-build.sh
+bin/
+*.exe
+*.EXE

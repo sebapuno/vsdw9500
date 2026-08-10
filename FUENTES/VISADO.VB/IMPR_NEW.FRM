@@ -210,13 +210,13 @@ Screen.MousePointer = 11
 
 On Error GoTo ErrorArchivo
 
-If GrillaProductos.Rows > 0 Then
+If GrillaProductosVisados.Rows > 0 Then
 
   NomArchivoHst = Format$(Now, "yyyymmdd") + ".XLS"
   
   Open DIRECTORIO_01 + NomArchivoHst For Output As #1
   
-  For Ifil# = 0 To GrillaProductos.Rows
+  For Ifil# = 0 To GrillaProductosVisados.Rows
     GrillaProductosVisados.Row = Ifil#
     LineaSpread = ""
     For Icol# = 1 To GrillaProductosVisados.Cols
@@ -239,14 +239,17 @@ If GrillaProductos.Rows > 0 Then
   '****
 
   GrillaProductosVisados.Row = 0
-  GrillaProductosVisados.Row2 = GrillaProductos.Rows
+  ' FI2026 - Row2/Col2 (Spread) -> RowSel/ColSel (MSFlexGrid), ver guia
+  GrillaProductosVisados.RowSel = GrillaProductosVisados.Rows
   GrillaProductosVisados.Col = 1
-  GrillaProductosVisados.Col2 = GrillaProductosVisados.Cols
-  GrillaProductosVisados.Action = 2
-
-  GrillaProductosVisados.Action = 22
-
-  GrillaProductosVisados.Action = 0
+  GrillaProductosVisados.ColSel = GrillaProductosVisados.Cols
+  ' FI2026_TODO - .Action (Spread, codigos 2/22/0) sin equivalente conocido en MSFlexGrid;
+  ' se ejecuta DESPUES de que el archivo XLS ya se grabo y confirmo (no se lee ningun resultado
+  ' despues). Revisar manualmente con el usuario que efecto tenia el Action original antes de
+  ' descartar (posible copiar seleccion al portapapeles o resaltado visual, no bloquea el export).
+  'GrillaProductosVisados.Action = 2
+  'GrillaProductosVisados.Action = 22
+  'GrillaProductosVisados.Action = 0
 End If
   
 Screen.MousePointer = 0
@@ -275,7 +278,7 @@ Dim PunteroTabOper As Recordset
 Dim FechaVsd As String
 Dim FechPrd As String
 
-  GrillaProductos.Rows = 0
+  GrillaProductosVisados.Rows = 0
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
   PunteroTabPrd.Index = "Tab_Prd"
@@ -287,17 +290,17 @@ Dim FechPrd As String
     'Set PunteroVsdHst = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Hst WHERE Hst_Fech='" + _
                                                                                          FechaActual + "';")
   Else
-    FechaActual = Format$(Year(Date - CantidadDias.Val), "0000") + _
-                             Format$(Month(Date - CantidadDias.Val), "00") + _
-                             Format$(Day(Date - CantidadDias.Val), "00")
+    FechaActual = Format$(Year(Date - Val(CantidadDias.Text)), "0000") + _
+                             Format$(Month(Date - Val(CantidadDias.Text)), "00") + _
+                             Format$(Day(Date - Val(CantidadDias.Text)), "00")
     Set PunteroVsdHst = BaseHistory.OpenRecordset("SELECT * FROM tbl_Hst WHERE Val(Hst_Fech)>=" + _
                                                    FechaActual + ";", dbOpenSnapshot)
     'Set PunteroVsdHst = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Hst WHERE Val(Hst_Fech)>=" + _
                                                                                          FechaActual + ";")
   End If
   Do While Not PunteroVsdHst.EOF
-    GrillaProductos.Rows = GrillaProductos.Rows + 1
-    GrillaProductosVisados.Row = GrillaProductos.Rows
+    GrillaProductosVisados.Rows = GrillaProductosVisados.Rows + 1
+    GrillaProductosVisados.Row = GrillaProductosVisados.Rows
     PunteroTabPrd.Seek "=", PunteroVsdHst("Hst_Tipo")
     
     GrillaProductosVisados.Col = 1
@@ -351,7 +354,7 @@ Dim FechPrd As String
     GrillaProductosVisados.Col = 6
     ' FI2026 - GrillaProductosVisados.TypeHAlign = 2 migrado a GrillaProductosVisados.CellAlignment
     GrillaProductosVisados.CellAlignment = 4  ' flexAlignCenterCenter
-    GrillaProductosVisados.Text = FormateaRut(PunteroVsdHst("Hst_Rut"))
+    GrillaProductosVisados.Text = FormateaRut(CStr(PunteroVsdHst("Hst_Rut")))
     
     GrillaProductosVisados.Col = 7
     ' FI2026 - GrillaProductosVisados.TypeHAlign = 2 migrado a GrillaProductosVisados.CellAlignment
@@ -380,7 +383,7 @@ Dim FechPrd As String
   
   lb_OrdenGrilla.Caption = ""
   
-  If GrillaProductos.Rows > 0 Then
+  If GrillaProductosVisados.Rows > 0 Then
     Imprimir.Enabled = True
     Call OrdenarGrilla(1, 3, GrillaProductosVisados, 1)
   Else
@@ -452,7 +455,9 @@ Dim FechaPasada As String * 8
   GrillaProductosVisados.ColWidth(7) = 11
   GrillaProductosVisados.ColWidth(8) = 9
   
-  GrillaProductosVisados.UserResizeCol = 2
+  ' FI2026 SHG - UserResizeCol (Spread) -> AllowUserResizing (MSFlexGrid):
+  ' 0=ninguno, 1=columnas, 2=filas, 3=ambos.
+  GrillaProductosVisados.AllowUserResizing = 1
 
   'IdOficina.Caption = GlosaOficina(Oficina)
   Call LlenarGrillaProductoVisado
@@ -481,14 +486,14 @@ Private Sub Form_Unload(Cancel As Integer)
 
 End Sub
 
-Private Sub GrillaProductosVisados_DblClick(Col As Long, Row As Long)
+Private Sub GrillaProductosVisados_DblClick()
+' FI2026 - DblClick(Col,Row) (Spread) -> DblClick() sin parametros en MSFlexGrid; .Col ya refleja
+' la celda clickeada (ver guia), reemplaza el parametro Col. La reasignacion .Col = Col original
+' era un no-op (Spread ya dejaba .Col en la celda clickeada al momento del evento).
+Call OrdenarGrilla(1, GrillaProductosVisados.Col, GrillaProductosVisados, 1)
 
-Call OrdenarGrilla(1, Col, GrillaProductosVisados, 1)
-  
 GrillaProductosVisados.Row = 0
-GrillaProductosVisados.Col = Col
 lb_OrdenGrilla.Caption = GrillaProductosVisados.Text
-  
 
 End Sub
 
@@ -512,10 +517,10 @@ On Error GoTo ErrorImpresora
   Printer.FontName = "Courier New"
   Printer.FontSize = "9" '"10"
 
-  If GrillaProductos.Rows Mod 70 = 0 Then
-     TotPag = GrillaProductos.Rows \ 70
+  If GrillaProductosVisados.Rows Mod 70 = 0 Then
+     TotPag = GrillaProductosVisados.Rows \ 70
   Else
-     TotPag = (GrillaProductos.Rows \ 70) + 1
+     TotPag = (GrillaProductosVisados.Rows \ 70) + 1
   End If
   FilaGrid = 0
   PagActual = 1
@@ -542,7 +547,7 @@ On Error GoTo ErrorImpresora
   Printer.Print String(103, "-")
   Printer.Print "OFI EJE FECHA      PRODUCTO                     ACCION         RUT          IDENTIFICACION   FCH-VISADO"
   Printer.Print String(103, "-")
-  For I = 1 To GrillaProductos.Rows
+  For I = 1 To GrillaProductosVisados.Rows
     FilaGrid = FilaGrid + 1
     GrillaProductosVisados.Row = I
     GrillaProductosVisados.Col = 1
@@ -567,7 +572,7 @@ On Error GoTo ErrorImpresora
     
     Printer.Print Cadena
     
-    If FilaGrid = 70 And GrillaProductosVisados.Row < GrillaProductos.Rows Then
+    If FilaGrid = 70 And GrillaProductosVisados.Row < GrillaProductosVisados.Rows Then
         Printer.EndDoc
         Printer.FontName = "Arial"
         Printer.FontName = "Courier New"
@@ -634,16 +639,20 @@ Private Sub OpcionUnDia_KeyPress(KeyAscii As Integer)
   End If
 End Sub
 Private Sub DarFocoGrillaProductosVisados()
-  If GrillaProductos.Rows > 0 Then
+  If GrillaProductosVisados.Rows > 0 Then
     GrillaProductosVisados.SetFocus
   End If
 End Sub
 
 
 Private Sub InHabilitarDias(ByVal Estado As Boolean)
-  CantidadDias.ReadOnly = Estado
-  CantidadDias.Spin = False
-  CantidadDias.Spin = True
+  ' FI2026 - ReadOnly (VBX.IntTextBox) -> Locked (VB.TextBox nativo)
+  CantidadDias.Locked = Estado
+  ' FI2026_TODO - Spin (VBX.IntTextBox) sin equivalente en VB.TextBox nativo: el
+  ' control original traia flechas de incremento/decremento. El par False/True
+  ' era un refresco del control. Requiere un UpDown (MSCOMCT2.OCX) para replicarlo.
+  'CantidadDias.Spin = False
+  'CantidadDias.Spin = True
 End Sub
 
 

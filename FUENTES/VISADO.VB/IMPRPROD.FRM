@@ -286,7 +286,7 @@ Dim FechaActual As String * 8
 Dim PunteroVsdHst As Recordset
 Dim PunteroTabPrd As Recordset
 Dim PunteroTabOper As Recordset
-  GrillaProductos.Rows = 0
+  GrillaProductosVisados.Rows = 0
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
   PunteroTabPrd.Index = "Tab_Prd"
@@ -298,17 +298,17 @@ Dim PunteroTabOper As Recordset
     'Set PunteroVsdHst = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Hst WHERE Hst_Fech='" + _
                                                                                          FechaActual + "';")
   Else
-    FechaActual = Format$(Year(Date - CantidadDias.Val), "0000") + _
-                             Format$(Month(Date - CantidadDias.Val), "00") + _
-                             Format$(Day(Date - CantidadDias.Val), "00")
+    FechaActual = Format$(Year(Date - Val(CantidadDias.Text)), "0000") + _
+                             Format$(Month(Date - Val(CantidadDias.Text)), "00") + _
+                             Format$(Day(Date - Val(CantidadDias.Text)), "00")
     Set PunteroVsdHst = BaseHistory.OpenRecordset("SELECT * FROM tbl_Hst WHERE Val(Hst_Fech)>=" + _
                                                    FechaActual + ";", dbOpenSnapshot)
     'Set PunteroVsdHst = BaseVisado.CreateSnapshot("SELECT * FROM Vsd_Hst WHERE Val(Hst_Fech)>=" + _
                                                                                          FechaActual + ";")
   End If
   Do While Not PunteroVsdHst.EOF
-    GrillaProductos.Rows = GrillaProductos.Rows + 1
-    GrillaProductosVisados.Row = GrillaProductos.Rows
+    GrillaProductosVisados.Rows = GrillaProductosVisados.Rows + 1
+    GrillaProductosVisados.Row = GrillaProductosVisados.Rows
     PunteroTabPrd.Seek "=", PunteroVsdHst("Hst_Tipo")
     
     GrillaProductosVisados.Col = 1
@@ -353,7 +353,7 @@ Dim PunteroTabOper As Recordset
     GrillaProductosVisados.Col = 6
     ' FI2026 - GrillaProductosVisados.TypeHAlign = 2 migrado a GrillaProductosVisados.CellAlignment
     GrillaProductosVisados.CellAlignment = 4  ' flexAlignCenterCenter
-    GrillaProductosVisados.Text = FormateaRut(PunteroVsdHst("Hst_Rut"))
+    GrillaProductosVisados.Text = FormateaRut(CStr(PunteroVsdHst("Hst_Rut")))
     
     GrillaProductosVisados.Col = 7
     ' FI2026 - GrillaProductosVisados.TypeHAlign = 2 migrado a GrillaProductosVisados.CellAlignment
@@ -374,7 +374,7 @@ Dim PunteroTabOper As Recordset
   
   lb_OrdenGrilla.Caption = ""
   
-  If GrillaProductos.Rows > 0 Then
+  If GrillaProductosVisados.Rows > 0 Then
     Imprimir.Enabled = True
     Call OrdenarGrilla(1, 3, GrillaProductosVisados, 1)
   Else
@@ -484,10 +484,10 @@ Dim FilaGrid As Integer
   Screen.MousePointer = 11
   Printer.FontName = "Courier New"
   Printer.FontSize = "10"
-  If GrillaProductos.Rows Mod 60 = 0 Then
-     TotPag = GrillaProductos.Rows \ 60
+  If GrillaProductosVisados.Rows Mod 60 = 0 Then
+     TotPag = GrillaProductosVisados.Rows \ 60
   Else
-     TotPag = (GrillaProductos.Rows \ 60) + 1
+     TotPag = (GrillaProductosVisados.Rows \ 60) + 1
   End If
   FilaGrid = 0
   PagActual = 1
@@ -514,7 +514,7 @@ Dim FilaGrid As Integer
   Printer.Print String(95, "-")
   Printer.Print "OFI EJE FECHA      PRODUCTO                       ACCION          RUT          IDENTIFICACION"
   Printer.Print String(95, "-")
-  For I = 1 To GrillaProductos.Rows
+  For I = 1 To GrillaProductosVisados.Rows
     FilaGrid = FilaGrid + 1
     GrillaProductosVisados.Row = I
     GrillaProductosVisados.Col = 1
@@ -535,7 +535,7 @@ Dim FilaGrid As Integer
     Cadena = Cadena + Mid$(GrillaProductosVisados.Text, 1, 15)
     Printer.Print Cadena
     
-    If FilaGrid = 60 And GrillaProductosVisados.Row < GrillaProductos.Rows Then
+    If FilaGrid = 60 And GrillaProductosVisados.Row < GrillaProductosVisados.Rows Then
         Printer.EndDoc
         Printer.FontName = "Courier New"
         Printer.FontSize = "10"
@@ -585,16 +585,20 @@ Private Sub OpcionUnDia_KeyPress(KeyAscii As Integer)
   End If
 End Sub
 Private Sub DarFocoGrillaProductosVisados()
-  If GrillaProductos.Rows > 0 Then
+  If GrillaProductosVisados.Rows > 0 Then
     GrillaProductosVisados.SetFocus
   End If
 End Sub
 
 
 Private Sub InHabilitarDias(ByVal Estado As Boolean)
-  CantidadDias.ReadOnly = Estado
-  CantidadDias.Spin = False
-  CantidadDias.Spin = True
+  ' FI2026 - ReadOnly (VBX.IntTextBox) -> Locked (VB.TextBox nativo)
+  CantidadDias.Locked = Estado
+  ' FI2026_TODO - Spin (VBX.IntTextBox) sin equivalente en VB.TextBox nativo: el
+  ' control original traia flechas de incremento/decremento. El par False/True
+  ' era un refresco del control. Requiere un UpDown (MSCOMCT2.OCX) para replicarlo.
+  'CantidadDias.Spin = False
+  'CantidadDias.Spin = True
 End Sub
 
 Private Sub Titulo_Click(Index As Integer)

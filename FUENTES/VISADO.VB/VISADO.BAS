@@ -1029,7 +1029,11 @@ Dim PosicionInicio As Integer
     Decodifica = " " + String(13, "0")
   End If
 End Function
-Public Function Interpreta(Cadena As String, DatoBuscado As String) As Integer
+' FI2026 - ByVal agregado: los call sites pasan campos DAO (rs("Campo") -> Variant)
+' y VB6 rechaza pasar un Variant a un parametro ByRef As String ("ByRef argument
+' type mismatch"). Con ByVal la coercion Variant->String es automatica. La funcion
+' solo LEE los parametros, asi que el cambio no altera la semantica original.
+Public Function Interpreta(ByVal Cadena As String, ByVal DatoBuscado As String) As Integer
 Dim PosicionComa As Integer
   PosicionComa = InStr(Cadena, ",")
   If PosicionComa <> 0 Then
@@ -1085,7 +1089,7 @@ Public Sub BloquearEdicionGrilla(ByVal FilIni As Long, ByVal ColIni As Long, ByV
 End Sub
 Public Function ColocarSeparadorDeMiles(ByVal Numero As String) As String
 Dim Entero As String
-Dim Decimal As String
+Dim ParteDecimal As String ' FI2026 - renombrada de "Decimal" (palabra reservada en VB6, invalida como identificador)
 Dim Cantidad As String
 Dim PosicionComa As Integer
   Numero = Trim$(Numero)
@@ -1097,7 +1101,7 @@ Dim PosicionComa As Integer
   End If
   PosicionComa = InStr(Numero, ",")
   Entero = Mid$(Numero, 1, PosicionComa - 1)
-  Decimal = Mid$(Numero, PosicionComa + 1)
+  ParteDecimal = Mid$(Numero, PosicionComa + 1)
   Cantidad = ""
   For i% = 1 To Len(Entero)
     Cantidad = Mid$(Numero, Len(Entero) + 1 - i%, 1) + Cantidad
@@ -1108,7 +1112,7 @@ Dim PosicionComa As Integer
   If Mid$(Cantidad, 1, 1) = "." Then
     Cantidad = Mid$(Cantidad, 2)
   End If
-  ColocarSeparadorDeMiles = Cantidad + "," + Decimal
+  ColocarSeparadorDeMiles = Cantidad + "," + ParteDecimal
 End Function
 
 Public Sub OrdenarGrilla(ByVal ColumnaInicio As Integer, ByVal ColumnaDeOrdenamiento As Integer, GrillaParaOrdenar As Object, ByVal TipoOrden As Integer)

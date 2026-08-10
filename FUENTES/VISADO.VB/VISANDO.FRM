@@ -479,6 +479,7 @@ End Type
 
 Dim PunteroTabVsd As Recordset
 Dim ArregloTemporal() As Estructura
+Dim UltimaFilaGrillaProductos As Long ' FI2026 - reemplaza el NewRow de LeaveCell (Spread) para detectar cambio de fila en RowColChange (MSFlexGrid)
 Function BuscaRentable(Rut_CO As String) As String
 Dim Usuario     As String
 Dim NodoDestino As String
@@ -592,18 +593,22 @@ Dim i As Integer
     If .BackColor <> COLOR_04 Then
       i = MsgBox("ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ Seguro de Desmarcar ?", 4 + 32 + 256, "Verificar Desmarcado")
       If i = 6 Then
-        .OperationMode = 3
+        ' FI2026 SHG - OperationMode (Spread) sin equivalente en MSFlexGrid
+        '.OperationMode = 3
         For i = 1 To 3
           .Col = i
           .BackColor = COLOR_04
         Next i
         .Col = 0
-        .CellType = 5
+        ' FI2026 SHG - CellType (Spread) sin equivalente en MSFlexGrid
+        '.CellType = 5
         ' FI2026 - .TypeHAlign = 2 migrado a .CellAlignment
         .CellAlignment = 4  ' flexAlignCenterCenter
-        .TypeTextShadow = True
+        ' FI2026 SHG - TypeTextShadow (Spread) sin equivalente en MSFlexGrid
+        '.TypeTextShadow = True
         .ForeColor = COLOR_08
-        .OperationMode = 2
+        ' FI2026 SHG - OperationMode (Spread) sin equivalente en MSFlexGrid
+        '.OperationMode = 2
         If Not QuedanFilasMarcadas() Then
           PortaColor.Visible = False
           SombraColor.Visible = False
@@ -736,7 +741,7 @@ Dim SubOpcion As Integer
                                               "' AND Prd_Correl=" + LTrim$(Str(Correlativo)) + ";"
             i% = i% - 1
             TotalFilas = TotalFilas - 1
-            GrillaProductos.Action = 5 ' delete row
+            GrillaProductos.RemoveItem GrillaProductos.Row ' FI2026 - Action=5 (Spread, borrar fila) -> RemoveItem (MSFlexGrid)
           Else
             PorLoMenosUnoNoTransmitido = True
             Call RealizarLlamado(Rut, Producto, Correlativo, Color)
@@ -765,9 +770,9 @@ Dim SubOpcion As Integer
         Visar.Enabled = False
         Rechazar.Enabled = False ' **
         If Ventana = "RUT" Then
-          '*Principal.Grilla.RowHeight(Grilla.Row) = 0 = False
+          '*Principal.Grilla.RowHeight(Principal.Grilla.Row) = 0 = False
         Else
-          Principal.Grilla.RowHeight(Grilla.Row) = 0 = True
+          Principal.Grilla.RowHeight(Principal.Grilla.Row) = 0 = True ' FI2026 - Grilla.Row sin calificar -> Principal.Grilla.Row (control vive en VISADO.FRM, no en este form)
         End If
       End If
       Me.Refresh
@@ -842,19 +847,23 @@ Dim RutCl As String
     .ColWidth(4) = 0
     .ColWidth(5) = 0
     .ColWidth(6) = 0
+    ' FI2026 SHG - ColHidden (Spread) no existe en MSFlexGrid. El equivalente es
+    ' ColWidth(n) = 0, ya aplicado arriba para las columnas 4, 5 y 6.
     .Col = 4
-    .ColHidden = True
+    '.ColHidden = True
     .Col = 5
-    .ColHidden = True
+    '.ColHidden = True
     .Col = 6
-    .ColHidden = True
-    .TypeEditLen = 10000
-    .CursorType = 0
-    .CursorStyle = 2
+    '.ColHidden = True
+    ' FI2026 SHG - TypeEditLen/CursorType/CursorStyle (Spread) sin equivalente en MSFlexGrid, write-only
+    '.TypeEditLen = 10000
+    '.CursorType = 0
+    '.CursorStyle = 2
   End With
   Call LlenarGrillaProductos
   Call BloquearEdicionGrilla(1, 1, GrillaProductos.Rows, 3, GrillaProductos)
   Call OrdenarGrilla(1, 2, GrillaProductos, 1)
+  UltimaFilaGrillaProductos = GrillaProductos.Row ' FI2026 - init tracker de fila para GrillaProductos_RowColChange
   
 End Sub
 
@@ -875,12 +884,16 @@ Visando.GrillaProductos.Row = Visando.GrillaProductos.Row
 
   With Visando.GrillaProductos
     .Col = 0
-    .CellType = 9
+    ' FI2026 SHG - CellType (Spread) sin equivalente en MSFlexGrid
+    '.CellType = 9
     .BackColor = COLOR_07
-    .TypePictCenter = True
-    .TypePictStretch = True
-    .TypePictMaintainScale = True
-    .TypePictPicture = Tick.Picture
+    ' FI2026 SHG - TypePictCenter/Stretch/MaintainScale (Spread) sin equivalente en MSFlexGrid; revisar visualmente el ajuste del icono
+    '.TypePictCenter = True
+    '.TypePictStretch = True
+    '.TypePictMaintainScale = True
+    ' FI2026_TODO SHG - CellPictureAlignment comentada: no confirmado si existe en esta version de MSFLXGRD.OCX, revisar contra la VM antes de reactivar
+    '.CellPictureAlignment = 4 ' FI2026 - flexAlignCenterCenter, reemplaza TypePictCenter/Stretch/MaintainScale
+    Set .CellPicture = Tick.Picture ' FI2026 - TypePictPicture (Spread) -> CellPicture (MSFlexGrid)
     For i% = 1 To 3
       .Col = i%
       .BackColor = ColorFondo
@@ -929,7 +942,8 @@ Private Sub Form_Unload(Cancel As Integer)
   End If
   
 End Sub
-Private Sub GrillaProductos_DblClick(Col As Long, Row As Long)
+Private Sub GrillaProductos_DblClick()
+  ' FI2026 - DblClick(Col,Row) (Spread) -> DblClick() sin parametros en MSFlexGrid; Col/Row no se usaban en el cuerpo
   Call Visar_Click
 End Sub
 Private Sub GrillaProductos_KeyPress(KeyAscii As Integer)
@@ -940,14 +954,20 @@ Private Sub GrillaProductos_KeyPress(KeyAscii As Integer)
       Unload Me
   End Select
 End Sub
-Private Sub GrillaProductos_LeaveCell(Col As Long, Row As Long, NewCol As Long, NewRow As Long, Cancel As Integer)
-  If Row <> NewRow Then
+' FI2026 - LeaveCell(Col,Row,NewCol,NewRow,Cancel) (Spread) no existe en MSFlexGrid.
+' RowColChange() dispara despues de cualquier cambio de fila/columna; se compara
+' contra UltimaFilaGrillaProductos (fila previa) para reproducir el "If Row <> NewRow"
+' original y disparar la misma logica solo cuando cambia de FILA.
+Private Sub GrillaProductos_RowColChange()
+  If GrillaProductos.Row <> UltimaFilaGrillaProductos Then
     Call GrillaProductos_LostFocus
+    UltimaFilaGrillaProductos = GrillaProductos.Row
   End If
 End Sub
 Private Sub GrillaProductos_LostFocus()
   GrillaProductos.Col = 1
-  GrillaProductos.OperationMode = 2
+  ' FI2026 SHG - OperationMode (Spread) sin equivalente en MSFlexGrid
+  'GrillaProductos.OperationMode = 2
 End Sub
 
 Private Sub Rechazar_Click()
@@ -1028,12 +1048,16 @@ If Not Recorte Then
            Case "EE"
                 With Visando.GrillaProductos
                      .Col = 0
-                     .CellType = 9
+                     ' FI2026 SHG - CellType (Spread) sin equivalente en MSFlexGrid
+                     '.CellType = 9
                      .BackColor = COLOR_07
-                     .TypePictCenter = True
-                     .TypePictStretch = True
-                     .TypePictMaintainScale = True
-                     .TypePictPicture = Aprobado.Picture
+                     ' FI2026 SHG - TypePictCenter/Stretch/MaintainScale (Spread) sin equivalente en MSFlexGrid; revisar visualmente el ajuste del icono
+                     '.TypePictCenter = True
+                     '.TypePictStretch = True
+                     '.TypePictMaintainScale = True
+                     ' FI2026_TODO SHG - CellPictureAlignment comentada: no confirmado si existe en esta version de MSFLXGRD.OCX, revisar contra la VM antes de reactivar
+                     '.CellPictureAlignment = 4 ' FI2026 - flexAlignCenterCenter, reemplaza TypePictCenter/Stretch/MaintainScale
+                     Set .CellPicture = Aprobado.Picture ' FI2026 - TypePictPicture (Spread) -> CellPicture (MSFlexGrid)
                      For i% = 1 To 3
                        .Col = i%
                        .BackColor = COLOR_03
@@ -1050,19 +1074,24 @@ If Not Recorte Then
                      .Enabled = True
                      If .GrillaProductos.BackColor <> COLOR_04 Then
                         .GrillaProductos.Col = 1
-                        .GrillaProductos.OperationMode = 0
+                        ' FI2026 SHG - OperationMode (Spread) sin equivalente en MSFlexGrid
+                        '.GrillaProductos.OperationMode = 0
                      End If
                      .GrillaProductos.SetFocus
                  End With
            Case "RR"
                 With Visando.GrillaProductos
                      .Col = 0
-                     .CellType = 9
+                     ' FI2026 SHG - CellType (Spread) sin equivalente en MSFlexGrid
+                     '.CellType = 9
                      .BackColor = COLOR_07
-                     .TypePictCenter = True
-                     .TypePictStretch = True
-                     .TypePictMaintainScale = True
-                     .TypePictPicture = Rechazado.Picture
+                     ' FI2026 SHG - TypePictCenter/Stretch/MaintainScale (Spread) sin equivalente en MSFlexGrid; revisar visualmente el ajuste del icono
+                     '.TypePictCenter = True
+                     '.TypePictStretch = True
+                     '.TypePictMaintainScale = True
+                     ' FI2026_TODO SHG - CellPictureAlignment comentada: no confirmado si existe en esta version de MSFLXGRD.OCX, revisar contra la VM antes de reactivar
+                     '.CellPictureAlignment = 4 ' FI2026 - flexAlignCenterCenter, reemplaza TypePictCenter/Stretch/MaintainScale
+                     Set .CellPicture = Rechazado.Picture ' FI2026 - TypePictPicture (Spread) -> CellPicture (MSFlexGrid)
                      For i% = 1 To 3
                        .Col = i%
                        .BackColor = COLOR_02
@@ -1079,7 +1108,8 @@ If Not Recorte Then
                      .Enabled = True
                      If .GrillaProductos.BackColor <> COLOR_04 Then
                         .GrillaProductos.Col = 1
-                        .GrillaProductos.OperationMode = 0
+                        ' FI2026 SHG - OperationMode (Spread) sin equivalente en MSFlexGrid
+                        '.GrillaProductos.OperationMode = 0
                      End If
                      .GrillaProductos.SetFocus
                  End With
