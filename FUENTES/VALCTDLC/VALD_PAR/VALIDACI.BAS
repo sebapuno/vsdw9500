@@ -212,8 +212,7 @@ Public Sub Valida_Num(Formato As String, DatoNum As String, NGlosa As String, NM
 
 Dim Numero As String
 Dim Entero As String
-Dim Decimal As String
-
+Dim ParteDecimal As String ' FI2026 - renombrada de 'Decimal': palabra reservada en VB6 32-bit
 '*Monto Max y Min   13 Enteros, 2 Decimales  (sin signo)
 
 If Mid$(Formato, 5, 1) = "P" Or InStr("+,-", Mid$(DatoNum, 1, 1)) > 0 Then
@@ -226,23 +225,23 @@ If Mid$(Formato, 5, 1) = "P" Or InStr("+,-", Mid$(DatoNum, 1, 1)) > 0 Then
   Entero = Mid$(DatoNum, 1, 1) + Entero
   
   If Val(Mid$(Formato, 3, 2)) > 0 Then
-    Decimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 2, Val(Mid$(Formato, 3, 2)))
+    ParteDecimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 2, Val(Mid$(Formato, 3, 2)))
   Else
-    Decimal = "0"
+    ParteDecimal = "0"
   End If
-  Decimal = Format$(Val(Decimal), String(2, "0"))
+  ParteDecimal = Format$(Val(ParteDecimal), String(2, "0"))
 
   
 Else
   Entero = Mid$(DatoNum, 1, Val(Mid$(Formato, 1, 2)))
   Entero = Format$(Val(Entero), String(13, "0"))
       
-  Decimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 1, Val(Mid$(Formato, 3, 2)))
-  Decimal = Format$(Val(Decimal), String(2, "0"))
+  ParteDecimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 1, Val(Mid$(Formato, 3, 2)))
+  ParteDecimal = Format$(Val(ParteDecimal), String(2, "0"))
   
 End If
 
-Numero = Entero + Decimal
+Numero = Entero + ParteDecimal
 
 If Val(NMax) > 0 Or Val(NMin) > 0 Then
   If Val(Numero) > Val(NMax) Or Val(Numero) < Val(NMin) Then

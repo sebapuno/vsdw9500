@@ -1,4 +1,8 @@
 Attribute VB_Name = "Vld2RF01"
+' FI2026 - APIs Win32 que usa WaitProcess (reemplazo de GetModuleUsage, API Win16)
+Private Declare Function OpenProcess Lib "KERNEL32.DLL" (ByVal dwAccess As Long, ByVal fInherit As Long, ByVal hObject As Long) As Long
+Private Declare Function WaitForSingleObject Lib "KERNEL32.DLL" (ByVal hHandle As Long, ByVal dwMilliseconds As Long) As Long
+Private Declare Function CloseHandle Lib "KERNEL32.DLL" (ByVal hObject As Long) As Long
 ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
 'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
 Declare Function SetWindowPos Lib "USER32.DLL" (ByVal h&, ByVal hb%, ByVal x&, ByVal y&, ByVal cx%, ByVal cy%, ByVal f&) As Long

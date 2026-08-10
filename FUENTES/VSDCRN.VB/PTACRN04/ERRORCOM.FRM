@@ -17,142 +17,495 @@ Begin VB.Form ErrorComunicacion
    ShowInTaskbar   =   0   'False
    Top             =   2280
    Width           =   7440
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
    Begin Threed.SSPanel NombreAplicacion 
       Height          =   300
       Left            =   1815
       TabIndex        =   19
       Top             =   3330
-      Width           =   1
+      Width           =   5400
+      _version        =   65536
+      _extentx        =   9525
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
+      alignment       =   1
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
+      Index           =   8
       Left            =   90
       TabIndex        =   18
       Top             =   3330
-      Width           =   1
+      Width           =   1635
+      _version        =   65536
+      _extentx        =   2884
+      _extenty        =   450
+      _stockprops     =   15
+      caption         =   "Aplicación"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   1
+      autosize        =   3
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
+      Index           =   0
       Left            =   90
       TabIndex        =   15
       Top             =   1725
-      Width           =   1
+      Width           =   1380
+      _version        =   65536
+      _extentx        =   2434
+      _extenty        =   450
+      _stockprops     =   15
+      caption         =   "LLave Acceso"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   1
+      autosize        =   2
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   1140
+      Index           =   1
       Left            =   195
       TabIndex        =   13
       Top             =   90
-      Width           =   1
+      Width           =   6915
+      _version        =   65536
+      _extentx        =   12197
+      _extenty        =   2011
+      _stockprops     =   15
+      caption         =   " Atención :"
+      forecolor       =   192
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelinner      =   1
+      font3d          =   1
+      alignment       =   0
+      Begin VB.Label Mensaje 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            name            =   "MS Sans Serif"
+            charset         =   1
+            weight          =   400
+            size            =   9.75
+            underline       =   0   'False
+            italic          =   0   'False
+            strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   765
+         Left            =   200
+         TabIndex        =   14
+         Top             =   300
+         Width           =   6550
+         WordWrap        =   -1  'True
+      End
    End
-   End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Llave 
       Height          =   300
       Left            =   1815
       TabIndex        =   12
       Top             =   1725
-      Width           =   1
+      Width           =   5400
+      _version        =   65536
+      _extentx        =   9525
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
+      alignment       =   1
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
+      Index           =   3
       Left            =   90
       TabIndex        =   11
       Top             =   2115
-      Width           =   1
+      Width           =   1470
+      _version        =   65536
+      _extentx        =   2593
+      _extenty        =   450
+      _stockprops     =   15
+      caption         =   "Retorno SRM"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   0
+      autosize        =   3
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel RetFuncion 
       Height          =   300
       Left            =   1815
       TabIndex        =   10
       Top             =   2115
-      Width           =   1
+      Width           =   5400
+      _version        =   65536
+      _extentx        =   9525
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
+      alignment       =   1
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
+      Index           =   5
       Left            =   90
       TabIndex        =   9
       Top             =   2505
-      Width           =   1
+      Width           =   915
+      _version        =   65536
+      _extentx        =   1614
+      _extenty        =   450
+      _stockprops     =   15
+      caption         =   "Status"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   1
+      autosize        =   2
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Status 
       Height          =   300
       Left            =   1815
       TabIndex        =   8
       Top             =   2505
-      Width           =   1
+      Width           =   5400
+      _version        =   65536
+      _extentx        =   9525
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
+      alignment       =   1
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
+      Index           =   7
       Left            =   90
       TabIndex        =   7
       Top             =   2925
-      Width           =   1
+      Width           =   1635
+      _version        =   65536
+      _extentx        =   2884
+      _extenty        =   450
+      _stockprops     =   15
+      caption         =   "Servidor de Datos"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   1
+      autosize        =   3
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel ServidorDatos 
       Height          =   300
       Left            =   1815
       TabIndex        =   6
       Top             =   2925
-      Width           =   1
+      Width           =   5400
+      _version        =   65536
+      _extentx        =   9525
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
+      alignment       =   1
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Nodo 
       Height          =   300
       Left            =   1500
       TabIndex        =   5
       Top             =   1305
-      Width           =   1
+      Width           =   615
+      _version        =   65536
+      _extentx        =   1085
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   255
+      Index           =   2
       Left            =   90
       TabIndex        =   4
       Top             =   1305
-      Width           =   1
+      Width           =   1335
+      _version        =   65536
+      _extentx        =   2355
+      _extenty        =   450
+      _stockprops     =   15
+      caption         =   "Nodo Destino"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   1
+      autosize        =   3
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Servidor 
       Height          =   300
       Left            =   3180
       TabIndex        =   3
       Top             =   1305
-      Width           =   1
+      Width           =   615
+      _version        =   65536
+      _extentx        =   1085
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   300
+      Index           =   4
       Left            =   2190
       TabIndex        =   2
       Top             =   1305
-      Width           =   1
+      Width           =   915
+      _version        =   65536
+      _extentx        =   1614
+      _extenty        =   529
+      _stockprops     =   15
+      caption         =   "Servidor"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   1
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Operacion 
       Height          =   300
       Left            =   4920
       TabIndex        =   1
       Top             =   1305
-      Width           =   1
+      Width           =   2280
+      _version        =   65536
+      _extentx        =   4022
+      _extenty        =   529
+      _stockprops     =   15
+      forecolor       =   128
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   700
+         size            =   8.25
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      bevelinner      =   1
+      font3d          =   3
+      alignment       =   1
    End
-   ' FI2026 - VBX.SSPanel migrado a Threed.SSPanel (THREED32.OCX)
+
    Begin Threed.SSPanel Panel3D1 
       Height          =   300
+      Index           =   6
       Left            =   3870
       TabIndex        =   0
       Top             =   1305
-      Width           =   1
+      Width           =   1005
+      _version        =   65536
+      _extentx        =   1773
+      _extenty        =   529
+      _stockprops     =   15
+      caption         =   "Operación"
+      forecolor       =   0
+      BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
+         name            =   "MS Sans Serif"
+         charset         =   1
+         weight          =   400
+         size            =   9.75
+         underline       =   0   'False
+         italic          =   0   'False
+         strikethrough   =   0   'False
+      EndProperty
+      borderwidth     =   1
+      bevelouter      =   0
+      font3d          =   2
+      alignment       =   1
    End
 
    Begin Threed.SSCommand Imprimir 

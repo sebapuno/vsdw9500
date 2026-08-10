@@ -1,4 +1,8 @@
 Attribute VB_Name = "Srm_Vsd"
+' FI2026 - APIs Win32 que usa WaitProcess (reemplazo de GetModuleUsage, API Win16)
+Private Declare Function OpenProcess Lib "KERNEL32.DLL" (ByVal dwAccess As Long, ByVal fInherit As Long, ByVal hObject As Long) As Long
+Private Declare Function WaitForSingleObject Lib "KERNEL32.DLL" (ByVal hHandle As Long, ByVal dwMilliseconds As Long) As Long
+Private Declare Function CloseHandle Lib "KERNEL32.DLL" (ByVal hObject As Long) As Long
 ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)
 'Declare Function AisGetUsr Lib \"...WAIS.DLL\" As Integer
 Declare Function GetPrivateProfileString Lib "KERNEL32.DLL" Alias "GetPrivateProfileStringA" (ByVal lpApplicationName As String, lpKeyName As Any, ByVal lpDefault As String, ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long

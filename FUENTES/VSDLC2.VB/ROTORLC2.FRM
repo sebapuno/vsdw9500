@@ -139,7 +139,7 @@ Dim PosicionComa As Integer
 End Function
 Private Function ColocarSeparadorDeMiles(ByVal Numero As String) As String
 Dim Entero As String
-Dim Decimal As String
+Dim ParteDecimal As String ' FI2026 - renombrada de 'Decimal': palabra reservada en VB6 32-bit
 Dim Cantidad As String
 Dim PosicionComa As Integer
   Numero = Trim$(Numero)
@@ -151,7 +151,7 @@ Dim PosicionComa As Integer
   End If
   PosicionComa = InStr(Numero, ",")
   Entero = Mid$(Numero, 1, PosicionComa - 1)
-  Decimal = Mid$(Numero, PosicionComa + 1)
+  ParteDecimal = Mid$(Numero, PosicionComa + 1)
   Cantidad = ""
   For I% = 1 To Len(Entero)
     Cantidad = Mid$(Numero, Len(Entero) + 1 - I%, 1) + Cantidad
@@ -162,7 +162,7 @@ Dim PosicionComa As Integer
   If Mid$(Cantidad, 1, 1) = "." Then
     Cantidad = Mid$(Cantidad, 2)
   End If
-  ColocarSeparadorDeMiles = Cantidad + "," + Decimal
+  ColocarSeparadorDeMiles = Cantidad + "," + ParteDecimal
 End Function
 Private Function PoneValorINI(Grupo As String, Titulo As String, palabra As String, NombreArchivo As String) As Integer
 Dim Ret As Integer

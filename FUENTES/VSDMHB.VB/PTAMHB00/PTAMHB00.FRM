@@ -520,7 +520,7 @@ Next I
 End Sub
 Public Function ColocarSeparadorDeMiles(ByVal Numero As String) As String
 Dim Entero As String
-Dim Decimal As String
+Dim ParteDecimal As String ' FI2026 - renombrada de 'Decimal': palabra reservada en VB6 32-bit
 Dim Cantidad As String
 Dim PosicionComa As Integer
 
@@ -537,7 +537,7 @@ PosicionComa = InStr(Numero, ",")
   
 If PosicionComa > 0 Then
   Entero = Mid$(Numero, 1, PosicionComa - 1)
-  Decimal = Mid$(Numero, PosicionComa + 1)
+  ParteDecimal = Mid$(Numero, PosicionComa + 1)
   Cantidad = ""
   For I% = 1 To Len(Entero)
     Cantidad = Mid$(Numero, Len(Entero) + 1 - I%, 1) + Cantidad
@@ -548,7 +548,7 @@ If PosicionComa > 0 Then
   If Mid$(Cantidad, 1, 1) = "." Then
     Cantidad = Mid$(Cantidad, 2)
   End If
-  ColocarSeparadorDeMiles = Cantidad + "," + Decimal
+  ColocarSeparadorDeMiles = Cantidad + "," + ParteDecimal
 Else
   ColocarSeparadorDeMiles = Format$(Val(Numero), "###,###,###,###,##0")
 End If

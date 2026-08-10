@@ -212,7 +212,7 @@ Public Sub Valida_Num(Formato As String, NDat As String, NIni As Integer, NLargo
 
 Dim Numero As String
 Dim Entero As String
-Dim Decimal As String
+Dim ParteDecimal As String ' FI2026 - renombrada de 'Decimal': palabra reservada en VB6 32-bit
 Dim ConSigno As Boolean
 Dim DatoNum As String
 
@@ -231,19 +231,19 @@ If (Len(DatoNum) >= Val(NLargo)) Then
     Entero = Mid$(DatoNum, 2, Val(Mid$(Formato, 1, 2)))
     Entero = Format$(Val(Entero), String(13, "0"))
    
-    Decimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 2, Val(Mid$(Formato, 3, 2)))
-    Decimal = Format$(Val(Decimal), String(2, "0"))
+    ParteDecimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 2, Val(Mid$(Formato, 3, 2)))
+    ParteDecimal = Format$(Val(ParteDecimal), String(2, "0"))
   
   Else
     Entero = Mid$(DatoNum, 1, Val(Mid$(Formato, 1, 2)))
     Entero = Format$(Val(Entero), String(13, "0"))
         
-    Decimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 1, Val(Mid$(Formato, 3, 2)))
-    Decimal = Format$(Val(Decimal), String(2, "0"))
+    ParteDecimal = Mid$(DatoNum, Val(Mid$(Formato, 1, 2)) + 1, Val(Mid$(Formato, 3, 2)))
+    ParteDecimal = Format$(Val(ParteDecimal), String(2, "0"))
     
   End If
   
-  Numero = Entero + Decimal
+  Numero = Entero + ParteDecimal
 
   If Val(Numero) > Val(NMax) Or Val(Numero) < Val(NMin) Then
      Call IngresaError(Str(NIni), DatoNum, NGlosa)
