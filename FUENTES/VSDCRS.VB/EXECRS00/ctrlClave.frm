@@ -127,7 +127,7 @@ Begin VB.Form ctrclave
       Begin VB.Image Image2 
          Height          =   600
          Left            =   480
-         ' FI2026 - Picture eliminado: ctrlClave.frx no disponible
+         ' FI2026 - Picture eliminado: ctrclave.frx no disponible
          Stretch         =   -1  'True
          Top             =   600
          Width           =   585
@@ -295,7 +295,7 @@ Begin VB.Form ctrclave
       Begin VB.Image Image1 
          Height          =   720
          Left            =   360
-         ' FI2026 - Picture eliminado: ctrlClave.frx no disponible
+         ' FI2026 - Picture eliminado: ctrclave.frx no disponible
          Stretch         =   -1  'True
          Top             =   360
          Width           =   705

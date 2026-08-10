@@ -124,7 +124,7 @@ Dim FiltroVsdPrd As Recordset
 End Sub
 Private Function ObtieneRutUsuarioLogueado() As String
   TIPO_RUT = 0
-  ctrlClave.Show 1
+  ctrclave.Show 1
   If Not RET_ACCESO Then End
   ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
 End Function
