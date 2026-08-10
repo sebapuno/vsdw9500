@@ -2,3 +2,6 @@
 bin/
 *.exe
 *.EXE
+
+# ...salvo el entregable de 32 bits, que SI se versiona
+!PRODUCTO/BIN32/S/*.EXE
