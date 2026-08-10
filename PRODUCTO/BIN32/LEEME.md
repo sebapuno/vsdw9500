@@ -6,7 +6,7 @@ siendo el entregable de 16 bits en producción.
 
 ## Qué hay acá
 
-- **154 ejecutables** de 32 bits, uno por `.VBP` compilado con éxito.
+- **155 ejecutables** de 32 bits, uno por `.VBP` compilado con éxito.
 - 138 de ellos tienen su equivalente en el entregable actual (`PRODUCTO/BIN/S/`)
   y son los que lo reemplazarían.
 - 16 no figuran en el entregable actual: se compilan desde el repo pero su `.EXE`
@@ -18,7 +18,11 @@ siendo el entregable de 16 bits en producción.
   mayoría no tiene código fuente en este repo: `PRODUCTO/BIN/S` corresponde a
   `C:\Bin\S\` de la estación, que junta ejecutables de varios sistemas del banco.
   Confirmar con el responsable del paquete cuáles deben salir de acá.
-- 22 `.VBP` de `FUENTES/` todavía no compilan (ver el estado en el commit).
+- **13 `.VBP` de `FUENTES/` todavía no compilan** (de 177 compilables). Se agrupan
+  en pocas causas: 4 comparten `RUTINAS.BAS`, 3 son de `VALCTDLC`, 2 dan
+  `Wrong number of arguments`, 2 son `PTACRN04`/`PTACRS04` y 2 `VSDVL3CR`.
+- Aparte, 2 `.VBP` (`GES_1C2`, `GES_3GR`) son **huérfanos sin código fuente** en
+  el repo y su `.EXE` no está en el entregable: quedan fuera de alcance.
 
 ## RESERVA IMPORTANTE sobre estos binarios
 
