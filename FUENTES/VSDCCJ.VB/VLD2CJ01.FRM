@@ -74,18 +74,18 @@ Dim AplicacionDestino As String * 4
     If Mid$(CadenaDatos, 1, 6) = "000000" Then
       If (Mid$(CadenaDatos, 70, 8) = "00000000") And (InStr("03,05", Mid$(CadenaDatos, 23, 2)) <> 0) Then
         MsgBox "La Cuenta Juvenil Asociada" + Chr(10) + _
-                      "al Producto Ya EstÃ¡ Cerrada", 0 + 16, "Problemas de ValidaciÃ³n"
+                      "al Producto Ya Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
       Else
         ExisteCuenta = True
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
         MsgBox "No Existe la Cuenta Corriente" + Chr(10) + _
-                      "Juvenil Asociada al Producto", 0 + 16, "Problemas de ValidaciÃ³n"
+                      "Juvenil Asociada al Producto", 0 + 16, "Problemas de Validaci�n"
       End If
     End If
   Else
-    MsgBox "Vista NÂº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String

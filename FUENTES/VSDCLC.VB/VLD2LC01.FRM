@@ -76,25 +76,25 @@ Dim AplicacionDestino As String * 4
       CadenaDatos = Mid$(CadenaDatos, 16)
       If Llave = Mid$(CadenaDatos, 1, 11) Then
         If Mid$(CadenaDatos, 170, 1) <> " " And Mid$(CadenaDatos, 170, 1) <> "0" Then
-          MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "La L�nea de Cr�dito Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
         Else
           If Mid$(CadenaDatos, 173, 1) = "4" Then
-            MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                          "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "La L�nea de Cr�dito Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                          "Problemas de Validaci�n"
           Else
             ObtieneInformacion = True
           End If
         End If
       Else
-        MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
-        MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String

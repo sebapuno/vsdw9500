@@ -21,8 +21,8 @@ Begin VB.Form Principal
       TabIndex        =   0
       Top             =   45
       Width           =   3210
-      Cols            =   2
-      Rows            =   2
+      Cols            =   1
+      Rows            =   1
       ScrollBars      =   2  'flexScrollBarVertical
       SelectionMode   =   1  'flexSelectionByRow
    End
@@ -58,7 +58,11 @@ Dim Respuesta As Integer
   If Not App.PrevInstance Then
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     DataIni = SacaValorINI("Parametros", "LlaveVisad", DIRECTORIO_01 + ARCHIVO_INI01)
-    GrillaProducto.Cols = 4
+    GrillaProducto.Cols = 5
+    ' FI2026 - el Spread original no mostraba encabezados (DisplayColHeaders=0):
+    ' MSFlexGrid siempre reserva la fila/columna 0, se ocultan con tamano 0
+    GrillaProducto.RowHeight(0) = 0
+    GrillaProducto.ColWidth(0) = 0
     Call LlenadoGrillaProducto
     Call LlenarArchivoTexto
     Respuesta = PoneValorINI("Parametros", "Retorno", "OK", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -111,8 +115,8 @@ Dim LargoD As String
   End If
   Set FiltroTabDesp = BaseVisado.OpenRecordset("SELECT * FROM Tab_Desp WHERE Desp_Prod='3CP';")
   While Not FiltroTabDesp.EOF
-    If FiltroTabDesp("Desp_Fil") > GrillaProducto.Rows Then
-      GrillaProducto.Rows = FiltroTabDesp("Desp_Fil")
+    If FiltroTabDesp("Desp_Fil") > GrillaProducto.Rows - 1 Then
+      GrillaProducto.Rows = FiltroTabDesp("Desp_Fil") + 1
     End If
     GrillaProducto.Col = FiltroTabDesp("Desp_Col")
     GrillaProducto.Row = FiltroTabDesp("Desp_Fil")
@@ -132,24 +136,24 @@ Dim LargoD As String
   GrillaProducto.Col = 1
   GrillaProducto.Row = GrillaProducto.Rows - 1
   GrillaProducto.Text = "DIRECCION LEGAL"
-  GrillaProducto.Row = GrillaProducto.Rows
-  GrillaProducto.Text = "DirecciÃƒÂ³n"
+  GrillaProducto.Row = GrillaProducto.Rows - 1
+  GrillaProducto.Text = "Direcci�n"
   LargoD = Str(Len(Encabezado + "LGL" + "CTD" + NumeroCuenta))
   Set p_VsdPrd = BaseVisado.OpenRecordset("Select * From VSD_PRD Where Prd_RutCli='" + Mid$(DataIni, 51, 10) + "' And " + _
                  "Mid$(Prd_Data, 1," + LargoD + ")='" + Encabezado + "LGLCTD" + NumeroCuenta + "'", dbOpenDynaset)
   
   If p_VsdPrd.RecordCount > 0 Then
     GrillaProducto.Col = 2
-    GrillaProducto.Row = GrillaProducto.Rows
+    GrillaProducto.Row = GrillaProducto.Rows - 1
     GrillaProducto.Text = Mid$(p_VsdPrd!Prd_Data, 73, 50)
     GrillaProducto.Col = 3
     GrillaProducto.Text = "Comuna"
     GrillaProducto.Col = 4
     GrillaProducto.Text = Busca_NomCom(Mid$(p_VsdPrd!Prd_Data, 123, 5))
     GrillaProducto.Rows = GrillaProducto.Rows + 1
-    GrillaProducto.Row = GrillaProducto.Rows
+    GrillaProducto.Row = GrillaProducto.Rows - 1
     GrillaProducto.Col = 1
-    GrillaProducto.Text = "TelÃƒÂ©fono"
+    GrillaProducto.Text = "Tel�fono"
     GrillaProducto.Col = 2
     GrillaProducto.Text = IIf(Val(Mid$(p_VsdPrd!Prd_Data, 138, 12)) > 0, Format$(Mid$(p_VsdPrd!Prd_Data, 138, 12), "0"), "")
   End If
@@ -192,14 +196,14 @@ Dim I As Integer
 Dim J As Integer
 Dim Linea As String
   Open DIRECTORIO_01 + ARCHIVO_TXT01 For Output As #1
-  For I = 1 To GrillaProducto.Rows
+  For I = 1 To GrillaProducto.Rows - 1
     Linea = ""
     GrillaProducto.Row = I
-    For J = 1 To GrillaProducto.Cols
+    For J = 1 To GrillaProducto.Cols - 1
       GrillaProducto.Col = J
-      Linea = Linea + Trim$(GrillaProducto.Text) + "Ã‚Â¬"
+      Linea = Linea + Trim$(GrillaProducto.Text) + "�"
     Next J
-    Do While Mid$(Linea, Len(Linea), 1) = "Ã‚Â¬"
+    Do While Mid$(Linea, Len(Linea), 1) = "�"
       Linea = Mid$(Linea, 1, Len(Linea) - 1)
       If Len(Linea) = 0 Then
         Exit Do
@@ -216,7 +220,7 @@ Dim FiltroVsdPrd  As Recordset
   Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT * FROM Vsd_Prd WHERE " + _
                                                  "Mid$(Prd_Data, " + Posicion + ", " + Largo + ")='" + PatronBusqueda + "';", dbOpenSnapshot)
   If FiltroVsdPrd.RecordCount > 0 Then
-    DataPatron = FiltroVsdPrd("Prd_Data", dbOpenSnapshot)
+    DataPatron = FiltroVsdPrd("Prd_Data")  ' FI2026 - se saca el dbOpenSnapshot que un --autofix pego al acceso al campo
     ProductoAsociadoEncontrado = True
   End If
   FiltroVsdPrd.Close

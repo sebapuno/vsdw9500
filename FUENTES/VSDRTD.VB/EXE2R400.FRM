@@ -180,7 +180,7 @@ Dim Dataini As String
          End If
          
        Else
-         MsgBox "No se encuentra registro 2R4 en tabla tab_prd (visado.mdb)", 16, "No se puede realizar operaciÃƒÆ’Ã‚Â³n."
+         MsgBox "No se encuentra registro 2R4 en tabla tab_prd (visado.mdb)", 16, "No se puede realizar operaci�n."
        End If
        PunteroTabPrd.Close
   

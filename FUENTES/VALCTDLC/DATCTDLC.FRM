@@ -2,7 +2,7 @@ VERSION 4.00
 Begin VB.Form Frm_BajCTD 
    BackColor       =   &H00808000&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ActualizaciÃ³n de ParÃ¡metros CTD LCD "
+   Caption         =   "Actualización de Parámetros CTD LCD "
    ClientHeight    =   900
    ClientLeft      =   3120
    ClientTop       =   3405
@@ -91,8 +91,8 @@ End
 
 ErrorBajada:
 
-MsgBox "Se produjo un error durante la actualizaciÃ³n de datos." + Chr(10) + Chr(10) + _
-       Str(Err.Number) + Space(2) + Err.Description, 16, "Problema en Tabla de ValidaciÃ³n"
+MsgBox "Se produjo un error durante la actualización de datos." + Chr(10) + Chr(10) + _
+       Str(Err.Number) + Space(2) + Err.Description, 16, "Problema en Tabla de Validación"
 
 BaseVisado.Close
 BaseEnvioSRM.Close
@@ -132,7 +132,7 @@ Dim HaydatoS As Boolean
       
     Loop
   Else
-    MsgBox "Vista NÂº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista Nº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 
 

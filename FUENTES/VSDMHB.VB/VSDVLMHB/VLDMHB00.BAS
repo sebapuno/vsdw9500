@@ -18,7 +18,7 @@ Public Const SINNODO = "NO ACTIVAR"
 Public Const EJECUTABLE = "VSDVL???.EXE"
 Public Const RUTDEFECTO = "12345678"
 Public Const NODOREGIONAL = "SRM_NS"
-Public Const PRODUCTOACCESADO = "(MHB) MAC HistÃ³rico Empresas B"
+Public Const PRODUCTOACCESADO = "(MHB) MAC Hist�rico Empresas B"
 Public Const AMBIENTEDESARROLLO = "DESA"
 
 Global Rut As String

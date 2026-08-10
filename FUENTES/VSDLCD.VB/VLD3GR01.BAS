@@ -18,7 +18,7 @@ Public Const SINNODO = "Quedate Piola"
 Public Const EJECUTABLE = "VSDVL???.EXE"
 Public Const RUTDEFECTO = "12345678"
 Public Const NODOREGIONAL = "SRM_NS"
-Public Const PRODUCTOACCESADO = "(LCE) LÃ­nea de CrÃ©dito Empresa"
+Public Const PRODUCTOACCESADO = "(LCE) L�nea de Cr�dito Empresa"
 Public Const AMBIENTEDESARROLLO = "DESA"
 
 

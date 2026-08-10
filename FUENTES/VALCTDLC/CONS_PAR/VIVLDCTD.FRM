@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form VisorValidaciones 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Imprimir Validaciones Cuenta Corriente y L√≠nea de Cr√©dito"
+   Caption         =   "Imprimir Validaciones Cuenta Corriente y LÌnea de CrÈdito"
    ClientHeight    =   5370
    ClientLeft      =   1125
    ClientTop       =   1710
@@ -46,8 +46,8 @@ Begin VB.Form VisorValidaciones
          TabIndex        =   6
          Top             =   450
          Width           =   9105
-         Cols            =   2
-         Rows            =   2
+         Cols            =   7
+         Rows            =   1
          ScrollBars      =   2  'flexScrollBarVertical
          SelectionMode   =   1  'flexSelectionByRow
       End
@@ -62,7 +62,7 @@ Begin VB.Form VisorValidaciones
          _extentx        =   11033
          _extenty        =   1746
          _stockprops     =   14
-         caption         =   "Selecci√≥n a Desplegar"
+         caption         =   "SelecciÛn a Desplegar"
          forecolor       =   0
          BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
             name            =   "MS Sans Serif"
@@ -176,7 +176,7 @@ Begin VB.Form VisorValidaciones
             _extentx        =   2275
             _extenty        =   423
             _stockprops     =   15
-            caption         =   "Operaci√≥n"
+            caption         =   "OperaciÛn"
             forecolor       =   -2147483630
             backcolor       =   13160660
             BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
@@ -257,7 +257,7 @@ Begin VB.Form VisorValidaciones
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "Categor√≠a"
+         Caption         =   "CategorÌa"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   0
@@ -296,7 +296,7 @@ Begin VB.Form VisorValidaciones
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "Posici√≥n"
+         Caption         =   "PosiciÛn"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   4
@@ -322,7 +322,7 @@ Begin VB.Form VisorValidaciones
       Begin VB.Label Titulo 
          Alignment       =   2  'Center
          BackColor       =   &H00800000&
-         Caption         =   "Descripci√≥n"
+         Caption         =   "DescripciÛn"
          ForeColor       =   &H00FFFFFF&
          Height          =   225
          Index           =   3
@@ -406,7 +406,7 @@ BaseEnvioSRM.Close
 BaseVldCta.Close
 
 
-MsgBox "Tablas Actualizadas en forma exitosa.", 64, "Actualizaci√≥n Tablas de Par√°metros"
+MsgBox "Tablas Actualizadas en forma exitosa.", 64, "ActualizaciÛn Tablas de Par·metros"
 
 Screen.MousePointer = 0
 
@@ -426,7 +426,7 @@ Dim PuntVld As Recordset
 
 Screen.MousePointer = 11
 
-Grilla.Rows = 0
+Grilla.Rows = 1
 
 Tabla = IIf(UCase(cb_Orig.Text) = "METRO", "Tbl_ValMet", "Tbl_ValReg")
 TipoProd = IIf(UCase(cb_Prod.Text) = "CUENTA CORRIENTE", "0", "1")
@@ -436,9 +436,9 @@ Select Case UCase(cb_Oper.Text)
         CodOper = "0" 'OPER_APERTURA   ' 0
      Case "CIERRE"
         CodOper = "1" 'OPER_CIERRE   ' 1
-     Case "RENOVACI√ìN"
+     Case "RENOVACI”N"
         CodOper = "2" 'OPER_RENOVACION   ' 2
-     Case "MODIFICACI√ìN"
+     Case "MODIFICACI”N"
         CodOper = "3" 'OPER_MODIFICACION   ' 3
   End Select
 
@@ -452,7 +452,7 @@ If PuntVld.RecordCount > 0 Then
    
   For j% = 1 To PuntVld.RecordCount
     Grilla.Rows = Grilla.Rows + 1
-    Grilla.Row = Grilla.Rows
+    Grilla.Row = Grilla.Rows - 1
     Grilla.Col = 1
     Grilla.Text = PuntVld!Ctd_Categ
     Grilla.Col = 2
@@ -495,7 +495,7 @@ End Sub
 
 Private Sub cb_Oper_Click()
 
-Grilla.Rows = 0
+Grilla.Rows = 1
 
 End Sub
 
@@ -510,7 +510,7 @@ End Sub
 
 Private Sub cb_Orig_Click()
 
-Grilla.Rows = 0
+Grilla.Rows = 1
 
 End Sub
 
@@ -525,7 +525,7 @@ End Sub
 
 Private Sub cb_Prod_Click()
 
-Grilla.Rows = 0
+Grilla.Rows = 1
 
 End Sub
 
@@ -545,19 +545,26 @@ Dim Success As Integer
 Screen.MousePointer = 11
   
 If Dir("C:\DATA\VISADO\VALCTDLC.MDB") <> "VALCTDLC.MDB" Then
-     MsgBox "No se encontr√≥ la base de datos VALCTDLC.MDB", 16, "Archivo no encontrado"
+     MsgBox "No se encontrÛ la base de datos VALCTDLC.MDB", 16, "Archivo no encontrado"
      Screen.MousePointer = 0
      Exit Sub
 End If
   
-Grilla.Cols = 6
-Grilla.ColWidth(1) = 6.5
-Grilla.ColWidth(2) = 7
-Grilla.ColWidth(3) = 37.4
-Grilla.ColWidth(4) = 7.1
-Grilla.ColWidth(5) = 7.1
-Grilla.ColWidth(6) = 7.6
+Grilla.Cols = 7
   
+' FI2026 - el Spread original no mostraba encabezados (DisplayColHeaders=0):
+  
+' MSFlexGrid siempre reserva la fila/columna 0, se ocultan con tamano 0
+  
+Grilla.RowHeight(0) = 0
+  
+Grilla.ColWidth(0) = 0
+Grilla.ColWidth(1) = 780  ' FI2026 - eran 6.5 caracteres (Spread)
+Grilla.ColWidth(2) = 840  ' FI2026 - eran 7 caracteres (Spread)
+Grilla.ColWidth(3) = 4488  ' FI2026 - eran 37.4 caracteres (Spread)
+Grilla.ColWidth(4) = 852  ' FI2026 - eran 7.1 caracteres (Spread)
+Grilla.ColWidth(5) = 852  ' FI2026 - eran 7.1 caracteres (Spread)
+Grilla.ColWidth(6) = 912  ' FI2026 - eran 7.6 caracteres (Spread)
 cb_Prod.ListIndex = 0
 cb_Oper.ListIndex = 0
 cb_Orig.ListIndex = 0
@@ -578,12 +585,13 @@ Dim FilaGrid As Integer
 
   Screen.MousePointer = 11
   
-If Grilla.Rows > 0 Then
+If Grilla.Rows > 1 Then ' FI2026 - 'hay datos': era .MaxRows > 0
   
-  If Grilla.Rows Mod 55 = 0 Then
-     TotPag = Grilla.Rows \ 55
+  ' FI2026 - (.Rows - 1) = cantidad de filas de datos (era .MaxRows)
+If (Grilla.Rows - 1) Mod 55 = 0 Then
+     TotPag = Grilla.Rows - 1 \ 55
   Else
-     TotPag = (Grilla.Rows \ 55) + 1
+     TotPag = ((Grilla.Rows - 1) \ 55) + 1 ' FI2026 - era .MaxRows
   End If
   FilaGrid = 0
   PagActual = 1
@@ -597,7 +605,7 @@ If Grilla.Rows > 0 Then
   Printer.Print
   Printer.FontUnderline = True
   Printer.FontBold = True
-  Printer.Print Tab(6); "TABLA DE PAR√ÅMETROS - VALIDACI√ìN CUENTA CORRIENTE Y L√çNEA DE CR√âDITO "
+  Printer.Print Tab(6); "TABLA DE PAR¡METROS - VALIDACI”N CUENTA CORRIENTE Y LÕNEA DE CR…DITO "
   Printer.FontUnderline = False
   
   Printer.FontSize = "10"
@@ -611,7 +619,7 @@ If Grilla.Rows > 0 Then
   Printer.Print UCase(cb_Prod.Text) + Space(4);
   Printer.FontBold = False
   
-  Printer.Print "Operaci√≥n : ";
+  Printer.Print "OperaciÛn : ";
   
   Printer.FontBold = True
   Printer.Print UCase(cb_Oper.Text) + Space(4);
@@ -627,10 +635,10 @@ If Grilla.Rows > 0 Then
   Printer.Print
   Printer.FontSize = "10"
   Printer.Print Tab(7); String(87, "-")
-  Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI√ìN"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
+  Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI”N"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
   Printer.Print Tab(7); String(87, "-")
   
-  For I = 1 To Grilla.Rows
+  For I = 1 To Grilla.Rows - 1
     FilaGrid = FilaGrid + 1
     Grilla.Row = I
     
@@ -654,7 +662,7 @@ If Grilla.Rows > 0 Then
     
     Printer.Print Tab(7); Cadena
     
-    If FilaGrid = 55 And Grilla.Row < Grilla.Rows Then
+    If FilaGrid = 55 And Grilla.Row < Grilla.Rows - 1 Then
         Printer.EndDoc
         PagActual = PagActual + 1
         FilaGrid = 0
@@ -665,15 +673,15 @@ If Grilla.Rows > 0 Then
         Printer.Print
         'Printer.FontUnderline = True
         'Printer.FontBold = True
-        'Printer.Print Tab(5); "TABLA DE PAR√ÅMETROS - VALIDACI√ìN CUENTA CORRIENTE Y L√çNEA DE CR√âDITO "
+        'Printer.Print Tab(5); "TABLA DE PAR¡METROS - VALIDACI”N CUENTA CORRIENTE Y LÕNEA DE CR…DITO "
         'Printer.FontUnderline = False
         'Printer.FontBold = False
         'Printer.Print
-        'Printer.Print Tab(5); "Producto : " + UCase(cb_Prod.Text) + Space(4) + "Operaci√≥n : " + UCase(cb_Oper.Text) + Space(4) + "Origen : " + UCase(cb_Orig.Text)
+        'Printer.Print Tab(5); "Producto : " + UCase(cb_Prod.Text) + Space(4) + "OperaciÛn : " + UCase(cb_Oper.Text) + Space(4) + "Origen : " + UCase(cb_Orig.Text)
         Printer.Print
         Printer.FontSize = "10"
         Printer.Print Tab(7); String(87, "-")
-        Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI√ìN"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
+        Printer.Print Tab(7); "CAT"; Tab(13); "ARGUM"; Tab(21); "DESCRIPCI”N"; Tab(73); "POS"; Tab(78); "LARGO"; Tab(85); "TIPO DATO"
         Printer.Print Tab(7); String(87, "-")
   
     End If

@@ -35,7 +35,7 @@ Dim NumError As String
   ErrorComunicacion.Llave.Caption = " " + Mid(Llave, 1, 50)
   ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones." + Chr(10) + _
                                       "Por favor Reporte esto a Central de Fallas (3030) " + _
-                                      "describiendo la siguiente informaciÃƒÂ³n."
+                                      "describiendo la siguiente informaci�n."
                                       
   ErrorComunicacion.Transaccion.Caption = " (" + Mid$(RetSRM, 1, 2) + ") " + Mensaje
                                       
@@ -54,7 +54,7 @@ End Sub
 
 Public Function Llamada(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String, ByVal Kilos As String) As String
 Dim Retorno As Integer
-Dim Sd_Largo As Integer
+Dim Sd_Largo As Long  ' FI2026 Integer->Long (Srmw32 32-bit recibe el largo ByRef)
 Dim Sd_Datos As String * 8000
 Dim Sd_Status As String * 2
 Dim Sd_Control As String * 10000
@@ -70,7 +70,7 @@ Dim Sd_Contexto As String * 2
   Sd_Datos = Sd_Usuario + Sd_Llave + Chr$(0)
   Sd_Contexto = "00"
   Sd_Status = "00"
-  Retorno = SRMW8(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
+  Retorno = Srmw32(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
   Sd_Status = Format$(Val(Sd_Status), "00")
   Sd_RetSRM = Mid$(Sd_Datos, 1, 2)
   Llamada = Format$(Retorno, "00") + Sd_Status + Sd_Datos
@@ -78,7 +78,7 @@ End Function
 
 Public Function Llamada_ConReintentar(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String) As String
 Dim Retorno As Integer
-Dim Sd_Largo As Integer
+Dim Sd_Largo As Long  ' FI2026 Integer->Long (Srmw32 32-bit recibe el largo ByRef)
 Dim Sd_Datos As String * 8000
 Dim Sd_Status As String * 2
 Dim Sd_Control As String * 10000
@@ -97,7 +97,7 @@ Dim Reintentar As Boolean
   Reintentar = True
   
   Do While Reintentar
-    Retorno = SRMW8(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
+    Retorno = Srmw32(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
     Sd_Status = Format$(Val(Sd_Status), "00")
     Sd_RetSRM = Mid$(Sd_Datos, 1, 2)
     Llamada_ConReintentar = Format$(Retorno, "00") + Sd_Status + Sd_Datos

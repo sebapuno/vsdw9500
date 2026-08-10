@@ -69,7 +69,7 @@ Dim DataCR4 As String
   DataReg = Mid$(DataR, 61)
   Call ActualizarEnvioSRM("0" + IdUsuario, DataReg)
   
-  '** CR4  TransacciÃƒÆ’Ã‚Â³n STB
+  '** CR4  Transacci�n STB
   DataCR4 = EncuentraAsociado(Mid(DataINI, 1, 6) + "CR4" + Mid$(DataINI, 10, 30))
   DataR = LimpiaData(DataCR4)
   DataReg = IntercalarSTB_Nodo(Mid$(DataINI, 1, 3), IdUsuario + Mid$(DataR, 61))
@@ -104,7 +104,7 @@ Dim DataCR4 As String
 
 Call ActualizarEnvioSRM("NULL", "")       'No hay Seguro de Vida
 
-'** CR4  TransacciÃƒÆ’Ã‚Â³n STB
+'** CR4  Transacci�n STB
 DataCR4 = EncuentraAsociado(Mid(DataINI, 1, 6) + "CR4" + Mid$(DataINI, 10, 30))
 DataR = LimpiaData(DataCR4)
 DataReg = IntercalarSTB_Nodo(Mid$(DataINI, 1, 3), IdUsuario + Mid$(DataR, 61))
@@ -139,7 +139,7 @@ Dim DataCR4 As String
 
 Call ActualizarEnvioSRM("NULL", "")
 
-'** CR4  TransacciÃƒÆ’Ã‚Â³n STB
+'** CR4  Transacci�n STB
 DataCR4 = EncuentraAsociado(Mid(DataINI, 1, 6) + "CR4" + Mid$(DataINI, 10, 30))
 DataR = LimpiaData(DataCR4)
 DataReg = IntercalarSTB_Nodo(Mid$(DataINI, 1, 3), IdUsuario + Mid$(DataR, 61))
@@ -162,7 +162,7 @@ Dim DataCR4 As String
       DataReg = Mid$(DataR, 61)
       Call ActualizarEnvioSRM("0" + IdUsuario, DataReg)
   
-      '** CR4  TransacciÃƒÆ’Ã‚Â³n STB
+      '** CR4  Transacci�n STB
       DataCR4 = EncuentraAsociado(Mid(DataINI, 1, 6) + "CR4" + Mid$(DataINI, 10, 30))
       DataR = LimpiaData(DataCR4)
       DataReg = IntercalarSTB_Nodo(Mid$(DataINI, 1, 3), IdUsuario + Mid$(DataR, 61))
@@ -284,7 +284,7 @@ If Not App.PrevInstance Then
   BaseVisado.Close
 End If
 
-End 'FIN DE LA APLICACIÃƒÆ’Ã¢â‚¬Å“N
+End 'FIN DE LA APLICACI�N
  
 End Sub
 

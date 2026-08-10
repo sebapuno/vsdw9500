@@ -226,7 +226,7 @@ Dim Aplicacion As String
 Dim PunteroTx As Recordset
   Set PunteroTx = BaseEnvioSRM.OpenRecordset("Tx", dbOpenTable)
   If PunteroTx.RecordCount > 0 Then
-    MsgBox "Se RealizarÃ¡ RollBack a la TransacciÃ³n", 0 + 64, "Anular TransacciÃ³n"
+    MsgBox "Se Realizar� RollBack a la Transacci�n", 0 + 64, "Anular Transacci�n"
     PunteroTx.MoveLast
     Do While Not PunteroTx.BOF
       NumVista = PunteroTx("Tx_Vista")
@@ -384,7 +384,7 @@ Dim MsgBack_Temp As String
            If Mid$(NumVista, 1, 4) = "CTD1" Or Mid$(NumVista, 1, 4) = "CTR1" Then
               Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
            End If
-           ' Prepara data simple para CRP0 - Credito en Cuotas FusiÃ³n
+           ' Prepara data simple para CRP0 - Credito en Cuotas Fusi�n
            If Mid$(NumVista, 1, 4) = "CRP0" Then
               Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
            End If
@@ -434,7 +434,7 @@ Dim MsgBack_Temp As String
               End If
            Else
              MsgBox "No Existe la Vista " + NumVista + " en la Tabla " + Chr(34) + "Vistas" + Chr(34), _
-                           0 + 16, "TransmisiÃ³n Cancelada"
+                           0 + 16, "Transmisi�n Cancelada"
            End If
          End If
        End If
@@ -540,7 +540,7 @@ Do While PosFin > 0
       If Mid$(NumVista, 1, 4) = "CTD1" Or Mid$(NumVista, 1, 4) = "CTR1" Then
         Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
       End If
-      ' Prepara data simple para CRP0 - Credito en Cuotas FusiÃ³n
+      ' Prepara data simple para CRP0 - Credito en Cuotas Fusi�n
       If Mid$(NumVista, 1, 4) = "CRP0" Then
         Mensaje = Trim$(Mid$(Mensaje, 14)) '* sin rut+vista+operacion
       End If
@@ -579,7 +579,7 @@ Do While PosFin > 0
         End If
       Else
         MsgBox "No Existe la Vista " + NumVista + " en la Tabla " + Chr(34) + "Vistas" + Chr(34), _
-                   0 + 16, "TransmisiÃ³n Cancelada"
+                   0 + 16, "Transmisi�n Cancelada"
       End If
     End If
   End If

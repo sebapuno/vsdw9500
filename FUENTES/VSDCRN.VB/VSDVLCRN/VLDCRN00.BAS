@@ -93,7 +93,7 @@ If Not Ap_VsdPrd.NoMatch Then
  
     If Not ExisteUF(FechaOtor) Then
       Continuar = False
-      MsgBox "No se encuentra el valor de la UF para la fecha de otorgamiento del crÃ©dito.", 16, "Error de ValidaciÃ³n"
+      MsgBox "No se encuentra el valor de la UF para la fecha de otorgamiento del cr�dito.", 16, "Error de Validaci�n"
     Else
       Continuar = True
     End If

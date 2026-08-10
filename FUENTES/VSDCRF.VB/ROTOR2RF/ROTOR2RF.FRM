@@ -21,8 +21,8 @@ Begin VB.Form Principal
       TabIndex        =   0
       Top             =   45
       Width           =   3210
-      Cols            =   2
-      Rows            =   2
+      Cols            =   1
+      Rows            =   1
       ScrollBars      =   2  'flexScrollBarVertical
       SelectionMode   =   1  'flexSelectionByRow
    End
@@ -38,7 +38,11 @@ Dim Respuesta As Integer
   If Not App.PrevInstance Then
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Data = SacaValorINI("Parametros", "LlaveVisad", DIRECTORIO_01 + ARCHIVO_INI01)
-    GrillaProducto.Cols = 4
+    GrillaProducto.Cols = 5
+    ' FI2026 - el Spread original no mostraba encabezados (DisplayColHeaders=0):
+    ' MSFlexGrid siempre reserva la fila/columna 0, se ocultan con tamano 0
+    GrillaProducto.RowHeight(0) = 0
+    GrillaProducto.ColWidth(0) = 0
     Call LlenadoGrillaProducto
     Call LlenarArchivoTexto
     Respuesta = PoneValorINI("Parametros", "Retorno", "OK", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -75,8 +79,8 @@ Detalle1 = Mid$(Data, 61)
 ' ** COLOCA DATOS DE CRF  **********
 Set FiltroTabDesp = BaseVisado.OpenRecordset("SELECT * FROM Tab_Desp WHERE Desp_Prod='2RF';")
 While Not FiltroTabDesp.EOF
-  If FiltroTabDesp!Desp_Fil > GrillaProducto.Rows Then
-    GrillaProducto.Rows = FiltroTabDesp!Desp_Fil
+  If FiltroTabDesp!Desp_Fil > GrillaProducto.Rows - 1 Then
+    GrillaProducto.Rows = FiltroTabDesp!Desp_Fil + 1
   End If
   GrillaProducto.Col = FiltroTabDesp!Desp_Col
   GrillaProducto.Row = FiltroTabDesp!Desp_Fil
@@ -89,7 +93,8 @@ While Not FiltroTabDesp.EOF
 Wend
 FiltroTabDesp.Close
 
-FilaInicio = GrillaProducto.Rows + 2
+' FI2026 - era .MaxRows + 2; .MaxRows = .Rows - 1, o sea .Rows + 1
+FilaInicio = GrillaProducto.Rows + 1
 
 '***COLOCA DATOS DE CR1 , SI EXISTE
 If ProductoAsociadoEncontrado(Encabezado + "CR1" + numero_cuenta, "1", "39") Then
@@ -235,14 +240,14 @@ Dim I As Integer
 Dim J As Integer
 Dim Linea As String
   Open DIRECTORIO_01 + ARCHIVO_TXT01 For Output As #1
-  For I = 1 To GrillaProducto.Rows
+  For I = 1 To GrillaProducto.Rows - 1
     Linea = ""
     GrillaProducto.Row = I
-    For J = 1 To GrillaProducto.Cols
+    For J = 1 To GrillaProducto.Cols - 1
       GrillaProducto.Col = J
-      Linea = Linea + Trim$(GrillaProducto.Text) + "Ã‚Â¬"
+      Linea = Linea + Trim$(GrillaProducto.Text) + "�"
     Next J
-    Do While Mid$(Linea, Len(Linea), 1) = "Ã‚Â¬"
+    Do While Mid$(Linea, Len(Linea), 1) = "�"
       Linea = Mid$(Linea, 1, Len(Linea) - 1)
       If Len(Linea) = 0 Then
         Exit Do

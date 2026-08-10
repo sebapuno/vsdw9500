@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form Frm_Detalle 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Visado - MAC HistÃƒÂ³rico Empresas B"
+   Caption         =   "Visado - MAC Hist�rico Empresas B"
    ClientHeight    =   6300
    ClientLeft      =   1155
    ClientTop       =   1500
@@ -29,7 +29,7 @@ Begin VB.Form Frm_Detalle
       _extentx        =   19341
       _extenty        =   8520
       _stockprops     =   14
-      caption         =   "Detalle de los CrÃƒÂ©ditos"
+      caption         =   "Detalle de los Cr�ditos"
       forecolor       =   8388608
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "Arial"
@@ -49,8 +49,8 @@ Begin VB.Form Frm_Detalle
          TabIndex        =   4
          Top             =   675
          Width           =   10600
-         Cols            =   2
-         Rows            =   2
+         Cols            =   9
+         Rows            =   10
          ScrollBars      =   2  'flexScrollBarVertical
          SelectionMode   =   1  'flexSelectionByRow
       End
@@ -66,7 +66,7 @@ Begin VB.Form Frm_Detalle
          _extentx        =   3360
          _extenty        =   820
          _stockprops     =   15
-         caption         =   "    Ap. Sugerida SegÃƒÂºn      Segmento y EEFF"
+         caption         =   "    Ap. Sugerida Seg�n      Segmento y EEFF"
          forecolor       =   16777215
          backcolor       =   8388608
       End
@@ -114,7 +114,7 @@ Begin VB.Form Frm_Detalle
          _extentx        =   2037
          _extenty        =   820
          _stockprops     =   15
-         caption         =   "Sometido a AprobaciÃƒÂ³n"
+         caption         =   "Sometido a Aprobaci�n"
          forecolor       =   16777215
          backcolor       =   8388608
       End
@@ -315,7 +315,9 @@ Dim Comentarios As String
 Me.Top = (Screen.Height - Me.Height) / 2
 Me.Left = (Screen.Width - Me.Width) / 2
 
-Grid.UserResizeCol = 2
+' FI2026 - UserResizeCol (Spread) -> AllowUserResizing (MSFlexGrid):
+' 0=ninguno, 1=columnas, 2=filas, 3=ambos
+Grid.AllowUserResizing = 1
 Grid.RowHeight(0) = 15
   
 Prepara_Grids
@@ -357,7 +359,7 @@ Grid1.ColWidth(1) = 790
 Grid1.ColWidth(2) = 1090
 
 Grid1.Col = 0
-Grid1.Text = "GarantÃƒÂ­a y Monto Total Sugerido"
+Grid1.Text = "Garant�a y Monto Total Sugerido"
 Grid1.FixedAlignment(0) = 2 ' centro
 Grid1.ColAlignment(1) = 2 ' centro
 Grid1.ColAlignment(2) = 1 ' Derecha
@@ -614,7 +616,7 @@ SomAp_UF = 0
 TotalSug = 0
 Garantia = ""
 
-For j# = 1 To Grid.Rows
+For j# = 1 To Grid.Rows - 1
   
   Grid.Row = j#
   

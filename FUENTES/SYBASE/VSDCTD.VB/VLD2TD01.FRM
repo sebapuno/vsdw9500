@@ -93,10 +93,10 @@ Dim AplicacionDestino As String * 4
     If Mid$(CadenaDatos, 1, 6) = "000000" Then
       If SeEstaBuscandoCuenta Then
         ObtieneInformacion = True
-        MsgBox "Ya Existe la Cuenta Corriente", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "Ya Existe la Cuenta Corriente", 0 + 16, "Problemas de Validaci�n"
       Else
         If Mid$(CadenaDatos, 132, 2) = "SC" Then
-          MsgBox "No Existe la ClasificaciÃƒÆ’Ã‚Â³n de Riesgo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Clasificaci�n de Riesgo", 0 + 16, "Problemas de Validaci�n"
         Else
           ObtieneInformacion = True
         End If
@@ -108,12 +108,12 @@ Dim AplicacionDestino As String * 4
         End If
       Else
           If Mid$(CadenaDatos, 1, 6) = "000096" Then
-            MsgBox "El Cliente No EstÃƒÆ’Ã‚Â¡ Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "El Cliente No Est� Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de Validaci�n"
           End If
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String

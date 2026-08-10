@@ -68,7 +68,7 @@ Begin VB.Form FRMVLD03
       Begin VB.Label Label2 
          BackColor       =   &H00FFFFFF&
          BorderStyle     =   1  'Fixed Single
-         Caption         =   " Abono Autom√°tico en l√≠nea"
+         Caption         =   " Abono Autom·tico en lÌnea"
          BeginProperty Font 
             name            =   "MS Sans Serif"
             charset         =   1

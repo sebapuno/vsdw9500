@@ -138,8 +138,8 @@ Dim Data_Visa       As String
                   "Error de Escritura"
        End If
     Else
-       MsgBox "No se encontrÃƒÆ’Ã‚Â³ la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito " + Format$(LineaDeCredito, "&-&&&-&&&&&-&&"), 0 + 16, _
-                  "VISADO - MÃƒÆ’Ã‚Â³dulo Identificador de Producto"
+       MsgBox "No se encontr� la L�nea de Cr�dito " + Format$(LineaDeCredito, "&-&&&-&&&&&-&&"), 0 + 16, _
+                  "VISADO - M�dulo Identificador de Producto"
     End If
     PunteroTabPrd.Close
     PunteroVsdPrd.Close
@@ -184,41 +184,41 @@ Dim AplicacionDestino As String * 4
       Else
         If DebeExistirLinea Then
           If Llave = Mid$(CadenaDatos, 15 + 1, 11) Then
-            ' En aÃƒÆ’Ã‚Â±o 2000 SD20 cambiar 170 a 173
+            ' En a�o 2000 SD20 cambiar 170 a 173
             If Mid$(CadenaDatos, 15 + 176, 1) <> " " And Mid$(CadenaDatos, 15 + 176, 1) <> "0" Then
-              MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+              MsgBox "La L�nea de Cr�dito Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
             Else
-              ' En aÃƒÆ’Ã‚Â±o 2000 SD20 cambiar 173 a 176
+              ' En a�o 2000 SD20 cambiar 173 a 176
               If Mid$(CadenaDatos, 15 + 180, 1) = "4" Then
-                MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                              "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                MsgBox "La L�nea de Cr�dito Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                              "Problemas de Validaci�n"
               Else
                 ObtieneInformacion = True
               End If
             End If
           Else
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         Else
           If Llave = Mid$(CadenaDatos, 16, 11) Then
             ObtieneInformacion = True
-            MsgBox "Ya Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "Ya Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         End If
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
         If SeEstaBuscandoCuenta Then
-          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de Validaci�n"
         Else
           If DebeExistirLinea Then
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         End If
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function Es_FCampana(ByVal Rut1 As String, ByVal Cuenta1 As String) As String
@@ -242,7 +242,7 @@ Dim AplicacionDestino As String * 4
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
     Es_FCampana = "SRM"
   End If
 End Function
@@ -264,7 +264,7 @@ Dim PunteroVista As Recordset
          DeterminaNodo = PunteroVista("Vta_NodoDesa")
        Else
          If PunteroVista("Vta_NodoProd") = "U???" Then
-           '*** Obtener Nodo SegÃƒÆ’Ã‚Âºn llave producto
+           '*** Obtener Nodo Seg�n llave producto
             DeterminaNodo = AsignaNodoOficinaRegion
            '***
          Else

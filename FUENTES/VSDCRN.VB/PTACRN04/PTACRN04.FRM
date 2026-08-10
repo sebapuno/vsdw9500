@@ -223,7 +223,7 @@ Begin VB.Form Principal
    End
 
    Begin VB.CheckBox Normas 
-      Caption         =   "CertificaciÃƒÂ³n &Notarial de PagarÃƒÂ© en Orden."
+      Caption         =   "Certificaci�n &Notarial de Pagar� en Orden."
       Height          =   250
       Index           =   7
       Left            =   90
@@ -233,7 +233,7 @@ Begin VB.Form Principal
    End
 
    Begin VB.CheckBox Normas 
-      Caption         =   "&GarantÃƒÂ­as Cumplen con las Normas Exigidas."
+      Caption         =   "&Garant�as Cumplen con las Normas Exigidas."
       Height          =   250
       Index           =   6
       Left            =   90
@@ -253,7 +253,7 @@ Begin VB.Form Principal
    End
 
    Begin VB.CheckBox Normas 
-      Caption         =   "&LÃƒÂ­nea de CrÃƒÂ©dito Vigente y Margen Disponible."
+      Caption         =   "&L�nea de Cr�dito Vigente y Margen Disponible."
       Height          =   250
       Index           =   4
       Left            =   90
@@ -273,7 +273,7 @@ Begin VB.Form Principal
    End
 
    Begin VB.CheckBox Normas 
-      Caption         =   "PagarÃƒÂ© Bien &Extendido y Consistente."
+      Caption         =   "Pagar� Bien &Extendido y Consistente."
       Height          =   250
       Index           =   2
       Left            =   90
@@ -293,7 +293,7 @@ Begin VB.Form Principal
    End
 
    Begin VB.CheckBox Normas 
-      Caption         =   "&ProhibiciÃƒÂ³n y MÃƒÂ¡rgenes Articulos 64 y 65."
+      Caption         =   "&Prohibici�n y M�rgenes Articulos 64 y 65."
       ForeColor       =   &H00000000&
       Height          =   250
       Index           =   0
@@ -441,7 +441,7 @@ Dim Rut As String
 Dim PunteroVsdPrd As Recordset
   If SeIngresaronExcepciones Then
     If TodosLosCamposLlenos Then
-      I = MsgBox("Ã‚Â¿ Son Correctas las Excepciones ?", 4 + 32 + 256, "Verificar Excepciones")
+      I = MsgBox("� Son Correctas las Excepciones ?", 4 + 32 + 256, "Verificar Excepciones")
       If I = 6 Then
         For I = 0 To 7
           If (Normas(I).Enabled) And (Normas(I).Value = 1) Then
@@ -493,7 +493,7 @@ Dim PunteroVsdPrd As Recordset
         End
       End If
     Else
-      MsgBox "Se DetectÃƒÂ³ ExcepciÃƒÂ³n Incompleta", 0 + 16, "Faltan Datos"
+      MsgBox "Se Detect� Excepci�n Incompleta", 0 + 16, "Faltan Datos"
     End If
   Else
     MsgBox "No se Han Ingresado Excepciones", 0 + 16, "Faltan Datos"
@@ -527,7 +527,7 @@ Dim mmdd As String * 4
   
   mmdd = Mid$(FechaCompromiso(Index).Text, 4, 2) + Mid$(FechaCompromiso(Index).Text, 1, 2)
   If WeekDay(CDate(FechaCompromiso(Index).Text)) = 7 Or WeekDay(CDate(FechaCompromiso(Index).Text)) = 1 Then
-     MsgBox " La fecha Ingresada no es Dia HÃƒÂ¡bil  "
+     MsgBox " La fecha Ingresada no es Dia H�bil  "
      FechaCompromiso(Index).SetFocus
   Else
      If InStr("0101,0328,0329,0501,0521,0529,0815,0911,0918,0919,1101,1208,1225,1231", mmdd) > 0 Then
@@ -645,15 +645,15 @@ Dim PatronProductoRelacionado As String
            End If
         Else
            MsgBox "Debe antes ingresar los Ruts Autorizadores" + Chr(13) + _
-                  "por MantenciÃƒÂ³n de Excepciones"
+                  "por Mantenci�n de Excepciones"
            End
         End If
       Next I
     Wend
     Close 1
   Else
-    MsgBox "No se EncontrÃƒÂ³ Archivo" + Chr(10) + DIRECTORIO_02 + ARCHIVO_DAT01 + Chr(13) + _
-           "Debe Cargar el Producto " + Chr(13) + " MantenciÃƒÂ³n de Excepciones", 0 + 16, "PTACRE04"
+    MsgBox "No se Encontr� Archivo" + Chr(10) + DIRECTORIO_02 + ARCHIVO_DAT01 + Chr(13) + _
+           "Debe Cargar el Producto " + Chr(13) + " Mantenci�n de Excepciones", 0 + 16, "PTACRE04"
     End
   End If
 End Sub

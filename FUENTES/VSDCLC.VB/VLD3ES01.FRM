@@ -61,7 +61,7 @@ Dim Ret As Integer
 End Function
 Private Function ExisteLineaDeCredito(ByVal Llave As String, ByVal Vista As String) As Boolean
   Modo = "V"
-  ExisteLineaDeCredito = ObtieneInformacion(Vista, "0" + Llave, "LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 16, 10)
+  ExisteLineaDeCredito = ObtieneInformacion(Vista, "0" + Llave, "L�nea de Cr�dito", 16, 10)
 End Function
 Private Function ObtieneInformacion(ByVal Vista As String, ByVal Llave As String, ByVal DatoBuscado As String, ByVal Posicion As Integer, ByVal Largo As Integer) As Boolean
 Dim Usuario As String
@@ -75,25 +75,25 @@ Dim AplicacionDestino As String * 4
     If Mid$(CadenaDatos, 1, 6) = "000000" Then
       If Mid$(Llave, 1, Largo) = Mid$(CadenaDatos, Posicion, Largo) Then
         If Val(Mid(CadenaDatos, 149, 6)) <> 0 Then
-          MsgBox "La " + DatoBuscado + " EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "La " + DatoBuscado + " Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
         Else
           If Mid$(CadenaDatos, 291, 1) <> "0" Then
-            MsgBox "La " + DatoBuscado + " EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                          "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "La " + DatoBuscado + " Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                          "Problemas de Validaci�n"
           Else
             ObtieneInformacion = True
           End If
         End If
       Else
-        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de Validaci�n"
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
-        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "No Existe la " + DatoBuscado, 0 + 16, "Problemas de Validaci�n"
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String

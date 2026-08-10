@@ -56,7 +56,7 @@ Private Declare Function CloseHandle Lib "Kernel32" (ByVal hObject As Long) As L
 Private Const VERSION_APP = "v3.0"
 
 ' FI2026: sBdd/sApliOri/sNodoOri se usaban en SendQuery (bloque "IBM
-' MIGRACION SYBASE") sin declarar en ningun .bas de WCRE9500 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬ï¿½ bug
+' MIGRACION SYBASE") sin declarar en ningun .bas de WCRE9500 -- bug
 ' preexistente que nunca compilo (mismo caso que Valida_Migracion, ver
 ' modAcceso.bas). Se declaran para que compile; sApliOri/sNodoOri nunca
 ' se asignan en el original tampoco, asi que quedan "" (mismo
@@ -80,7 +80,7 @@ Dim HABIL_TIPOPE As String
 Dim HABIL_VISTA As String
 Dim HABIL_TABLA As String
 
-'FI2025 SHG -- Se incorporan variables globales para almacenar informaciÃƒÆ’Ã‚Â³n de RUT y DV
+'FI2025 SHG -- Se incorporan variables globales para almacenar informaci�n de RUT y DV
 Global xDVusr As Double
 Global xRUTusr As Double
 
@@ -146,7 +146,7 @@ Select Case Pi_RetSrm
        Case 1:
             Retornos_Srm = "01 Error FBDD SRPI"
        Case 2:
-            Retornos_Srm = "02 Proceso abortado por otra interrupciÃƒÆ’Ã‚Â³n"
+            Retornos_Srm = "02 Proceso abortado por otra interrupci�n"
        Case 3:
             Retornos_Srm = "03 Fallo obtencion de variable de ambiente LAN"
        Case 4:
@@ -158,7 +158,7 @@ Select Case Pi_RetSrm
        Case 7:
             Retornos_Srm = "07 Envio en ejecucion. Esperando respuesta"
        Case 9:
-            Retornos_Srm = "09 FunciÃƒÆ’Ã‚Â³n incorrecta en llamado padre hijo"
+            Retornos_Srm = "09 Funci�n incorrecta en llamado padre hijo"
        Case 10:
             Retornos_Srm = "10 Fallo obtencion de 'LUNUMBER'"
        Case 11:
@@ -170,19 +170,19 @@ Select Case Pi_RetSrm
        Case 35:
             Retornos_Srm = "35 Error Memoria"
        Case 41:
-            Retornos_Srm = "41 Error en apertura de canal de comunicaciÃƒÆ’Ã‚Â³n"
+            Retornos_Srm = "41 Error en apertura de canal de comunicaci�n"
        Case 42:
-            Retornos_Srm = "42 Error de escritura al canal de comunicaciÃƒÆ’Ã‚Â³n"
+            Retornos_Srm = "42 Error de escritura al canal de comunicaci�n"
        Case 43:
-            Retornos_Srm = "43 Error de lectura del canal de comunicaciÃƒÆ’Ã‚Â³n"
+            Retornos_Srm = "43 Error de lectura del canal de comunicaci�n"
        Case 44:
-            Retornos_Srm = "44 Error de cierre del canal de comunicaciÃƒÆ’Ã‚Â³n"
+            Retornos_Srm = "44 Error de cierre del canal de comunicaci�n"
        Case 45:
             Retornos_Srm = "45 Error en largo de la data de respuesta"
        Case 90:
-            Retornos_Srm = "90 Error en inicializaciÃƒÆ’Ã‚Â³n de comunicaciones"
+            Retornos_Srm = "90 Error en inicializaci�n de comunicaciones"
        Case 91:
-            Retornos_Srm = "91 Error en inicializaciÃƒÆ’Ã‚Â³n de comunicaciones"
+            Retornos_Srm = "91 Error en inicializaci�n de comunicaciones"
        Case 92:
             Retornos_Srm = "92 Fallaron 3 reintentos"
        Case 93:
@@ -190,9 +190,9 @@ Select Case Pi_RetSrm
        Case 97:
             Retornos_Srm = "97 Error en carga de proceso externo"
        Case 98:
-            Retornos_Srm = "98 Error en contexto de comunicaciÃƒÆ’Ã‚Â³n padre hijo"
+            Retornos_Srm = "98 Error en contexto de comunicaci�n padre hijo"
        Case 99:
-            Retornos_Srm = "99 Error en versiÃƒÆ’Ã‚Â³n de padre / hijo"
+            Retornos_Srm = "99 Error en versi�n de padre / hijo"
        Case Else
             Retornos_Srm = ""
 End Select
@@ -203,13 +203,13 @@ Function Retornos_Status() As String
 
 Select Case Trim$(ParamSrm8K.Status)
        Case Is = "00"
-            Retornos_Status = "00 OperaciÃƒÆ’Ã‚Â³n Exitosa"
+            Retornos_Status = "00 Operaci�n Exitosa"
        Case Is = "01"
             Retornos_Status = "01 Servidor de Comunicaciones inactivo en nodo destino"
        Case Is = "02"
             Retornos_Status = "02 LU no definida como receptora en nodo destino"
        Case Is = "03"
-            Retornos_Status = "03 No existe aplicaciÃƒÆ’Ã‚Â³n en nodo destino"
+            Retornos_Status = "03 No existe aplicaci�n en nodo destino"
        Case Is = "04"
             Retornos_Status = "04 LU no definida en nodo"
        Case Is = "05"
@@ -221,19 +221,19 @@ Select Case Trim$(ParamSrm8K.Status)
        Case Is = "08"
             Retornos_Status = "08 No hay LU disponible en nodo re-ruteador"
        Case Is = "09"
-            Retornos_Status = "09 Timeout. aplicaciÃƒÆ’Ã‚Â³n remota no contesta a tiempo"
+            Retornos_Status = "09 Timeout. aplicaci�n remota no contesta a tiempo"
        Case Is = "10"
             Retornos_Status = "10 Nodo de destino no existe en tabla SRM"
        Case Is = "11"
-            Retornos_Status = "11 aplicaciÃƒÆ’Ã‚Â³n de origen/destino no existe en table SRM"
+            Retornos_Status = "11 aplicaci�n de origen/destino no existe en table SRM"
        Case Is = "12"
             Retornos_Status = "12 Tabla de contextos llena"
        Case Is = "13"
-            Retornos_Status = "13 SesiÃƒÆ’Ã‚Â³n invalida. SRM no puede mantener SesiÃƒÆ’Ã‚Â³n"
+            Retornos_Status = "13 Sesi�n invalida. SRM no puede mantener Sesi�n"
        Case Is = "14"
-            Retornos_Status = "14 CÃƒÆ’Ã‚Â³digo contexto invalido"
+            Retornos_Status = "14 C�digo contexto invalido"
        Case Is = "15"
-            Retornos_Status = "15 aplicaciÃƒÆ’Ã‚Â³n de destino no esta activa"
+            Retornos_Status = "15 aplicaci�n de destino no esta activa"
        Case Is = "16"
             Retornos_Status = "16 No existe PID de proceso originador"
        Case Is = "17"
@@ -241,7 +241,7 @@ Select Case Trim$(ParamSrm8K.Status)
        Case Is = "18"
             Retornos_Status = "18 File Transfer Terminado"
        Case Is = "19"
-            Retornos_Status = "19 CÃƒÆ’Ã‚Â³digo desconocido en campo tipo mensaje"
+            Retornos_Status = "19 C�digo desconocido en campo tipo mensaje"
        Case Is = "20"
             Retornos_Status = "20 Mensaje de origen no tiene formato SRM"
        Case Is = "21"
@@ -259,7 +259,7 @@ Select Case Trim$(ParamSrm8K.Status)
        Case Is = "27"
             Retornos_Status = "27 No hay memoria suficiente"
        Case Is = "28"
-            Retornos_Status = "28 aplicaciÃƒÆ’Ã‚Â³n remota no contestara ( Se rompe el enlace )"
+            Retornos_Status = "28 aplicaci�n remota no contestara ( Se rompe el enlace )"
        Case Is = "29"
             Retornos_Status = "29 Disponible"
        Case Is = "30"
@@ -285,13 +285,13 @@ Select Case Trim$(ParamSrm8K.Status)
        Case Is = "40"
             Retornos_Status = "40 No corresponde"
        Case Is = "41"
-            Retornos_Status = "41 CondiciÃƒÆ’Ã‚Â³n de exepciÃƒÆ’Ã‚Â³n en manejo de archivos"
+            Retornos_Status = "41 Condici�n de exepci�n en manejo de archivos"
        Case Is = "61"
-            Retornos_Status = "61 GeneraciÃƒÆ’Ã‚Â³n de PID Ok"
+            Retornos_Status = "61 Generaci�n de PID Ok"
        Case Is = "62"
-            Retornos_Status = "62 ValidaciÃƒÆ’Ã‚Â³n de PID Ok ( Se validara autorizaciÃƒÆ’Ã‚Â³n )"
+            Retornos_Status = "62 Validaci�n de PID Ok ( Se validara autorizaci�n )"
        Case Is = "63"
-            Retornos_Status = "63 ValidaciÃƒÆ’Ã‚Â³n de PID Ok ( No se valida autorizaciÃƒÆ’Ã‚Â³n )"
+            Retornos_Status = "63 Validaci�n de PID Ok ( No se valida autorizaci�n )"
        Case Else
             Retornos_Status = ""
 End Select
@@ -308,7 +308,7 @@ End Function
 ' Parametros :
 '       De Input :
 '       Gpc_BaseDatos       : Nombre de la Base de Datos.
-'       Gpc_Pgm_Servidor    : Programa servidor que tomarÃƒÆ’Ã‚Â¡ la consulta.
+'       Gpc_Pgm_Servidor    : Programa servidor que tomar� la consulta.
 '       Gpc_Nodo_Servidor   : Nodo Servidor donde esta localizado el
 '                             Pgm_Servidor.
 '       Gpc_Sentencia       : Sentencia SQL.
@@ -362,14 +362,14 @@ Function SendQuery(Gpc_BaseDatos As String, Gpc_Pgm_Servidor As String, Gpc_Nodo
 ' Envia Mensaje.
 '-------------------
 '********************************************************************************************
-'IBM MIGRACIÃƒÆ’Ã¢â‚¬Å“N SYBASE - INICIO
+'IBM MIGRACI�N SYBASE - INICIO
 'OCTUBRE 2010
 
     'Rescatar Base de Datos
     sBdd = Trim(Mid(ParamSrm8K.Mensaje$, 22, 10))
     'Imprimir Entrada de Datos en Archivo Log
     'Call Genera_log(sNomArchivoLog, "Entrada", ParamSrm8K.Nodo$, ParamSrm8K.Servidor$, ParamSrm8K.Mensaje$, CLng(ParamSrm8K.largo%), ParamSrm8K.Status$, ParamSrm8K.Funcion$, ParamSrm8K.Contexto$, ParamSrm8K.Control$)
-    'Validar Datos MigraciÃƒÆ’Ã‚Â³n
+    'Validar Datos Migraci�n
     Call Valida_Migracion(ParamSrm8K.Mensaje$, ParamSrm8K.Servidor$, ParamSrm8K.Nodo$)
        
      X% = Srmw32(ParamSrm8K.Nodo$, ParamSrm8K.Servidor$, ParamSrm8K.Mensaje$, ParamSrm8K.largo, ParamSrm8K.Status$, ParamSrm8K.funcion$, ParamSrm8K.Contexto$, ParamSrm8K.Control$) 'Llamada al SRM Original -- FI2026: sin CLng(), asi el DLL SI actualiza el largo real de la respuesta por referencia
@@ -377,7 +377,7 @@ Function SendQuery(Gpc_BaseDatos As String, Gpc_Pgm_Servidor As String, Gpc_Nodo
     'Imprimir Salida de Datos en Archivo Log
     'Call Genera_log(sNomArchivoLog, "Salida", ParamSrm8K.Nodo$, ParamSrm8K.Servidor$, ParamSrm8K.Mensaje$, CLng(ParamSrm8K.largo%), ParamSrm8K.Status$, ParamSrm8K.Funcion$, ParamSrm8K.Contexto$, ParamSrm8K.Control$)
 
-'IBM MIGRACIÃƒÆ’Ã¢â‚¬Å“N SYBASE - TERMINO
+'IBM MIGRACI�N SYBASE - TERMINO
 '********************************************************************************************
     
     ParamSrm8K.RetServidor% = 0
@@ -434,13 +434,13 @@ Function SendQuery(Gpc_BaseDatos As String, Gpc_Pgm_Servidor As String, Gpc_Nodo
     SendQuery = s$
     
 '********************************************************************************************
-'IBM MIGRACIÃƒÆ’Ã¢â‚¬Å“N SYBASE - INICIO
+'IBM MIGRACI�N SYBASE - INICIO
 'OCTUBRE 2010
     'Asigno Valores de origen a las variables
     ParamSrm8K.Servidor$ = sApliOri   'SERVIDOR
     ParamSrm8K.Nodo$ = sNodoOri  'NODO
     
-'IBM MIGRACIÃƒÆ’Ã¢â‚¬Å“N SYBASE - TERMINO
+'IBM MIGRACI�N SYBASE - TERMINO
 '********************************************************************************************
     
     
@@ -485,12 +485,12 @@ End Sub
 '--------------------------------------------------------------------
 ' TRAE_CAMPO
 '
-' Separa campo de la cadena recibida a travÃƒÆ’Ã‚Â©s
+' Separa campo de la cadena recibida a trav�s
 ' del SRM.
 '
 ' Parametros :
 '   Data_Resp = String con mensaje recibido del SRM.
-'   Lgi_Largo = PosiciÃƒÆ’Ã‚Â³n del caracter inicial dentro del string.
+'   Lgi_Largo = Posici�n del caracter inicial dentro del string.
 '--------------------------------------------------------------------
 Function Trae_Campo(Data_Resp As String, Lgi_Largo As Integer) As String
     Dim Lgc_Campo As String

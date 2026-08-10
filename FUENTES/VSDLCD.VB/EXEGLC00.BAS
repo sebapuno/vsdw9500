@@ -14,7 +14,7 @@ Public Const ARCHIVO_INI02 = "ErrorSRM.INI"
 Public Const ARCHIVO_MDB01 = "Visado.MDB"
 Public Const ARCHIVO_MDB02 = "EnvioSRM.MDB"
 Public Const ARCHIVO_MDB03 = "Oficina.MDB"
-Public Const PRODUCTOACCESADO = "(ATC) ActivaciÃƒÂ³n Tarjeta Bancaria"
+Public Const PRODUCTOACCESADO = "(ATC) Activaci�n Tarjeta Bancaria"
 
 Global Rut As String
 Global Modo As String

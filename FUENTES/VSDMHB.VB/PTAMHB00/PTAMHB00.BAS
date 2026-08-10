@@ -11,7 +11,7 @@ Public Const DIRECTORIO_01 = "C:\Data\Visado\"
 Public Const ARCHIVO_INI01 = "Visado.INI"
 Public Const ARCHIVO_MDB01 = "Visado.MDB"
 
-Public Const PRODUCTOACCESADO = "(MHB) MAC HistÃƒÂ³rico Empresas B"
+Public Const PRODUCTOACCESADO = "(MHB) MAC Hist�rico Empresas B"
 Public Const EJECUTABLE = "PTAMHB00.EXE"
 
 Public Const HWND_TOPMOST = -1

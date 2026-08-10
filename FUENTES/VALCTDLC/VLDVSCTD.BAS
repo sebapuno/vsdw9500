@@ -185,10 +185,10 @@ Call ValidarSegunTablas(0, "METRO", DataCTD)
 '** VALIDA DATOS
 Call Valida_CodCierre(Mid$(DataCTD, 158, 1), 158, "Causal de Cierre")
 Call Valida_Rut(Mid$(DataCTD, 163, 9), 161, "Rut Cliente")
-Call Valida_Cuenta(Origen, Mid$(DataCTD, 226, 12), 224, "NÃ‚Â° LÃƒÂ­nea de CrÃƒÂ©dito")
-Call Valida_Cuenta(Origen, Mid$(DataCTD, 266, 12), 264, "NÃ‚Â° Cuenta Cte. Relacionada")
+Call Valida_Cuenta(Origen, Mid$(DataCTD, 226, 12), 224, "N� L�nea de Cr�dito")
+Call Valida_Cuenta(Origen, Mid$(DataCTD, 266, 12), 264, "N� Cuenta Cte. Relacionada")
 
-'Call Valida_Ejec(Mid$(186, 3), 186, "CÃƒÂ³digo Ejecutivo")
+'Call Valida_Ejec(Mid$(186, 3), 186, "C�digo Ejecutivo")
 
 
 If Trim$(Errores(1)) = "" Then
@@ -216,7 +216,7 @@ Tabla = IIf(Area = "METRO", "tbl_ValMET", "tbl_ValREG")
      
 Set BaseVLDCTD = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB03)
 Set PunteroVld = BaseVLDCTD.OpenRecordset("Select CTD_Orig,CTD_Categ,CTD_PosVista From " + Tabla + " Where CTD_Prod=" + Str(Prod) + " And CTD_Oper=" + CodOper + " Group by  CTD_Orig,CTD_Categ,CTD_PosVista  Order by CTD_PosVista Asc", dbOpenDynaset)
-' PunteroVld:  campo categorÃƒÂ­a distintos
+' PunteroVld:  campo categor�a distintos
 
 If PunteroVld.RecordCount > 0 Then
    PunteroVld.MoveLast
@@ -236,7 +236,7 @@ If PunteroVld.RecordCount > 0 Then
      
     ' PunteroReg: todos los que coinciden con la categoria
      
-     PunteroReg.MoveLast   '(para saber el total por categorÃƒÂ­a)
+     PunteroReg.MoveLast   '(para saber el total por categor�a)
      PunteroReg.MoveFirst
      If PunteroReg.RecordCount > 0 Then
        
@@ -306,9 +306,9 @@ Call ValidarSegunTablas(0, "REGION", DataCTD)
 Call Valida_Rut(Mid$(DataCTD, 16, 10), 16, "Rut Cliente")
 Call Valida_EjeOrg(Mid$(DataCTD, 31, 6), 31, "Ejecutivo Control")
 Call Valida_CodCierre(Mid$(DataCTD, 146, 1), 146, "Causal de Cierre")
-Call Valida_Cuenta(Origen, Mid$(DataCTD, 367, 12), 367, "NÃ‚Â° LÃƒÂ­nea de CrÃƒÂ©dito")
-Call Valida_Cuenta(Origen, Mid$(DataCTD, 393, 12), 393, "NÃ‚Â° Cuenta Relacionada")
-Call Valida_Cuenta(Origen, Mid$(DataCTD, 424, 12), 424, "NÃ‚Â° LÃƒÂ­nea CrÃƒÂ©dito Ex-BAE")
+Call Valida_Cuenta(Origen, Mid$(DataCTD, 367, 12), 367, "N� L�nea de Cr�dito")
+Call Valida_Cuenta(Origen, Mid$(DataCTD, 393, 12), 393, "N� Cuenta Relacionada")
+Call Valida_Cuenta(Origen, Mid$(DataCTD, 424, 12), 424, "N� L�nea Cr�dito Ex-BAE")
 
 'Call Valida_Ejec(Mid$(DataCTD,28, 3), 28, "Ejecutivo Cuenta")
 
@@ -361,12 +361,12 @@ TipoProd = "1" 'Lin Cre
 Call ValidarSegunTablas(1, "METRO", DataCTD)
 
 '** VALIDA DATOS
-Call Valida_EjeOrg(Mid$(DataCTD, 112, 6), 112, "CÃƒÂ³digo Ejecutivo Control")
-Call Valida_CodCierre(Mid$(DataCTD, 173, 1), 173, "CÃƒÂ³digo de Cierre")
+Call Valida_EjeOrg(Mid$(DataCTD, 112, 6), 112, "C�digo Ejecutivo Control")
+Call Valida_CodCierre(Mid$(DataCTD, 173, 1), 173, "C�digo de Cierre")
 Call Valida_Rut(Mid$(DataCTD, 182, 10), 182, "Rut Cliente")
-Call Valida_Cuenta(Origen, Mid$(DataCTD, 330, 12), 330, "NÃ‚Â° Cta. Cte. Asociada")
+Call Valida_Cuenta(Origen, Mid$(DataCTD, 330, 12), 330, "N� Cta. Cte. Asociada")
 
-'Call Valida_Ejec(Mid$(DataCTD, 118, 3), 118, "CÃƒÂ³digo Ejecutivo Cuenta")
+'Call Valida_Ejec(Mid$(DataCTD, 118, 3), 118, "C�digo Ejecutivo Cuenta")
 
 If Trim$(Errores(1)) = "" Then
   Valida_3031 = True

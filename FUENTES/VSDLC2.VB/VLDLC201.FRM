@@ -135,7 +135,7 @@ Dim PunteroVsdPrd  As Recordset
                   End If
                End If
             Else
-               MsgBox "No Se Puede Determinar GestiÃƒÆ’Ã‚Â³n de LCD", 0 + 48, "Error de Validacion"
+               MsgBox "No Se Puede Determinar Gesti�n de LCD", 0 + 48, "Error de Validacion"
                End
             End If
          End If
@@ -170,7 +170,7 @@ Dim DataTmp As String
   Modo = "V0000"
   ExisteLineaDeCredito = ObtieneInformacion(Vista, Llave, False, Estado)
   If ExisteLineaDeCredito Then
-     ' nuevo Sacar una vez sea SD20 (Este codigo transforma a aÃƒÆ’Ã‚Â±o 2000)
+     ' nuevo Sacar una vez sea SD20 (Este codigo transforma a a�o 2000)
      'DataTmp = Mid$(CadenaDatos, 1, 26) + Mid$(CadenaDatos, 26 + 1, 42)
      'DataTmp = DataTmp + "19" + Mid$(CadenaDatos, 26 + 48, 2) + Mid$(CadenaDatos, 26 + 46, 2) + Mid$(CadenaDatos, 26 + 44, 2)
      'DataTmp = DataTmp + Mid$(CadenaDatos, 26 + 50, 42)
@@ -210,41 +210,41 @@ Dim AplicacionDestino As String * 4
       Else
         If DebeExistirLinea Then
           If Llave = Mid$(CadenaDatos, 15 + 1, 11) Then
-            ' En aÃƒÆ’Ã‚Â±o 2000 SD20 cambiar 170 a 173
+            ' En a�o 2000 SD20 cambiar 170 a 173
             If Mid$(CadenaDatos, 15 + 176, 1) <> " " And Mid$(CadenaDatos, 15 + 176, 1) <> "0" Then
-              MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+              MsgBox "La L�nea de Cr�dito Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
             Else
-              ' En aÃƒÆ’Ã‚Â±o 2000 SD20 cambiar 173 a 176
+              ' En a�o 2000 SD20 cambiar 173 a 176
               If Mid$(CadenaDatos, 15 + 180, 1) = "4" Then
-                MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                              "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                MsgBox "La L�nea de Cr�dito Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                              "Problemas de Validaci�n"
               Else
                 ObtieneInformacion = True
               End If
             End If
           Else
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         Else
           If Llave = Mid$(CadenaDatos, 16, 11) Then
             ObtieneInformacion = True
-            MsgBox "Ya Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "Ya Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         End If
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
         If SeEstaBuscandoCuenta Then
-          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de Validaci�n"
         Else
           If DebeExistirLinea Then
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         End If
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function Es_FCampana(ByVal Rut1 As String, ByVal Cuenta1 As String) As String
@@ -268,7 +268,7 @@ Dim AplicacionDestino As String * 4
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
     Es_FCampana = "SRM"
   End If
 End Function

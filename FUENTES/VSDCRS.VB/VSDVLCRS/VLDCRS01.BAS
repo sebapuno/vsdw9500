@@ -198,7 +198,7 @@ If Not Ap_VsdPrd.NoMatch Then
  DestTO = TraeDestino_TO(nTO)
  p = GrabaParametro("SIEBEL", "CRETO", DestTO, "C:\DATA\VISADO\VISADO.INI")
  
- '* Calcula CrÃ©dito
+ '* Calcula Cr�dito
  'MtoIni = Mid$(Ap_VsdPrd!PRD_DATA, 60 + 61, 17)
  'CapMO = Mid$(Ap_VsdPrd!PRD_DATA, 60 + 78, 17)
  'TipCam = Mid$(Ap_VsdPrd!PRD_DATA, 60 + 214, 11)
@@ -216,7 +216,7 @@ If Not Ap_VsdPrd.NoMatch Then
        '* SEGUROS
        For i# = 2 To cantidad
          If Not ProductoAsociadoEncontrado(Encabezado + "SC" + Trim$(Str(i#)) + LlaveProducto, "1", "39") Then
-           MsgBox "Registros del seguro son incompletos.", 16, "Error de ValidaciÃ³n"
+           MsgBox "Registros del seguro son incompletos.", 16, "Error de Validaci�n"
            Continuar = False
            Exit For
          ElseIf Not AgregarMontoCredito(Encabezado + "SC" + Trim$(Str(i#)) + LlaveProducto, "1", "39", MtoCred) Then
@@ -228,7 +228,7 @@ If Not Ap_VsdPrd.NoMatch Then
        If Continuar Then
          For j# = 1 To cantidad
            If Not ProductoAsociadoEncontrado(Encabezado + "SR" + Trim$(Str(j#)) + LlaveProducto, "1", "39") Then
-             MsgBox "Registros del seguro son incompletos.", 16, "Error de ValidaciÃ³n"
+             MsgBox "Registros del seguro son incompletos.", 16, "Error de Validaci�n"
              Continuar = False
              Exit For
            End If
@@ -238,7 +238,7 @@ If Not Ap_VsdPrd.NoMatch Then
        If Continuar Then
          For k# = 1 To cantidad
            If Not ProductoAsociadoEncontrado(Encabezado + "SD" + Trim$(Str(k#)) + LlaveProducto, "1", "39") Then
-             MsgBox "Registros del seguro son incompletos.", 16, "Error de ValidaciÃ³n"
+             MsgBox "Registros del seguro son incompletos.", 16, "Error de Validaci�n"
              Continuar = False
              Exit For
            Else
@@ -249,18 +249,18 @@ If Not Ap_VsdPrd.NoMatch Then
        
        If Not IsNumeric(MtoCred) Or InStr(MtoCred, ".") <> 0 Then
          Continuar = False
-         MsgBox "El Monto de Cobertura del Seguro es incorrecto.", 16, "Error de ValidaciÃ³n"
+         MsgBox "El Monto de Cobertura del Seguro es incorrecto.", 16, "Error de Validaci�n"
        End If
        
        If Not IsDate(FchVigSeg) Or DateDiff("d", FchVigSeg, Now) > 30 Then
          Continuar = False
-         MsgBox "La fecha de vigencia del seguro expirÃ³.", 16, "Error de ValidaciÃ³n"
+         MsgBox "La fecha de vigencia del seguro expir�.", 16, "Error de Validaci�n"
        End If
        
        If VarSiebel <> "NORMAL" And Continuar Then
          If Not ExisteUF(FechaOtor) Then
            Continuar = False
-           MsgBox "No se encuentra el valor de la UF para la fecha de otorgamiento del crÃ©dito.", 16, "Error de ValidaciÃ³n"
+           MsgBox "No se encuentra el valor de la UF para la fecha de otorgamiento del cr�dito.", 16, "Error de Validaci�n"
          End If
        End If
        
@@ -270,7 +270,7 @@ If Not Ap_VsdPrd.NoMatch Then
          
     End If
   Else
-    MsgBox "No se encuentran registros del seguro asociado.", 16, "Error de ValidaciÃ³n"
+    MsgBox "No se encuentran registros del seguro asociado.", 16, "Error de Validaci�n"
   End If
   
  'Else '* IF OperCRS<>R  '** BORRAR REGISTROS DE SRn y SDn.
@@ -344,7 +344,7 @@ Set FiltroVsdPrd = BaseVisado.OpenRecordset("SELECT * FROM Vsd_Prd WHERE " + _
 If FiltroVsdPrd.RecordCount > 0 Then
 
   DataDir = FiltroVsdPrd("Prd_Data")
-  '**Obliga a DirecciÃ³n Postal
+  '**Obliga a Direcci�n Postal
   DataDir = Mid$(DataDir, 1, 60 + 10) + "3" + Mid$(DataDir, 72)
    
   FiltroVsdPrd.Edit
@@ -519,7 +519,7 @@ End Function
 Public Function AgregarMontoCredito(ByVal PatronBusqueda As String, ByVal Posicion As String, ByVal largo As String, MontoCredito As String) As Boolean
 
 '** Si se encuentra el registro le agrega al final el dato
-'** monto del crÃ©dito en pesos.
+'** monto del cr�dito en pesos.
 
 Dim FiltroVsdPrd  As Recordset
 

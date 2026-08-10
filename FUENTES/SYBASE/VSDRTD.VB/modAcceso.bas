@@ -4,17 +4,17 @@ Option Explicit
 Global FUNCIONALIDAD As Integer
 Global TIPO_RUT As Integer  '0 => utilice rut AIS
                             '1 => utilice rut ingresado por usuario
-Global RET_ACCESO As Integer  'true usuario ingresÃ³ clave correcta
-                              'false usuario ingresÃ³ clave incorrecta
+Global RET_ACCESO As Integer  'true usuario ingres� clave correcta
+                              'false usuario ingres� clave incorrecta
 
 
-' FI2026: stub de Valida_Migracion â€” modRSrm32.bas la llama (Call
+' FI2026: stub de Valida_Migracion -- modRSrm32.bas la llama (Call
 ' Valida_Migracion(...) en SendQuery) pero no existe en ningun .bas de
 ' WCRE9500 (ni siquiera comentado con el nombre correcto: el stub original
 ' aqui decia "Valida_Migracion_ant", con sufijo "_ant" que no matchea la
-' llamada real â€” confirmado que esto no compila ni en el WCRE9500 original,
+' llamada real -- confirmado que esto no compila ni en el WCRE9500 original,
 ' es un bug preexistente nunca detectado porque la compilacion se bloquea
-' antes por la licencia de THREED32.OCX). Sin efecto â€” solo satisface la
+' antes por la licencia de THREED32.OCX). Sin efecto -- solo satisface la
 ' referencia para que el proyecto compile.
 Public Sub Valida_Migracion(p_sBaseApli As String, p_sApli As String, p_sNodoApli As String)
 End Sub
@@ -30,11 +30,11 @@ Dim aux_monmax As String, aux_reqcla As String
 Dim aux_nombre As String, aux_prefijo As String
 Dim li_pos1, li_pos2 As Integer
 
-'inicializaciÃ³n de Variables
+'inicializaci�n de Variables
 sw_requiere_clave = False
 Usuario_Valido = False
 
-'Valor por defecto de la funcionalidad (se usarÃ¡ si el SP no devuelve aux_funcion numÃ©rico)
+'Valor por defecto de la funcionalidad (se usar� si el SP no devuelve aux_funcion num�rico)
 If IsNumeric(pr_funcion) Then
    FUNCIONALIDAD = CInt(pr_funcion)
 End If
@@ -58,10 +58,10 @@ RET_ACCESO = True
 
   
 ' ## SE COMENTA CODIGO ORIGINAL ##
-                'Verifica si el usuario estÃ¡ conectado al Ais Windows
+                'Verifica si el usuario est� conectado al Ais Windows
                 'nRet = AISGetUsr(DatosUser)
                 ''If nRet = 0 Then
-                '   MsgBox "Usted no estÃ¡ conectado en AISWindows", 16, "Control de Acceso"
+                '   MsgBox "Usted no est� conectado en AISWindows", 16, "Control de Acceso"
                 '   Exit Function
                 'Else
 

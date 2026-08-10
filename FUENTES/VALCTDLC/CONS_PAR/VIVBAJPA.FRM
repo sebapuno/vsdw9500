@@ -2,7 +2,7 @@ VERSION 4.00
 Begin VB.Form Frm_BajCTD 
    BackColor       =   &H00C0C0C0&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Actualizando Tabla de Par√°metros"
+   Caption         =   "Actualizando Tabla de Par·metros"
    ClientHeight    =   960
    ClientLeft      =   4290
    ClientTop       =   1920

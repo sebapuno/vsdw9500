@@ -62,7 +62,7 @@ If Not App.PrevInstance Then
   OperCRE = Mid$(DataINI, 26, 1)
   
   If strEstado <> 1 Then
-  '*** SI RECHAZO TRANSACCIÃ“N *****
+  '*** SI RECHAZO TRANSACCIÓN *****
     
     strEstado = "R"
      
@@ -112,7 +112,7 @@ If Not App.PrevInstance Then
     Call ActualizarEnvioSRM(IdUsuario + Vista + Operacion + Mid$(DataINI, 1, 26), Mid$(DataINI, 27, 464) + "L")
     
   Else
-    '*** TRANSACCIÃ“N NORMAL
+    '*** TRANSACCIÓN NORMAL
     
     strEstado = "A"
     '*** Arma Transaccion CRE (Credito Empresas PYME)

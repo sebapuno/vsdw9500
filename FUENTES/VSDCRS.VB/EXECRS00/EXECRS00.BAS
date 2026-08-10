@@ -1,4 +1,4 @@
-Attribute VB_Name = "MÃ³dulo1"
+Attribute VB_Name = "M�dulo1"
 Option Explicit
 
 ' FI2026 SHG - AisGetUsr deshabilitado (WAIS.DLL 16-bit)

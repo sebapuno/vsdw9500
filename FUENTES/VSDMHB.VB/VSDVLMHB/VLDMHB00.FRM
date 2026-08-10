@@ -51,7 +51,7 @@ If Not App.PrevInstance Then
       '* N REGISTROS
       For I# = 1 To Cantidad
         If Not ProductoAsociadoEncontrado(Encabezado + "MHX", Mid$(LlaveProducto, 1, 22) + Format$(I#, "000"), "10") Then
-          MsgBox "Los registros son incompletos.", 48, "Error de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "Los registros son incompletos.", 48, "Error de Validaci�n"
           Continuar = False
           Exit For
         End If
@@ -69,7 +69,7 @@ If Not App.PrevInstance Then
     BaseVisado.Close
     
   Else
-    MsgBox "Cliente no existe.", 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+    MsgBox "Cliente no existe.", 16, "Problemas de Validaci�n"
   End If
   
 End If
@@ -100,17 +100,17 @@ Dim AplicacionDestino As String * 4
     CadenaDatos = Llamada(NodoDestino, AplicacionDestino, Usuario, Llave)
     If Mid$(CadenaDatos, 1, 6) = "000000" Then
       If Mid$(CadenaDatos, 132, 2) = "SC" Then
-        MsgBox "No Existe la ClasificaciÃƒÆ’Ã‚Â³n de Riesgo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "No Existe la Clasificaci�n de Riesgo", 0 + 16, "Problemas de Validaci�n"
       Else
         ObtieneInformacion = True
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
-        MsgBox "El Cliente No EstÃƒÆ’Ã‚Â¡ Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "El Cliente No Est� Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de Validaci�n"
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal NumeroVista As String) As String

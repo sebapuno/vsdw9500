@@ -1,7 +1,7 @@
 VERSION 4.00
 Begin VB.Form ErrorComunicacion 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Problemas de Comunicaci贸n"
+   Caption         =   "Problemas de Comunicaci髇"
    ClientHeight    =   4395
    ClientLeft      =   2070
    ClientTop       =   2625
@@ -55,7 +55,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   2884
       _extenty        =   450
       _stockprops     =   15
-      caption         =   "Aplicaci贸n"
+      caption         =   "Aplicaci髇"
       forecolor       =   0
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -113,7 +113,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   12197
       _extenty        =   2011
       _stockprops     =   15
-      caption         =   " Atenci贸n :"
+      caption         =   " Atenci髇 :"
       forecolor       =   192
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -491,7 +491,7 @@ Begin VB.Form ErrorComunicacion
       _extentx        =   1773
       _extenty        =   529
       _stockprops     =   15
-      caption         =   "Operaci贸n"
+      caption         =   "Operaci髇"
       forecolor       =   0
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -573,8 +573,8 @@ End Sub
 Private Sub Imprimir_Click()
   Screen.MousePointer = 11
 On Error GoTo ErrorDeImpresion
-  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi贸n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora Emisi贸n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisi髇 : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora Emisi髇  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.Print Tab(55); "DETALLE ERROR DE COMUNICACION"
@@ -583,12 +583,12 @@ On Error GoTo ErrorDeImpresion
   Printer.FontBold = True
   Printer.Print Tab(5); "Rut Cliente : " + FormateaRut(Rut)
   Printer.Print Tab(5); "Producto : " + PRODUCTOACCESADO
-  Printer.Print Tab(5); "Aplicaci贸n : " + Mid$(EJECUTABLE, 1, 5) + Producto + Mid$(EJECUTABLE, 9)
+  Printer.Print Tab(5); "Aplicaci髇 : " + Mid$(EJECUTABLE, 1, 5) + Producto + Mid$(EJECUTABLE, 9)
   Printer.FontBold = False
   Printer.Print
   Printer.Print Tab(7); "Nodo Destino : " + Nodo.Caption
   Printer.Print Tab(7); "Servidor : " + Servidor.Caption
-  Printer.Print Tab(7); "Operaci贸n :" + Operacion.Caption
+  Printer.Print Tab(7); "Operaci髇 :" + Operacion.Caption
   Printer.Print Tab(7); "Llave de Acceso :" + Llave.Caption
   Printer.Print Tab(7); "Retorno SRM :" + RetFuncion.Caption
   Printer.Print Tab(7); "Status :" + Status.Caption
@@ -598,7 +598,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   I% = MsgBox("Error de Impresi贸n", 5 + 48 + 0, "Impresi贸n Cancelada")
+   I% = MsgBox("Error de Impresi髇", 5 + 48 + 0, "Impresi髇 Cancelada")
    If I% = 4 Then
     Resume 0
    Else

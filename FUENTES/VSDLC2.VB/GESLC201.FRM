@@ -141,7 +141,7 @@ Dim AplicacionDestino As String * 4
       TransmiteInformacion = True
     End If
   Else
-    MsgBox "Vista NÂº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String

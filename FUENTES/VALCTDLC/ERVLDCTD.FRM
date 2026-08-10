@@ -2,7 +2,7 @@ VERSION 4.00
 Begin VB.Form Frm_ERVL 
    BackColor       =   &H00808080&
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Errores de ValidaciÃ³n de Datos"
+   Caption         =   "Errores de Validación de Datos"
    ClientHeight    =   4800
    ClientLeft      =   2730
    ClientTop       =   2475
@@ -61,7 +61,7 @@ Begin VB.Form Frm_ERVL
       _extentx        =   6509
       _extenty        =   556
       _stockprops     =   15
-      caption         =   "LÃ­nea de CrÃ©dito NÂ° 00-000-00000-00"
+      caption         =   "Línea de Crédito N° 00-000-00000-00"
       backcolor       =   13160660
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -84,7 +84,7 @@ Begin VB.Form Frm_ERVL
       _extentx        =   2408
       _extenty        =   556
       _stockprops     =   15
-      caption         =   "RenovaciÃ³n"
+      caption         =   "Renovación"
       backcolor       =   13160660
       BeginProperty font {FB8F0823-0164-101B-84ED-08002B2EC713} 
          name            =   "MS Sans Serif"
@@ -198,7 +198,7 @@ PreparaGrid_Errores
 If TipoProd = "0" Then
   Lb_Prod.Caption = "Cuenta Corriente"
 ElseIf TipoProd = "1" Then
-  Lb_Prod.Caption = "LÃ­nea de CrÃ©dito"
+  Lb_Prod.Caption = "Línea de Crédito"
 Else
   Lb_Prod.Caption = "Producto"
 End If
@@ -211,19 +211,19 @@ Select Case Operacion
    Case "C"
       lb_Accion.Caption = "Cierre"   ' 1
    Case "R"
-      lb_Accion.Caption = "RenovaciÃ³n"   ' 2
+      lb_Accion.Caption = "Renovación"   ' 2
    Case "M"
-      lb_Accion.Caption = "ModificaciÃ³n"  ' 3
+      lb_Accion.Caption = "Modificación"  ' 3
 End Select
 
 CtdLcd = IIf(Len(CtdLcd) = 12, Mid$(CtdLcd, 2), CtdLcd)
 
 If Origen = "BCH" Then
-  Lb_Prod.Caption = Lb_Prod.Caption + " NÂ° " + Format$(CtdLcd, "0-000-00000-00")
+  Lb_Prod.Caption = Lb_Prod.Caption + " N° " + Format$(CtdLcd, "0-000-00000-00")
 ElseIf Origen = "BAE" Then
-  Lb_Prod.Caption = Lb_Prod.Caption + " NÂ° " + Format$(CtdLcd, "0-00-00-000000")
+  Lb_Prod.Caption = Lb_Prod.Caption + " N° " + Format$(CtdLcd, "0-00-00-000000")
 Else
-  Lb_Prod.Caption = Lb_Prod.Caption + " NÂ° " + CtdLcd
+  Lb_Prod.Caption = Lb_Prod.Caption + " N° " + CtdLcd
 End If
 
 Success = SetWindowPos(Me.hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZENOMOVE)
@@ -268,13 +268,13 @@ Public Sub PreparaGrid_Errores()
 GridErr.Row = 0
 
 GridErr.Col = 0
-GridErr.Text = "PosiciÃ³n"
+GridErr.Text = "Posición"
 GridErr.FixedAlignment(0) = 2
 GridErr.Col = 1
 GridErr.Text = "Dato"
 GridErr.FixedAlignment(1) = 2
 GridErr.Col = 2
-GridErr.Text = "DescripciÃ³n"
+GridErr.Text = "Descripción"
 GridErr.FixedAlignment(2) = 2
 
 GridErr.ColWidth(0) = 1000
@@ -305,24 +305,24 @@ Screen.MousePointer = 11
 
 On Error GoTo ErrorDeImpresion
   
-  Printer.Print "Banco de Chile"; Tab(54); "Fecha EmisiÃ³n : " + Format$(Date, "dd/mmm/yyyy")
-  Printer.Print Tab(54); "Hora EmisiÃ³n  : " + Format$(Time, "hh:mm:ss")
+  Printer.Print "Banco de Chile"; Tab(54); "Fecha Emisión : " + Format$(Date, "dd/mmm/yyyy")
+  Printer.Print Tab(54); "Hora Emisión  : " + Format$(Time, "hh:mm:ss")
   Printer.Print
   Printer.FontUnderline = True
   Printer.FontName = "Courier New"
   Printer.FontSize = 10
   Printer.FontBold = True
-  Printer.Print Tab(30); "DETALLE ERRORES DE VALIDACIÃ“N"
+  Printer.Print Tab(30); "DETALLE ERRORES DE VALIDACIÓN"
   Printer.FontUnderline = False
   Printer.FontBold = False
   Printer.Print
   Printer.Print
   Printer.Print Tab(10); "Producto"; Tab(20); ": " + Lb_Prod.Caption
-  Printer.Print Tab(10); "AcciÃ³n"; Tab(20); ": " + lb_Accion.Caption
+  Printer.Print Tab(10); "Acción"; Tab(20); ": " + lb_Accion.Caption
   Printer.Print Tab(10); "Origen"; Tab(20); ": " + Lb_Zona.Caption
   Printer.Print
   Printer.Print
-  Printer.Print Tab(10); "Pos." + Space(4) + "Dato" + Space(14) + "DescripciÃ³n"
+  Printer.Print Tab(10); "Pos." + Space(4) + "Dato" + Space(14) + "Descripción"
   Printer.Print Tab(10); String(60, "-")
   
   For s% = 1 To GridErr.Rows - 1
@@ -343,7 +343,7 @@ On Error GoTo 0
   GoTo Fin
   
 ErrorDeImpresion:
-   i% = MsgBox("Error de ImpresiÃ³n", 5 + 48 + 0, "ImpresiÃ³n Cancelada")
+   i% = MsgBox("Error de Impresión", 5 + 48 + 0, "Impresión Cancelada")
    If i% = 4 Then
      Resume 0
    Else

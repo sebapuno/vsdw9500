@@ -28,21 +28,23 @@ Public Const SINNODO = "INHABILITADO"
 Public Const EJECUTABLE = "VSDVL???.EXE"
 Public Const RUTDEFECTO = "12345678"
 Public Const NODOREGIONAL = "SRM_NS"
-Public Const PRODUCTOACCESADO = "(LC5) LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito"
+Public Const PRODUCTOACCESADO = "(LC5) L�nea de Cr�dito"
 Public Const AMBIENTEDESARROLLO = "DESA"
 
 Global Rut As String
 Global Modo As String
 Global Producto As String
 Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
-Dim Retorno As Integer
+' FI2026 - Retorno era Integer: Shell() en VB6 32-bit devuelve el process ID
+' (muy por encima de 32767), que desborda un Integer.
+Dim Retorno As Long
   Retorno = Shell(Programa, Modo)
   DoEvents
-  ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
-  ' Call WaitProcess(Retorno)  ' requiere modRSrm32.bas
-
-     ' DoEvents  ' FI2026 SHG - orphan from GetModuleUsage
-  ' Wend  ' FI2026 SHG - orphan from GetModuleUsage
+  ' FI2026 - restaura la espera del original 16-bit:
+  '     While GetModuleUsage(Retorno) <> 0 : DoEvents : Wend
+  ' EjecutarPrograma es SINCRONA: quien la llama asume que el programa
+  ' externo ya termino al volver.
+  Call WaitProcess(Retorno)
 End Sub
 Public Function SacaValorINI(Grupo As String, Titulo As String, NombreArchivo As String) As String
 Dim ValorGet As Integer

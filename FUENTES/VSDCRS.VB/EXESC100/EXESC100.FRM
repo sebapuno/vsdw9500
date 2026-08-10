@@ -137,7 +137,7 @@ If Not App.PrevInstance Then
   BaseVisado.Close
 End If
 
-End 'FIN DE LA APLICACIÃƒÆ’Ã¢â‚¬Å“N
+End 'FIN DE LA APLICACI�N
  
 End Sub
 

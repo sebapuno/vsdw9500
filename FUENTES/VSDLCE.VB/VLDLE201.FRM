@@ -157,7 +157,7 @@ Dim FiltroVsdPrd  As Recordset
     ProductoAsociadoEncontrado = True
   Else
     MsgBox "Errores en Integridad de los Datos" + Chr(10) + _
-                  "Deben Ser Enviados Nuevamente", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                  "Deben Ser Enviados Nuevamente", 0 + 16, "Problemas de Validaci�n"
   End If
   FiltroVsdPrd.Close
 End Function
@@ -175,23 +175,23 @@ Dim AplicacionDestino As String * 4
         If Mid$(Llave, 1, 9) = Mid$(CadenaDatos, 16, 9) Then
           ObtieneInformacion = True
         Else
-          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de Validaci�n"
         End If
       Else
         If DebeExistirLinea Then
           If Llave = Mid$(CadenaDatos, 15 + 1, 11) Then
             If Mid$(CadenaDatos, 15 + 176, 1) <> " " And Mid$(CadenaDatos, 15 + 176, 1) <> "0" Then
-              MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+              MsgBox "La L�nea de Cr�dito Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
             Else
               If Mid$(CadenaDatos, 15 + 179, 1) = "4" Then
-                MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                              "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                MsgBox "La L�nea de Cr�dito Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                              "Problemas de Validaci�n"
               Else
                 ObtieneInformacion = True
               End If
             End If
           Else
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         Else
           If SeEstaBuscandoAlCliente Then
@@ -199,7 +199,7 @@ Dim AplicacionDestino As String * 4
           Else
             If Llave = Mid$(CadenaDatos, 16, 11) Then
               ObtieneInformacion = True
-              MsgBox "Ya Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+              MsgBox "Ya Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
             End If
           End If
         End If
@@ -207,18 +207,18 @@ Dim AplicacionDestino As String * 4
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
         If SeEstaBuscandoCuenta Then
-          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de Validaci�n"
         Else
           If DebeExistirLinea Then
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           Else
-            MsgBox "El Cliente No EstÃƒÆ’Ã‚Â¡ Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "El Cliente No Est� Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de Validaci�n"
           End If
         End If
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function ExisteCuentaCorriente(ByVal Llave As String, ByVal Vista As String) As Boolean

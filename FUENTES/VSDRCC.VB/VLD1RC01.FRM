@@ -104,28 +104,28 @@ Dim AplicacionDestino As String * 4
         If Val(Mid(CadenaDatos, 275, 1)) <> 1 Then
           ObtieneInformacion = True
         Else
-          MsgBox "La Cuenta Corriente EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "La Cuenta Corriente Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
         End If
       Else
         If Vista = "0392" Then
            If Val(Mid(CadenaDatos, 182, 1)) <> 4 Then
-              MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito Activa" + Chr(10) + "AÃƒÆ’Ã‚Âºn No ha Sido Cerrada", 0 + 16, _
-                    "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+              MsgBox "La L�nea de Cr�dito Activa" + Chr(10) + "A�n No ha Sido Cerrada", 0 + 16, _
+                    "Problemas de Validaci�n"
            Else
               ObtieneInformacion = True
            End If
         Else
           If Not (Val(Mid$(CadenaDatos, 266, 1)) = 1 Or Val(Mid$(CadenaDatos, 292, 1)) = 1) Then
             ObtieneInformacion = True
-            MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito Asociada" + Chr(10) + "AÃƒÆ’Ã‚Âºn No ha Sido Cerrada", 0 + 16, _
-                   "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "La L�nea de Cr�dito Asociada" + Chr(10) + "A�n No ha Sido Cerrada", 0 + 16, _
+                   "Problemas de Validaci�n"
           End If
         End If
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
         If SeEstaBuscandoCuenta Then
-          MsgBox "No Existe la Cuenta Corriente", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Cuenta Corriente", 0 + 16, "Problemas de Validaci�n"
         End If
       Else
         If Not SeEstaBuscandoCuenta Then
@@ -134,7 +134,7 @@ Dim AplicacionDestino As String * 4
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 
 End Function

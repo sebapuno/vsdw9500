@@ -38,14 +38,29 @@ SacaValorINI = Left$(lpReturnedString$, ValorGet)
 End Function
 
 Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
-Dim Retorno As Integer
+' FI2026 - Retorno era Integer: Shell() en VB6 32-bit devuelve el process ID
+' (muy por encima de 32767), que desborda un Integer.
+Dim Retorno As Long
   Retorno = Shell(Programa, Modo)
   DoEvents
-  ' FI2026 SHG - GetModuleUsage 16-bit no disponible en Win32
-  ' Call WaitProcess(Retorno)  ' requiere modRSrm32.bas
+  ' FI2026 - restaura la espera del original 16-bit:
+  '     While GetModuleUsage(Retorno) <> 0 : DoEvents : Wend
+  ' EjecutarPrograma es SINCRONA: quien la llama asume que el programa
+  ' externo ya termino al volver.
+  Call WaitProcess(Retorno)
+End Sub
 
-     ' DoEvents  ' FI2026 SHG - orphan from GetModuleUsage
-  ' Wend  ' FI2026 SHG - orphan from GetModuleUsage
+' FI2026 - equivalente Win32 del patron Win16 While GetModuleUsage(pid) <> 0
+Public Sub WaitProcess(ByVal pid As Long)
+Dim hProc As Long
+Const SYNCHRONIZE As Long = &H100000
+  hProc = OpenProcess(SYNCHRONIZE, 0, pid)
+  If hProc <> 0 Then
+    Do While WaitForSingleObject(hProc, 100) <> 0
+      DoEvents
+    Loop
+    CloseHandle hProc
+  End If
 End Sub
 
 Public Function BuscaNodoOfi(CodOfi As String) As String

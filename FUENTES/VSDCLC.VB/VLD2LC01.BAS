@@ -19,7 +19,7 @@ Public Const SINNODO = "Quedate Piola"
 Public Const EJECUTABLE = "VSDVL???.EXE"
 Public Const RUTDEFECTO = "12345678"
 Public Const NODOREGIONAL = "SRM_NS"
-Public Const PRODUCTOACCESADO = "(CLC) Cierre LÃ­nea de CrÃ©dito"
+Public Const PRODUCTOACCESADO = "(CLC) Cierre L�nea de Cr�dito"
 Public Const AMBIENTEDESARROLLO = "DESA"
 
 Global Rut As String

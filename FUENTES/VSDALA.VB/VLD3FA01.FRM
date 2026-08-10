@@ -69,13 +69,13 @@ Dim NumeroLineaCredito As String
                                  "Error de Escritura"
                         End If
                       Else
-                         MsgBox "Ya Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito Activa", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                         MsgBox "Ya Existe la L�nea de Cr�dito Activa", 0 + 16, "Problemas de Validaci�n"
                       End If
                     Else
-                      MsgBox "No Existe la Cuenta Corriente", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                      MsgBox "No Existe la Cuenta Corriente", 0 + 16, "Problemas de Validaci�n"
                     End If
                   Else
-                    MsgBox "Ya Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito Activa", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                    MsgBox "Ya Existe la L�nea de Cr�dito Activa", 0 + 16, "Problemas de Validaci�n"
                   End If
                 End If
               End If
@@ -85,7 +85,7 @@ Dim NumeroLineaCredito As String
       End If
     
     Else 'MODIFICACION
-      MsgBox "NO ESTA CONSTRUIDA LA MODIFICACION NVA PLATAFORMA", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+      MsgBox "NO ESTA CONSTRUIDA LA MODIFICACION NVA PLATAFORMA", 0 + 16, "Problemas de Validaci�n"
       'If ExisteLineaDeCredito(NumeroLineaCredito, PunteroTabPrd("Prd_Vista_Dst")) Then
       '   Data_IBM = Mid$(CadenaDatos, 18)
       '   Data_Visa = ActualizaMetro(Dat)
@@ -99,7 +99,7 @@ Dim NumeroLineaCredito As String
       '           "Error de Escritura"
       '  End If
       'Else
-      '   MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito Activa", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+      '   MsgBox "No Existe la L�nea de Cr�dito Activa", 0 + 16, "Problemas de Validaci�n"
       'End If
     End If
     PunteroTabPrd.Close
@@ -145,7 +145,7 @@ Dim AplicacionDestino As String * 4
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal NumeroVista As String) As String
@@ -244,7 +244,7 @@ Dim FiltroVsdPrd  As Recordset
     If VerMensaje Then
       MsgBox "Errores en Integridad de los Datos" + Chr(13) + _
              "Falta Producto :" + Mid$(PatronBusqueda, Len(PatronBusqueda) - 2, 3) + Chr(13) + _
-             "Deben Ser Enviados Nuevamente", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+             "Deben Ser Enviados Nuevamente", 0 + 16, "Problemas de Validaci�n"
     End If
   End If
   FiltroVsdPrd.Close

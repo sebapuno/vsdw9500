@@ -74,7 +74,7 @@ Dim PunteroRep  As Recordset
      If Val(Mid$(Rut, 1, Len(Rut) - 1)) > 50000000 Then ' empresa
          MsgBox "Este producto tiene asociado un registro de repoch." + Chr(10) + _
                 "Por tratarse de una Cuenta Corriente con Intereses," + Chr(10) + _
-                "este registro Repoch no serÃƒÆ’Ã‚Â¡ transmitido.", 48, "AtenciÃƒÆ’Ã‚Â³n"
+                "este registro Repoch no ser� transmitido.", 48, "Atenci�n"
          FiltroVsdPrd.Delete '** Borrar registro repoch
      End If
      ValidarProductoRepoch = True
@@ -83,7 +83,7 @@ Dim PunteroRep  As Recordset
      ValidarProductoRepoch = True
   Else
      MsgBox "Error en Integridad de los Datos" + Chr(10) + _
-           "No se encuentra registro Repoch.", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+           "No se encuentra registro Repoch.", 0 + 16, "Problemas de Validaci�n"
      ValidarProductoRepoch = False
   End If
   
@@ -102,8 +102,8 @@ FechaHoy = Format(Date, "yyyymmdd")
 If Mid$(FechaPrd, 5, 2) = Mid$(FechaHoy, 5, 2) Then
   FechaValida = True
 Else
-  MsgBox "Fecha de generaciÃƒÆ’Ã‚Â³n corresponde al mes anterior." + Chr(10) + _
-          "No se puede visar el producto.", 16, "Error de ValidaciÃƒÆ’Ã‚Â³n"
+  MsgBox "Fecha de generaci�n corresponde al mes anterior." + Chr(10) + _
+          "No se puede visar el producto.", 16, "Error de Validaci�n"
 End If
 
 
@@ -156,7 +156,7 @@ If Not App.PrevInstance Then
                End If
              End If
            Else
-             MsgBox "No se encuentra direcciÃƒÆ’Ã‚Â³n legal para Cuenta Corriente Remunerada.", 16, "Faltan Datos"
+             MsgBox "No se encuentra direcci�n legal para Cuenta Corriente Remunerada.", 16, "Faltan Datos"
            End If
         Else
            MsgBox "No se encuentra registro de atributos " + Chr(10) + "para Cuenta Corriente Con Intereses.", 16, "Faltan Datos"
@@ -272,10 +272,10 @@ Dim OficinaOrigen As String
     If Mid$(CadenaDatos, 1, 6) = "000000" Then
       If SeEstaBuscandoCuenta Then
         ObtieneInformacion = True
-        MsgBox "Ya Existe la Cuenta Corriente", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+        MsgBox "Ya Existe la Cuenta Corriente", 0 + 16, "Problemas de Validaci�n"
       Else
         If Mid$(CadenaDatos, 132, 2) = "SC" Then
-          MsgBox "No Existe la ClasificaciÃƒÆ’Ã‚Â³n de Riesgo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Clasificaci�n de Riesgo", 0 + 16, "Problemas de Validaci�n"
         Else
           ObtieneInformacion = True
         End If
@@ -287,12 +287,12 @@ Dim OficinaOrigen As String
         End If
       Else
         If Mid$(CadenaDatos, 1, 6) = "000096" Then
-          MsgBox "El Cliente No EstÃƒÆ’Ã‚Â¡ Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "El Cliente No Est� Creado" + Chr(10) + "Consulte con el Ejecutivo", 0 + 16, "Problemas de Validaci�n"
         End If
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal NumeroVista As String) As String
@@ -361,7 +361,7 @@ Dim AplicacionDestino As String * 4
        Obtiene5391 = "XXX"
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
   
 End Function

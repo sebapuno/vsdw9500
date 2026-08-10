@@ -143,7 +143,7 @@ Dim DataTmp As String
   Modo = "V0000"
   ExisteLineaDeCredito = ObtieneInformacion(Vista, Llave, False, Estado)
   If ExisteLineaDeCredito Then
-     ' Este codigo transforma de 0DDMMSSAA a SSAAMMDD (aÃƒÆ’Ã‚Â±o 2000)
+     ' Este codigo transforma de 0DDMMSSAA a SSAAMMDD (a�o 2000)
      DataTmp = Mid$(CadenaDatos, 1, 26) + Mid$(CadenaDatos, 26 + 1, 42)
      DataTmp = DataTmp + Mid$(CadenaDatos, 26 + 48, 4) + Mid$(CadenaDatos, 26 + 46, 2) + Mid$(CadenaDatos, 26 + 44, 2)
      DataTmp = DataTmp + Mid$(CadenaDatos, 26 + 52, 42)
@@ -184,41 +184,41 @@ Dim AplicacionDestino As String * 4
       Else
         If DebeExistirLinea Then
           If Llave = Mid$(CadenaDatos, 15 + 1, 11) Then
-            ' En aÃƒÆ’Ã‚Â±o 2000 SD20 cambiar 170 a 176 listo!!
+            ' En a�o 2000 SD20 cambiar 170 a 176 listo!!
             If Mid$(CadenaDatos, 15 + 176, 1) <> " " And Mid$(CadenaDatos, 15 + 176, 1) <> "0" Then
-              MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡ Cerrada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+              MsgBox "La L�nea de Cr�dito Est� Cerrada", 0 + 16, "Problemas de Validaci�n"
             Else
-              ' En aÃƒÆ’Ã‚Â±o 2000 SD20 cambiar 173 a 179 listo!!
+              ' En a�o 2000 SD20 cambiar 173 a 179 listo!!
               If Mid$(CadenaDatos, 15 + 179, 1) = "4" Then
-                MsgBox "La LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito EstÃƒÆ’Ã‚Â¡" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
-                              "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+                MsgBox "La L�nea de Cr�dito Est�" + Chr(10) + "en Proceso de ser Cerrada", 0 + 16, _
+                              "Problemas de Validaci�n"
               Else
                 ObtieneInformacion = True
               End If
             End If
           Else
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         Else
           If Llave = Mid$(CadenaDatos, 16, 11) Then
             ObtieneInformacion = True
-            MsgBox "Ya Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "Ya Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         End If
       End If
     Else
       If Mid$(CadenaDatos, 1, 6) = "000096" Then
         If SeEstaBuscandoCuenta Then
-          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+          MsgBox "No Existe la Cuenta Corriente Asociada", 0 + 16, "Problemas de Validaci�n"
         Else
           If DebeExistirLinea Then
-            MsgBox "No Existe la LÃƒÆ’Ã‚Â­nea de CrÃƒÆ’Ã‚Â©dito", 0 + 16, "Problemas de ValidaciÃƒÆ’Ã‚Â³n"
+            MsgBox "No Existe la L�nea de Cr�dito", 0 + 16, "Problemas de Validaci�n"
           End If
         End If
       End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 

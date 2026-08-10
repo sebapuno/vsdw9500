@@ -74,7 +74,7 @@ Dim FiltroVsdPrd As Recordset
                                 "Error de Escritura"
               End If
           Else
-              MsgBox "No se encuentra direcciÃƒÆ’Ã‚Â³n legal para Cuenta Corriente Remunerada.", 16, "Faltan Datos"
+              MsgBox "No se encuentra direcci�n legal para Cuenta Corriente Remunerada.", 16, "Faltan Datos"
           End If
           FiltroVsdPrd.Close
        End If
@@ -129,7 +129,7 @@ Dim AplicacionDestino As String * 4
        'End If
     End If
   Else
-    MsgBox "Vista NÃƒâ€šÃ‚Âº " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
+    MsgBox "Vista N� " + Vista + " No Tiene Nodo Asociado", 0 + 16, "Faltan Datos"
   End If
 End Function
 Private Function DeterminaNodo(Aplicacion As String, ByVal Vista As String) As String

@@ -2,7 +2,7 @@ Attribute VB_Name = "Bajada"
 Private Declare Function Srmw32 Lib "C:\Bin\F\srmw32.DLL" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Long, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
 Public Function Llamada(ByVal Sd_Nodo As String, ByVal Sd_Aplicacion As String, ByVal Sd_Usuario As String, ByVal Sd_Llave As String) As String
 Dim Retorno As Integer
-Dim Sd_Largo As Integer
+Dim Sd_Largo As Long  ' FI2026 Integer->Long (Srmw32 32-bit recibe el largo ByRef)
 Dim Sd_Datos As String * 8000
 Dim Sd_Status As String * 2
 Dim Sd_Control As String * 10000
@@ -14,7 +14,7 @@ Dim Sd_Contexto As String * 2
   Sd_Funcion = "01"
   Sd_Contexto = "00"
   Sd_Status = "00"
-  Retorno = SRMW8(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
+  Retorno = Srmw32(Sd_Nodo, Sd_Aplicacion, Sd_Datos, Sd_Largo, Sd_Status, Sd_Funcion, Sd_Contexto, Sd_Control)
   Sd_Status = Format$(Val(Sd_Status), "00")
   Sd_RetSRM = Mid$(Sd_Datos, 1, 2)
   If (Retorno = 0) And (Sd_Status = "00") Then
@@ -54,11 +54,11 @@ Dim NumError As String
     ErrorComunicacion.ServidorDatos.Caption = " (" + RetSRM + ")"
   End If
   ErrorComunicacion.Llave.Caption = " " + RTrim$(Mid(Llave, 1, 50))
-  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la ValidaciÃ³n del " + _
+  ErrorComunicacion.Mensaje.Caption = "Se ha producido un Problema de Comunicaciones en la Validaci�n del " + _
                                                                   Mid$(PRODUCTOACCESADO, 7) + " " + _
                                                                   Mid$(PRODUCTOACCESADO, 1, 5) + ".  " + _
                                                                   "Por favor Reporte esto a Central de Fallas (3030) describiendo la " + _
-                                                                  "siguiente informaciÃ³n."
+                                                                  "siguiente informaci�n."
   ErrorComunicacion.nombreAplicacion.Caption = " " + Mid$(EJECUTABLE, 1, 5) + Producto + Mid$(EJECUTABLE, 9)
   ErrorComunicacion.Show 1
 End Sub
