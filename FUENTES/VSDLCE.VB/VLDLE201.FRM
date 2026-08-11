@@ -93,7 +93,11 @@ Dim NumeroLineaCredito As String
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
     Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - era: PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+    ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+    ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+    PunteroVsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
     PunteroTabPrd.Index = "Tab_Prd"
     IdUsuario = ObtieneRutUsuarioLogueado()
     Rut = SacaValorINI("Parametros", "Param1", DIRECTORIO_01 + ARCHIVO_INI01)
@@ -232,7 +236,11 @@ Dim BaseEnvioSRM As Database
   
      Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
      Set PunteroVista = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-     ' FI2026 - PunteroVista.Index = PunteroVista.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+     ' FI2026 - era: PunteroVista.Index = PunteroVista.Indexes(0).Name
+     ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+     ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+     ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+     PunteroVista.Index = BaseEnvioSRM.TableDefs("Vistas").Indexes(0).Name
      PunteroVista.Seek "=", Vista
      If PunteroVista.NoMatch Then
        DeterminaNodo = SINNODO

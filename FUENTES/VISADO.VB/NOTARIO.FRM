@@ -495,7 +495,10 @@ Dim InsertarFila As Boolean
         End If
       Case 46
         If FilasVisibles > 0 Then
-          GrillaHonorarios.Row = GrillaHonorarios.Row
+          ' FI2026 - se elimina 'X.Row = X.ActiveRow': en MSFlexGrid .Row ya es la
+          ' fila seleccionada, la asignacion sobra y con la grilla vacia (.Row = -1)
+          ' cortaba con error 30009. Este handler entra desde un evento de la propia
+          ' grilla, asi que siempre hay una fila valida seleccionada.
           If TodaLaFilaVacia Then
             GrillaHonorarios.Rows = GrillaHonorarios.Rows - 1
             FilasVisibles = FilasVisibles - 1

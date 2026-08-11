@@ -201,3 +201,27 @@ Dim Num_registro  As Integer
   Loop
    
 End Function
+
+' FI2026 DEBUG - traza de las llamadas al SRM (entrada y salida). Se activa con
+' [Logea] Flag=SI en Visado.INI (misma variable Logea que ya usaba
+' registra_las_llamadas). Escribe en C:\Data\Visado\SRM_DEBUG.LOG.
+' TEMPORAL: quitar cuando se termine de diagnosticar la conexion SRM.
+' FI2026 - helper de diagnostico, APAGADO. Se deja disponible porque VB6 no
+' informa numero de linea en runtime y sembrar trazas es la unica forma
+' practica de ubicar un fallo (ver Paso 12 de la guia del framework).
+' Para reactivarlo: poner DEBUG_SRM = True y volver a compilar.
+Private Const DEBUG_SRM = False
+Public Sub debug_srm(ByVal etapa As String, ByVal origen As String, ByVal nodo As String, ByVal apli As String, ByVal funcion As String, ByVal contexto As String, ByVal largo As Long, ByVal status As String, ByVal retorno As Long, ByVal datos As String)
+Dim ff As Integer
+  If Not DEBUG_SRM Then Exit Sub
+  On Error Resume Next
+  ff = FreeFile
+  Open "C:\SRM_DEBUG.LOG" For Append As #ff
+  Print #ff, Format$(Now, "yyyy-mm-dd hh:nn:ss") & " [" & etapa & "] " & origen & _
+             " nodo=[" & nodo & "] apli=[" & apli & "]" & _
+             " func=[" & funcion & "] ctx=[" & contexto & "]" & _
+             " largo=" & largo & " status=[" & status & "]" & _
+             " ret=" & retorno & " datos=[" & Left$(datos, 150) & "]"
+  Close #ff
+  On Error GoTo 0
+End Sub

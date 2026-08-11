@@ -24,7 +24,11 @@ Dim BaseSucur As Database
 Dim PunteroSucursales As Recordset
   Set BaseSucur = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB03)
   Set PunteroSucursales = BaseSucur.OpenRecordset("Sucursales", dbOpenTable)
-  ' FI2026 - PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  PunteroSucursales.Index = BaseSucur.TableDefs("Sucursales").Indexes(0).Name
   PunteroSucursales.Seek "=", CodigoOficina
   If PunteroSucursales.NoMatch Then
     GlosaOficina = "Oficina " + CodigoOficina + " (No Determinada)"

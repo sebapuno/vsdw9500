@@ -36,7 +36,11 @@ Dim BaseEnvioSRM As Database
   DeterminaNodo = SINNODO
   Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  PunteroVistas.Index = BaseEnvioSRM.TableDefs("Vistas").Indexes(0).Name
   PunteroVistas.Seek "=", Vista
   If Not PunteroVistas.NoMatch Then
     If Environ$(AMBIENTEDESARROLLO) = "DESA" Then

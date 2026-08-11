@@ -104,6 +104,17 @@ Dim NumError As String
 End Sub
 
 
+' FI2026 - la ruta del log de llamadas estaba hardcodeada como "d:\VSD_LOG.TXT".
+' En el PC del banco D: era una unidad de datos; aca D: es el CD-ROM, y el
+' Open For Append sobre una unidad de solo lectura corta el arranque con
+' error 75 (Path/File access error). Se pasa al INI, [VISADO] LogLlamadas,
+' con fallback al directorio de datos para que nunca vuelva a depender de D:.
+Public Function RutaLogLlamadas() As String
+Dim r As String
+  r = Trim$(SacaValorINI("VISADO", "LogLlamadas", DIRECTORIO_01 + ARCHIVO_INI01))
+  If r = "" Then r = DIRECTORIO_01 + "VSD_LOG.TXT"
+  RutaLogLlamadas = r
+End Function
 Function registra_las_llamadas(xnodo As String, xaplica As String, xdata As String)
 
 Dim archivo_LECTURA As String
@@ -112,7 +123,7 @@ Dim XGRABAR As String
 Dim MiRegistrox As String * 1000 ' Registro
 
    
-Archivo_DESTINO = "d:\VSD_LOG.TXT"
+Archivo_DESTINO = RutaLogLlamadas()
        
 Open Archivo_DESTINO For Append As #2
 MiRegistrox = ""

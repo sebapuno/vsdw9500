@@ -478,7 +478,11 @@ Dim AplicacionDestino As String * 4
   Retorno% = PoneValorINI("Parametros", "LlaveVisad", Data, DIRECTORIO_01 + ARCHIVO_INI01)
   
   IndiceTabPrd.Index = "Tab_Prd"
-  ' FI2026 - IndiceTabOper.Index = IndiceTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: IndiceTabOper.Index = IndiceTabOper.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  IndiceTabOper.Index = BaseVisado.TableDefs("Tab_Oper").Indexes(0).Name
   IndiceTabPrd.Seek "=", Producto
   Llave = IndiceTabPrd("Prd_Pos_Act")
   If Interpreta(Llave, SIMBOLOPOSICION) <> -1 Then

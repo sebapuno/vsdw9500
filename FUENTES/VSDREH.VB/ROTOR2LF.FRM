@@ -190,7 +190,11 @@ Dim IndiceTabGlosa As Recordset
         Case "TG"
           datos = Mid$(Data, Posicion, Largo)
           Set IndiceTabGlosa = BaseVisado.OpenRecordset("Tab_Glosa", dbOpenTable)
-          ' FI2026 - IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+          ' FI2026 - era: IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name
+          ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+          ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+          ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+          IndiceTabGlosa.Index = BaseVisado.TableDefs("Tab_Glosa").Indexes(0).Name
           IndiceTabGlosa.Seek "=", "2LF", Mid$(Formato, 3, 3), datos
           If Not IndiceTabGlosa.NoMatch Then
              ObtenerDescripcionGlosa = IndiceTabGlosa("Glosa_Descrip")

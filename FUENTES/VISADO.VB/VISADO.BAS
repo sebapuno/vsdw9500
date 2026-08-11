@@ -192,7 +192,11 @@ Dim UbicacionNombre   As String
 Dim CantidadRegistros As Integer
 
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  PunteroVsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
   Data = Mid$(CadenaDatos, 15)
   Volver = False
   Continua = Mid$(CadenaDatos, 3, 1)
@@ -367,7 +371,11 @@ Dim CodigoProducto As String * 3
 Dim UbicacionNombre As String
 Dim CantidadRegistros As Integer
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  PunteroVsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
   Data = Mid$(CadenaDatos, 8)
   Volver = False
   Continua = Mid$(CadenaDatos, 3, 1)
@@ -502,7 +510,11 @@ Dim UbicacionNombre   As String
 Dim CantidadRegistros As Integer
 
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  PunteroVsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
   Data = Mid$(CadenaDatos, 15)
   Volver = False
   Continua = Mid$(CadenaDatos, 3, 1)
@@ -664,7 +676,11 @@ Dim IniDesa As String
   DeterminaNodo = SINNODO
   Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
   Set PunteroVistas = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-  ' FI2026 - PunteroVistas.Index = PunteroVistas.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroVistas.Index = PunteroVistas.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  PunteroVistas.Index = BaseEnvioSRM.TableDefs("Vistas").Indexes(0).Name
   PunteroVistas.Seek "=", Vista
   If Not PunteroVistas.NoMatch Then
    If Environ$(AMBIENTEDESARROLLO) = "DESA" Or IniDesa = "DESA" Then
@@ -684,6 +700,7 @@ Dim IniDesa As String
   End If
   PunteroVistas.Close
   BaseEnvioSRM.Close
+
 End Function
 
 
@@ -698,7 +715,11 @@ Public Function EsProductoRelacionado(ByVal CodigoProducto As String) As Boolean
 Dim PunteroTabVisar As Recordset
   EsProductoRelacionado = True
   Set PunteroTabVisar = BaseVisado.OpenRecordset("Tab_Visar", dbOpenTable)
-  ' FI2026 - PunteroTabVisar.Index = PunteroTabVisar.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroTabVisar.Index = PunteroTabVisar.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  PunteroTabVisar.Index = BaseVisado.TableDefs("Tab_Visar").Indexes(0).Name
   PunteroTabVisar.Seek "=", CodigoProducto
   If PunteroTabVisar.NoMatch Then
     EsProductoRelacionado = False
@@ -717,7 +738,11 @@ Dim PunteroSucursales As Recordset
 
      Set BaseSucursales = OpenDatabase("C:\DATA\ADMSGT\TABSGT.MDB")
      Set PunteroSucursales = BaseSucursales.OpenRecordset("TblSuc", dbOpenTable)
-     ' FI2026 - PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+     ' FI2026 - era: PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name
+     ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+     ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+     ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+     PunteroSucursales.Index = BaseSucursales.TableDefs("TblSuc").Indexes(0).Name
      PunteroSucursales.Seek "=", CodigoOficina
      If PunteroSucursales.NoMatch Then
        GlosaOficina = CodigoOficina + Space(4) + " NO DETERMINADA"
@@ -729,7 +754,11 @@ Dim PunteroSucursales As Recordset
   Else
      Set BaseSucursales = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB03)
      Set PunteroSucursales = BaseSucursales.OpenRecordset("Sucursales", dbOpenTable)
-     ' FI2026 - PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+     ' FI2026 - era: PunteroSucursales.Index = PunteroSucursales.Indexes(0).Name
+     ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+     ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+     ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+     PunteroSucursales.Index = BaseSucursales.TableDefs("Sucursales").Indexes(0).Name
      PunteroSucursales.Seek "=", CodigoOficina
      If PunteroSucursales.NoMatch Then
        GlosaOficina = CodigoOficina + Space(4) + " NO DETERMINADA"
@@ -777,8 +806,16 @@ If WeekDay(Date) = 4 And Environ$("DESA") <> "DESA" Then 'es Miércoles
     Set Pto_TABOPER = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
          
     Pto_TABPRD.Index = "Tab_Prd"
-    ' FI2026 - Pto_TABVSD.Index = Pto_TABVSD.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
-    ' FI2026 - Pto_TABOPER.Index = Pto_TABOPER.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - eran, en el original de 16 bits (dos recordsets DISTINTOS):
+    '     Pto_TABVSD.Index  = Pto_TABVSD.Indexes(0).Name
+    '     Pto_TABOPER.Index = Pto_TABOPER.Indexes(0).Name
+    ' Una pasada previa de la migracion tradujo LAS DOS como Pto_TABOPER, y
+    ' Pto_TABVSD se quedaba sin indice: su .Seek de mas abajo (Tab_Vsd) fallaba
+    ' en runtime con error 3019. Recordset.Indexes esta [restricted] en DAO 3.6,
+    ' pero TableDef.Indexes NO, y la linea no es un no-op: dbOpenTable deja
+    ' .Index vacio (verificado en la VM).
+    Pto_TABVSD.Index = BaseVisado.TableDefs("Tab_Vsd").Indexes(0).Name
+    Pto_TABOPER.Index = BaseVisado.TableDefs("Tab_Oper").Indexes(0).Name
 
     Do While Not Pto_VSDPRD.EOF
       Pto_TABPRD.Seek "=", Pto_VSDPRD("Prd_CodProd")
@@ -892,7 +929,11 @@ Dim IndiceTabGlosa As Recordset
       End If
     Case "TG"
       Set IndiceTabGlosa = BaseVisado.OpenRecordset("Tab_Glosa", dbOpenTable)
-      ' FI2026 - IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+      ' FI2026 - era: IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name
+      ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+      ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+      ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+      IndiceTabGlosa.Index = BaseVisado.TableDefs("Tab_Glosa").Indexes(0).Name
       IndiceTabGlosa.Seek "=", CodigoProducto, Mid$(Formato, 3, 3), Datos
       If Not IndiceTabGlosa.NoMatch Then
         ObtenerDescripcionGlosa = IndiceTabGlosa("Glosa_Descrip")
@@ -1069,11 +1110,15 @@ Dim lpReturnedString As String
   SacaValorINI = Left$(lpReturnedString$, ValorGet)
 End Function
 Public Sub FijarVentana(Forma As Form)
-Dim hWnd%, hMenu%, Success%
-  hWnd% = Forma.hWnd
-  hMenu% = GetSystemMenu(hWnd%, 0)
-  Success% = DeleteMenu(hMenu%, SC_SIZE, MF_BYCOMMAND)
-  Success% = DeleteMenu(hMenu%, SC_MOVE, MF_BYCOMMAND)
+' FI2026 - hWnd/hMenu/Success eran Integer (sufijo %): en Win16 los handles
+' cabian en 16 bits, en Win32 son Long y desbordan con error 6 (Overflow)
+' apenas Forma.hWnd pasa de 32767, que es lo normal. Las Declare de
+' GetSystemMenu/DeleteMenu ya estaban migradas a Long; faltaban las locales.
+Dim hWnd As Long, hMenu As Long, Success As Long
+  hWnd = Forma.hWnd
+  hMenu = GetSystemMenu(hWnd, 0)
+  Success = DeleteMenu(hMenu, SC_SIZE, MF_BYCOMMAND)
+  Success = DeleteMenu(hMenu, SC_MOVE, MF_BYCOMMAND)
 End Sub
 Public Sub EjecutarPrograma(ByVal Programa As String, ByVal Modo As Integer)
 ' FI2026 - Retorno era Integer: Shell() en VB6 32-bit devuelve el process ID
@@ -1157,7 +1202,11 @@ Corresponde_Oficina = True
 
 Set BaseCui = OpenDatabase("C:\DATA\ADMSGT\TABSGT.MDB")
 Set PunteroCui = BaseCui.OpenRecordset("TblCui", dbOpenTable)
-' FI2026 - PunteroCui.Index = PunteroCui.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+' FI2026 - era: PunteroCui.Index = PunteroCui.Indexes(0).Name
+' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+PunteroCui.Index = BaseCui.TableDefs("TblCui").Indexes(0).Name
 PunteroCui.Seek "=", CodOf
 If Not PunteroCui.NoMatch Then
    If InStr("00,54,55,56", CodNodom) <> 0 Then '** Metro

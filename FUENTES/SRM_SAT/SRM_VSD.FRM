@@ -29,7 +29,11 @@ Function Es_Sybase(C_SY As String) As String
 Dim PunteroSy  As Recordset
 
   Set PunteroSy = BaseEnvioSRM.OpenRecordset("SYBASE", dbOpenTable)
-  ' FI2026 - PunteroSy.Index = PunteroSy.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroSy.Index = PunteroSy.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  PunteroSy.Index = BaseEnvioSRM.TableDefs("SYBASE").Indexes(0).Name
   PunteroSy.Seek "=", C_SY
   If Not PunteroSy.NoMatch Then
      If Ambiente = "DESA" Then
@@ -99,7 +103,11 @@ End If
      Aplicacion = Mid$(Resp_Sy, 5, 4)
   Else
      Set PunteroVista = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-     ' FI2026 - PunteroVista.Index = PunteroVista.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+     ' FI2026 - era: PunteroVista.Index = PunteroVista.Indexes(0).Name
+     ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+     ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+     ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+     PunteroVista.Index = BaseEnvioSRM.TableDefs("Vistas").Indexes(0).Name
      PunteroVista.Seek "=", NumeroVista
      If PunteroVista.NoMatch Then
        DeterminaNodo = SINNODO
@@ -131,14 +139,22 @@ End If
        
        ProductoRelacionado = ProdPrinc
        Set PunteroAlias = BaseVisado.OpenRecordset("TAB_SYBALIAS", dbOpenTable)
-       ' FI2026 - PunteroAlias.Index = PunteroAlias.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+       ' FI2026 - era: PunteroAlias.Index = PunteroAlias.Indexes(0).Name
+       ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+       ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+       ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+       PunteroAlias.Index = BaseVisado.TableDefs("TAB_SYBALIAS").Indexes(0).Name
        PunteroAlias.Seek "=", ProdPrinc
        If Not PunteroAlias.NoMatch Then
          ProductoRelacionado = PunteroAlias!syb_prod_nvo
        End If
        If PunteroAlias.NoMatch Then
          Set PunteroAlias = BaseVisado.OpenRecordset("TAB_ALIAS", dbOpenTable)
-         ' FI2026 - PunteroAlias.Index = PunteroAlias.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+         ' FI2026 - era: PunteroAlias.Index = PunteroAlias.Indexes(0).Name
+         ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+         ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+         ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+         PunteroAlias.Index = BaseVisado.TableDefs("TAB_ALIAS").Indexes(0).Name
          PunteroAlias.Seek "=", ProdPrinc
          If Not PunteroAlias.NoMatch Then
            ProductoRelacionado = PunteroAlias!alias_prod_nuev
@@ -157,7 +173,11 @@ Private Function BuscaNumeroTransaccion(ByVal Vista As String) As String
 Dim PunteroTx As Recordset
   BuscaNumeroTransaccion = SINENCONTRAR
   Set PunteroTx = BaseEnvioSRM.OpenRecordset("Tx", dbOpenTable)
-  ' FI2026 - PunteroTx.Index = PunteroTx.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroTx.Index = PunteroTx.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  PunteroTx.Index = BaseEnvioSRM.TableDefs("Tx").Indexes(0).Name
   PunteroTx.Seek "=", Vista
   If Not PunteroTx.NoMatch Then
     BuscaNumeroTransaccion = PunteroTx("Tx_NroTx")

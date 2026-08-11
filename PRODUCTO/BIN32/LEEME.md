@@ -4,13 +4,16 @@ Binarios compilados desde `FUENTES/` contra la VM de VB6 32-bit, en la branch
 `migracion/vb6-32bit`. **No reemplazan todavía a `PRODUCTO/BIN/S/`**, que sigue
 siendo el entregable de 16 bits en producción.
 
+Última recompilación completa: **2026-08-11**, los 179 `.VBP` del repo en una
+sola tanda (44 minutos, con `framework/mac/vb6-build-batch.sh`).
+
 ## Qué hay acá
 
-- **155 ejecutables** de 32 bits, uno por `.VBP` compilado con éxito.
-- 138 de ellos tienen su equivalente en el entregable actual (`PRODUCTO/BIN/S/`)
-  y son los que lo reemplazarían.
-- 16 no figuran en el entregable actual: se compilan desde el repo pero su `.EXE`
-  no está en el paquete de producción (proyectos internos o en desuso).
+- **159 ejecutables** de 32 bits, uno por `.VBP` compilado con éxito
+  (169 proyectos compilan; 10 de ellos generan un `.EXE` de nombre repetido).
+- Todos fueron regenerados el 2026-08-11: **155 reemplazan** a la versión
+  anterior de esta misma carpeta y **4 son nuevos**.
+- Ningún `.EXE` que estuviera acá quedó sin recompilar.
 
 ## Qué FALTA
 
@@ -18,30 +21,59 @@ siendo el entregable de 16 bits en producción.
   mayoría no tiene código fuente en este repo: `PRODUCTO/BIN/S` corresponde a
   `C:\Bin\S\` de la estación, que junta ejecutables de varios sistemas del banco.
   Confirmar con el responsable del paquete cuáles deben salir de acá.
-- **13 `.VBP` de `FUENTES/` todavía no compilan** (de 177 compilables). Se agrupan
-  en pocas causas: 4 comparten `RUTINAS.BAS`, 3 son de `VALCTDLC`, 2 dan
-  `Wrong number of arguments`, 2 son `PTACRN04`/`PTACRS04` y 2 `VSDVL3CR`.
-- Aparte, 2 `.VBP` (`GES_1C2`, `GES_3GR`) son **huérfanos sin código fuente** en
-  el repo y su `.EXE` no está en el entregable: quedan fuera de alcance.
+- **10 `.VBP` de `FUENTES/` todavía no compilan** (de 179). Por causa:
+  - 3 comparten `RUTINAS.BAS` (`EXECRE00`, `EXECRN00`, `EXECRS00`)
+  - 3 dan `Wrong number of arguments` (`VSDVL2PH`, `EXE2F000`, `EXEAE000`)
+  - 2 dan `Errors during load` (`PTACRN04`, `PTACRS04`)
+  - `GES_1C2` — `Sub or Function not defined` en `BAJADA.BAS`
+  - `GES_3GR` — referencia `GESLCD01.FRM`, que **no existe en el repo ni en la
+    rama original `main`**: falta desde el origen, no lo borró la migración.
 
-## RESERVA IMPORTANTE sobre estos binarios
+## Nombres de `.EXE` repetidos entre proyectos — DECISIÓN PENDIENTE
 
-Se compilaron contra un directorio remoto (`C:\dev\proyecto`) que **no se limpia
-entre proyectos**: al terminar la tanda tenía ~723 archivos acumulados de todos
-los grupos. En el repo hay 21 nombres de archivo con varias versiones distintas
-(`BAJADA.BAS` tiene 21, `ERRORCOM.FRM` 10, `RUTINAS.BAS` 4).
+Siete `.EXE` los genera más de un `.VBP`, desde carpetas distintas. Sólo puede
+quedar uno en esta carpeta plana. Se resolvió con el criterio **"carpeta base"**
+(se descarta la variante con prefijo `pyme2000_`/`sybase_` o el subdirectorio
+`*_par`), porque es el único que tiene respaldo: en `VSDVL2FC.EXE` el binario
+que ya estaba en el entregable coincide en tamaño con la variante base
+(110.592 bytes) y no con la de PYME2000 (114.688).
 
-Mientras cada `.VBP` traiga en su carpeta todos los archivos que referencia, el
-deploy los sobrescribe y la compilación usa los correctos. El riesgo está en un
-`.VBP` que referencie un archivo que NO está en su carpeta: ahí VB6 tomaría el
-residual de otro grupo, y el binario saldría mal sin que la compilación falle.
+| `.EXE` | se tomó de | se descartó |
+|---|---|---|
+| `BAJCTDLC.EXE` | `valctdlc` | `valctdlc_baja_par` |
+| `EXEGTC00.EXE` | `vsdlc2.vb` | `vsdlcd.vb` |
+| `GES_2CD.EXE` | `vsdlc2.vb` | `vsdlcd.vb` |
+| `VLDVSCTD.EXE` | `valctdlc` | `valctdlc_vald_par` |
+| `VSDVL2FC.EXE` | `vsdcce.vb` | `pyme2000_vsdcce.vb` |
+| `VSDVL3CR.EXE` | `vsdrth.vb` | `sybase_vsdrth.vb` |
+| `VSDVL3FC.EXE` | `vsdcce.vb` | `pyme2000_vsdcce.vb` |
 
-**Antes de dar estos binarios por definitivos**: limpiar `C:\dev\proyecto` y
-recompilar, al menos una muestra de los proyectos que comparten nombres de
-archivo. Si el resultado no cambia, el conjunto es confiable.
+**Los binarios descartados NO son iguales al elegido** (mismo tamaño en varios
+casos, pero distinto MD5). Si para alguno de estos siete el paquete de
+producción debe llevar la variante PYME2000/SYBASE, hay que reemplazarlo a mano.
+Confirmar con el responsable del paquete.
 
-## Además: ninguno fue probado ejecutándose
+Aparte, 3 pares de `.VBP` de una misma carpeta generan el mismo `.EXE`
+(`EXEACR00` en `vsdrce.vb`, `ROTOR2RL` y `ROTOR3RL` en `vsdcrl.vb`): ahí el
+último compilado pisa al anterior. Viene así del repo original.
 
-Estos `.EXE` compilan, pero **no se ejecutó ninguno**. Los índices de grilla
-(Spread base 1 → MSFlexGrid base 0), los anchos de columna y los textos con
-acentos sólo se validan de verdad abriendo las pantallas.
+## Estado de prueba: uno solo se ejecutó
+
+- **`VSDPROD.EXE` (VISADO)** es el único que se probó corriendo, contra la VM y
+  el simulador SRM. Llega a la pantalla principal, autentica el login contra el
+  SRM, abre `Visado.MDB` y despliega la grilla de "Seleccionar Productos" con
+  los datos correctos. Ese recorrido destapó **seis** fallas que la compilación
+  no detecta (errores 75, 6, 424, 30009 ×2, 3019); todas corregidas y aplicadas
+  también al resto del repo donde correspondía.
+- **Los otros 158 no se ejecutaron nunca.** Compilar valida sintaxis, no
+  comportamiento: de las seis fallas de VISADO, la mitad las había introducido
+  la propia migración y ninguna se veía compilando. Hay que asumir que otros
+  proyectos esconden equivalentes.
+
+## Paridad visual pendiente
+
+En las grillas migradas de Spread a MSFlexGrid, las celdas que en el original
+eran **checkbox** (`CellType=10` + `TypeCheckText`) hoy muestran el valor `0`/`1`
+como texto: MSFlexGrid no tiene celda-checkbox nativa. El comportamiento
+(marcar/desmarcar con doble clic) funciona igual. Diferido de común acuerdo para
+el cierre; si hace falta, se resuelve superponiendo un `CheckBox` sobre la celda.

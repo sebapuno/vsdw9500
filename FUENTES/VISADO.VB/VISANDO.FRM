@@ -667,7 +667,11 @@ Dim SubOpcion As Integer
     BaseVisado.Close
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - era: PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+    ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+    ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+    PunteroVsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
     Rut = DesformateaRut(RutCliente.Caption)
     TotalFilas = GrillaProductos.Rows - 1 ' FI2026 - era .MaxRows (filas de datos)
     AlMenosUnoTransmitido = False
@@ -862,12 +866,13 @@ Dim RutCl As String
     .ColWidth(6) = 0
     ' FI2026 SHG - ColHidden (Spread) no existe en MSFlexGrid. El equivalente es
     ' ColWidth(n) = 0, ya aplicado arriba para las columnas 4, 5 y 6.
-    .Col = 4
-    '.ColHidden = True
-    .Col = 5
-    '.ColHidden = True
-    .Col = 6
-    '.ColHidden = True
+    ' FI2026 - se eliminan las asignaciones '.Col = 4, 5 y 6': existian solo para
+    ' posicionar el cursor antes del '.ColHidden = True' de Spread, que aplicaba
+    ' a la COLUMNA ACTIVA. Al reemplazar ColHidden por ColWidth(n) = 0 quedaron
+    ' huerfanas -- y encima rompen: en MSFlexGrid asignar .Col valida la celda
+    ' completa (Row, Col), y en este punto la grilla todavia esta vacia, con
+    ' .Row = -1, lo que corta con error 30009 (Invalid Row Value) al abrir el
+    ' formulario. Las columnas ya quedan ocultas por los ColWidth de arriba.
     ' FI2026 SHG - TypeEditLen/CursorType/CursorStyle (Spread) sin equivalente en MSFlexGrid, write-only
     '.TypeEditLen = 10000
     '.CursorType = 0
@@ -1018,8 +1023,13 @@ Dim Tipo_Producto As String
 'Recorte Visado Cuentas Vista (Cuenta Directa y Cuenta Familiar)
 '*******************************************************************
 Recorte = False
+' FI2026 - guarda agregada: Visar es un BOTON y se puede apretar sin ninguna
+' fila de datos seleccionada; ahi GrillaProductos.Row vale -1 y cualquier
+' acceso por .Col/.Text corta con error 30009 (Invalid Row Value).
+If GrillaProductos.Row < GrillaProductos.FixedRows Then Exit Sub
 If EsSiebel Then
-   GrillaProductos.Row = GrillaProductos.Row
+   ' FI2026 - se elimina 'GrillaProductos.Row = GrillaProductos.ActiveRow':
+   ' en MSFlexGrid .Row ya ES la fila seleccionada (ver nota en VISADO.FRM).
    GrillaProductos.Col = 4
    Producto = GrillaProductos.Text
    
@@ -1041,7 +1051,8 @@ If EsSiebel Then
 If Not Recorte Then
 
   Visar.Enabled = False
-  GrillaProductos.Row = GrillaProductos.Row
+  ' FI2026 - se elimina 'GrillaProductos.Row = GrillaProductos.ActiveRow'
+  ' (ver nota en VISADO.FRM): en MSFlexGrid .Row ya es la fila seleccionada.
   GrillaProductos.Col = 1
   If GrillaProductos.BackColor = COLOR_04 Then
     Rut = DesformateaRut(RutCliente.Caption)
@@ -1176,8 +1187,14 @@ Dim ResultadoBorrado As Boolean
   Set PunteroTabVsd = BaseVisado.OpenRecordset("Tab_Vsd", dbOpenTable)
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
   PunteroTabPrd.Index = "Tab_Prd"
-  ' FI2026 - PunteroTabVsd.Index = PunteroTabVsd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
-  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - eran, en el original de 16 bits (dos recordsets DISTINTOS):
+  '     PunteroTabVsd.Index  = PunteroTabVsd.Indexes(0).Name
+  '     PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' Una pasada previa tradujo LAS DOS como PunteroTabOper, dejando a
+  ' PunteroTabVsd sin indice: su .Seek de mas abajo fallaba con error 3019.
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, TableDef.Indexes NO.
+  PunteroTabVsd.Index = BaseVisado.TableDefs("Tab_Vsd").Indexes(0).Name
+  PunteroTabOper.Index = BaseVisado.TableDefs("Tab_Oper").Indexes(0).Name
   PrepararTransmision = False
   PunteroTabPrd.Seek "=", Producto
   Call GrabarTxSAT(PunteroTabPrd("Prd_Transac"), Color, PunteroTabPrd("Prd_Sincro"), Producto)
@@ -1334,7 +1351,11 @@ Dim PunteroVsdPrd As Recordset
     Set BaseVisado = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB01)
     
     Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-    ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - era: PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+    ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+    ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+    ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+    PunteroVsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
     PunteroVsdPrd.Seek "=", RutCliente, CodigoProducto, Correlativo
     Visando.GrillaProductos.Row = Visando.GrillaProductos.Row
     Visando.GrillaProductos.Col = 6
@@ -1361,7 +1382,11 @@ Dim Monto As String
 Dim Cuenta As String
 Dim PunteroTabTX As Recordset
   Set PunteroTabTX = BaseVisado.OpenRecordset("Tab_Tx", dbOpenTable)
-  ' FI2026 - PunteroTabTX.Index = PunteroTabTX.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroTabTX.Index = PunteroTabTX.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  PunteroTabTX.Index = BaseVisado.TableDefs("Tab_Tx").Indexes(0).Name
   PunteroTabTX.Seek "=", Producto
   If Not PunteroTabTX.NoMatch Then
     If PunteroTabTX("Tx_Prod") = Producto Then
@@ -1409,7 +1434,11 @@ Dim PunteroVsdHst As Recordset
   PunteroVsdHst.Close
   If Producto = "CRE" Then
     Set PunteroVsdNot = BaseVisado.OpenRecordset("Vsd_PagNot", dbOpenTable)
-    ' FI2026 - PunteroVsdNot.Index = PunteroVsdNot.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - era: PunteroVsdNot.Index = PunteroVsdNot.Indexes(0).Name
+    ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+    ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+    ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+    PunteroVsdNot.Index = BaseVisado.TableDefs("Vsd_PagNot").Indexes(0).Name
     PunteroVsdNot.Seek "=", Rut, Mid$(Datos, 20, 6), Mid$(Datos, 27, 3)
     If Not PunteroVsdNot.NoMatch Then
       Set BaseDbfCRE = OpenDatabase(DIRECTORIO_01, True, False, "dbase III;")

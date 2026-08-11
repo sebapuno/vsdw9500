@@ -261,10 +261,13 @@ Dim FiltroTabCfgProd As Recordset
     .ColWidth(4) = 0
     ' FI2026 SHG - ColHidden (Spread) no existe en MSFlexGrid. El equivalente es
     ' ColWidth(n) = 0, ya aplicado arriba para las columnas 3 y 4.
-    .Col = 3
-    '.ColHidden = True
-    .Col = 4
-    '.ColHidden = True
+    ' FI2026 - se eliminan las asignaciones '.Col = 3 y 4': existian solo para
+    ' posicionar el cursor antes del '.ColHidden = True' de Spread, que aplicaba
+    ' a la COLUMNA ACTIVA. Al reemplazar ColHidden por ColWidth(n) = 0 quedaron
+    ' huerfanas -- y encima rompen: en MSFlexGrid asignar .Col valida la celda
+    ' completa (Row, Col), y en este punto la grilla todavia esta vacia, con
+    ' .Row = -1, lo que corta con error 30009 (Invalid Row Value) al abrir el
+    ' formulario. Las columnas ya quedan ocultas por los ColWidth de arriba.
   End With
   Set FiltroTabCfgProd = BaseVisado.OpenRecordset("SELECT * FROM Tab_CfgProd ORDER BY Cfg_Glosa ASC;")
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
@@ -329,7 +332,10 @@ Private Sub GrillaVigenciaProductos_DblClick()
   ' FI2026 - DblClick(Col,Row) (Spread) -> DblClick() sin parametros en MSFlexGrid
   ' FI2026 - ActiveCol (Spread) -> Col (MSFlexGrid), mismo rol: columna de la celda activa
   If GrillaVigenciaProductos.Col = 2 Then
-    GrillaVigenciaProductos.Row = GrillaVigenciaProductos.Row
+    ' FI2026 - se elimina 'X.Row = X.ActiveRow': en MSFlexGrid .Row ya es la
+    ' fila seleccionada, la asignacion sobra y con la grilla vacia (.Row = -1)
+    ' cortaba con error 30009. Este handler entra desde un evento de la propia
+    ' grilla, asi que siempre hay una fila valida seleccionada.
     GrillaVigenciaProductos.Col = 1
     GrillaVigenciaProductos.Text = Abs(GrillaVigenciaProductos.Text - 1)
   End If

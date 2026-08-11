@@ -114,7 +114,11 @@ Producto = SacaValorINI("Parametros", "PARAM2", DIRECTORIO_01 + ARCHIVO_INI01)
 Correlat = SacaValorINI("Parametros", "PARAM3", DIRECTORIO_01 + ARCHIVO_INI01)
 
 Set Ap_VsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-' FI2026 - Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+' FI2026 - era: Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name
+' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+Ap_VsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
 Ap_VsdPrd.Seek "=", RutCliente, Producto, Correlat
 
 If Not Ap_VsdPrd.NoMatch Then
@@ -186,7 +190,11 @@ End If
 Select Case Mid$(Formato, 1, 2)
   Case "TG"
     Set IndiceTabGlosa = BaseVisado.OpenRecordset("Tab_Glosa", dbOpenTable)
-    ' FI2026 - IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - era: IndiceTabGlosa.Index = IndiceTabGlosa.Indexes(0).Name
+    ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+    ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+    ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+    IndiceTabGlosa.Index = BaseVisado.TableDefs("Tab_Glosa").Indexes(0).Name
     IndiceTabGlosa.Seek "=", CodProd, Mid$(Formato, 3, 3), Seccion
     If Not IndiceTabGlosa.NoMatch Then
       ObtenerDescripcionGlosa = IndiceTabGlosa!Glosa_Descrip
@@ -195,7 +203,11 @@ Select Case Mid$(Formato, 1, 2)
     
   Case "AE"
     Set IndiceTblAec = BaseSGT.OpenRecordset("TblAec", dbOpenTable)
-    ' FI2026 - IndiceTblAec.Index = IndiceTblAec.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+    ' FI2026 - era: IndiceTblAec.Index = IndiceTblAec.Indexes(0).Name
+    ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+    ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+    ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+    IndiceTblAec.Index = BaseSGT.TableDefs("TblAec").Indexes(0).Name
     IndiceTblAec.Seek "=", Seccion
     If Not IndiceTblAec.NoMatch Then
       ObtenerDescripcionGlosa = StrConv(Trim$(IndiceTblAec!AEC_AECNOM), 3)

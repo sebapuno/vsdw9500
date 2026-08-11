@@ -26,6 +26,18 @@ Global Rut As String
 Global Modo As String
 Global Producto As String
 Global NodoOrigenTubo As String
+' FI2026 - la ruta del log de validacion estaba hardcodeada a "d:\VSD_VAL.TXT".
+' Viene asi del original de 16 bits: en el PC del banco D: era una unidad de
+' datos. En otra maquina D: suele ser el CD-ROM o no existir, y el Open For
+' Append corta con error 75 (Path/File access error) -- compila igual, falla
+' recien al ejecutar. Se pasa al INI, [VISADO] LogValidacion, con fallback al
+' directorio de datos para no depender nunca mas de D:.
+Public Function RutaLogValidacion() As String
+Dim r As String
+  r = Trim$(SacaValorINI("VISADO", "LogValidacion", DIRECTORIO_01 + ARCHIVO_INI01))
+  If r = "" Then r = DIRECTORIO_01 + "VSD_VAL.TXT"
+  RutaLogValidacion = r
+End Function
 
 Function registra_las_llamadas(xnodo As String, xaplica As String, xfuncion As String, xstatus As String, xdata As String)
 
@@ -35,7 +47,7 @@ Dim XGRABAR As String
 Dim MiRegistrox As String * 1000 ' Registro
 
    
-Archivo_DESTINO = "d:\VSD_VAL.TXT"
+Archivo_DESTINO = RutaLogValidacion()
        
 Open Archivo_DESTINO For Append As #2
 MiRegistrox = ""

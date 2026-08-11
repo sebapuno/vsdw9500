@@ -53,7 +53,11 @@ Private Function ObtenerOperacionBorradoSRM(ByVal producto As String, ByVal Acti
 Dim PunteroTabOper As Recordset
 
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  PunteroTabOper.Index = BaseVisado.TableDefs("Tab_Oper").Indexes(0).Name
   PunteroTabOper.Seek "=", producto, Actividad
   ObtenerOperacionBorradoSRM = LTrim$(PunteroTabOper("Oper_Borrado"))
   PunteroTabOper.Close
@@ -100,7 +104,11 @@ If Not App.PrevInstance Then
   VarSiebel = SacaValorINI("SYBASE", "SIEBEL", DIRECTORIO_01 + ARCHIVO_INI01)
   
   Set Ap_VsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  ' FI2026 - Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  Ap_VsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
   Ap_VsdPrd.Seek "=", Ap_Rut, Ap_Producto, Ap_Correlativo
   If Not Ap_VsdPrd.NoMatch Then
     DataINI = Trim$(Ap_VsdPrd!PRD_DATA)
@@ -163,7 +171,11 @@ Public Function ObtenerVistaDestino(CodPrd As String) As String
 Dim PunteroTabPrd As Recordset
 
 Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
-' FI2026 - PunteroTabPrd.Index = PunteroTabPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+' FI2026 - era: PunteroTabPrd.Index = PunteroTabPrd.Indexes(0).Name
+' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+PunteroTabPrd.Index = BaseVisado.TableDefs("Tab_Prd").Indexes(0).Name
 PunteroTabPrd.Seek "=", CodPrd
 ObtenerVistaDestino = LTrim$(PunteroTabPrd!Prd_Vista_Dst)
 PunteroTabPrd.Close
@@ -174,7 +186,11 @@ Public Function ObtenerOperacionSRM(producto As String, Actividad As String) As 
 Dim PunteroTabOper As Recordset
 
 Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+' FI2026 - era: PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+PunteroTabOper.Index = BaseVisado.TableDefs("Tab_Oper").Indexes(0).Name
 PunteroTabOper.Seek "=", producto, Actividad
 ObtenerOperacionSRM = LTrim$(PunteroTabOper!Oper_srm)
 PunteroTabOper.Close

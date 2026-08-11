@@ -283,7 +283,11 @@ Dim FechPrd As String
   Set PunteroTabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   Set PunteroTabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
   PunteroTabPrd.Index = "Tab_Prd"
-  ' FI2026 - PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroTabOper.Index = PunteroTabOper.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO,
+  ' y la linea NO es un no-op: sin indice activo, .Seek falla en runtime con
+  ' error 3019 (verificado en la VM). dbOpenTable deja .Index vacio.
+  PunteroTabOper.Index = BaseVisado.TableDefs("Tab_Oper").Indexes(0).Name
   If OpcionUnDia.Value Then
     FechaActual = Format$(Now, "yyyymmdd")
     Set PunteroVsdHst = BaseHistory.OpenRecordset("SELECT * FROM tbl_Hst WHERE Hst_Fech='" + _

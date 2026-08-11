@@ -38,7 +38,11 @@ Dim BaseEnvioSRM As Database
   
      Set BaseEnvioSRM = OpenDatabase(DIRECTORIO_01 + ARCHIVO_MDB02)
      Set PunteroVista = BaseEnvioSRM.OpenRecordset("Vistas", dbOpenTable)
-     ' FI2026 - PunteroVista.Index = PunteroVista.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+     ' FI2026 - era: PunteroVista.Index = PunteroVista.Indexes(0).Name
+     ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+     ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+     ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+     PunteroVista.Index = BaseEnvioSRM.TableDefs("Vistas").Indexes(0).Name
      PunteroVista.Seek "=", NumeroVista
      If PunteroVista.NoMatch Then
        DeterminaNodo = SINNODO
@@ -62,6 +66,18 @@ Dim BaseEnvioSRM As Database
      PunteroVista.Close
      BaseEnvioSRM.Close
 End Function
+' FI2026 - la ruta del log de validacion estaba hardcodeada a "d:\VSD_VAL.TXT".
+' Viene asi del original de 16 bits: en el PC del banco D: era una unidad de
+' datos. En otra maquina D: suele ser el CD-ROM o no existir, y el Open For
+' Append corta con error 75 (Path/File access error) -- compila igual, falla
+' recien al ejecutar. Se pasa al INI, [VISADO] LogValidacion, con fallback al
+' directorio de datos para no depender nunca mas de D:.
+Public Function RutaLogValidacion() As String
+Dim r As String
+  r = Trim$(SacaValorINI("VISADO", "LogValidacion", DIRECTORIO_01 + ARCHIVO_INI01))
+  If r = "" Then r = DIRECTORIO_01 + "VSD_VAL.TXT"
+  RutaLogValidacion = r
+End Function
 
 
 Function registra_las_llamadas(xnodo As String, xaplica As String, xfuncion As String, xstatus As String, xdata As String)
@@ -72,7 +88,7 @@ Dim XGRABAR As String
 Dim MiRegistrox As String * 1000 ' Registro
 
    
-Archivo_DESTINO = "d:\VSD_VAL.TXT"
+Archivo_DESTINO = RutaLogValidacion()
        
 Open Archivo_DESTINO For Append As #2
 MiRegistrox = ""

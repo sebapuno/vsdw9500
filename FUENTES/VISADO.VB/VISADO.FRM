@@ -915,9 +915,9 @@ Private Sub BtnConsultaParaVisar_Click()
   
 'OJO AQUI BORRAR ESTO ES MOMENTANEO
 '==============================================
-      If Dir("d:\VSD_LOG.TXT") = "VSD_LOG.TXT" Then
-       If CDate(Format(CDate(Mid(FileDateTime("d:\VSD_LOG.TXT"), 1, 10)) + 6, "dd/mm/yyyy")) <= CDate(Format(Now, "dd/mm/yyyy")) Then
-        Kill "d:\VSD_LOG.TXT"
+      If Dir(RutaLogLlamadas()) <> "" Then
+       If CDate(Format(CDate(Mid(FileDateTime(RutaLogLlamadas()), 1, 10)) + 6, "dd/mm/yyyy")) <= CDate(Format(Now, "dd/mm/yyyy")) Then
+        Kill RutaLogLlamadas()
        End If
       End If
 '==============================================
@@ -936,9 +936,9 @@ End Sub
 Private Sub BtnConsultaPorRut_Click()
 'OJO AQUI BORRAR ESTO ES MOMENTANEO
 '==============================================
-      If Dir("d:\VSD_LOG.TXT") = "VSD_LOG.TXT" Then
-       If CDate(Format(CDate(Mid(FileDateTime("d:\VSD_LOG.TXT"), 1, 10)) + 6, "dd/mm/yyyy")) <= CDate(Format(Now, "dd/mm/yyyy")) Then
-        Kill "d:\VSD_LOG.TXT"
+      If Dir(RutaLogLlamadas()) <> "" Then
+       If CDate(Format(CDate(Mid(FileDateTime(RutaLogLlamadas()), 1, 10)) + 6, "dd/mm/yyyy")) <= CDate(Format(Now, "dd/mm/yyyy")) Then
+        Kill RutaLogLlamadas()
        End If
       End If
 '==============================================
@@ -984,10 +984,18 @@ End Sub
 Private Sub BtnProductos_KeyPress(KeyAscii As Integer)
   Select Case KeyAscii
     Case 13
-      Grilla.Row = Grilla.Row
-       ' FI2026 - RowHidden no existe en MSFlexGrid; RowHeight fila=0 es el equivalente
-       If Not Grilla.RowHeight(Grilla.Row) = 0 Then
-         Visando.Show
+      ' FI2026 - era: X.Row = X.ActiveRow. En Spread, ActiveRow (fila que el
+      ' usuario tenia seleccionada) y Row (fila de trabajo que usan .Col/.Text)
+      ' eran propiedades DISTINTAS y esa linea copiaba una en la otra. En
+      ' MSFlexGrid .Row cumple los dos roles, asi que la asignacion sobra -- y
+      ' ademas rompe: .Row vale -1 cuando la grilla no tiene filas de datos, y
+      ' asignarle -1 corta con error 30009 (Invalid Row Value).
+      ' RowHeight(fila)=0 es el equivalente de RowHidden. Sin fila de datos
+      ' seleccionada no hay producto que abrir, asi que no se hace nada.
+      If Grilla.Row >= Grilla.FixedRows Then
+        If Not Grilla.RowHeight(Grilla.Row) = 0 Then
+          Visando.Show
+        End If
       End If
     Case 27
       Call BtnCancelar_Click
@@ -1173,6 +1181,24 @@ If Not App.PrevInstance Then
     Logea = SacaValorINI("Logea", "Flag", DIRECTORIO_01 + ARCHIVO_INI01)
     
     
+    ' FI2026 - carga de los parametros de acceso a la base (SendQuery del login).
+    ' Estaban sin cargar: modAcceso.bas tenia Inicializar_Acceso COMENTADA porque
+    ' llamaba a SacaValorDeINI, helper que no existe en este proyecto (el typo es
+    ' del original: la funcion real se llama SacaValorINI, sin el "De", y es
+    ' identica linea por linea). Sin esto NODO_BD queda vacio, el DLL no resuelve
+    ' el nodo y sale al 127.0.0.1 -> SRM error 41 -> el login nunca autentica y
+    ' ObtieneRutUsuarioLogueado hace End: la aplicacion moria en silencio.
+    ' Se replica el patron de WCRE9500 (MDICRED.FRM), que lee de [BASE_DATOS].
+    NAME_BD = SacaValorINI("BASE_DATOS", "BDATOS", DIRECTORIO_01 + ARCHIVO_INI01)
+    SERV_BD = SacaValorINI("BASE_DATOS", "APLI", DIRECTORIO_01 + ARCHIVO_INI01)
+    NODO_BD = SacaValorINI("BASE_DATOS", "NODO", DIRECTORIO_01 + ARCHIVO_INI01)
+    If Trim$(NAME_BD) = "" Or Trim$(SERV_BD) = "" Or Trim$(NODO_BD) = "" Then
+      MsgBox "Faltan parametros [BASE_DATOS] (NODO/APLI/BDATOS) en " & ARCHIVO_INI01, 16, "Control de Acceso"
+      End
+    End If
+    If IsNumeric(SacaValorINI("FUNCIONALIDAD", "FUNCIONALIDAD", DIRECTORIO_01 + ARCHIVO_INI01)) Then
+      FUNCIONALIDAD = CInt(SacaValorINI("FUNCIONALIDAD", "FUNCIONALIDAD", DIRECTORIO_01 + ARCHIVO_INI01))
+    End If
     IdUsuario = ObtieneRutUsuarioLogueado()
     HoraInicioSesion = Format$(Now, "hhmmss")
    

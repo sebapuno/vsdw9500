@@ -16,10 +16,18 @@ Dim ap_correlativo As String
 Dim ap_producto As String
 
   Set Ap_VsdPrd = BaseVisado.OpenRecordset("Vsd_prd", dbOpenTable)
-  ' FI2026 - Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  Ap_VsdPrd.Index = BaseVisado.TableDefs("Vsd_prd").Indexes(0).Name
   
   Set Ap_TabOper = BaseVisado.OpenRecordset("Tab_Oper", dbOpenTable)
-  ' FI2026 - Ap_TabOper.Index = Ap_TabOper.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: Ap_TabOper.Index = Ap_TabOper.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  Ap_TabOper.Index = BaseVisado.TableDefs("Tab_Oper").Indexes(0).Name
   
   Set Ap_TabPrd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
   Ap_TabPrd.Index = "TAB_PRD"

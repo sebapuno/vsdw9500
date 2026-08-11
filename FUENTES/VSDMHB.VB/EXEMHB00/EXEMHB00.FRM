@@ -43,7 +43,11 @@ If Not App.PrevInstance Then
   Correl = Val(SacaValorINI("Parametros", "Param3", DIRECTORIO_01 + ARCHIVO_INI01))
  
   Set PunteroVsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-  ' FI2026 - PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroVsdPrd.Index = PunteroVsdPrd.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  PunteroVsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
   PunteroVsdPrd.Seek "=", RutCliente, Producto, Correl
   DataINI = Trim$(PunteroVsdPrd!Prd_Data)
   PunteroVsdPrd.Close

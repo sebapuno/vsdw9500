@@ -183,7 +183,11 @@ VarSiebel = ObtieneParametro("SIEBEL", "TIPOVSD", "C:\DATA\VISADO\VISADO.INI")
   
 Set BaseVisado = OpenDatabase("C:\DATA\VISADO\VISADO.MDB")
 Set Ap_VsdPrd = BaseVisado.OpenRecordset("Vsd_Prd", dbOpenTable)
-' FI2026 - Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+' FI2026 - era: Ap_VsdPrd.Index = Ap_VsdPrd.Indexes(0).Name
+' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+Ap_VsdPrd.Index = BaseVisado.TableDefs("Vsd_Prd").Indexes(0).Name
 Ap_VsdPrd.Seek "=", Ap_Rut, Ap_Producto, Ap_Correlativo
    
 If Not Ap_VsdPrd.NoMatch Then
@@ -574,7 +578,11 @@ Function NodoSybase(C_SY As String) As String
   Set BaseEnvioSRM = OpenDatabase("C:\DATA\VISADO\ENVIOSRM.MDB")
   
   Set PunteroSy = BaseEnvioSRM.OpenRecordset("SYBASE", dbOpenTable)
-  ' FI2026 - PunteroSy.Index = PunteroSy.Indexes(0).Name eliminado: Recordset.Indexes esta [restricted] en DAO 3.6
+  ' FI2026 - era: PunteroSy.Index = PunteroSy.Indexes(0).Name
+  ' Recordset.Indexes esta [restricted] en DAO 3.6, pero TableDef.Indexes NO.
+  ' NO es un no-op: sin indice activo el .Seek de mas abajo falla en runtime
+  ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
+  PunteroSy.Index = BaseEnvioSRM.TableDefs("SYBASE").Indexes(0).Name
   PunteroSy.Seek "=", C_SY
   If Not PunteroSy.NoMatch Then
      If Environ("DESA") = "DESA" Then
