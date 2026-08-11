@@ -36,16 +36,16 @@ sí mismo. Formato por línea: `RUTA\RELATIVA TAMANO DD/MM/YYYY HH:MM:SS`.
 
 ## Instalación
 
-En una estación ya configurada del banco (el caso normal):
+En una estación ya configurada del banco (el caso normal, sin argumentos):
 
 ```bat
-instalador_vsdw9500.bat /OFICINA 715
+instalador_vsdw9500.bat
 ```
 
 Requiere **Administrador**. Opciones: `/SOURCE` (ruta del paquete si no se
-ejecuta desde su carpeta), `/OFICINA` (variable de ambiente), `/CHECKONLY` para
-verificar una estación **sin instalar nada**, y `/SRMHOST` + `/SRMPORT` —
-que **sólo se usan si la estación no tiene `Srmw.ini`** (ver abajo).
+ejecuta desde su carpeta), `/CHECKONLY` para verificar una estación **sin
+instalar nada**, y `/SRMHOST` + `/SRMPORT` — que **sólo se usan si la estación
+no tiene `Srmw.ini`** (ver abajo).
 
 ### `C:\Windows\Srmw.ini` NO se pisa
 
@@ -62,6 +62,19 @@ sobrescribe si ya existe**, aunque se le pase `/SRMHOST`; sólo informa el
 > **ambiente de desarrollo** (VM + simulador SRM). **No usar ese valor en el
 > banco.**
 
+### La variable `OFICINA` no la pone este instalador
+
+La asigna el **software básico** de la estación, que no forma parte de este
+entregable. El instalador **sólo informa** si está definida y avisa cuando
+falta; nunca la escribe. Ponerla a mano desde acá podría dejarla en desacuerdo
+con la oficina real y hacer que las consultas salgan mal.
+
+Si falta, hay que reclamarla al área que administra la estación.
+
+> Cómo la usa el aplicativo: lee primero `[Visado] Oficina` del `Visado.INI`; si
+> está vacía, toma la variable de ambiente y la persiste en el INI. O sea que el
+> valor correcto tiene que estar puesto **antes** del primer arranque.
+
 ### Config de la estación
 
 El instalador **preserva el `Visado.INI` de la estación** en un upgrade: lo
@@ -77,6 +90,8 @@ por CLSID (el CLSID da falso "no registrado" aunque el control funcione).
 - **Runtime VB6**: `MSVBVM60.DLL` en `C:\Windows\system32`
 - **DAO 3.6**: `DAO360.DLL` en `C:\Program Files\Common Files\Microsoft Shared\DAO`
 - Gateway SRM alcanzable y los nodos resolubles (`hosts` o DNS)
+- **Software básico** de la estación instalado: es el que asigna la variable
+  `OFICINA` (y `C:\Windows\Srmw.ini`)
 
 El instalador los **verifica** pero no los instala.
 

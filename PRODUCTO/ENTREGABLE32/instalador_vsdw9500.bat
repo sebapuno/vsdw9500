@@ -6,7 +6,7 @@ rem  Instalador de estacion. Ver docs/empaquetado-y-despliegue.md del framework.
 rem
 rem  Uso:
 rem    instalador_vsdw9500.bat [/SOURCE ruta] [/SRMHOST host] [/SRMPORT puerto]
-rem                            [/OFICINA nnn] [/CHECKONLY]
+rem                            [/CHECKONLY]
 rem
 rem  /SRMHOST solo se usa si la estacion NO tiene C:\Windows\Srmw.ini.
 rem  Si ya existe, NO se toca: es un archivo compartido con otros
@@ -19,7 +19,6 @@ set "SRC=%~dp0"
 if "%SRC:~-1%"=="\" set "SRC=%SRC:~0,-1%"
 set "SRMHOST="
 set "SRMPORT=6736"
-set "OFICINA="
 set "CHECKONLY=0"
 set "VERIFY_FAIL=0"
 
@@ -31,12 +30,10 @@ if /I "%A%"=="/CHECKONLY" (set "CHECKONLY=1" & shift & goto ARG)
 if /I "%A%"=="/SOURCE"    (set "SRC=%~2"     & shift & shift & goto ARG)
 if /I "%A%"=="/SRMHOST"   (set "SRMHOST=%~2" & shift & shift & goto ARG)
 if /I "%A%"=="/SRMPORT"   (set "SRMPORT=%~2" & shift & shift & goto ARG)
-if /I "%A%"=="/OFICINA"   (set "OFICINA=%~2" & shift & shift & goto ARG)
 for /f "tokens=1,* delims==" %%a in ("%A%") do (
   if /I "%%a"=="/SOURCE"  set "SRC=%%b"
   if /I "%%a"=="/SRMHOST" set "SRMHOST=%%b"
   if /I "%%a"=="/SRMPORT" set "SRMPORT=%%b"
-  if /I "%%a"=="/OFICINA" set "OFICINA=%%b"
 )
 shift
 goto ARG
@@ -130,12 +127,18 @@ if exist "C:\Windows\Srmw.ini" (
   )
 )
 
-rem --- SET_OFICINA -----------------------------------------------------------
+rem --- OFICINA ---------------------------------------------------------------
+rem  La variable OFICINA la asigna el SOFTWARE BASICO de la estacion, que no
+rem  es parte de este entregable. Este instalador NO la escribe: solo informa
+rem  si esta puesta. Si falta, hay que pedirla al area que administra la
+rem  estacion -- ponerla a mano desde aca podria dejarla en desacuerdo con la
+rem  oficina real y hacer que las consultas salgan mal.
 if not "%OFICINA%"=="" (
-  echo [7/7] Fijando variable OFICINA=%OFICINA%
-  setx OFICINA %OFICINA% /M >nul 2>&1
+  echo [7/7] OFICINA=%OFICINA% ^(la asigna el software basico, no el instalador^)
 ) else (
-  echo [7/7] Sin /OFICINA: no se toca la variable de ambiente
+  echo [7/7] OFICINA no esta definida en esta estacion
+  echo       La asigna el software basico. Verifique con el area que administra
+  echo       la estacion antes de usar el aplicativo.
 )
 
 rem ===========================================================================
@@ -162,6 +165,8 @@ call :OCXCHECK "THREED32" "{0BA686C6-F7D3-101A-993E-0000C0EF6F5E}"
 call :OCXCHECK "MSFLXGRD" "{5E9E78A0-531B-11CF-91F6-C2863C385E30}"
 call :OCXCHECK "COMDLG32" "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}"
 
+echo  --- oficina (la asigna el software basico de la estacion) ---
+if not "%OFICINA%"=="" (echo   [OK]    OFICINA=%OFICINA%) else (echo   [AVISO] OFICINA sin definir -- reclamar al administrador de la estacion)
 echo  --- SRM ---
 call :SRMCHECK
 
