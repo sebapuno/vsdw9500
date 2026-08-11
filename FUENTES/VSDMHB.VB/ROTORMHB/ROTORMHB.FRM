@@ -389,7 +389,7 @@ Dim DataB As String
 DataB = DataNormal
 
 While InStr(DataB, ",") > 0
-  DataB = Mid$(DataB, 1, InStr(DataB, ",") - 1) + ";" + Mid$(DataB, InStr(DataB, ",") + 1, dbOpenSnapshot)
+  DataB = Mid$(DataB, 1, InStr(DataB, ",") - 1) + ";" + Mid$(DataB, InStr(DataB, ",") + 1)
 Wend
 
 ReemplazaComas = DataB

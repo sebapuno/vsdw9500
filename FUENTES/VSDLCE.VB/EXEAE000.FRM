@@ -218,7 +218,7 @@ Dim PunteroTabOper As Recordset
     If Not PunteroTabVsd.NoMatch Then
       Id = IdUsuario + VistaOrigen + PunteroTabOper("OPER_BORRADO")
       DataBorrado = Mid$(Data, 1, PunteroTabVsd("Vsd_L_LlaveOri"))
-      Call ActualizarEnvioSRM(Id, DataBorrado, dbOpenSnapshot)
+      Call ActualizarEnvioSRM(Id, DataBorrado)
     Else
       BorrarEnVistaOrigen = False
     End If

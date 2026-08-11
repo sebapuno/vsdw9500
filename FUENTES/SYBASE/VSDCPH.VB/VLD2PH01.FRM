@@ -158,7 +158,7 @@ Private Function ExisteClasificacionDeRiesgo(ByVal Llave As String, ByVal Vista 
   Modo = "L"
   
   If INI_REMOTO() = "SI" Then
-     ExisteClasificacionDeRiesgo = ObtieneInformacion(Vista, Llave, False, dbOpenSnapshot)
+     ExisteClasificacionDeRiesgo = ObtieneInformacion(Vista, Llave, False)
   Else
      ExisteClasificacionDeRiesgo = True
   End If

@@ -160,7 +160,7 @@ Set PunteroTabprd = BaseVisado.OpenRecordset("Tab_Prd", dbOpenTable)
 ' con error 3019. dbOpenTable deja .Index vacio (verificado en la VM).
 PunteroTabprd.Index = BaseVisado.TableDefs("Tab_Prd").Indexes(0).Name
 PunteroTabprd.Seek "=", CodPrd
-ObtenerVistaOrigen = Trim$(PunteroTabprd!Prd_Vista_Ori, dbOpenSnapshot)
+ObtenerVistaOrigen = Trim$(PunteroTabprd!Prd_Vista_Ori)  ' FI2026 - el ', dbOpenSnapshot' lo
 PunteroTabprd.Close
   
 End Function

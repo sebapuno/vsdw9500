@@ -150,6 +150,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   7
          Height          =   250
          Left            =   90
          TabIndex        =   22
@@ -159,6 +160,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   6
          Height          =   250
          Left            =   105
          TabIndex        =   19
@@ -168,6 +170,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   5
          Height          =   250
          Left            =   105
          TabIndex        =   16
@@ -177,6 +180,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   4
          Height          =   250
          Left            =   90
          TabIndex        =   13
@@ -186,6 +190,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   3
          Height          =   250
          Left            =   90
          TabIndex        =   10
@@ -195,6 +200,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   2
          Height          =   250
          Left            =   90
          TabIndex        =   7
@@ -204,6 +210,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   1
          Height          =   250
          Left            =   90
          TabIndex        =   4
@@ -213,6 +220,7 @@ Begin VB.Form Principal
       End
       ' FI2026 - VBX.DateTextBox migrado a VB.TextBox nativo
       Begin VB.TextBox FechaCompromiso 
+         Index           =   0
          Height          =   250
          Left            =   90
          TabIndex        =   1
@@ -767,7 +775,7 @@ Private Function SeIngresaronExcepciones() As Boolean
 Dim I As Integer
   SeIngresaronExcepciones = False
   For I = 0 To 7
-    If (Normas(I).Enabled) And (Normas(I).Value = 1, dbOpenSnapshot) Then
+    If (Normas(I).Enabled) And (Normas(I).Value = 1) Then
       SeIngresaronExcepciones = True
       Exit For
     End If
