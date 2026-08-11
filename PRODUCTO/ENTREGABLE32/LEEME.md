@@ -14,16 +14,18 @@ Generado el **2026-08-11** desde la branch `migracion/vb6-32bit`.
 | Ruta | Qué es | Destino en la estación |
 |---|---|---|
 | `BIN/S/*.EXE` | **166 ejecutables** de 32 bits | `C:\Bin\S\` |
-| `BIN/F/SRMW32.DLL` | cliente SRM **real** (48 KB) | `C:\Bin\F\` |
+| `BIN/F/SRMW32.DLL` | cliente SRM **original** (49.152 bytes) | `C:\Bin\F\` |
 | `DATA/VISADO/*.MDB` | bases Access (DAO 3.6) | `C:\Data\Visado\` |
 | `DATA/VISADO/*.INI` | config de runtime | `C:\Data\Visado\` |
 | `ETC/BIN/*.OCX` | controles + `licencias.reg` | se registran, `C:\Etc\Bin\` |
 | `VSDW9500.LIS` | **manifiesto** (packing list) | no se instala |
-| `INSTALAR.BAT` | instalador de estación | no se instala |
+| `instalador_vsdw9500.bat` | instalador de estación | no se instala |
 
-**Ojo con el SRM:** acá va la librería **real** (49.152 bytes). En el repo
-también existe el *shim* del simulador (`PRODUCTO/srm/srm_shim/SRMW32.DLL`,
-17.408 bytes) — ese es sólo para pruebas contra el mock y **no** debe viajar.
+**Ojo con el SRM:** acá va la librería **original de 49.152 bytes**
+(md5 `9bbd5c4819894bd306e48b5b1828a4f7`). En el repo también existe el *shim*
+del simulador (`PRODUCTO/srm/srm_shim/SRMW32.DLL`, 17.408 bytes) — ese es sólo
+para pruebas contra el mock y **no** debe viajar. Verificar el tamaño antes de
+entregar: 49.152 = original, 17.408 = shim.
 
 Los OCX (`THREED32`, `MSFLXGRD`, `COMDLG32`, `MSCOMCT2`) salen de lo que
 declaran los `.VBP`: THREED32 en 82 proyectos, MSFLXGRD en 48, COMDLG32 en 10 y
@@ -34,14 +36,33 @@ sí mismo. Formato por línea: `RUTA\RELATIVA TAMANO DD/MM/YYYY HH:MM:SS`.
 
 ## Instalación
 
+En una estación ya configurada del banco (el caso normal):
+
 ```bat
-INSTALAR.BAT /SRMHOST 192.168.1.10 /SRMPORT 6736 /OFICINA 715
+instalador_vsdw9500.bat /OFICINA 715
 ```
 
 Requiere **Administrador**. Opciones: `/SOURCE` (ruta del paquete si no se
-ejecuta desde su carpeta), `/SRMHOST` + `/SRMPORT` (escriben
-`C:\Windows\Srmw.ini`), `/OFICINA` (variable de ambiente), y `/CHECKONLY` para
-verificar una estación **sin instalar nada**.
+ejecuta desde su carpeta), `/OFICINA` (variable de ambiente), `/CHECKONLY` para
+verificar una estación **sin instalar nada**, y `/SRMHOST` + `/SRMPORT` —
+que **sólo se usan si la estación no tiene `Srmw.ini`** (ver abajo).
+
+### `C:\Windows\Srmw.ini` NO se pisa
+
+Es un archivo **delicado y compartido** con otros aplicativos del banco: tiene
+la configuración real de nodos de la estación. El instalador **nunca lo
+sobrescribe si ya existe**, aunque se le pase `/SRMHOST`; sólo informa el
+`Host=` que encontró.
+
+Únicamente cuando **no existe** (estación nueva) lo crea, y ahí sí hace falta
+`/SRMHOST` con el host del ambiente destino. Si no existe y no se indicó
+`/SRMHOST`, el instalador avisa y sigue, sin inventar un valor.
+
+> El `/SRMHOST 192.168.x.x` que aparece en ejemplos de prueba corresponde al
+> **ambiente de desarrollo** (VM + simulador SRM). **No usar ese valor en el
+> banco.**
+
+### Config de la estación
 
 El instalador **preserva el `Visado.INI` de la estación** en un upgrade: lo
 respalda antes de copiar y lo restaura después. Sólo en una instalación limpia

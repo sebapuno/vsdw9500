@@ -5,8 +5,12 @@ rem  VSDW9500 - Visado de Productos (VB6 32 bits)
 rem  Instalador de estacion. Ver docs/empaquetado-y-despliegue.md del framework.
 rem
 rem  Uso:
-rem    INSTALAR.BAT [/SOURCE ruta] [/SRMHOST host] [/SRMPORT puerto]
-rem                 [/OFICINA nnn] [/CHECKONLY]
+rem    instalador_vsdw9500.bat [/SOURCE ruta] [/SRMHOST host] [/SRMPORT puerto]
+rem                            [/OFICINA nnn] [/CHECKONLY]
+rem
+rem  /SRMHOST solo se usa si la estacion NO tiene C:\Windows\Srmw.ini.
+rem  Si ya existe, NO se toca: es un archivo compartido con otros
+rem  aplicativos del banco.
 rem
 rem  Sin acentos a proposito: la consola en CP850 los muestra mal.
 rem ===========================================================================
@@ -102,17 +106,28 @@ for %%O in (THREED32.OCX MSFLXGRD.OCX COMDLG32.OCX MSCOMCT2.OCX) do (
 )
 if exist "C:\Etc\Bin\licencias.reg" regedit /s "C:\Etc\Bin\licencias.reg"
 
-rem --- WRITE_SRM -------------------------------------------------------------
-if not "%SRMHOST%"=="" (
-  echo [6/7] Escribiendo C:\Windows\Srmw.ini ...
-  (echo [SRM])> "C:\Windows\Srmw.ini"
-  (echo Host=%SRMHOST%)>> "C:\Windows\Srmw.ini"
-  (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
-  (echo.)>> "C:\Windows\Srmw.ini"
-  (echo [TCP])>> "C:\Windows\Srmw.ini"
-  (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
+rem --- SRM -------------------------------------------------------------------
+rem  C:\Windows\Srmw.ini es un archivo DELICADO de la estacion: lo comparten
+rem  otros aplicativos del banco y tiene la configuracion real de nodos. Este
+rem  instalador NO lo pisa NUNCA si ya existe, aunque se pase /SRMHOST.
+rem  Solo lo crea cuando no existe (estacion nueva), y ahi si hace falta el
+rem  /SRMHOST del ambiente destino.
+if exist "C:\Windows\Srmw.ini" (
+  echo [6/7] C:\Windows\Srmw.ini ya existe: NO se toca ^(archivo compartido^)
+  for /f "tokens=2 delims==" %%h in ('findstr /B /I "Host=" "C:\Windows\Srmw.ini"') do echo       Host actual = %%h
 ) else (
-  echo [6/7] Sin /SRMHOST: no se toca C:\Windows\Srmw.ini
+  if not "%SRMHOST%"=="" (
+    echo [6/7] No existe Srmw.ini: se crea con Host=%SRMHOST%
+    (echo [SRM])> "C:\Windows\Srmw.ini"
+    (echo Host=%SRMHOST%)>> "C:\Windows\Srmw.ini"
+    (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
+    (echo.)>> "C:\Windows\Srmw.ini"
+    (echo [TCP])>> "C:\Windows\Srmw.ini"
+    (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
+  ) else (
+    echo [6/7] FALTA C:\Windows\Srmw.ini y no se indico /SRMHOST
+    echo       Pidalo al area de infraestructura o corra con /SRMHOST host
+  )
 )
 
 rem --- SET_OFICINA -----------------------------------------------------------
