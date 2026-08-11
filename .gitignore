@@ -5,3 +5,12 @@ bin/
 
 # ...salvo el entregable de 32 bits, que SI se versiona
 !PRODUCTO/BIN32/S/*.EXE
+
+# ...y el entregable de 32 bits empaquetado. Hay que des-ignorar los DIRECTORIOS
+# primero: git no desciende a una carpeta excluida, y con core.ignorecase=true
+# (macOS) la regla "bin/" de arriba tambien matchea "BIN/".
+!PRODUCTO/ENTREGABLE32/BIN/
+!PRODUCTO/ENTREGABLE32/BIN/S/
+!PRODUCTO/ENTREGABLE32/BIN/F/
+!PRODUCTO/ENTREGABLE32/ETC/BIN/
+!PRODUCTO/ENTREGABLE32/BIN/S/*.EXE

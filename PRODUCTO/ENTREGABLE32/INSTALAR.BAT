@@ -1,0 +1,199 @@
+@echo off
+setlocal EnableExtensions EnableDelayedExpansion
+rem ===========================================================================
+rem  VSDW9500 - Visado de Productos (VB6 32 bits)
+rem  Instalador de estacion. Ver docs/empaquetado-y-despliegue.md del framework.
+rem
+rem  Uso:
+rem    INSTALAR.BAT [/SOURCE ruta] [/SRMHOST host] [/SRMPORT puerto]
+rem                 [/OFICINA nnn] [/CHECKONLY]
+rem
+rem  Sin acentos a proposito: la consola en CP850 los muestra mal.
+rem ===========================================================================
+
+set "SRC=%~dp0"
+if "%SRC:~-1%"=="\" set "SRC=%SRC:~0,-1%"
+set "SRMHOST="
+set "SRMPORT=6736"
+set "OFICINA="
+set "CHECKONLY=0"
+set "VERIFY_FAIL=0"
+
+rem --- ARG: acepta la forma "/X valor" y la forma "/X=valor" -----------------
+:ARG
+if "%~1"=="" goto ARG_FIN
+set "A=%~1"
+if /I "%A%"=="/CHECKONLY" (set "CHECKONLY=1" & shift & goto ARG)
+if /I "%A%"=="/SOURCE"    (set "SRC=%~2"     & shift & shift & goto ARG)
+if /I "%A%"=="/SRMHOST"   (set "SRMHOST=%~2" & shift & shift & goto ARG)
+if /I "%A%"=="/SRMPORT"   (set "SRMPORT=%~2" & shift & shift & goto ARG)
+if /I "%A%"=="/OFICINA"   (set "OFICINA=%~2" & shift & shift & goto ARG)
+for /f "tokens=1,* delims==" %%a in ("%A%") do (
+  if /I "%%a"=="/SOURCE"  set "SRC=%%b"
+  if /I "%%a"=="/SRMHOST" set "SRMHOST=%%b"
+  if /I "%%a"=="/SRMPORT" set "SRMPORT=%%b"
+  if /I "%%a"=="/OFICINA" set "OFICINA=%%b"
+)
+shift
+goto ARG
+:ARG_FIN
+
+echo.
+echo ===========================================================
+echo  VSDW9500 - Visado de Productos (32 bits)
+echo ===========================================================
+echo  Origen: %SRC%
+if "%CHECKONLY%"=="1" echo  Modo   : SOLO VERIFICACION (no copia nada)
+echo.
+
+if "%CHECKONLY%"=="1" goto VERIFICACION
+
+rem --- LOCATE ----------------------------------------------------------------
+if not exist "%SRC%\BIN\S\VSDPROD.EXE" (
+  echo [ERROR] No se encontro %SRC%\BIN\S\VSDPROD.EXE
+  echo         Indique la ruta del paquete con /SOURCE=ruta
+  goto FIN_ERROR
+)
+
+rem --- ADMIN -----------------------------------------------------------------
+net session >nul 2>&1
+if errorlevel 1 (
+  echo [ERROR] Ejecute este instalador como Administrador.
+  goto FIN_ERROR
+)
+
+rem --- DIRS ------------------------------------------------------------------
+echo [1/7] Creando directorios...
+if not exist "C:\Bin\S"        md "C:\Bin\S"
+if not exist "C:\Bin\F"        md "C:\Bin\F"
+if not exist "C:\Data\Visado"  md "C:\Data\Visado"
+if not exist "C:\Etc\Bin"      md "C:\Etc\Bin"
+
+rem --- PRESERVE: la config de la estacion no se pisa en un upgrade -----------
+echo [2/7] Preservando configuracion de la estacion...
+if exist "C:\Data\Visado\Visado.INI" (
+  copy /Y "C:\Data\Visado\Visado.INI" "%TEMP%\Visado.INI.bak" >nul
+  echo       Visado.INI existente respaldado
+  set "TENIA_INI=1"
+) else (
+  set "TENIA_INI=0"
+)
+
+rem --- COPYTREE: xcopy, NO robocopy (no existe en XP) ------------------------
+echo [3/7] Copiando archivos...
+xcopy "%SRC%\BIN\S\*"       "C:\Bin\S\"       /E /I /Y /Q >nul
+xcopy "%SRC%\BIN\F\*"       "C:\Bin\F\"       /E /I /Y /Q >nul
+xcopy "%SRC%\DATA\VISADO\*" "C:\Data\Visado\" /E /I /Y /Q >nul
+xcopy "%SRC%\ETC\BIN\*"     "C:\Etc\Bin\"     /E /I /Y /Q >nul
+
+rem --- RESTORE ---------------------------------------------------------------
+if "!TENIA_INI!"=="1" (
+  copy /Y "%TEMP%\Visado.INI.bak" "C:\Data\Visado\Visado.INI" >nul
+  del /q "%TEMP%\Visado.INI.bak" >nul 2>&1
+  echo [4/7] Configuracion de la estacion restaurada
+) else (
+  echo [4/7] Primera instalacion: se deja el Visado.INI del paquete
+)
+
+rem --- REGISTER_OCX ----------------------------------------------------------
+echo [5/7] Registrando controles...
+for %%O in (THREED32.OCX MSFLXGRD.OCX COMDLG32.OCX MSCOMCT2.OCX) do (
+  if exist "C:\Etc\Bin\%%O" regsvr32 /s "C:\Etc\Bin\%%O"
+)
+if exist "C:\Etc\Bin\licencias.reg" regedit /s "C:\Etc\Bin\licencias.reg"
+
+rem --- WRITE_SRM -------------------------------------------------------------
+if not "%SRMHOST%"=="" (
+  echo [6/7] Escribiendo C:\Windows\Srmw.ini ...
+  (echo [SRM])> "C:\Windows\Srmw.ini"
+  (echo Host=%SRMHOST%)>> "C:\Windows\Srmw.ini"
+  (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
+  (echo.)>> "C:\Windows\Srmw.ini"
+  (echo [TCP])>> "C:\Windows\Srmw.ini"
+  (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
+) else (
+  echo [6/7] Sin /SRMHOST: no se toca C:\Windows\Srmw.ini
+)
+
+rem --- SET_OFICINA -----------------------------------------------------------
+if not "%OFICINA%"=="" (
+  echo [7/7] Fijando variable OFICINA=%OFICINA%
+  setx OFICINA %OFICINA% /M >nul 2>&1
+) else (
+  echo [7/7] Sin /OFICINA: no se toca la variable de ambiente
+)
+
+rem ===========================================================================
+:VERIFICACION
+echo.
+echo ===========================================================
+echo  VERIFICACION
+echo ===========================================================
+
+call :EXISTS "VSDPROD.EXE"  "C:\Bin\S\VSDPROD.EXE"
+call :EXISTS "SRMW32.DLL"   "C:\Bin\F\SRMW32.DLL"
+call :EXISTS "Visado.MDB"   "C:\Data\Visado\Visado.MDB"
+call :EXISTS "EnvioSRM.MDB" "C:\Data\Visado\EnvioSRM.MDB"
+call :EXISTS "Oficina.MDB"  "C:\Data\Visado\Oficina.MDB"
+call :EXISTS "Notarios.MDB" "C:\Data\Visado\Notarios.MDB"
+call :EXISTS "Visado.INI"   "C:\Data\Visado\Visado.INI"
+
+echo  --- prerrequisitos de ambiente (no vienen en el paquete) ---
+call :EXISTS "MSVBVM60.DLL (runtime VB6)" "C:\Windows\system32\MSVBVM60.DLL"
+call :EXISTS "DAO360.DLL   (DAO 3.6)"     "C:\Program Files\Common Files\Microsoft Shared\DAO\DAO360.DLL"
+
+echo  --- controles registrados (por TypeLib, no por CLSID) ---
+call :OCXCHECK "THREED32" "{0BA686C6-F7D3-101A-993E-0000C0EF6F5E}"
+call :OCXCHECK "MSFLXGRD" "{5E9E78A0-531B-11CF-91F6-C2863C385E30}"
+call :OCXCHECK "COMDLG32" "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}"
+
+echo  --- SRM ---
+call :SRMCHECK
+
+echo.
+if "!VERIFY_FAIL!"=="1" (
+  echo  RESULTADO: HAY FALTANTES -- revise las lineas [FALTA] de arriba.
+  goto FIN_ERROR
+)
+echo  RESULTADO: OK
+echo.
+goto FIN_OK
+
+rem ===========================================================================
+rem  Subrutinas
+rem ===========================================================================
+:EXISTS
+if exist "%~2" (echo   [OK]    %~1) else (echo   [FALTA] %~1 -- %~2& set "VERIFY_FAIL=1")
+exit /b 0
+
+:OCXCHECK
+rem El GUID que declara el .VBP es el de la TypeLib, NO el CLSID del coclass:
+rem verificar contra CLSID da un falso "no registrado" aunque el control ande.
+reg query "HKLM\SOFTWARE\Classes\TypeLib\%~2" >nul 2>&1
+if errorlevel 1 (
+  reg query "HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\%~2" >nul 2>&1
+  if errorlevel 1 (echo   [FALTA] OCX %~1 no registrado& set "VERIFY_FAIL=1"& exit /b 0)
+)
+echo   [OK]    OCX %~1 registrado
+exit /b 0
+
+:SRMCHECK
+if not exist "C:\Windows\Srmw.ini" (
+  echo   [FALTA] C:\Windows\Srmw.ini -- use /SRMHOST para generarlo
+  set "VERIFY_FAIL=1"
+  exit /b 0
+)
+findstr /B /I "Host=" "C:\Windows\Srmw.ini" >nul 2>&1
+if errorlevel 1 (echo   [FALTA] Srmw.ini sin Host=& set "VERIFY_FAIL=1") else (
+  for /f "tokens=2 delims==" %%h in ('findstr /B /I "Host=" "C:\Windows\Srmw.ini"') do echo   [OK]    SRM Host=%%h
+)
+exit /b 0
+
+:FIN_ERROR
+echo.
+endlocal
+exit /b 1
+
+:FIN_OK
+endlocal
+exit /b 0

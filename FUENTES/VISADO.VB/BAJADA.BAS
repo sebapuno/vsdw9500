@@ -1,5 +1,14 @@
 Attribute VB_Name = "Bajada"
 Private Declare Function Srmw32 Lib "C:\Bin\F\srmw32.dll" (ByVal Shost As String, ByVal SApli As String, ByVal SMensaje As String, SLargo_Mensaje As Long, ByVal SStatus As String, ByVal SFuncion As String, ByVal SCtx As String, ByVal SControl As String) As Integer
+' FI2026 - helper de diagnostico debug_srm, APAGADO. Se deja disponible porque
+' VB6 no informa numero de linea en runtime y sembrar trazas es la unica forma
+' practica de ubicar un fallo (ver Paso 12 de la guia del framework).
+' Para reactivarlo: poner TRAZA_SRM = True y recompilar.
+' Va ACA y no junto al Sub: en VB6 las declaraciones de modulo tienen que ir
+' antes del primer procedimiento ('Only comments may appear after End Sub').
+' Y NO puede llamarse DEBUG_SRM: VB6 ignora mayusculas/minusculas, asi que
+' ese nombre choca con el propio Sub debug_srm ('Ambiguous name detected').
+Private Const TRAZA_SRM = False
 Private Sub ErrorSRM(ByVal Nodo As String, ByVal Aplicacion As String, ByVal RetFuncion As Integer, ByVal RetStatus As String, ByVal RetSRM As String, ByVal Llave As String, ByVal TipoTransaccion As String, ByVal Modo As String)
 Dim Mensaje As String
 Dim NumError As String
@@ -206,14 +215,9 @@ End Function
 ' [Logea] Flag=SI en Visado.INI (misma variable Logea que ya usaba
 ' registra_las_llamadas). Escribe en C:\Data\Visado\SRM_DEBUG.LOG.
 ' TEMPORAL: quitar cuando se termine de diagnosticar la conexion SRM.
-' FI2026 - helper de diagnostico, APAGADO. Se deja disponible porque VB6 no
-' informa numero de linea en runtime y sembrar trazas es la unica forma
-' practica de ubicar un fallo (ver Paso 12 de la guia del framework).
-' Para reactivarlo: poner DEBUG_SRM = True y volver a compilar.
-Private Const DEBUG_SRM = False
 Public Sub debug_srm(ByVal etapa As String, ByVal origen As String, ByVal nodo As String, ByVal apli As String, ByVal funcion As String, ByVal contexto As String, ByVal largo As Long, ByVal status As String, ByVal retorno As Long, ByVal datos As String)
 Dim ff As Integer
-  If Not DEBUG_SRM Then Exit Sub
+  If Not TRAZA_SRM Then Exit Sub
   On Error Resume Next
   ff = FreeFile
   Open "C:\SRM_DEBUG.LOG" For Append As #ff
