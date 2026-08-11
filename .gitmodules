@@ -1,3 +1,6 @@
 [submodule "PRODUCTO/vb6-framework"]
 	path = PRODUCTO/vb6-framework
 	url = https://github.com/sebapuno/vb6.git
+[submodule "PRODUCTO/srm"]
+	path = PRODUCTO/srm
+	url = https://github.com/sebapuno/srm.git
