@@ -75,6 +75,34 @@ Si falta, hay que reclamarla al área que administra la estación.
 > está vacía, toma la variable de ambiente y la persiste en el INI. O sea que el
 > valor correcto tiene que estar puesto **antes** del primer arranque.
 
+### El `Visado.INI` del paquete — dos cosas que hay que saber
+
+**1. Secciones nuevas obligatorias.** El aplicativo migrado carga los
+parámetros de acceso a la base desde `[BASE_DATOS]`, que **no existía** en el
+INI anterior. Si falta `NODO`, `APLI` o `BDATOS`, VISADO muestra
+`Faltan parametros [BASE_DATOS]` y **termina**: no llega ni al login.
+
+| Sección | Claves | Para qué |
+|---|---|---|
+| `[BASE_DATOS]` | `NODO`, `APLI`, `BDATOS` | acceso a la base en el login — **sin esto no arranca** |
+| `[FUNCIONALIDAD]` | `FUNCIONALIDAD` | código con el que el login valida al usuario |
+| `[VISADO]` | `LogLlamadas` | reemplaza la ruta `d:\` que estaba hardcodeada |
+| `[Logea]` | `Flag` | activa el log de llamadas al SRM |
+
+Los valores del paquete son los **de referencia** (los mismos que usa
+WCRE9500): `NODO=u104`, `APLI=GS35`, `BDATOS=mcambio`, `FUNCIONALIDAD=88`.
+**Verificarlos contra el ambiente destino antes de instalar.**
+
+**2. `[PARAMETROS]` va al final a propósito.** El aplicativo reescribe ahí
+`LlaveVisad` con el contenido de la grilla, que puede pasar los **12.000
+caracteres**. `GetPrivateProfileString` deja de leer todo lo que venga
+**después** de una línea así de larga — y lo hace **en silencio**, devolviendo
+cadena vacía sin ningún error. El INI que venía en el repo tenía esa línea en
+el medio, con `[SIEBEL]`, `[SYBASE]` y el resto detrás: todas ilegibles.
+
+Por eso `[PARAMETROS]` quedó al final y `LlaveVisad` se entrega vacío. Si en
+algún momento hay que reordenar el archivo, mantener esa sección última.
+
 ### Config de la estación
 
 El instalador **preserva el `Visado.INI` de la estación** en un upgrade: lo
