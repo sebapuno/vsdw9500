@@ -14,3 +14,6 @@ bin/
 !PRODUCTO/ENTREGABLE32/BIN/F/
 !PRODUCTO/ENTREGABLE32/ETC/BIN/
 !PRODUCTO/ENTREGABLE32/BIN/S/*.EXE
+
+# Las entregas SI se versionan (el .zip es el registro de lo que se entrego)
+!ENTREGAS/**/*.zip
