@@ -115,13 +115,45 @@ por CLSID (el CLSID da falso "no registrado" aunque el control funcione).
 
 ## Prerrequisitos de la estación (no vienen en el paquete)
 
-- **Runtime VB6**: `MSVBVM60.DLL` en `C:\Windows\system32`
-- **DAO 3.6**: `DAO360.DLL` en `C:\Program Files\Common Files\Microsoft Shared\DAO`
+| Componente | Windows XP | Windows de 64 bits (10/11) |
+|---|---|---|
+| Runtime VB6 `MSVBVM60.DLL` | `C:\Windows\system32` | `%SystemRoot%\SysWOW64` |
+| DAO 3.6 `DAO360.DLL` | `…\Program Files\Common Files\…\DAO` | `…\Program Files (x86)\Common Files\…\DAO` |
+
 - Gateway SRM alcanzable y los nodos resolubles (`hosts` o DNS)
 - **Software básico** de la estación instalado: es el que asigna la variable
   `OFICINA` (y `C:\Windows\Srmw.ini`)
 
-El instalador los **verifica** pero no los instala.
+El instalador los **verifica** pero no los instala, y prueba **las dos
+ubicaciones** según la arquitectura.
+
+### Probado en Windows 11 24H2 (2026-08-20)
+
+`instalador_vsdw9500.bat /CHECKONLY` corre completo en un Windows 11 24H2
+(build 26100). Los dos prerrequisitos **ya vienen instalados de fábrica**, no
+hay que agregar nada:
+
+```
+[OK]    MSVBVM60.DLL (runtime VB6, SysWOW64)
+[OK]    DAO360.DLL   (DAO 3.6, Program Files x86)
+```
+
+**DAO 3.6 funciona bajo WOW64**: se abrió el `Visado.MDB` del paquete desde el
+`cscript` de 32 bits y listó sus **26 TableDefs** (ADODB+Jet también funciona,
+por si alguna vez hiciera falta). **No hay que migrar el acceso a datos a
+ADODB.**
+
+> Si alguna vez aparece un `80040154` al crear `DAO.DBEngine.36`, ese código es
+> `REGDB_E_CLASSNOTREG` — significa "DAO no está registrado en esta máquina",
+> **no** "DAO no anda en 64 bits". Se arregla instalando DAO, no rehaciendo el
+> acceso a datos.
+
+Dos detalles del `.bat` que sólo se ven en 64 bits, y que ya están resueltos:
+`regsvr32` se toma de `SysWOW64` (el de `system32` es de 64 bits y falla con
+OCX de 32), y las rutinas de chequeo **no usan bloques `( … )`** — `%~1` quita
+las comillas y el `)` de `Program Files (x86)` cerraría el bloque, abortando
+`cmd` con "No se esperaba \Common en este momento". En XP no se nota porque
+ahí la ruta no tiene paréntesis.
 
 ## Estado real de lo que se entrega — LEER
 

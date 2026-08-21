@@ -98,8 +98,12 @@ if "!TENIA_INI!"=="1" (
 
 rem --- REGISTER_OCX ----------------------------------------------------------
 echo [5/7] Registrando controles...
+rem  En un Windows de 64 bits hay que registrar los OCX de 32 bits con el
+rem  regsvr32 de SysWOW64; el de system32 es el de 64 bits y falla.
+set "REGSVR=regsvr32"
+if exist "%SystemRoot%\SysWOW64\regsvr32.exe" set "REGSVR=%SystemRoot%\SysWOW64\regsvr32.exe"
 for %%O in (THREED32.OCX MSFLXGRD.OCX COMDLG32.OCX MSCOMCT2.OCX) do (
-  if exist "C:\Etc\Bin\%%O" regsvr32 /s "C:\Etc\Bin\%%O"
+  if exist "C:\Etc\Bin\%%O" "!REGSVR!" /s "C:\Etc\Bin\%%O"
 )
 if exist "C:\Etc\Bin\licencias.reg" regedit /s "C:\Etc\Bin\licencias.reg"
 
@@ -157,8 +161,23 @@ call :EXISTS "Notarios.MDB" "C:\Data\Visado\Notarios.MDB"
 call :EXISTS "Visado.INI"   "C:\Data\Visado\Visado.INI"
 
 echo  --- prerrequisitos de ambiente (no vienen en el paquete) ---
-call :EXISTS "MSVBVM60.DLL (runtime VB6)" "C:\Windows\system32\MSVBVM60.DLL"
-call :EXISTS "DAO360.DLL   (DAO 3.6)"     "C:\Program Files\Common Files\Microsoft Shared\DAO\DAO360.DLL"
+rem  El aplicativo es de 32 bits. En un Windows de 64 bits (Win7/10/11) su
+rem  runtime NO esta en system32 sino en SysWOW64, y DAO cuelga de
+rem  "Program Files (x86)". Verificado en Windows 11 24H2: ambos vienen ya
+rem  instalados de fabrica, no hay que agregarlos.
+if exist "%SystemRoot%\SysWOW64\MSVBVM60.DLL" goto :PRE_VB6_OK
+call :EXISTS "MSVBVM60.DLL (runtime VB6)" "%SystemRoot%\system32\MSVBVM60.DLL"
+goto :PRE_DAO
+:PRE_VB6_OK
+echo   [OK]    MSVBVM60.DLL (runtime VB6, SysWOW64)
+:PRE_DAO
+set "DAOX86=%SystemDrive%\Program Files (x86)\Common Files\Microsoft Shared\DAO\DAO360.DLL"
+if exist "!DAOX86!" goto :PRE_DAO_OK
+call :EXISTS "DAO360.DLL   (DAO 3.6)" "%SystemDrive%\Program Files\Common Files\Microsoft Shared\DAO\DAO360.DLL"
+goto :PRE_FIN
+:PRE_DAO_OK
+echo   [OK]    DAO360.DLL   (DAO 3.6, Program Files x86)
+:PRE_FIN
 
 echo  --- controles registrados (por TypeLib, no por CLSID) ---
 call :OCXCHECK "THREED32" "{0BA686C6-F7D3-101A-993E-0000C0EF6F5E}"
@@ -183,17 +202,30 @@ rem ===========================================================================
 rem  Subrutinas
 rem ===========================================================================
 :EXISTS
-if exist "%~2" (echo   [OK]    %~1) else (echo   [FALTA] %~1 -- %~2& set "VERIFY_FAIL=1")
+rem  Sin bloques ( ... ): %~1 quita las comillas, asi que una ruta como
+rem  "C:\Program Files (x86)\..." mete un ')' que cierra el bloque y cmd
+rem  aborta con "No se esperaba ... en este momento". En XP no se ve porque
+rem  ahi la ruta no tiene parentesis; en Windows 11 x64 revienta.
+if exist "%~2" goto :EXISTS_OK
+echo   [FALTA] %~1 -- %~2
+set "VERIFY_FAIL=1"
+exit /b 0
+:EXISTS_OK
+echo   [OK]    %~1
 exit /b 0
 
 :OCXCHECK
 rem El GUID que declara el .VBP es el de la TypeLib, NO el CLSID del coclass:
 rem verificar contra CLSID da un falso "no registrado" aunque el control ande.
+rem  En x64 los OCX de 32 bits quedan bajo Wow6432Node: se miran las dos vistas.
 reg query "HKLM\SOFTWARE\Classes\TypeLib\%~2" >nul 2>&1
-if errorlevel 1 (
-  reg query "HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\%~2" >nul 2>&1
-  if errorlevel 1 (echo   [FALTA] OCX %~1 no registrado& set "VERIFY_FAIL=1"& exit /b 0)
-)
+if not errorlevel 1 goto :OCXCHECK_OK
+reg query "HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\%~2" >nul 2>&1
+if not errorlevel 1 goto :OCXCHECK_OK
+echo   [FALTA] OCX %~1 no registrado
+set "VERIFY_FAIL=1"
+exit /b 0
+:OCXCHECK_OK
 echo   [OK]    OCX %~1 registrado
 exit /b 0
 
