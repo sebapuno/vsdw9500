@@ -127,11 +127,30 @@ por CLSID (el CLSID da falso "no registrado" aunque el control funcione).
 El instalador los **verifica** pero no los instala, y prueba **las dos
 ubicaciones** según la arquitectura.
 
-### Probado en Windows 11 24H2 (2026-08-20)
+### Instalación real probada en Windows 11 24H2 (2026-08-20)
 
-`instalador_vsdw9500.bat /CHECKONLY` corre completo en un Windows 11 24H2
-(build 26100). Los dos prerrequisitos **ya vienen instalados de fábrica**, no
-hay que agregar nada:
+El instalador se corrió **completo** (no sólo `/CHECKONLY`) en una VM
+Windows 11 24H2 (build 26100), elevado, y terminó en **`RESULTADO: OK`** con
+todos los chequeos en verde. Quedaron instalados los 166 `.EXE` en `C:\Bin\S`,
+la `SRMW32.DLL` de 49.152 bytes en `C:\Bin\F` y las bases y config en
+`C:\Data\Visado`.
+
+Las dos protecciones se comportaron como corresponde:
+
+```
+[6/7] C:\Windows\Srmw.ini ya existe: NO se toca (archivo compartido)
+      Host actual = 192.168.64.1
+[7/7] OFICINA=000 (la asigna el software basico, no el instalador)
+```
+
+> **Nota sobre elevación:** por SSH, una cuenta administradora llega con el
+> token filtrado por UAC y `net session` falla, así que el instalador aborta
+> pidiendo Administrador. Para probarlo remoto hay que lanzarlo elevado — por
+> ejemplo con `schtasks /create ... /rl HIGHEST` y `schtasks /run`. En la
+> estación, ejecutándolo desde una consola "como Administrador", no aplica.
+
+Los dos prerrequisitos **ya vienen instalados de fábrica**, no hay que agregar
+nada:
 
 ```
 [OK]    MSVBVM60.DLL (runtime VB6, SysWOW64)
