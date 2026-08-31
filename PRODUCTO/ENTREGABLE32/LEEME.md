@@ -62,18 +62,32 @@ sobrescribe si ya existe**, aunque se le pase `/SRMHOST`; sólo informa el
 > **ambiente de desarrollo** (VM + simulador SRM). **No usar ese valor en el
 > banco.**
 
-### La variable `OFICINA` no la pone este instalador
+### Las variables `OFICINA` y `SRM_NS` no las pone este instalador
 
-La asigna el **software básico** de la estación, que no forma parte de este
+Las asigna el **software básico** de la estación, que no forma parte de este
 entregable. El instalador **sólo informa** si está definida y avisa cuando
 falta; nunca la escribe. Ponerla a mano desde acá podría dejarla en desacuerdo
 con la oficina real y hacer que las consultas salgan mal.
 
 Si falta, hay que reclamarla al área que administra la estación.
 
-> Cómo la usa el aplicativo: lee primero `[Visado] Oficina` del `Visado.INI`; si
-> está vacía, toma la variable de ambiente y la persiste en el INI. O sea que el
-> valor correcto tiene que estar puesto **antes** del primer arranque.
+> Cómo usa `OFICINA` el aplicativo: lee primero `[Visado] Oficina` del
+> `Visado.INI`; si está vacía, toma la variable de ambiente y la persiste en el
+> INI. O sea que el valor correcto tiene que estar puesto **antes** del primer
+> arranque.
+
+**`SRM_NS` (nodo regional).** Si falta, o trae un valor que no está en la tabla
+`Sat` de `EnvioSRM.MDB`, el aplicativo levanta igual pero muestra un **modal de
+advertencia** al arrancar:
+
+> La Variable de Ambiente "SRM_NS" No Fue Encontrada en Tabla "SAT",
+> las Transacciones Via S.A.T. Podrían Tener Conflictos
+
+Hasta que alguien lo acepte, la pantalla principal no queda operativa. Los
+valores válidos son los de la columna `Sat_Srm_Ns` de esa tabla (`upla`, `u202`,
+`u302`, `u402`, `u502`, `u602`, `u702`, `u802`, `u902`, más los alias por plaza:
+`uant`, `uval`, `utal`, …). El código lo compara sin distinguir mayúsculas, pero
+**no le hace `Trim`**: un espacio al final del valor lo deja sin match.
 
 ### Sin autenticación
 
