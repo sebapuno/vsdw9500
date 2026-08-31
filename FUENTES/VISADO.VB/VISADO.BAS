@@ -22,6 +22,12 @@ Public Const DIRECTORIO_03 = "C:\Data\Cajas\"
 Public Const TABLA_DBF01 = "Pag_Not"
 Public Const ARCHIVO_INI01 = "Visado.INI"
 Public Const ARCHIVO_INI02 = "ErrorSRM.INI"
+
+' FI2026 - La autenticacion dejo de ser requisito para este aplicativo. Sin
+' login no hay RUT de usuario, pero IdUsuario sigue viajando en cada llave SRM
+' de transaccion, asi que se graba este valor fijo.
+Public Const RUT_SIN_LOGIN = "12345678"
+
 Public Const ARCHIVO_PIF01 = "Impr.PIF"
 Public Const ARCHIVO_IMD01 = "ImVis001.IMD"
 Public Const ARCHIVO_TXT01 = "Tran-en2.TXT"

@@ -75,17 +75,33 @@ Si falta, hay que reclamarla al área que administra la estación.
 > está vacía, toma la variable de ambiente y la persiste en el INI. O sea que el
 > valor correcto tiene que estar puesto **antes** del primer arranque.
 
+### Sin autenticación
+
+VISADO **no pide clave**: al levantar entra directo. El `Visado.INI` del paquete
+por eso **no trae sección `[LOGIN]`** — el camino normal es la ausencia de la
+clave. Para volver a exigirla hay que **agregarla a mano**:
+
+```ini
+[LOGIN]
+requiereLogin=1
+```
+
+Sólo el valor `1` reactiva el login; cualquier otro valor, o la sección ausente,
+deja el aplicativo entrando directo. Sin login el RUT que se graba en las
+transacciones es fijo (`12345678`, constante `RUT_SIN_LOGIN` en `VISADO.BAS`):
+**no hay trazabilidad por usuario**.
+
 ### El `Visado.INI` del paquete — dos cosas que hay que saber
 
-**1. Secciones nuevas obligatorias.** El aplicativo migrado carga los
-parámetros de acceso a la base desde `[BASE_DATOS]`, que **no existía** en el
-INI anterior. Si falta `NODO`, `APLI` o `BDATOS`, VISADO muestra
-`Faltan parametros [BASE_DATOS]` y **termina**: no llega ni al login.
+**1. Secciones nuevas.** El aplicativo migrado carga los parámetros de acceso a
+la base desde `[BASE_DATOS]`, que **no existía** en el INI anterior. Esos
+parámetros los usa **únicamente el login**, que hoy viene desactivado (ver
+*Sin autenticación*, más arriba): están de reserva por si se reactiva.
 
 | Sección | Claves | Para qué |
 |---|---|---|
-| `[BASE_DATOS]` | `NODO`, `APLI`, `BDATOS` | acceso a la base en el login — **sin esto no arranca** |
-| `[FUNCIONALIDAD]` | `FUNCIONALIDAD` | código con el que el login valida al usuario |
+| `[BASE_DATOS]` | `NODO`, `APLI`, `BDATOS` | acceso a la base — sólo si se reactiva el login |
+| `[FUNCIONALIDAD]` | `FUNCIONALIDAD` | código con el que el login valida al usuario — ídem |
 | `[VISADO]` | `LogLlamadas` | reemplaza la ruta `d:\` que estaba hardcodeada |
 | `[Logea]` | `Flag` | activa el log de llamadas al SRM |
 
@@ -192,7 +208,7 @@ Para cerrarlos hay que conseguir los fuentes originales del banco.
 ### Prueba de ejecución: uno solo
 
 **`VSDPROD.EXE` (VISADO) es el único que se probó corriendo**, contra la VM y un
-simulador SRM. Llega a la pantalla principal, autentica el login contra el SRM,
+simulador SRM. Entra directo (sin pedir clave), llega a la pantalla principal,
 abre `Visado.MDB` y despliega la grilla de "Seleccionar Productos" con los datos
 correctos.
 

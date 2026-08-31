@@ -92,7 +92,8 @@ chk "$([ "$SRMSZ" = "49152" ] && echo 1 || echo 0)" "SRMW32.DLL oficial ($SRMSZ 
 grep -q "Vsd_Prd" "$BASE/DATA/VISADO/VISADO.MDB" 2>/dev/null && T=1 || T=0
 chk "$T" "Visado.MDB contiene la tabla Vsd_Prd"
 
-# 3c. El .INI trae las secciones sin las que el aplicativo no arranca
+# 3c. El .INI trae las secciones que necesita el login si se reactiva
+#     (con requiereLogin ausente el aplicativo entra directo y no las usa)
 S=1; for sec in '\[BASE_DATOS\]' '\[FUNCIONALIDAD\]'; do
     grep -aq "$sec" "$BASE/DATA/VISADO/VISADO.INI" || S=0
 done

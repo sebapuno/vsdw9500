@@ -863,9 +863,28 @@ End Function
 ' FI2026 SHG - ObtieneRutUsuarioLogueado reemplazado: AisGetUsr (WAIS.DLL 16-bit)
 ' reemplazado por login SRM via ctrlClave/modAcceso
 Private Function ObtieneRutUsuarioLogueado() As String
-  TIPO_RUT = 0
-  ctrclave.Show 1
-  If Not RET_ACCESO Then End
+  ' FI2026 - La autenticacion dejo de ser requisito: al levantar se entra directo.
+  ' El interruptor por INI se conserva pero con el DEFAULT INVERTIDO respecto de la
+  ' guia del framework (paso 8, skipLogin): ausente, vacio o cualquier valor distinto
+  ' de "1" => SIN login. Solo [LOGIN] requiereLogin=1 vuelve a mostrar ctrclave.
+  ' Por eso el Visado.INI del entregable NO trae seccion [LOGIN]: el camino normal
+  ' es la ausencia de la clave, no un valor configurado.
+  ' Sin login el RUT es la constante RUT_SIN_LOGIN (VISADO.BAS). DV_USUARIO y
+  ' xRUTusr/xDVusr no se setean: los usa unicamente ctrlClave para su propia UI.
+  If Trim$(SacaValorINI("LOGIN", "requiereLogin", DIRECTORIO_01 + ARCHIVO_INI01)) = "1" Then
+    ' [BASE_DATOS] solo lo consume el SendQuery del login: se valida aca, no en
+    ' Form_Load, para no matar el arranque por parametros que sin login no usa nadie.
+    If Trim$(NAME_BD) = "" Or Trim$(SERV_BD) = "" Or Trim$(NODO_BD) = "" Then
+      MsgBox "Faltan parametros [BASE_DATOS] (NODO/APLI/BDATOS) en " & ARCHIVO_INI01, 16, "Control de Acceso"
+      End
+    End If
+    TIPO_RUT = 0
+    ctrclave.Show 1
+    If Not RET_ACCESO Then End
+  Else
+    RUT_USUARIO = RUT_SIN_LOGIN
+    RET_ACCESO = True
+  End If
   ObtieneRutUsuarioLogueado = Format$(Mid(RUT_USUARIO, 1, 8), "00000000")
 End Function
 
@@ -1192,10 +1211,11 @@ If Not App.PrevInstance Then
     NAME_BD = SacaValorINI("BASE_DATOS", "BDATOS", DIRECTORIO_01 + ARCHIVO_INI01)
     SERV_BD = SacaValorINI("BASE_DATOS", "APLI", DIRECTORIO_01 + ARCHIVO_INI01)
     NODO_BD = SacaValorINI("BASE_DATOS", "NODO", DIRECTORIO_01 + ARCHIVO_INI01)
-    If Trim$(NAME_BD) = "" Or Trim$(SERV_BD) = "" Or Trim$(NODO_BD) = "" Then
-      MsgBox "Faltan parametros [BASE_DATOS] (NODO/APLI/BDATOS) en " & ARCHIVO_INI01, 16, "Control de Acceso"
-      End
-    End If
+    ' FI2026 - Aca habia un MsgBox + End si faltaba [BASE_DATOS]. Se saco: esos
+    ' parametros los consume unicamente el SendQuery del login, que por defecto
+    ' ya no corre, asi que el guard mataba el arranque por config inerte. La
+    ' validacion vive ahora en ObtieneRutUsuarioLogueado, dentro de la rama que
+    ' efectivamente autentica. Idem [FUNCIONALIDAD]: solo lo usa ctrlClave.
     If IsNumeric(SacaValorINI("FUNCIONALIDAD", "FUNCIONALIDAD", DIRECTORIO_01 + ARCHIVO_INI01)) Then
       FUNCIONALIDAD = CInt(SacaValorINI("FUNCIONALIDAD", "FUNCIONALIDAD", DIRECTORIO_01 + ARCHIVO_INI01))
     End If
