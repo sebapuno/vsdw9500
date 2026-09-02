@@ -63,15 +63,44 @@ if errorlevel 1 (
   goto FIN_ERROR
 )
 
+rem --- ENUSO: aplicativos del paquete corriendo -----------------------------
+rem  Va ANTES de tocar nada: si aborta, la estacion queda intacta.
+rem  Por que existe: xcopy sin /C ABORTA EL ARBOL ENTERO ante el primer
+rem  archivo tomado, no solo ese archivo. Como C:\Bin\S es el primer xcopy y
+rem  tiene los 166 .EXE, alcanza con que UN aplicativo de la suite este abierto
+rem  para que no se copie NINGUNO -- y la verificacion final, que solo mira si
+rem  el archivo existe, igual reporta OK. Visto en Windows 11 el 2026-09-01 con
+rem  BAJCTDLC.EXE abierto: instalacion "exitosa" con 0 de 166 archivos copiados.
+echo [1/8] Verificando que no haya aplicativos del paquete en uso...
+set "LISTA_EXE=%TEMP%\vsdw_exe.txt"
+set "LISTA_TAREAS=%TEMP%\vsdw_tasks.txt"
+del /q "%LISTA_EXE%" "%LISTA_TAREAS%" >nul 2>&1
+for %%f in ("%SRC%\BIN\S\*.exe") do echo %%~nxf>>"%LISTA_EXE%"
+tasklist /nh >"%LISTA_TAREAS%" 2>nul
+set "ENUSO="
+for /f "tokens=1" %%p in ('findstr /b /i /l /g:"%LISTA_EXE%" "%LISTA_TAREAS%" 2^>nul') do (
+  echo       EN USO: %%p
+  set "ENUSO=1"
+)
+del /q "%LISTA_EXE%" "%LISTA_TAREAS%" >nul 2>&1
+if defined ENUSO (
+  echo.
+  echo [ERROR] Hay aplicativos del paquete en ejecucion ^(ver arriba^).
+  echo         Si se instala asi, la copia de C:\Bin\S se aborta entera y la
+  echo         estacion queda con los .EXE VIEJOS.
+  echo         Cierrelos y vuelva a ejecutar el instalador.
+  goto FIN_ERROR
+)
+
 rem --- DIRS ------------------------------------------------------------------
-echo [1/7] Creando directorios...
+echo [2/8] Creando directorios...
 if not exist "C:\Bin\S"        md "C:\Bin\S"
 if not exist "C:\Bin\F"        md "C:\Bin\F"
 if not exist "C:\Data\Visado"  md "C:\Data\Visado"
 if not exist "C:\Etc\Bin"      md "C:\Etc\Bin"
 
 rem --- PRESERVE: la config de la estacion no se pisa en un upgrade -----------
-echo [2/7] Preservando configuracion de la estacion...
+echo [3/8] Preservando configuracion de la estacion...
 if exist "C:\Data\Visado\Visado.INI" (
   copy /Y "C:\Data\Visado\Visado.INI" "%TEMP%\Visado.INI.bak" >nul
   echo       Visado.INI existente respaldado
@@ -81,7 +110,7 @@ if exist "C:\Data\Visado\Visado.INI" (
 )
 
 rem --- COPYTREE: xcopy, NO robocopy (no existe en XP) ------------------------
-echo [3/7] Copiando archivos...
+echo [4/8] Copiando archivos...
 xcopy "%SRC%\BIN\S\*"       "C:\Bin\S\"       /E /I /Y /Q >nul
 xcopy "%SRC%\BIN\F\*"       "C:\Bin\F\"       /E /I /Y /Q >nul
 xcopy "%SRC%\DATA\VISADO\*" "C:\Data\Visado\" /E /I /Y /Q >nul
@@ -91,13 +120,13 @@ rem --- RESTORE ---------------------------------------------------------------
 if "!TENIA_INI!"=="1" (
   copy /Y "%TEMP%\Visado.INI.bak" "C:\Data\Visado\Visado.INI" >nul
   del /q "%TEMP%\Visado.INI.bak" >nul 2>&1
-  echo [4/7] Configuracion de la estacion restaurada
+  echo [5/8] Configuracion de la estacion restaurada
 ) else (
-  echo [4/7] Primera instalacion: se deja el Visado.INI del paquete
+  echo [5/8] Primera instalacion: se deja el Visado.INI del paquete
 )
 
 rem --- REGISTER_OCX ----------------------------------------------------------
-echo [5/7] Registrando controles...
+echo [6/8] Registrando controles...
 rem  En un Windows de 64 bits hay que registrar los OCX de 32 bits con el
 rem  regsvr32 de SysWOW64; el de system32 es el de 64 bits y falla.
 set "REGSVR=regsvr32"
@@ -114,11 +143,11 @@ rem  instalador NO lo pisa NUNCA si ya existe, aunque se pase /SRMHOST.
 rem  Solo lo crea cuando no existe (estacion nueva), y ahi si hace falta el
 rem  /SRMHOST del ambiente destino.
 if exist "C:\Windows\Srmw.ini" (
-  echo [6/7] C:\Windows\Srmw.ini ya existe: NO se toca ^(archivo compartido^)
+  echo [7/8] C:\Windows\Srmw.ini ya existe: NO se toca ^(archivo compartido^)
   for /f "tokens=2 delims==" %%h in ('findstr /B /I "Host=" "C:\Windows\Srmw.ini"') do echo       Host actual = %%h
 ) else (
   if not "%SRMHOST%"=="" (
-    echo [6/7] No existe Srmw.ini: se crea con Host=%SRMHOST%
+    echo [7/8] No existe Srmw.ini: se crea con Host=%SRMHOST%
     (echo [SRM])> "C:\Windows\Srmw.ini"
     (echo Host=%SRMHOST%)>> "C:\Windows\Srmw.ini"
     (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
@@ -126,7 +155,7 @@ if exist "C:\Windows\Srmw.ini" (
     (echo [TCP])>> "C:\Windows\Srmw.ini"
     (echo TCP_Port_Srm=%SRMPORT%)>> "C:\Windows\Srmw.ini"
   ) else (
-    echo [6/7] FALTA C:\Windows\Srmw.ini y no se indico /SRMHOST
+    echo [7/8] FALTA C:\Windows\Srmw.ini y no se indico /SRMHOST
     echo       Pidalo al area de infraestructura o corra con /SRMHOST host
   )
 )
@@ -138,9 +167,9 @@ rem  si esta puesta. Si falta, hay que pedirla al area que administra la
 rem  estacion -- ponerla a mano desde aca podria dejarla en desacuerdo con la
 rem  oficina real y hacer que las consultas salgan mal.
 if not "%OFICINA%"=="" (
-  echo [7/7] OFICINA=%OFICINA% ^(la asigna el software basico, no el instalador^)
+  echo [8/8] OFICINA=%OFICINA% ^(la asigna el software basico, no el instalador^)
 ) else (
-  echo [7/7] OFICINA no esta definida en esta estacion
+  echo [8/8] OFICINA no esta definida en esta estacion
   echo       La asigna el software basico. Verifique con el area que administra
   echo       la estacion antes de usar el aplicativo.
 )
