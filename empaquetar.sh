@@ -206,10 +206,21 @@ detalle, los prerrequisitos y las decisiones pendientes.
 
 ## Estado de validación
 
-- Instalación **ejecutada de punta a punta en Windows 11 24H2**: \`RESULTADO: OK\`
+- Instalación **ejecutada de punta a punta en Windows 11**: 166/166 archivos de
+  \`BIN/S\` actualizados, verificado por fecha contra el paquete (no por el
+  \`RESULTADO: OK\`, que antes mentía — ver abajo)
+- El instalador **aborta** si hay aplicativos del paquete corriendo: \`xcopy\` sin
+  \`/C\` cortaba el árbol entero y la instalación reportaba OK sin copiar nada
 - DAO 3.6 abre \`Visado.MDB\` bajo WOW64 (26 TableDefs) — no hace falta ADODB
-- **Login verificado**: llega al SRM (\`apli=GS35 nodo=u104 fun=01\`) y autentica
+- **Sin autenticación**: VISADO entra directo, no pide clave. El \`Visado.INI\` no
+  trae sección \`[LOGIN]\`; \`requiereLogin=1\` la reactiva. Verificado corriendo en
+  XP (contra el simulador SRM, llega a la pantalla principal) y en Windows 11
+  (ya instalado por el instalador, no aparece \`ctrclave\`)
+- Sin login el RUT que se graba en las transacciones es fijo (\`12345678\`):
+  **no hay trazabilidad por usuario**
 - \`Srmw.ini\` y la variable \`OFICINA\` **no se tocan** si ya existen
+- \`SRM_NS\` la pone el software básico; si falta, el aplicativo abre con un modal
+  de advertencia que hay que aceptar
 - Sólo \`VSDPROD.EXE\` se probó ejecutando; los otros 165 nunca corrieron
 EOF
 
